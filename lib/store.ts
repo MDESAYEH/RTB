@@ -1,4 +1,5 @@
 import { LocalDatabase } from "./database";
+import { assertLocalStorageAllowed } from "./storage-config";
 import { mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import {
@@ -23,41 +24,114 @@ import {
   type Team,
   type News,
 } from "./domain";
-const path = resolve(
-  /* turbopackIgnore: true */ process.env.DATABASE_PATH || "data/road.db",
-);
-mkdirSync(dirname(path), { recursive: true });
-export const db = new LocalDatabase(path);
-db.pragma("journal_mode = WAL");
-db.pragma("foreign_keys = ON");
-db.pragma("busy_timeout = 5000");
-db.exec(
-  `CREATE TABLE IF NOT EXISTS records(kind TEXT NOT NULL,id TEXT NOT NULL,body TEXT NOT NULL CHECK(json_valid(body)),PRIMARY KEY(kind,id)); CREATE INDEX IF NOT EXISTS records_kind ON records(kind);CREATE UNIQUE INDEX IF NOT EXISTS news_slug ON records(json_extract(body,'$.slug')) WHERE kind='news';CREATE UNIQUE INDEX IF NOT EXISTS stat_identity ON records(json_extract(body,'$.game'),json_extract(body,'$.player')) WHERE kind='stats';CREATE UNIQUE INDEX IF NOT EXISTS team_stat_identity ON records(json_extract(body,'$.game'),json_extract(body,'$.team')) WHERE kind='teamStats';CREATE TABLE IF NOT EXISTS entity_refs(owner_kind TEXT NOT NULL,owner_id TEXT NOT NULL,field TEXT NOT NULL,target_kind TEXT NOT NULL,target_id TEXT NOT NULL,PRIMARY KEY(owner_kind,owner_id,field),FOREIGN KEY(owner_kind,owner_id) REFERENCES records(kind,id) ON DELETE CASCADE,FOREIGN KEY(target_kind,target_id) REFERENCES records(kind,id));CREATE TABLE IF NOT EXISTS admins(id TEXT PRIMARY KEY,salt TEXT NOT NULL,hash TEXT NOT NULL);CREATE TABLE IF NOT EXISTS sessions(token TEXT PRIMARY KEY,admin TEXT NOT NULL REFERENCES admins(id),expires INTEGER NOT NULL);CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,actor TEXT NOT NULL,kind TEXT NOT NULL,target TEXT NOT NULL,old TEXT,new TEXT,time TEXT NOT NULL);CREATE INDEX IF NOT EXISTS audit_target ON audit(target,id);CREATE TABLE IF NOT EXISTS undo(id INTEGER PRIMARY KEY,game TEXT NOT NULL,body TEXT NOT NULL);CREATE TABLE IF NOT EXISTS revision(id INTEGER PRIMARY KEY CHECK(id=1),value INTEGER NOT NULL);INSERT OR IGNORE INTO revision VALUES(1,0);CREATE TABLE IF NOT EXISTS rate_limits(key TEXT PRIMARY KEY,count INTEGER NOT NULL,expires INTEGER NOT NULL);`,
-);
-// Versioned, additive migration: existing records and audit history are retained.
-if (
-  (db.prepare("PRAGMA user_version").get() as { user_version: number })
-    .user_version < 2
-) {
-  db.transaction(() => {
-    const columns = db.prepare("PRAGMA table_info(audit)").all() as {
-      name: string;
-    }[];
-    if (!columns.some((c) => c.name === "reason"))
-      db.exec("ALTER TABLE audit ADD COLUMN reason TEXT");
-    db.exec(
-      "CREATE TABLE IF NOT EXISTS commands(actor TEXT NOT NULL,id TEXT NOT NULL,body TEXT NOT NULL,time INTEGER NOT NULL,PRIMARY KEY(actor,id)); PRAGMA user_version=2",
+let initializingDatabase: LocalDatabase | undefined;
+let initializedDatabase: LocalDatabase | undefined;
+function openStore() {
+  if (initializedDatabase) return initializedDatabase;
+  if (initializingDatabase) return initializingDatabase;
+  try {
+    const path = resolve(
+      /* turbopackIgnore: true */ process.env.DATABASE_PATH || "data/road.db",
     );
-  })();
+    assertLocalStorageAllowed();
+    mkdirSync(dirname(path), { recursive: true });
+    const database = new LocalDatabase(path);
+    initializingDatabase = database;
+    db.pragma("journal_mode = WAL");
+    db.pragma("foreign_keys = ON");
+    db.pragma("busy_timeout = 5000");
+    db.exec(
+      `CREATE TABLE IF NOT EXISTS records(kind TEXT NOT NULL,id TEXT NOT NULL,body TEXT NOT NULL CHECK(json_valid(body)),PRIMARY KEY(kind,id)); CREATE INDEX IF NOT EXISTS records_kind ON records(kind);CREATE UNIQUE INDEX IF NOT EXISTS news_slug ON records(json_extract(body,'$.slug')) WHERE kind='news';CREATE UNIQUE INDEX IF NOT EXISTS stat_identity ON records(json_extract(body,'$.game'),json_extract(body,'$.player')) WHERE kind='stats';CREATE UNIQUE INDEX IF NOT EXISTS team_stat_identity ON records(json_extract(body,'$.game'),json_extract(body,'$.team')) WHERE kind='teamStats';CREATE TABLE IF NOT EXISTS entity_refs(owner_kind TEXT NOT NULL,owner_id TEXT NOT NULL,field TEXT NOT NULL,target_kind TEXT NOT NULL,target_id TEXT NOT NULL,PRIMARY KEY(owner_kind,owner_id,field),FOREIGN KEY(owner_kind,owner_id) REFERENCES records(kind,id) ON DELETE CASCADE,FOREIGN KEY(target_kind,target_id) REFERENCES records(kind,id));CREATE TABLE IF NOT EXISTS admins(id TEXT PRIMARY KEY,salt TEXT NOT NULL,hash TEXT NOT NULL);CREATE TABLE IF NOT EXISTS sessions(token TEXT PRIMARY KEY,admin TEXT NOT NULL REFERENCES admins(id),expires INTEGER NOT NULL);CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,actor TEXT NOT NULL,kind TEXT NOT NULL,target TEXT NOT NULL,old TEXT,new TEXT,time TEXT NOT NULL);CREATE INDEX IF NOT EXISTS audit_target ON audit(target,id);CREATE TABLE IF NOT EXISTS undo(id INTEGER PRIMARY KEY,game TEXT NOT NULL,body TEXT NOT NULL);CREATE TABLE IF NOT EXISTS revision(id INTEGER PRIMARY KEY CHECK(id=1),value INTEGER NOT NULL);INSERT OR IGNORE INTO revision VALUES(1,0);CREATE TABLE IF NOT EXISTS rate_limits(key TEXT PRIMARY KEY,count INTEGER NOT NULL,expires INTEGER NOT NULL);`,
+    );
+    // Versioned, additive migration: existing records and audit history are retained.
+    if (
+      (db.prepare("PRAGMA user_version").get() as { user_version: number })
+        .user_version < 2
+    ) {
+      db.transaction(() => {
+        const columns = db.prepare("PRAGMA table_info(audit)").all() as {
+          name: string;
+        }[];
+        if (!columns.some((c) => c.name === "reason"))
+          db.exec("ALTER TABLE audit ADD COLUMN reason TEXT");
+        db.exec(
+          "CREATE TABLE IF NOT EXISTS commands(actor TEXT NOT NULL,id TEXT NOT NULL,body TEXT NOT NULL,time INTEGER NOT NULL,PRIMARY KEY(actor,id)); PRAGMA user_version=2",
+        );
+      })();
+    }
+    if (
+      (db.prepare("PRAGMA user_version").get() as { user_version: number })
+        .user_version < 3
+    ) {
+      db.transaction(() => {
+        db.exec(
+          "ALTER TABLE audit ADD COLUMN action TEXT; PRAGMA user_version=3",
+        );
+      })();
+    }
+    const defaults: Settings = {
+      name: "FIBA Africa Champions Clubs – Road to BAL 2027",
+      shortName: "ROAD TO BAL 2027",
+      start: "2026-10-21T00:00:00+02:00",
+      end: "2026-10-26T00:00:00+02:00",
+      timezone: "Africa/Tripoli",
+      city: "طرابلس، ليبيا",
+      venue: "",
+      hero: "طرابلس تستضيف أفريقيا",
+      announcement: "21–25 أكتوبر 2026 · المجموعتان A وB",
+      groups: ["A", "B"],
+      qualificationSlots: 2,
+      winPoints: 2,
+      lossPoints: 1,
+      rulesConfirmed: false,
+      featuredGameId: null,
+    };
+    if (!get("settings", "tournament"))
+      db.transaction(() => {
+        write("settings", "tournament", defaults, "seed");
+        const teams = [
+          ["al-ittihad", "Al Ittihad", "ليبيا", "A"],
+          ["stade-malien", "Stade Malien", "مالي", "A"],
+          ["nb-staoueli", "NB Staoueli", "الجزائر", "A"],
+          ["nabaya-sofas", "Nabaya Sofas", "غينيا", "A"],
+          ["kriol-star", "Kriol Star", "الرأس الأخضر", "A"],
+          ["spintex-knights", "Spintex Knights", "غانا", "B"],
+          ["as-douanes", "AS Douanes", "بوركينا فاسو", "B"],
+          ["energie-bc", "Energie BC", "بنين", "B"],
+          ["npa-pythons", "NPA Pythons", "ليبيريا", "B"],
+          ["red-flames", "Red Flames", "سيراليون", "B"],
+        ];
+        for (const [id, name, country, group] of teams)
+          write(
+            "teams",
+            id,
+            {
+              id,
+              name,
+              country,
+              group,
+              verified: id !== "nb-staoueli",
+            },
+            "seed",
+          );
+      })();
+    initializedDatabase = database;
+    return database;
+  } catch (error) {
+    initializingDatabase?.close();
+    throw error;
+  } finally {
+    initializingDatabase = undefined;
+  }
 }
-if (
-  (db.prepare("PRAGMA user_version").get() as { user_version: number })
-    .user_version < 3
-) {
-  db.transaction(() => {
-    db.exec("ALTER TABLE audit ADD COLUMN action TEXT; PRAGMA user_version=3");
-  })();
-}
+// Defer migrations and seed until first use, including during Next build collection.
+export const db = new Proxy({} as LocalDatabase, {
+  get(_target, property) {
+    const database = openStore();
+    const value = Reflect.get(database, property, database);
+    return typeof value === "function" ? value.bind(database) : value;
+  },
+});
 export function list<T>(kind: string): T[] {
   return (
     db
@@ -125,52 +199,6 @@ export const revision = () =>
       value: number;
     }
   ).value;
-const defaults: Settings = {
-  name: "FIBA Africa Champions Clubs – Road to BAL 2027",
-  shortName: "ROAD TO BAL 2027",
-  start: "2026-10-21T00:00:00+02:00",
-  end: "2026-10-26T00:00:00+02:00",
-  timezone: "Africa/Tripoli",
-  city: "طرابلس، ليبيا",
-  venue: "",
-  hero: "طرابلس تستضيف أفريقيا",
-  announcement: "21–25 أكتوبر 2026 · المجموعتان A وB",
-  groups: ["A", "B"],
-  qualificationSlots: 2,
-  winPoints: 2,
-  lossPoints: 1,
-  rulesConfirmed: false,
-  featuredGameId: null,
-};
-if (!get("settings", "tournament"))
-  db.transaction(() => {
-    write("settings", "tournament", defaults, "seed");
-    const teams = [
-      ["al-ittihad", "Al Ittihad", "ليبيا", "A"],
-      ["stade-malien", "Stade Malien", "مالي", "A"],
-      ["nb-staoueli", "NB Staoueli", "الجزائر", "A"],
-      ["nabaya-sofas", "Nabaya Sofas", "غينيا", "A"],
-      ["kriol-star", "Kriol Star", "الرأس الأخضر", "A"],
-      ["spintex-knights", "Spintex Knights", "غانا", "B"],
-      ["as-douanes", "AS Douanes", "بوركينا فاسو", "B"],
-      ["energie-bc", "Energie BC", "بنين", "B"],
-      ["npa-pythons", "NPA Pythons", "ليبيريا", "B"],
-      ["red-flames", "Red Flames", "سيراليون", "B"],
-    ];
-    for (const [id, name, country, group] of teams)
-      write(
-        "teams",
-        id,
-        {
-          id,
-          name,
-          country,
-          group,
-          verified: id !== "nb-staoueli",
-        },
-        "seed",
-      );
-  })();
 export function settings() {
   return settingsSchema.parse(get("settings", "tournament"));
 }

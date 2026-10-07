@@ -1,8 +1,10 @@
 import { DatabaseSync } from "node:sqlite";
+import { assertLocalStorageAllowed } from "./storage-config";
 /** Synchronous single-host SQLite adapter. Transactions fail atomically. */
 export class LocalDatabase {
   private database: DatabaseSync;
   constructor(path: string) {
+    assertLocalStorageAllowed();
     this.database = new DatabaseSync(path);
   }
   exec(sql: string) {

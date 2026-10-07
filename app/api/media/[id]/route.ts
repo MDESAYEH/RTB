@@ -1,22 +1,15 @@
-import { readFileSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { mediaStorage, validMediaId } from "@/lib/media-storage";
 export const runtime = "nodejs";
 export async function GET(
   _req: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  if (!/^[a-f0-9]{64}\.(png|jpg|webp)$/.test(id))
-    return new Response(null, { status: 404 });
+  if (!validMediaId(id)) return new Response(null, { status: 404 });
   try {
-    const bytes = readFileSync(
-      resolve(
-        dirname(process.env.DATABASE_PATH || "data/road.db"),
-        "media",
-        id,
-      ),
-    );
-    return new Response(bytes, {
+    const bytes = await mediaStorage.get(id);
+    if (!bytes) return new Response(null, { status: 404 });
+    return new Response(Buffer.from(bytes), {
       headers: {
         "Content-Type": id.endsWith(".jpg")
           ? "image/jpeg"
@@ -28,6 +21,9 @@ export async function GET(
       },
     });
   } catch {
-    return new Response(null, { status: 404 });
+    return new Response(null, {
+      status: 503,
+      headers: { "Cache-Control": "no-store" },
+    });
   }
 }

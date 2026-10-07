@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { authorize, rateLimit, db } from "@/lib/store";
-import { mkdirSync, writeFileSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { mediaStorage } from "@/lib/media-storage";
 import { boundedBody, PayloadLimit, trustedOrigin } from "@/lib/request";
 import { validateImage } from "@/lib/image-upload";
 export const runtime = "nodejs";
@@ -26,12 +25,7 @@ export async function POST(req: NextRequest) {
     if (!(file instanceof File) || file.size > 5242880)
       throw Error("حد الصورة 5 MB");
     const { id, bytes: clean } = await validateImage(file);
-    const root = resolve(
-      dirname(process.env.DATABASE_PATH || "data/road.db"),
-      "media",
-    );
-    mkdirSync(root, { recursive: true });
-    writeFileSync(resolve(root, id), clean);
+    await mediaStorage.put(id, clean);
     db.prepare(
       "INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,'upload')",
     ).run(

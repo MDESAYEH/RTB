@@ -8,8 +8,17 @@ process.env.DATABASE_PATH = join(
   "test.db",
 );
 test("fresh database, hashed auth, audit rollback, manual provider", async () => {
-  const { db, provider, provision, login, authorize, write, get, rateLimit } =
-    await import("../lib/store");
+  const {
+    db,
+    provider,
+    provision,
+    login,
+    authorize,
+    revoke,
+    write,
+    get,
+    rateLimit,
+  } = await import("../lib/store");
   assert.equal(provider.getTeams().length, 10);
   assert.equal(provider.getGames().length, 0);
   assert.equal(authorize("bad"), null);
@@ -27,6 +36,12 @@ test("fresh database, hashed auth, audit rollback, manual provider", async () =>
   const token = login("test-only-long-password");
   assert.ok(token);
   assert.equal(authorize(token!), "admin");
+  revoke(token!);
+  assert.equal(authorize(token!), null);
+  const expired = login("test-only-long-password");
+  assert.ok(expired);
+  db.prepare("UPDATE sessions SET expires=0").run();
+  assert.equal(authorize(expired), null);
   const row = db.prepare("SELECT hash FROM admins").get() as { hash: string };
   assert.notEqual(row.hash, "test-only-long-password");
   assert.throws(() =>

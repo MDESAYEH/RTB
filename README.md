@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:3000. The SQLite database is created and migrated automatically on startup, with WAL and a busy timeout. No external credentials are needed. `DATABASE_PATH` defaults to `data/road.db`; set it to persistent storage in hosting. Never commit this file.
+Open http://127.0.0.1:3000. The SQLite database is created and migrated on first use, with WAL and a busy timeout. No external credentials are needed. `DATABASE_PATH` defaults to `data/road.db`; set it to persistent storage on a single host. Vercel local SQLite/media are explicitly rejected. See [PERSISTENCE.md](PERSISTENCE.md) for the audit, implemented safeguards, migration snapshot and pending infrastructure decision. Never commit this file.
 
 Provision an administrator (minimum 14 characters), with a private environment variable:
 
@@ -25,7 +25,7 @@ Visit `/admin`. Provisioning rotates the password and invalidates sessions. Ther
 
 ## Architecture
 
-Next.js App Router, strict TypeScript, React, Zod, SQLite (Node 24 built-in `node:sqlite`). Server-rendered initial public data → internal JSON API → SSE revision notifications → refreshed normalized data. `ManualProvider` is the only enabled provider. No browser or server contacts private sports endpoints. Public pages do not inspect provider credentials. SQLite is a deliberate self-contained single-host baseline; PostgreSQL and a shared event bus are required before multi-instance hosting. The proposed Prisma/PostgreSQL stack was not used because no database service was available.
+Next.js App Router, strict TypeScript, React, Zod, SQLite (Node 24 built-in `node:sqlite`). Server-rendered initial public data → internal JSON API → SSE revision notifications → refreshed normalized data. `ManualProvider` is the only enabled provider. No browser or server contacts private sports endpoints. Public pages do not inspect provider credentials. SQLite is a deliberate self-contained single-host baseline; A shared transactional database and durable media storage are required before multi-instance hosting; revision polling can use the shared database. The proposed Prisma/PostgreSQL stack was not used because no database service was available.
 
 `lib/domain.ts`: boundary schemas, game state transitions, score and period updates, authoritative clock, standings, conservative qualification bounds, source precedence/conflict helper.
 `lib/store.ts`: migration, seed, persistent records, transactions, admin/session hashing, persistent rate buckets, provider.
@@ -95,7 +95,7 @@ For HTTPS hosting set SITE_URL to the exact public origin. It is used for canoni
 
 ## Backup and restore
 
-Run npm run db:backup against the intended DATABASE_PATH. The native SQLite online backup API creates a consistent snapshot including WAL state, verifies integrity and foreign keys, and copies immutable media into a unique backup directory. Do not copy the live .db file alone. Treat backups as private because they contain password hashes, sessions and audit history. Use an encrypted off-host destination and a retention policy in hosting.
+Run npm run db:backup against the intended DATABASE_PATH. The native SQLite online backup API creates a consistent snapshot including WAL state, verifies integrity and foreign keys, writes a migration inventory/checksum manifest, and copies immutable media into a unique backup directory. Do not copy the live .db file alone. Treat backups as private because they contain password hashes, sessions and audit history. Use an encrypted off-host destination and a retention policy in hosting.
 
 To restore, stop the server and every writer. Preserve the current data directory under a separate recovery name. Restore road.db and media from the same snapshot into a new empty directory, set DATABASE_PATH to it, provision/rotate the private admin password to revoke old sessions, run integrity/foreign-key checks, then start and smoke-test the server. Do not reuse old WAL/SHM files. Local QA restores an actual isolated backup into a fresh directory, starts the production runtime and verifies public snapshot equality, authorization and integrity. A drill on the actual production host and storage remains required.
 
