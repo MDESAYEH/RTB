@@ -1,3 +1,0 @@
-import {readFileSync,writeFileSync} from 'node:fs';
-let s=readFileSync('app/api/admin/route.ts','utf8');s=s.replace('INSERT INTO audit(actor,kind,target,old,new,time) VALUES(?,?,?,?,?,?)',"INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,'login')");s=s.replace('INSERT INTO audit(actor,kind,target,old,new,time) VALUES(?,?,?,?,?,?)',"INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,'logout')");writeFileSync('app/api/admin/route.ts',s);
-s=readFileSync('app/api/media/route.ts','utf8').replace('INSERT INTO audit(actor,kind,target,old,new,time) VALUES(?,?,?,?,?,?)',"INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,'upload')");writeFileSync('app/api/media/route.ts',s);

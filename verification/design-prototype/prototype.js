@@ -1,3 +1,0 @@
-const requested=new URLSearchParams(location.search).get('view');const view=['hero','road','game'].includes(requested)?requested:'hero';document.getElementById(view).classList.add('active');document.querySelector(`nav a[href="?view=${view}"]`)?.classList.add('active');
-// Presentation only. No database, network feed, service worker or admin integration.
-function countdown(){const total=Math.max(0,Math.floor((Date.parse('2026-10-21T00:00:00+02:00')-Date.now())/1000));const values={days:Math.floor(total/86400),hours:Math.floor(total/3600)%24,minutes:Math.floor(total/60)%60,seconds:total%60};for(const [id,value] of Object.entries(values))document.getElementById(id).textContent=String(value).padStart(2,'0');}countdown();setInterval(countdown,1000);

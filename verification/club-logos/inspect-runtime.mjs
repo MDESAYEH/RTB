@@ -1,1 +1,0 @@
-const r=await fetch('http://127.0.0.1:3001/the-road');const s=await r.text();console.log(r.status,s.match(/rel="canonical"[^>]+/)?.[0]);console.log('roadsteps',s.includes('road-step'),'length',s.length);

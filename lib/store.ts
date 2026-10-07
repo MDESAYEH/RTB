@@ -26,7 +26,7 @@ import {
   type Team,
   type News,
 } from "./domain";
-import { storageSchema } from "./storage-schema";
+import { storageSchema, storageSchemaVersion } from "./storage-schema";
 export interface TournamentDataProvider {
   getTournament(): Promise<Settings>;
   getTeams(): Promise<Team[]>;
@@ -47,20 +47,39 @@ export function createTournamentStore(
   async function initializeStore() {
     const selected = config();
     if (selected.kind === "libsql" && !selected.url.startsWith("file:")) {
-      const version = await db.prepare("PRAGMA user_version").get();
-      if (Number(version?.user_version) < 5)
+      const migrationTable = await db
+        .prepare(
+          "SELECT name FROM sqlite_master WHERE type='table' AND name='migration_imports'",
+        )
+        .get();
+
+      if (!migrationTable)
         throw Error(
           "Turso database is not initialized: run db:import from a verified SQLite snapshot before serving traffic",
         );
+
+      const imported = await db
+        .prepare(
+          "SELECT fingerprint FROM migration_imports WHERE id='sqlite-import'",
+        )
+        .get();
+
+      if (!imported?.fingerprint)
+        throw Error(
+          "Turso database import is incomplete: run db:import from a verified SQLite snapshot before serving traffic",
+        );
+
       const row = await db
         .prepare(
           "SELECT body FROM records WHERE kind='settings' AND id='tournament'",
         )
         .get();
+
       if (!row)
         throw Error(
           "Turso database has no tournament settings; run db:import before serving traffic",
         );
+
       return;
     }
     await db.exec(
@@ -95,16 +114,26 @@ export function createTournamentStore(
       ).user_version < 3
     ) {
       await db.transaction(async () => {
-        await db.exec(
-          "ALTER TABLE audit ADD COLUMN action TEXT; PRAGMA user_version=3",
-        );
+        const columns = (await db
+          .prepare("PRAGMA table_info(audit)")
+          .all()) as {
+          name: string;
+        }[];
+
+        if (!columns.some((column) => column.name === "action")) {
+          await db.exec("ALTER TABLE audit ADD COLUMN action TEXT");
+        }
+
+        await db.exec("PRAGMA user_version=3");
       })();
     }
     await db.exec(storageSchema);
+    await db.exec(`PRAGMA user_version=${storageSchemaVersion}`);
     const defaults: Settings = {
       name: "FIBA Africa Champions Clubs – Road to BAL 2027",
       shortName: "ROAD TO BAL 2027",
       start: "2026-10-21T00:00:00+02:00",
+
       end: "2026-10-26T00:00:00+02:00",
       timezone: "Africa/Tripoli",
       city: "طرابلس، ليبيا",
