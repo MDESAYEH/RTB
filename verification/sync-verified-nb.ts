@@ -1,3 +1,0 @@
-import {db} from '../lib/store';import {clubProfiles} from '../lib/club-profile';
-const p=clubProfiles.find(p=>p.id==='nb-staoueli')!;const row=db.prepare('SELECT body FROM club_profiles WHERE id=?').get(p.id) as {body:string}|undefined;
-if(row&&JSON.parse(row.body).storyHeadline==='ALGERIA’S RECENT POWERHOUSE'){db.transaction(()=>{db.prepare('UPDATE club_profiles SET body=? WHERE id=?').run(JSON.stringify(p),p.id);db.prepare('INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,?)').run('verified-research-import','club_profiles',p.id,row.body,JSON.stringify(p),new Date().toISOString(),'source-verification')})();console.log('NB verified facts synchronized; tournament revision unchanged')}db.close();

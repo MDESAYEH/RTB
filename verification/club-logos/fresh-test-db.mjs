@@ -1,1 +1,0 @@
-import fs from'node:fs';const p='verification/navigation-prototype/e2e-run.mjs';let s=fs.readFileSync(p,'utf8').replace("path.resolve('verification/navigation-prototype/e2e-isolated.db')","path.resolve('verification/navigation-prototype/e2e-'+randomUUID()+'.db')");fs.writeFileSync(p,s);

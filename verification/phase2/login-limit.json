@@ -1,9 +1,0 @@
-{
-  "statuses": [
-    401,
-    429
-  ],
-  "persistentBucket": true,
-  "localGlobalBucket": true,
-  "productionProxyConfigurationRequired": true
-}

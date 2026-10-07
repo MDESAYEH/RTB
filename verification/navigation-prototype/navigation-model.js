@@ -1,1 +1,0 @@
-export const routes=[['/','الرئيسية'],['/matches','المباريات'],['/standings','الترتيب'],['/teams','الفرق'],['/stats','الإحصائيات'],['/the-road','THE ROAD'],['/news','الأخبار']];export function activeRoute(path){return routes.find(([p])=>p==='/'?path==='/':path===p||path.startsWith(p+'/'))?.[0]??null;}export const teamPath=t=>'/teams/'+encodeURIComponent(t.slug);
