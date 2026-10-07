@@ -9,7 +9,8 @@ import { StadeTournamentHub } from "./stade-tournament-hub";
 import { ClubRoadLine } from "./club-road-primitives";
 import { TournamentHeader, CampaignHero } from "./tournament-campaign";
 import Image from "next/image";
-import { BasketballGlyph, CourtArc } from "./brand-primitives";
+import { CourtArc } from "./brand-primitives";
+import { EventSponsors } from "./event-sponsors";
 import { getTeamIdentity } from "@/lib/team-identity";
 import {
   CalendarDays,
@@ -1202,7 +1203,7 @@ export default function Site({
   } else if (route === "news") content = <NewsList />;
   else content = <Admin data={data} onData={acceptData} />;
   return (
-    <>
+    <div className="tournament-shell">
       <a className="skip" href="#main">
         انتقل للمحتوى
       </a>
@@ -1256,18 +1257,10 @@ export default function Site({
         {content}
       </main>
       <footer className="tournament-ending">
-        <div className="ending-top">
-          <BasketballGlyph />
-          <span>AFRICAN BASKETBALL / TRIPOLI 2027</span>
-        </div>
-        <Link href="/the-road" className="ending-word" dir="ltr">
-          THE ROAD
-          <br />
-          CONTINUES<span aria-hidden="true">↗</span>
-        </Link>
+        <EventSponsors />
         <div className="ending-details">
           <div>
-            <p>منصة مستقلة وغير رسمية لتصفيات Road to BAL 2027 في طرابلس.</p>
+            <p>منصة تصفيات Road to BAL 2027 في طرابلس.</p>
             <p>النتائج والبيانات تُنشر بعد اعتمادها.</p>
           </div>
           <div className="ending-links">
@@ -1283,7 +1276,7 @@ export default function Site({
             </a>
           </div>
         </div>
-        <small>TRIPOLI IS THE COURT. © 2026 ROAD TO BAL</small>
+        <small dir="ltr">2027 TRIPOLI IS THE COURT. © ROAD TO BAL</small>
       </footer>
       <div className="bottom-nav" role="navigation" aria-label="التنقل السريع">
         {[
@@ -1301,7 +1294,7 @@ export default function Site({
           </Link>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {

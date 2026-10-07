@@ -129,6 +129,52 @@ main.club-page:has(.team-editorial-prototype) { max-width: 1440px; margin-inline
   .operator-page .login { padding: 24px 18px; }
 }
 body { background: #091522; }
+.event-sponsors {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 44px clamp(20px, 6vw, 108px) 52px;
+  background: #fff;
+  color: #101b22;
+  border-top: 1px solid #192b3918;
+  text-align: center;
+}
+.tournament-ending .event-sponsors {
+  padding: 24px;
+  border: 0;
+  border-radius: 6px;
+  margin-bottom: 32px;
+}
+.tournament-ending .ending-details {
+  border-top: 1px solid #ffffff40;
+  padding-top: 24px;
+}
+.event-sponsors h2 { margin: 0 0 32px; font-size: clamp(24px, 3vw, 32px); }
+.event-sponsors-logos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 4vw, 60px);
+  align-items: center;
+}
+.event-sponsors-logos li { display: flex; justify-content: center; align-items: center; min-width: 0; }
+.event-sponsors-logos img { display: block; width: 180px; height: 160px; max-width: 100%; object-fit: contain; }
+@media (max-width: 600px) {
+  .event-sponsors { padding-block: 32px; }
+  .event-sponsors-logos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+  .event-sponsors-logos img { width: 130px; height: 130px; }
+}
+.tournament-logo { display: block; width: 76px; height: 76px; object-fit: contain; flex-shrink: 0; }
+.tournament-brand { min-width: 160px; }
+.tournament-brand > .tournament-brand-location { font: 12px/1.5 Arial, sans-serif; letter-spacing: .12em; }
+.ending-top .tournament-logo { width: 92px; height: 92px; }
+.menu-context .tournament-logo { width: 56px; height: 56px; }
+@media (max-width: 600px) {
+  .tournament-brand .tournament-logo { width: 52px; height: 52px; }
+  .tournament-brand > .tournament-brand-location { font-size: 10px; letter-spacing: .08em; }
+  .ending-top .tournament-logo { width: 72px; height: 72px; }
+}
 .tournament-header,
 .tournament-header.is-home {
   background: #10151d;

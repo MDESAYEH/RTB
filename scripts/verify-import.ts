@@ -50,7 +50,7 @@ try {
     const omitted =
       (name === "admins" && !args.includes("--include-admins")) ||
       (name === "sessions" && !args.includes("--include-sessions"));
-    let expected = omitted
+    const expected = omitted
       ? []
       : source.prepare(`SELECT * FROM ${quote(name)}`).all();
     if (name === "media_publications") {

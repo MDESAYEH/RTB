@@ -1,15 +1,11 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Globe,
-  Users,
-  Mountain,
-  ChevronLeft,
-} from "lucide-react";
+import { Globe, Users, Mountain, ChevronLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { BasketballGlyph } from "./brand-primitives";
+import { TournamentLogo } from "./tournament-logo";
 const sections = [
   ["/", "الرئيسية"],
   ["/matches", "المباريات"],
@@ -26,11 +22,8 @@ function Brand() {
       href="/"
       aria-label="ROAD TO BAL — الرئيسية"
     >
-      <BasketballGlyph />
-      <span>
-        ROAD TO <b>BAL</b>
-        <small>TRIPOLI / 2027</small>
-      </span>
+      <TournamentLogo />
+      <span className="tournament-brand-location">TRIPOLI / 2027</span>
     </Link>
   );
 }
@@ -57,7 +50,7 @@ export function TournamentHeader() {
   function close() {
     dialog.current?.close();
     setOpen(false);
-    trigger.current?.focus();
+    trigger.current?.focus({ preventScroll: true });
   }
   function trapFocus(event: KeyboardEvent<HTMLDialogElement>) {
     if (event.key !== "Tab") return;
@@ -103,17 +96,10 @@ export function TournamentHeader() {
   return (
     <>
       <header
-        className={
-          "tournament-header " +
-          (scrolled ? "is-scrolled" : "")
-        }
+        className={"tournament-header " + (scrolled ? "is-scrolled" : "")}
       >
         <Brand />
-        <nav
-          className="tournament-nav"
-          aria-label="أقسام البطولة"
-          dir="rtl"
-        >
+        <nav className="tournament-nav" aria-label="أقسام البطولة" dir="rtl">
           {links()}
         </nav>
         <div className="event-meta" dir="ltr">
@@ -147,7 +133,7 @@ export function TournamentHeader() {
         onKeyDown={trapFocus}
         onClose={() => {
           setOpen(false);
-          trigger.current?.focus();
+          trigger.current?.focus({ preventScroll: true });
         }}
       >
         <div className="menu-head">
@@ -162,7 +148,7 @@ export function TournamentHeader() {
         </div>
         <div className="menu-context">
           <span id="menu-title">ROAD TO BAL / TRIPOLI 2027</span>
-          <BasketballGlyph />
+          <TournamentLogo />
         </div>
         <nav
           className="mobile-tournament-nav"
@@ -215,7 +201,8 @@ export function CampaignHero({
             ROAD TO BAL <span>/ 2027</span>
           </p>
           <h1>
-            TRIPOLI<span aria-hidden="true">.</span>
+            TRIPOLI
+            <span aria-hidden="true" />
           </h1>
           <p className="poster-arabic" dir="rtl">
             طرابلس تستضيف أفريقيا

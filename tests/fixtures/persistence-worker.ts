@@ -267,7 +267,7 @@ test("import preserves source, all rows/IDs/credentials/revision and rejects cha
       original,
     );
     await original.db.exec(
-      "CREATE TABLE future_table(value TEXT); INSERT INTO future_table VALUES('retained')",
+      "CREATE TABLE future_table(id INTEGER PRIMARY KEY AUTOINCREMENT,value TEXT); INSERT INTO future_table(value) VALUES('retained'); INSERT INTO future_table(value) VALUES('deleted'); DELETE FROM future_table WHERE value='deleted'",
     );
     const image = await sharp({
       create: { width: 8, height: 8, channels: 3, background: "red" },
@@ -317,6 +317,16 @@ test("import preserves source, all rows/IDs/credentials/revision and rejects cha
       assert.equal(await snapshot(imported), expected);
       assert.equal(await imported.authorize(token!), "admin");
       assert.ok(await imported.login("test-only-import-password"));
+      assert.equal(
+        (
+          await target
+            .prepare(
+              "SELECT seq FROM sqlite_sequence WHERE name='future_table'",
+            )
+            .get()
+        ).seq,
+        2,
+      );
       assert.equal(
         (await target.prepare("SELECT value FROM future_table").get()).value,
         "retained",
@@ -416,6 +426,25 @@ test("staged 5 MB uploads are private, bounded, immutable, owner scoped and comp
 });
 
 test("Vercel configuration never falls back to writable SQLite or accepts local replicas", () => {
+  const remote = {
+    VERCEL: "1",
+    TURSO_DATABASE_URL: "libsql://fixture.turso.io",
+    TURSO_AUTH_TOKEN: "test-only",
+    NODE_ENV: "production",
+  };
+  assert.throws(() => databaseConfig(remote), /SITE_URL/);
+  assert.throws(
+    () => databaseConfig({ ...remote, SITE_URL: "https://fixture.vercel.app" }),
+    /BLOB_READ_WRITE_TOKEN/,
+  );
+  assert.equal(
+    databaseConfig({
+      ...remote,
+      SITE_URL: "https://fixture.vercel.app",
+      BLOB_READ_WRITE_TOKEN: "test-only",
+    }).kind,
+    "libsql",
+  );
   assert.throws(
     () =>
       databaseConfig({

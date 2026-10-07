@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   description:
     "طرابلس تستضيف أفريقيا. منصة مستقلة لتصفيات Road to BAL 2027، 21–25 أكتوبر 2026.",
   manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/Artboard%201-8.png",
+    apple: "/Artboard%201-8.png",
+  },
   openGraph: {
     title: "TRIPOLI IS THE COURT · ROAD TO BAL 2027",
     description: "21–25 أكتوبر 2026 · طرابلس، ليبيا",

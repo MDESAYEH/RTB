@@ -36,7 +36,7 @@ if (restored.prepare("PRAGMA foreign_key_check").all().length)
 // A provider-neutral migration inventory. Never log rows, hashes of passwords, or tokens.
 const tables = restored
   .prepare(
-    "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name",
+    "SELECT name FROM sqlite_master WHERE type='table' AND (name NOT LIKE 'sqlite_%' OR name='sqlite_sequence') ORDER BY name",
   )
   .all()
   .map(({ name }) => ({

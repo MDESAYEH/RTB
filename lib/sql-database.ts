@@ -34,6 +34,27 @@ export function databaseConfig(env = process.env): DatabaseConfig {
       );
     if (!env.TURSO_AUTH_TOKEN)
       throw Error("TURSO_AUTH_TOKEN is required with TURSO_DATABASE_URL");
+    if (isVercel(env)) {
+      let site: URL;
+      try {
+        site = new URL(env.SITE_URL || "");
+      } catch {
+        throw Error("SITE_URL must be the exact HTTPS Vercel origin");
+      }
+      if (
+        site.protocol !== "https:" ||
+        site.username ||
+        site.password ||
+        site.pathname !== "/" ||
+        site.search ||
+        site.hash
+      )
+        throw Error("SITE_URL must be the exact HTTPS Vercel origin");
+      if (!env.BLOB_READ_WRITE_TOKEN)
+        throw Error(
+          "BLOB_READ_WRITE_TOKEN is required for the Private Blob store on Vercel",
+        );
+    }
     return { kind: "libsql", url: url.href, authToken: env.TURSO_AUTH_TOKEN };
   }
   if (env.TURSO_AUTH_TOKEN || isVercel(env))

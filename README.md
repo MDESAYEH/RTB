@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:3000. The SQLite database is created and migrated on first use, with WAL and a busy timeout. No external credentials are needed. `DATABASE_PATH` defaults to `data/road.db`; set it to persistent storage on a single host. Vercel local SQLite/media are explicitly rejected. See [PERSISTENCE.md](PERSISTENCE.md) for the audit, implemented safeguards, migration snapshot and pending infrastructure decision. Never commit this file.
+Open http://127.0.0.1:3000. The SQLite database is created and migrated on first use, with WAL and a busy timeout. No external credentials are needed. `DATABASE_PATH` defaults to `data/road.db`; set it to persistent storage on a single host. Vercel local SQLite/media are explicitly rejected. See [PERSISTENCE.md](PERSISTENCE.md) for the audit, implemented safeguards, migration snapshot and implemented Turso/Private Blob adapters and safe cutover instructions. Never commit this file.
 
 Provision an administrator (minimum 14 characters), with a private environment variable:
 
@@ -44,13 +44,13 @@ Top two from each Tripoli group to Elite 16 is verified in the FIBA announcement
 
 ## Realtime and offline
 
-One database revision increments inside each mutation transaction. SSE sends changed revisions every two seconds; clients fetch internal data only. Clock comes from a server timestamp and locally interpolates. Last valid scores remain visible on reconnect. Live data older than 45 seconds shows delayed. This threshold deliberately treats operator inactivity as stale; tune for event workflow. In-process connections and SQLite support one host only. Reverse proxies must disable SSE buffering and permit long connections. No external collector is enabled.
+One database revision increments inside each mutation transaction. SSE sends changed revisions every two seconds; clients fetch internal data only. Clock comes from a server timestamp and locally interpolates. Last valid scores remain visible on reconnect. Live data older than 45 seconds shows delayed. This threshold deliberately treats operator inactivity as stale; tune for event workflow. Local SQLite supports one persistent host. Vercel uses shared authoritative Turso/libSQL transactions; SSE ends after four minutes and reconnects. Reverse proxies must disable SSE buffering and permit long connections. No external collector is enabled.
 
 The service worker only caches the offline shell and icon, never live pages or API scores. Manifest provides basic install metadata; device installation requires HTTPS; the manifest provides both raster sizes and a scalable icon.
 
 ## Security
 
-Scrypt password hashes with random salt; opaque 32-byte tokens hashed in storage; 8-hour HTTP-only SameSite Strict session; HTTPS secure cookies; server-side authorization on each admin read/write; exact Origin checks; Zod validation; prepared SQL; React text escaping; no HTML news rendering; mutation transactions/version checks; persistent rate limiting; body limit; security headers. Single admin role. Audit stores actor, action, old/new, timestamp and correction reason. Uploads require admin authentication and fully decode validated PNG/JPEG/WebP inputs, enforce 5 MB/16 MP limits, reject traversal names and animation, resize to at most 1600px, strip metadata and re-encode canonical WebP. Raster images are served with fixed image MIME and immutable content hashes; no SVG or executable upload is accepted. Files live beside the database in media/. No remote URL fetching is enabled. Optional proxy-aware login limiting is implemented but must only be enabled behind a trusted proxy that replaces X-Real-IP and prevents direct origin access. MFA, dedicated roles, backup encryption and CSP nonce hardening are not claimed implemented.
+Scrypt password hashes with random salt; opaque 32-byte tokens hashed in storage; 8-hour HTTP-only SameSite Strict session; HTTPS secure cookies; server-side authorization on each admin read/write; exact Origin checks; Zod validation; prepared SQL; React text escaping; no HTML news rendering; mutation transactions/version checks; persistent rate limiting; body limit; security headers. Single admin role. Audit stores actor, action, old/new, timestamp and correction reason. Uploads require admin authentication and fully decode validated PNG/JPEG/WebP inputs, enforce 5 MB/16 MP limits, reject traversal names and animation, resize to at most 1600px, strip metadata and re-encode canonical WebP. Raster images are served with fixed image MIME and immutable content hashes; no SVG or executable upload is accepted. Local files live beside the database in media/. Vercel uses Private Blob with authenticated scoped direct staging uploads, server sanitization and committed publication records; only exact configured object paths are fetched. Optional proxy-aware login limiting is implemented but must only be enabled behind a trusted proxy that replaces X-Real-IP and prevents direct origin access. MFA, dedicated roles, backup encryption and CSP nonce hardening are not claimed implemented.
 
 ## Checks
 
@@ -105,3 +105,12 @@ Run node scripts/phase2-verify.mjs after npm run build for isolated browser regr
 
 See RELEASE_CHECKLIST.md for deployment/day-of-event checks and the bounded hosting load-test plan. No real hosting load test or production deployment has been performed. Performance evidence is in verification/phase3/PERFORMANCE_REPORT.md: public homepage median LCP 1.228s across three cold-cache 390px/CPU4x/150ms/1.6Mbps samples; live-fixture homepage 1.424s in the existing sampler. Browser JS decreased from 247778 to 156543 encoded bytes by keeping server schema initialization out of public display imports. Fonts and design quality remain unchanged; only the small display font is preloaded. The old 5.692s single sample was not reproduced, so it is not a proved before/after improvement percentage.
 
+
+
+## Vercel persistence cutover
+
+Turso/libSQL and Private Vercel Blob implementations are present; cloud acceptance is pending actual resources/credentials. No production resources, migration or deployment were performed. See [PERSISTENCE.md](PERSISTENCE.md) for the complete owner-run sequence, exact env variables, resource setup, backup/import/verification commands, admin rotation, rollback and cloud acceptance checklist.
+
+Production requires `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, `BLOB_READ_WRITE_TOKEN` for a **Private** store, and exact HTTPS `SITE_URL`. Local development needs none of the cloud variables. There is no local replica, writable SQLite or `/tmp` persistence on Vercel. Public image URLs stay `/api/media/<SHA-256>.<extension>` with immutable caching. Raw uploads are private, owner-scoped and never served by that API.
+
+`npm run db:import -- --source "<backup>/road.db" --media "<backup>/media" --confirm-empty-destination --include-admins` imports both DB and media into the explicitly configured empty targets, preserves hashes/audit/revision and revokes sessions by default. `npm run db:verify -- --source "<backup>/road.db" --media "<backup>/media" --include-admins` checks row counts/checksums/integrity/revision/media before any target writes. Identical import retries are no-ops; changed source refuses overwrite. CLI requires the `db:backup` manifest. Never run these against Production without separate authorization.
