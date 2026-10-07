@@ -1,3 +1,5 @@
+import { generateClientTokenFromReadWriteToken } from "@vercel/blob/client";
+import { privateBlobStorage, stagingPath, validMediaId } from "./media-storage";
 import { randomBytes } from "node:crypto";
 import { z } from "zod";
 import { store, type TournamentStore } from "./store";
@@ -89,9 +91,47 @@ export function createMediaStaging(repository: TournamentStore = store) {
           .run(id, part, Buffer.from(bytes));
       })();
     },
-    async assemble(id: string, actor: string) {
+    async credential(
+      id: string,
+      actor: string,
+      generate = generateClientTokenFromReadWriteToken,
+    ) {
+      const upload = await lookup(id, actor);
+      if (upload.result) throw Error("Upload already completed");
+      const token = process.env.BLOB_READ_WRITE_TOKEN;
+      if (!token) throw Error("Private Blob upload configuration missing");
+      const pathname = stagingPath(id);
+      const clientToken = await generate({
+        token,
+        pathname,
+        maximumSizeInBytes: upload.size,
+        allowedContentTypes: [upload.type],
+        validUntil: Math.min(upload.expires, Date.now() + 5 * 60000),
+        addRandomSuffix: false,
+        allowOverwrite: false,
+        cacheControlMaxAge: 60,
+      });
+      return { pathname, clientToken };
+    },
+    async assemble(
+      id: string,
+      actor: string,
+      remote = process.env.BLOB_READ_WRITE_TOKEN
+        ? privateBlobStorage()
+        : undefined,
+    ) {
       const upload = await lookup(id, actor);
       if (upload.result) return { result: upload.result };
+      if (remote) {
+        const bytes = await remote.staged(id);
+        if (!bytes || bytes.length !== upload.size)
+          throw Error("Upload missing or size mismatch");
+        return {
+          file: new File([Buffer.from(bytes)], upload.name, {
+            type: upload.type,
+          }),
+        };
+      }
       const chunks: Uint8Array[] = [];
       for (let part = 0; part < Math.ceil(upload.size / chunkSize); part++) {
         const row = await db
@@ -105,6 +145,8 @@ export function createMediaStaging(repository: TournamentStore = store) {
       return { file: new File([bytes], upload.name, { type: upload.type }) };
     },
     async finish(id: string, actor: string, mediaId: string, length: number) {
+      if (!validMediaId(mediaId) || length < 1 || length > 5242880)
+        throw Error("Invalid canonical media");
       return db.transaction(async () => {
         const upload = await lookup(id, actor);
         if (upload.result) {
@@ -123,6 +165,9 @@ export function createMediaStaging(repository: TournamentStore = store) {
             JSON.stringify({ bytes: length, format: "webp" }),
             new Date().toISOString(),
           );
+        await db
+          .prepare("INSERT OR IGNORE INTO media_publications VALUES(?,?)")
+          .run(mediaId, length);
         await db
           .prepare("UPDATE media_uploads SET result=? WHERE id=?")
           .run(mediaId, id);

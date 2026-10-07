@@ -7,17 +7,24 @@ export async function GET(
   const { id } = await params;
   if (!validMediaId(id)) return new Response(null, { status: 404 });
   try {
-    const url = await mediaStorage.publicUrl?.(id);
-    if (url)
-      return new Response(null, {
-        status: 307,
-        headers: {
-          Location: url,
-          "Cache-Control": "public, max-age=31536000, immutable",
-        },
-      });
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const { db } = await import("@/lib/store");
+      if (
+        !(await db
+          .prepare("SELECT id FROM media_publications WHERE id=?")
+          .get(id))
+      )
+        return new Response(null, {
+          status: 404,
+          headers: { "Cache-Control": "no-store" },
+        });
+    }
     const bytes = await mediaStorage.get(id);
-    if (!bytes) return new Response(null, { status: 404 });
+    if (!bytes)
+      return new Response(null, {
+        status: 404,
+        headers: { "Cache-Control": "no-store" },
+      });
     return new Response(Buffer.from(bytes), {
       headers: {
         "Content-Type": id.endsWith(".jpg")

@@ -1,5 +1,9 @@
 # VISUAL SYSTEM — ROAD TO BAL / TRIPOLI 2027
 
+## Current presentation direction (October 2026)
+
+The user's African basketball screenshot references supersede the previous restriction on repeating patterns below. The shared presentation layer is `app/african-pattern.css`, imported after the existing page styles. Original vector tiles live in `public/patterns/`: rings and concentric arcs for brown page banners and green tournament scenes; triangular weave for red feature scenes and the footer. Keep patterns away from tables, long text and form fields. Use light reading surfaces, dark navigation, yellow feature lettering and unchanged club logo colors. Apply this identity to club profiles, sports pages, news, player profiles, navigation, loading/error states and the operator workspace. Operator patterns belong in the title banner only; controls remain plain and readable. Existing campaign photography stays in the homepage hero.
+
 ## 1. Brand idea
 THE COURT BECOMES THE ROAD: continuous compositions connect club identity, history and tournament action. Internal art direction only. Public identity remains ROAD TO BAL, TRIPOLI 2027 and THE ROAD. No metric cards or repeated bordered panels.
 

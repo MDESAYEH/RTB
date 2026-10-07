@@ -1,69 +1,76 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { BlobNotFoundError } from "@vercel/blob";
-import { PublicBlobStorage, type BlobOperations } from "../lib/media-storage";
+import { PrivateBlobStorage, type BlobOperations } from "../lib/media-storage";
 import { uploadMedia } from "../lib/media-client";
-
-test("Public Blob keeps immutable canonical hashes, deduplicates, and validates the store URL", async () => {
+test("Private Blob authenticates reads, enforces immutable hashes and refuses public objects", async () => {
   const blobs = new Map<string, Buffer>();
-  const calls: unknown[] = [];
   const operations: BlobOperations = {
-    head: async (path) => {
-      if (!blobs.has(path)) throw new BlobNotFoundError();
+    get: async (path, options) => {
+      assert.equal(options.access, "private");
+      assert.equal(options.token, "test-token");
+      const bytes = blobs.get(path);
+      if (!bytes) return null;
       return {
-        url: "https://test.public.blob.vercel-storage.com/" + path,
-      } as Awaited<ReturnType<BlobOperations["head"]>>;
+        statusCode: 200,
+        stream: new Response(Buffer.from(bytes)).body!,
+        headers: new Headers(),
+        blob: {
+          url: "https://test.private.blob.vercel-storage.com/" + path,
+          pathname: path,
+        },
+      } as unknown as Awaited<ReturnType<BlobOperations["get"]>>;
     },
     put: async (path, body, options) => {
-      calls.push(options);
-      assert.equal(options.access, "public");
-      assert.equal(options.addRandomSuffix, false);
+      assert.equal(options.access, "private");
       assert.equal(options.allowOverwrite, false);
-      assert.equal(options.cacheControlMaxAge, 31536000);
+      assert.equal(options.addRandomSuffix, false);
       if (blobs.has(path)) throw Error("already exists");
       blobs.set(path, Buffer.from(body as Buffer));
-      return {
-        url: "https://test.public.blob.vercel-storage.com/" + path,
-      } as Awaited<ReturnType<BlobOperations["put"]>>;
+      return {} as Awaited<ReturnType<BlobOperations["put"]>>;
     },
-    fetch: async (url) =>
-      new Response(
-        Buffer.from(blobs.get(new URL(String(url)).pathname.slice(1))!),
-      ),
+    del: async (path) => {
+      blobs.delete(path as string);
+    },
   };
-  const storage = new PublicBlobStorage("test-token", operations);
+  const storage = new PrivateBlobStorage("test-token", operations);
   const bytes = Buffer.from("test sanitized content");
   const id = createHash("sha256").update(bytes).digest("hex") + ".webp";
-  assert.equal(await storage.publicUrl(id), undefined);
+  assert.equal(await storage.get(id), undefined);
   await storage.put(id, bytes);
   await storage.put(id, bytes);
-  assert.equal(calls.length, 2);
   assert.deepEqual(await storage.get(id), new Uint8Array(bytes));
-  assert.equal(
-    await storage.publicUrl(id),
-    "https://test.public.blob.vercel-storage.com/media/" + id,
-  );
   await assert.rejects(
     storage.put(id, Buffer.from("changed")),
     /hash mismatch/,
   );
-  await assert.rejects(storage.put("../bad", bytes), /Invalid media ID/);
-  const privateStore = new PublicBlobStorage("test-token", {
+  await assert.rejects(storage.get("../raw"), /Invalid media/);
+  const publicStore = new PrivateBlobStorage("test-token", {
     ...operations,
-    head: async () =>
+    get: async (path) =>
       ({
-        url: "https://test.private.blob.vercel-storage.com/media/" + id,
-      }) as Awaited<ReturnType<BlobOperations["head"]>>,
+        statusCode: 200,
+        stream: new Response(bytes).body!,
+        headers: new Headers(),
+        blob: {
+          url: "https://test.public.blob.vercel-storage.com/" + path,
+          pathname: path,
+        },
+      }) as unknown as Awaited<ReturnType<BlobOperations["get"]>>,
   });
-  await assert.rejects(privateStore.publicUrl(id), /Public Blob/);
-  const failedStore = new PublicBlobStorage("test-token", {
+  await assert.rejects(publicStore.get(id), /Private Blob/);
+  const failed = new PrivateBlobStorage("test-token", {
     ...operations,
-    head: async () => {
-      throw Error("storage unavailable");
+    get: async () => {
+      throw Error("backend unavailable");
     },
   });
-  await assert.rejects(failedStore.publicUrl(id), /unavailable/);
+  await assert.rejects(failed.get(id), /unavailable/);
+  const stage = "a".repeat(64);
+  blobs.set("staging/" + stage, bytes);
+  assert.deepEqual(await storage.staged(stage), new Uint8Array(bytes));
+  await storage.removeStaged(stage);
+  assert.equal(await storage.staged(stage), undefined);
 });
 
 test("media client sends 5 MB as bounded requests and preserves final API URL", async () => {

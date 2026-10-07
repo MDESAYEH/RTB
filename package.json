@@ -12,7 +12,9 @@
     "admin:create": "tsx scripts/admin.ts",
     "test:e2e": "playwright test",
     "db:backup": "node scripts/backup.mjs",
-    "db:import": "tsx scripts/import.ts"
+    "db:import": "tsx scripts/import.ts",
+    "db:verify": "tsx scripts/verify-import.ts",
+    "media:cleanup": "tsx scripts/media-cleanup.ts"
   },
   "keywords": [],
   "author": "",

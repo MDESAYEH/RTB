@@ -3,12 +3,11 @@ import { dirname, resolve } from "node:path";
 import { assertLocalStorageAllowed } from "./storage-config";
 import { isVercel } from "./storage-config";
 import { createHash } from "node:crypto";
-import { head, put, BlobNotFoundError } from "@vercel/blob";
+import { get, put, del, BlobNotFoundError } from "@vercel/blob";
 
 export interface MediaStorage {
   put(id: string, bytes: Uint8Array): Promise<void>;
   get(id: string): Promise<Uint8Array | undefined>;
-  publicUrl?(id: string): Promise<string | undefined>;
 }
 
 export function validMediaId(id: string) {
@@ -55,36 +54,43 @@ export class LocalMediaStorage implements MediaStorage {
 }
 
 export type BlobOperations = {
-  head: typeof head;
+  get: typeof get;
   put: typeof put;
-  fetch: typeof fetch;
+  del: typeof del;
 };
-export class PublicBlobStorage implements MediaStorage {
+export class PrivateBlobStorage implements MediaStorage {
   constructor(
     private token: string,
-    private operations: BlobOperations = { head, put, fetch },
+    private operations: BlobOperations = { get, put, del },
   ) {}
   private pathname(id: string) {
     if (!validMediaId(id)) throw Error("Invalid media ID");
     if (!this.token)
-      throw Error("BLOB_READ_WRITE_TOKEN is required for Public Vercel Blob");
+      throw Error("BLOB_READ_WRITE_TOKEN is required for Private Vercel Blob");
     return "media/" + id;
   }
-  async publicUrl(id: string) {
+  private async read(pathname: string, useCache: boolean) {
     try {
-      const blob = await this.operations.head(this.pathname(id), {
+      const result = await this.operations.get(pathname, {
         token: this.token,
+        access: "private",
+        useCache,
       });
-      const url = new URL(blob.url);
+      if (!result) return undefined;
+      if (result.statusCode !== 200) throw Error("Unexpected Blob response");
+      const url = new URL(result.blob.url);
       if (
         url.protocol !== "https:" ||
-        !url.hostname.endsWith(".public.blob.vercel-storage.com") ||
-        url.pathname !== "/media/" + id
+        !url.hostname.endsWith(".private.blob.vercel-storage.com") ||
+        result.blob.pathname !== pathname ||
+        url.pathname !== "/" + pathname
       )
-        throw Error(
-          "Expected a Public Blob store and canonical media pathname",
-        );
-      return url.href;
+        throw Error("Expected Private Blob store and exact object path");
+      const { boundedBody } = await import("./request");
+      return boundedBody(
+        { headers: result.headers, body: result.stream },
+        5242880,
+      );
     } catch (error) {
       if (error instanceof BlobNotFoundError) return undefined;
       throw error;
@@ -100,7 +106,7 @@ export class PublicBlobStorage implements MediaStorage {
     try {
       await this.operations.put(pathname, Buffer.from(bytes), {
         token: this.token,
-        access: "public",
+        access: "private",
         addRandomSuffix: false,
         allowOverwrite: false,
         contentType: id.endsWith(".webp")
@@ -111,34 +117,44 @@ export class PublicBlobStorage implements MediaStorage {
         cacheControlMaxAge: 31536000,
       });
     } catch (error) {
-      // Duplicate requests may race. Only a byte-identical existing object counts as success.
       const existing = await this.get(id);
       if (!existing || !Buffer.from(existing).equals(Buffer.from(bytes)))
         throw error;
     }
   }
   async get(id: string) {
-    const url = await this.publicUrl(id);
-    if (!url) return undefined;
-    const response = await this.operations.fetch(url, {
-      redirect: "error",
-      cache: "no-store",
-    });
-    if (!response.ok) throw Error("Blob media read failed");
-    const { boundedBody } = await import("./request");
-    const bytes = await boundedBody(response, 5242880);
-    if (createHash("sha256").update(bytes).digest("hex") !== id.split(".")[0])
+    const bytes = await this.read(this.pathname(id), true);
+    if (
+      bytes &&
+      createHash("sha256").update(bytes).digest("hex") !== id.split(".")[0]
+    )
       throw Error("Blob content hash mismatch");
     return bytes;
   }
+  async staged(id: string) {
+    return this.read(stagingPath(id), false);
+  }
+  async removeStaged(id: string) {
+    await this.operations.del(stagingPath(id), { token: this.token });
+  }
+}
+export function stagingPath(id: string) {
+  if (!/^[a-f0-9]{64}$/.test(id)) throw Error("Invalid upload ID");
+  return "staging/" + id;
+}
+export function privateBlobStorage() {
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token)
+    throw Error("BLOB_READ_WRITE_TOKEN is required for Private Blob uploads");
+  return new PrivateBlobStorage(token);
 }
 
 function configuredMediaStorage(): MediaStorage {
   if (process.env.BLOB_READ_WRITE_TOKEN)
-    return new PublicBlobStorage(process.env.BLOB_READ_WRITE_TOKEN);
+    return new PrivateBlobStorage(process.env.BLOB_READ_WRITE_TOKEN);
   if (isVercel())
     throw Error(
-      "BLOB_READ_WRITE_TOKEN is required on Vercel (Public Blob store)",
+      "BLOB_READ_WRITE_TOKEN is required on Vercel (Private Blob store)",
     );
   return new LocalMediaStorage(
     resolve(
@@ -152,6 +168,4 @@ function configuredMediaStorage(): MediaStorage {
 export const mediaStorage: MediaStorage = {
   put: async (id, bytes) => configuredMediaStorage().put(id, bytes),
   get: async (id) => configuredMediaStorage().get(id),
-  publicUrl: async (id) =>
-    configuredMediaStorage().publicUrl?.(id) ?? Promise.resolve(undefined),
 };

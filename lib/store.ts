@@ -48,7 +48,7 @@ export function createTournamentStore(
     const selected = config();
     if (selected.kind === "libsql" && !selected.url.startsWith("file:")) {
       const version = await db.prepare("PRAGMA user_version").get();
-      if (Number(version?.user_version) < 4)
+      if (Number(version?.user_version) < 5)
         throw Error(
           "Turso database is not initialized: run db:import from a verified SQLite snapshot before serving traffic",
         );
@@ -382,14 +382,22 @@ export function createTournamentStore(
   async function snapshotData() {
     return db.transaction(async () => {
       const rows = await db
-        .prepare("SELECT kind,body FROM records ORDER BY id")
+        .prepare("SELECT kind,id,body FROM records ORDER BY id")
         .all();
       const collection = <T>(kind: string): T[] =>
         rows
           .filter((row) => row.kind === kind)
           .map((row) => JSON.parse(String(row.body)));
       return {
-        settings: settingsSchema.parse(collection<Settings>("settings")[0]),
+        settings: settingsSchema.parse(
+          JSON.parse(
+            String(
+              rows.find(
+                (row) => row.kind === "settings" && row.id === "tournament",
+              )?.body,
+            ),
+          ),
+        ),
         teams: collection<Team>("teams").map((team) => teamSchema.parse(team)),
         games: collection<Game>("games").map((game) => gameSchema.parse(game)),
         players: collection<unknown>("players"),

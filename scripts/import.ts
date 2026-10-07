@@ -1,3 +1,4 @@
+import { access } from "node:fs/promises";
 import { resolve, dirname, join } from "node:path";
 import { importDatabase } from "../lib/import-database";
 import { SqlDatabase, databaseConfig } from "../lib/sql-database";
@@ -22,6 +23,7 @@ if (config.kind !== "libsql")
 if (!process.env.BLOB_READ_WRITE_TOKEN)
   throw Error("BLOB_READ_WRITE_TOKEN is required for the media destination");
 const source = resolve(value("--source") || "data/road.db");
+await access(join(dirname(source), "manifest.json")); // Only verified db:backup snapshots enter the CLI.
 const database = new SqlDatabase(() => config);
 try {
   console.log(

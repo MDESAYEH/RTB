@@ -36,7 +36,7 @@ test("fresh database, hashed auth, audit rollback, manual provider", async () =>
         user_version: number;
       }
     ).user_version,
-    4,
+    5,
   );
   await provision("test-only-long-password");
   assert.equal(await login("bad"), null);

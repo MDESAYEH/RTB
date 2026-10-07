@@ -1,3 +1,5 @@
+import sharp from "sharp";
+import { validateImage } from "../../lib/image-upload";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { mkdtempSync, readFileSync } from "node:fs";
@@ -267,6 +269,18 @@ test("import preserves source, all rows/IDs/credentials/revision and rejects cha
     await original.db.exec(
       "CREATE TABLE future_table(value TEXT); INSERT INTO future_table VALUES('retained')",
     );
+    const image = await sharp({
+      create: { width: 8, height: 8, channels: 3, background: "red" },
+    })
+      .png()
+      .toBuffer();
+    const clean = await validateImage(
+      new File([image], "fixture.png", { type: "image/png" }),
+    );
+    await new LocalMediaStorage(join(root, "source-media")).put(
+      clean.id,
+      clean.bytes,
+    );
     const expected = await snapshot(original);
     await original.db.close();
     const checksum = createHash("sha256")
@@ -281,6 +295,15 @@ test("import preserves source, all rows/IDs/credentials/revision and rejects cha
       includeSessions: true,
     };
     assert.equal((await importDatabase(options)).status, "imported");
+    assert.deepEqual(
+      Buffer.from((await options.media.get(clean.id))!),
+      Buffer.from(clean.bytes),
+    );
+    assert.ok(
+      await target
+        .prepare("SELECT id FROM media_publications WHERE id=?")
+        .get(clean.id),
+    );
     assert.equal((await importDatabase(options)).status, "already-imported");
     assert.equal(
       createHash("sha256").update(readFileSync(source)).digest("hex"),
@@ -419,4 +442,53 @@ test("Vercel configuration never falls back to writable SQLite or accepts local 
       }),
     /TURSO_AUTH_TOKEN/,
   );
+});
+
+test("import holds one write transaction and rolls every table back on late database failure", async () => {
+  const root = mkdtempSync(
+    join(
+      process.env.PERSISTENCE_TEST_ROOT || tmpdir(),
+      "road-import-rollback-",
+    ),
+  );
+  const source = join(root, "source.db");
+  const original = createTournamentStore(() => ({
+    kind: "sqlite",
+    path: source,
+  }));
+  await original.settings();
+  await original.db.close();
+  const target = new SqlDatabase(() => ({
+    kind: "libsql",
+    url: pathToFileURL(join(root, "target.db")).href,
+  }));
+  const options = {
+    source,
+    mediaDirectory: join(root, "empty-media"),
+    database: target,
+    media: new LocalMediaStorage(join(root, "target-media")),
+  };
+  const batch = target.batch.bind(target);
+  let fail = true;
+  target.batch = async (statements) => {
+    await batch(statements);
+    if (fail) throw Error("late import failure");
+  };
+  try {
+    await assert.rejects(importDatabase(options), /late import failure/);
+    assert.equal(
+      (
+        await target
+          .prepare(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'",
+          )
+          .all()
+      ).length,
+      0,
+    );
+    fail = false;
+    assert.equal((await importDatabase(options)).status, "imported");
+  } finally {
+    await target.close();
+  }
 });

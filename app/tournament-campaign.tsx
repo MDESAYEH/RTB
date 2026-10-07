@@ -1,8 +1,15 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
+import {
+  Globe,
+  Users,
+  Mountain,
+  ChevronLeft,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
-import { BasketballGlyph, CourtArc } from "./brand-primitives";
+import { BasketballGlyph } from "./brand-primitives";
 const sections = [
   ["/", "الرئيسية"],
   ["/matches", "المباريات"],
@@ -96,10 +103,17 @@ export function TournamentHeader() {
   return (
     <>
       <header
-        className={"tournament-header " + (scrolled ? "is-scrolled" : "")}
+        className={
+          "tournament-header " +
+          (scrolled ? "is-scrolled" : "")
+        }
       >
         <Brand />
-        <nav className="tournament-nav" aria-label="أقسام البطولة" dir="rtl">
+        <nav
+          className="tournament-nav"
+          aria-label="أقسام البطولة"
+          dir="rtl"
+        >
           {links()}
         </nav>
         <div className="event-meta" dir="ltr">
@@ -169,91 +183,101 @@ export function CampaignHero({
   count,
   seconds,
   ended,
+  clubs,
+  nations,
+  groups,
 }: {
   count: number[];
   seconds: number;
   ended: boolean;
+  clubs: number;
+  nations: number;
+  groups: number;
 }) {
   return (
-    <section className="tipoff-hero" aria-label="طرابلس — Road to BAL">
-      <div className="tipoff-topline" dir="ltr">
-        <span>AFRICAN BASKETBALL / NEXT CHAPTER</span>
-        <span>WEST DIVISION · GROUPS A & B</span>
-      </div>
-      <div className="tipoff-photo">
-        <img
-          src="/images/hero-match-reference.png"
-          alt="لاعب الاتحاد يصوب أمام المدافع داخل ملعب كرة السلة"
-          fetchPriority="high"
+    <>
+      <section
+        className="tipoff-hero tripoli-poster"
+        aria-label="طرابلس — Road to BAL"
+        dir="ltr"
+      >
+        <Image
+          className="poster-background"
+          src="/0d09b692-c5de-4597-9837-1324b8b56828.png"
+          alt=""
+          fill
+          sizes="(max-width: 700px) 1400px, 100vw"
+          preload
         />
-        <span className="photo-caption" dir="ltr">
-          THE GAME. THE CITY. THE ROAD.
-        </span>
-      </div>
-      <CourtArc className="tipoff-arc" />
-      <div className="tipoff-copy">
-        <span className="tipoff-kicker" dir="ltr">
-          ROAD TO BAL <b>2027</b>
-        </span>
-        <h1>
-          طرابلس
-          <br />
-          <span>تستضيف أفريقيا</span>
-        </h1>
-        <p>
-          عشرة أندية. عشر دول.
-          <br />
-          كل الطرق تلتقي على هذا الملعب.
-        </p>
-        <Link className="tipoff-action" href="/matches">
-          <span>استكشف المباريات</span>
-          <span aria-hidden="true">↗</span>
-        </Link>
-      </div>
-      <div className="tipoff-city">
-        <img
-          src="/images/hero-tripoli-reference.png"
-          alt="أضواء طرابلس على البحر"
-        />
-        <span dir="ltr">
-          TRIPOLI
-          <br />
-          <small>LIBYA / HOST CITY</small>
-        </span>
-      </div>
-      <strong className="tipoff-word" dir="ltr" aria-hidden="true">
-        TRIPOLI<span>↗</span>
-      </strong>
-      <div className="tipoff-bottom" dir="ltr">
-        <div className="tipoff-date">
-          <strong>21—25</strong>
-          <span>
-            OCTOBER
-            <br />
-            2026
-          </span>
+        <div className="poster-copy">
+          <p className="poster-eyebrow">AFRICAN BASKETBALL. NEXT CHAPTER.</p>
+          <p className="poster-title">
+            ROAD TO BAL <span>/ 2027</span>
+          </p>
+          <h1>
+            TRIPOLI<span aria-hidden="true">.</span>
+          </h1>
+          <p className="poster-arabic" dir="rtl">
+            طرابلس تستضيف أفريقيا
+          </p>
         </div>
-        {seconds > 0 ? (
-          <div className="tipoff-countdown" aria-label="العد التنازلي">
-            <span className="countdown-label">UNTIL TIP-OFF</span>
-            <div>
-              {count.map((n, i) => (
-                <span key={i}>
-                  <b suppressHydrationWarning>{String(n).padStart(2, "0")}</b>
-                  <small>{["DAYS", "HRS", "MIN", "SEC"][i]}</small>
-                </span>
-              ))}
+        <div className="poster-bottom">
+          <div className="poster-timing">
+            <div className="poster-date">
+              <strong>21—25</strong>
+              <span>OCTOBER 2026</span>
+            </div>
+            {seconds > 0 ? (
+              <div
+                className="poster-countdown"
+                aria-label="العد التنازلي لبدء البطولة"
+              >
+                {count.map((n, i) => (
+                  <div key={i}>
+                    <strong suppressHydrationWarning>
+                      {String(n).padStart(2, "0")}
+                    </strong>
+                    <span>{["DAYS", "HOURS", "MINUTES", "SECONDS"][i]}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <Link className="poster-live" href="/matches">
+                {ended ? "النتائج النهائية" : "تابع المباريات"}
+              </Link>
+            )}
+          </div>
+          <div className="poster-road">
+            <Link href="/the-road" dir="rtl">
+              الطريق يبدأ هنا <ChevronLeft aria-hidden="true" />
+            </Link>
+            <div className="poster-markers" aria-hidden="true">
+              <i />
+              <i />
+              <i />
             </div>
           </div>
-        ) : (
-          <Link href="/matches">
-            {ended ? "النتائج النهائية" : "أيام البطولة — تابع المباريات"}
-          </Link>
-        )}
-        <Link className="tipoff-road-link" href="/the-road">
-          THE ROAD <span>↗</span>
-        </Link>
+        </div>
+      </section>
+      <div className="poster-facts" dir="ltr">
+        <p>THE CONTINENT TAKES THE COURT</p>
+        <div>
+          <BasketballGlyph />
+          <strong>{clubs} CLUBS</strong>
+        </div>
+        <div>
+          <Globe />
+          <strong>{nations} NATIONS</strong>
+        </div>
+        <div>
+          <Users />
+          <strong>{groups} GROUPS</strong>
+        </div>
+        <div>
+          <Mountain />
+          <strong>ONE ROAD.</strong>
+        </div>
       </div>
-    </section>
+    </>
   );
 }

@@ -1,5 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { statSync } from "node:fs";
+import registry from "../lib/team-identity.json";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { ClubRoadMark } from "../app/club-road-primitives";
@@ -15,6 +17,14 @@ const host: Team = {
   group: "A",
   verified: true,
 };
+test("every registered club logo exists at its public URL", () => {
+  for (const team of registry.teams) {
+    assert.ok(
+      statSync(new URL(`../public${team.logoAsset}`, import.meta.url)).size > 0,
+      `${team.id}: missing logo at ${team.logoAsset}`,
+    );
+  }
+});
 const other: Team = {
   id: "test-stade",
   name: "Stade Malien",

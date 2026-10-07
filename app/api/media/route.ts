@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { authorize, rateLimit, db } from "@/lib/store";
-import { mediaStorage } from "@/lib/media-storage";
+import { privateBlobStorage, mediaStorage } from "@/lib/media-storage";
 import { mediaStaging, chunkSize } from "@/lib/media-staging";
 import { boundedBody, PayloadLimit, trustedOrigin } from "@/lib/request";
 import { validateImage } from "@/lib/image-upload";
@@ -29,7 +29,15 @@ export async function POST(req: NextRequest) {
             { error: "Too many uploads" },
             { status: 429 },
           );
-        return NextResponse.json(await mediaStaging.start(value, actor));
+        const upload = await mediaStaging.start(value, actor);
+        return NextResponse.json(
+          process.env.BLOB_READ_WRITE_TOKEN
+            ? {
+                ...upload,
+                ...(await mediaStaging.credential(upload.uploadId, actor)),
+              }
+            : upload,
+        );
       }
       if (value.action !== "complete" || typeof value.uploadId !== "string")
         throw Error("Invalid upload action");
@@ -39,11 +47,21 @@ export async function POST(req: NextRequest) {
           { status: 429 },
         );
       const upload = await mediaStaging.assemble(value.uploadId, actor);
-      if (upload.result)
+      if (upload.result) {
+        if (process.env.BLOB_READ_WRITE_TOKEN)
+          await privateBlobStorage()
+            .removeStaged(value.uploadId)
+            .catch(() => undefined);
         return NextResponse.json({ url: "/api/media/" + upload.result });
+      }
       const { id, bytes } = await validateImage(upload.file!);
       await mediaStorage.put(id, bytes);
       await mediaStaging.finish(value.uploadId, actor, id, bytes.length);
+      // Cleanup after commit only. Retry can return the persisted result if deletion fails.
+      if (process.env.BLOB_READ_WRITE_TOKEN)
+        await privateBlobStorage()
+          .removeStaged(value.uploadId)
+          .catch(() => undefined);
       return NextResponse.json({ url: "/api/media/" + id });
     }
     // Keep the existing multipart API for small uploads and local integrations.
@@ -57,18 +75,23 @@ export async function POST(req: NextRequest) {
     if (!(file instanceof File)) throw Error("�� ������ 5 MB");
     const { id, bytes: clean } = await validateImage(file);
     await mediaStorage.put(id, clean);
-    await db
-      .prepare(
-        "INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,'upload')",
-      )
-      .run(
-        actor,
-        "media",
-        id,
-        null,
-        JSON.stringify({ bytes: clean.length, format: "webp" }),
-        new Date().toISOString(),
-      );
+    await db.transaction(async () => {
+      await db
+        .prepare(
+          "INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,'upload')",
+        )
+        .run(
+          actor,
+          "media",
+          id,
+          null,
+          JSON.stringify({ bytes: clean.length, format: "webp" }),
+          new Date().toISOString(),
+        );
+      await db
+        .prepare("INSERT OR IGNORE INTO media_publications VALUES(?,?)")
+        .run(id, clean.length);
+    })();
     return NextResponse.json({ url: "/api/media/" + id });
   } catch (error) {
     return NextResponse.json(
@@ -83,6 +106,11 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   const actor = await actorFor(req);
   if (typeof actor !== "string") return actor;
+  if (process.env.BLOB_READ_WRITE_TOKEN)
+    return NextResponse.json(
+      { error: "Use private staged upload" },
+      { status: 400 },
+    );
   if (!(await rateLimit("upload-chunk:" + actor, 400)))
     return NextResponse.json(
       { error: "Too many upload chunks" },

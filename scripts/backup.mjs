@@ -9,6 +9,10 @@ import {
   readdirSync,
 } from "node:fs";
 import { createHash } from "node:crypto";
+if (process.env.TURSO_DATABASE_URL)
+  throw Error(
+    "db:backup snapshots local SQLite only. Clear Turso environment explicitly for a local source; use Turso backup/export after cutover.",
+  );
 const source = resolve(process.env.DATABASE_PATH || "data/road.db");
 if (!existsSync(source)) throw Error("Database does not exist");
 const directory = resolve(

@@ -1,0 +1,320 @@
+.event-home > section.tripoli-poster {
+  --poster-orange: #f45a00;
+  position: relative;
+  display: block;
+  isolation: isolate;
+  overflow: hidden;
+  background: #101214;
+  color: #fff;
+  padding: 0;
+  height: calc(100svh - 180px);
+  min-height: 620px;
+  max-height: 900px;
+  border: 0;
+}
+.tripoli-poster .poster-background {
+  object-fit: cover;
+  object-position: center;
+  z-index: -2;
+}
+.tripoli-poster:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, #0003, transparent 65%),
+    linear-gradient(0deg, #000d, transparent 35%);
+}
+.poster-copy {
+  position: absolute;
+  left: 4.7%;
+  top: 11%;
+  text-align: left;
+}
+.poster-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  margin: 0 0 24px;
+}
+.poster-title {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(30px, 3.2vw, 54px);
+  line-height: 1;
+  margin: 0;
+}
+.poster-title span {
+  color: var(--poster-orange);
+}
+.poster-copy h1 {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 400;
+  font-size: clamp(130px, 14vw, 250px);
+  letter-spacing: -0.025em;
+  line-height: 0.9;
+  margin: 10px 0 0;
+  color: #fff;
+}
+.poster-copy h1 span {
+  color: var(--poster-orange);
+}
+.poster-arabic {
+  font-size: clamp(24px, 2.2vw, 38px);
+  font-weight: 800;
+  margin: 12px 0 0;
+  text-align: left;
+  line-height: 1.5;
+}
+.poster-bottom {
+  position: absolute;
+  left: 4.7%;
+  right: 4.7%;
+  bottom: 30px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+.poster-timing {
+  display: flex;
+  align-items: flex-end;
+  gap: 36px;
+}
+.poster-date {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display), sans-serif;
+  line-height: 1;
+}
+.poster-date strong {
+  font-size: clamp(60px, 5.2vw, 90px);
+  font-weight: 400;
+  color: var(--poster-orange);
+}
+.poster-date > span {
+  font-size: 32px;
+}
+.poster-countdown {
+  display: flex;
+  padding-bottom: 2px;
+}
+.poster-countdown > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 96px;
+  border-left: 1px solid #ffffff40;
+  padding: 0 20px;
+  font-family: var(--font-display), sans-serif;
+}
+.poster-countdown strong {
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.1;
+}
+.poster-countdown span {
+  font-size: 17px;
+  margin-top: 7px;
+}
+.poster-road a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 600;
+}
+.poster-road svg {
+  color: var(--poster-orange);
+}
+.poster-markers {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 22px;
+}
+.poster-markers i {
+  height: 5px;
+  width: 35px;
+  border-radius: 4px;
+  background: #ffffff40;
+}
+.poster-markers i:first-child {
+  background: #fff;
+}
+.poster-live {
+  color: #fff;
+}
+.poster-facts {
+  position: relative;
+  background: #f4efe7;
+  color: #080a0c;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 30px 4.7% 12px;
+  gap: 0;
+}
+.poster-facts > p {
+  position: absolute;
+  top: 9px;
+  left: 4.7%;
+  font-size: 9px;
+  letter-spacing: 0.55em;
+  margin: 0;
+}
+.poster-facts > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  border-left: 1px solid #0002;
+}
+.poster-facts > div:nth-child(2) {
+  border: 0;
+}
+.poster-facts svg {
+  height: 46px;
+  width: 46px;
+  stroke-width: 1.6;
+}
+.poster-facts strong {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 400;
+  font-size: 42px;
+  white-space: nowrap;
+}
+.poster-facts > div:last-child strong {
+  color: #e94f00;
+}
+@media (max-width: 1100px) {
+  .poster-countdown > div {
+    min-width: 70px;
+    padding: 0 12px;
+  }
+  .poster-timing {
+    gap: 20px;
+  }
+  .poster-date > span {
+    font-size: 25px;
+  }
+  .poster-facts strong {
+    font-size: 32px;
+  }
+  .poster-facts svg {
+    width: 36px;
+    height: 36px;
+  }
+  .poster-facts > div {
+    gap: 12px;
+  }
+}
+@media (max-width: 700px) {
+  .event-home > section.tripoli-poster {
+    height: 730px;
+    min-height: calc(100svh - 72px);
+    max-height: none;
+  }
+  .tripoli-poster .poster-background {
+    object-position: 62% center;
+  }
+  .tripoli-poster:after {
+    background:
+      linear-gradient(90deg, #0008, transparent),
+      linear-gradient(0deg, #000e, transparent 65%);
+  }
+  .poster-copy {
+    left: 24px;
+    right: 20px;
+    top: 48px;
+  }
+  .poster-eyebrow {
+    font-size: 8px;
+    letter-spacing: 0.25em;
+    margin-bottom: 20px;
+  }
+  .poster-title {
+    font-size: 35px;
+  }
+  .poster-copy h1 {
+    font-size: clamp(105px, 24vw, 165px);
+  }
+  .poster-arabic {
+    font-size: 24px;
+  }
+  .poster-bottom {
+    left: 24px;
+    right: 24px;
+    bottom: 24px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 24px;
+  }
+  .poster-timing {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .poster-date strong {
+    font-size: 70px;
+  }
+  .poster-date > span {
+    font-size: 28px;
+  }
+  .poster-countdown > div {
+    flex: 1;
+    min-width: 0;
+    padding: 0 10px;
+  }
+  .poster-countdown > div:first-child {
+    border: 0;
+  }
+  .poster-countdown strong {
+    font-size: 39px;
+  }
+  .poster-countdown span {
+    font-size: 15px;
+  }
+  .poster-road {
+    align-self: flex-end;
+  }
+  .poster-road a {
+    font-size: 18px;
+  }
+  .poster-markers {
+    margin-top: 12px;
+  }
+  .poster-facts {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 38px 16px 12px;
+    row-gap: 18px;
+  }
+  .poster-facts > p {
+    font-size: 7px;
+    letter-spacing: 0.3em;
+    left: 24px;
+    top: 15px;
+  }
+  .poster-facts > div:nth-child(4) {
+    border: 0;
+  }
+  .poster-facts strong {
+    font-size: 30px;
+  }
+  .poster-facts svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+.poster-copy h1 span {
+  display: inline-block;
+  width: 0.14em;
+  height: 0.19em;
+  border-radius: 50% 50% 0 0;
+  margin-left: 0.03em;
+  background: var(--poster-orange);
+  font-size: inherit;
+  color: transparent;
+}
+.poster-facts svg {
+  fill: none;
+}

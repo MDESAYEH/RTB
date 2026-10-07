@@ -1,7 +1,7 @@
 import { DatabaseSync, backup } from "node:sqlite";
 import { mkdtemp, readFile, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { join, resolve, dirname } from "node:path";
 import { createHash } from "node:crypto";
 import type { InValue } from "@libsql/client";
 import { SqlDatabase } from "./sql-database";
@@ -28,6 +28,37 @@ export async function importDatabase(options: ImportOptions) {
   const temporary = await mkdtemp(join(tmpdir(), "road-import-"));
   let snapshot: DatabaseSync | undefined;
   try {
+    let manifestText: string | undefined;
+    try {
+      manifestText = await readFile(
+        join(dirname(resolve(options.source)), "manifest.json"),
+        "utf8",
+      );
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+    if (manifestText) {
+      const manifest = JSON.parse(manifestText);
+      if (
+        manifest.format !== 1 ||
+        manifest.databaseSha256 !==
+          createHash("sha256")
+            .update(await readFile(options.source))
+            .digest("hex")
+      )
+        throw Error("Snapshot manifest database checksum mismatch");
+      for (const item of manifest.media || []) {
+        if (!validMediaId(item.name))
+          throw Error("Invalid snapshot manifest media ID");
+        if (
+          item.sha256 !==
+          createHash("sha256")
+            .update(await readFile(join(options.mediaDirectory, item.name)))
+            .digest("hex")
+        )
+          throw Error("Snapshot manifest media checksum mismatch");
+      }
+    }
     const source = new DatabaseSync(resolve(options.source), {
       readOnly: true,
     });
@@ -48,9 +79,9 @@ export async function importDatabase(options: ImportOptions) {
     const version = Number(
       snapshot.prepare("PRAGMA user_version").get()?.user_version,
     );
-    if (![3, 4].includes(version))
+    if (![3, 4, 5].includes(version))
       throw Error(
-        "Source must have schema version 3 or 4; upgrade an isolated copy first",
+        "Source must have schema version 3, 4 or 5; upgrade an isolated copy first",
       );
     const schema = snapshot
       .prepare(
@@ -60,6 +91,12 @@ export async function importDatabase(options: ImportOptions) {
     const tables = schema.filter(
       (row) => row.type === "table" && row.name !== "migration_imports",
     );
+    if (
+      snapshot
+        .prepare("SELECT name FROM sqlite_master WHERE name='sqlite_sequence'")
+        .get()
+    )
+      tables.push({ type: "table", name: "sqlite_sequence", sql: "" });
     const content = tables.map((table) => ({
       ...table,
       columns: (
@@ -159,7 +196,12 @@ export async function importDatabase(options: ImportOptions) {
     if (existingTables.some((row) => row.name !== "migration_imports"))
       throw Error("Destination must be empty; refusing merge or overwrite");
     // Publish immutable sanitized source media first; SQL rollback may leave safe unreferenced objects.
-    for (const item of media) await options.media.put(item.id, item.bytes);
+    for (const item of media) {
+      await options.media.put(item.id, item.bytes);
+      const stored = await options.media.get(item.id);
+      if (!stored || !Buffer.from(stored).equals(item.bytes))
+        throw Error("Destination media checksum failed");
+    }
     return await db.transaction(async () => {
       await db.exec(
         "CREATE TABLE IF NOT EXISTS migration_imports(id TEXT PRIMARY KEY,fingerprint TEXT NOT NULL,time TEXT NOT NULL)",
@@ -187,9 +229,9 @@ export async function importDatabase(options: ImportOptions) {
         throw Error("Destination changed during import; refusing overwrite");
       // FK checks are deferred until the full source graph has been inserted.
       await db.exec("PRAGMA defer_foreign_keys=ON");
-      const statements: { sql: string; args?: InValue[] }[] = tables.map(
-        (table) => ({ sql: table.sql }),
-      );
+      const statements: { sql: string; args?: InValue[] }[] = tables
+        .filter((table) => table.sql)
+        .map((table) => ({ sql: table.sql }));
       const expected: { name: string; count: number }[] = [];
       for (const table of content) {
         const rows =
@@ -198,6 +240,8 @@ export async function importDatabase(options: ImportOptions) {
             ? []
             : table.rows;
         expected.push({ name: table.name, count: rows.length });
+        if (table.name === "sqlite_sequence")
+          statements.push({ sql: "DELETE FROM sqlite_sequence" });
         const sql = `INSERT INTO ${identifier(table.name)}(${table.columns.map(identifier).join(",")}) VALUES(${table.columns.map(() => "?").join(",")})`;
         for (const row of rows)
           statements.push({
@@ -227,25 +271,58 @@ export async function importDatabase(options: ImportOptions) {
         size += bytes;
       }
       if (batch.length) await db.batch(batch);
+      const canonicalRows = (rows: unknown[]) =>
+        rows
+          .map((row) =>
+            JSON.stringify(row, (_key, value) =>
+              value instanceof Uint8Array
+                ? { base64: Buffer.from(value).toString("base64") }
+                : value,
+            ),
+          )
+          .sort();
       for (const table of expected) {
         const count = await db
           .prepare(`SELECT count(*) n FROM ${identifier(table.name)}`)
           .get();
         if (Number(count?.n) !== table.count)
           throw Error("Imported row count mismatch");
+        const sourceRows = content.find(
+          (item) => item.name === table.name,
+        )!.rows;
+        const sourceExpected = table.count === 0 ? [] : sourceRows;
+        const destinationRows = await db
+          .prepare(`SELECT * FROM ${identifier(table.name)}`)
+          .all();
+        if (
+          JSON.stringify(canonicalRows(destinationRows)) !==
+          JSON.stringify(canonicalRows(sourceExpected))
+        )
+          throw Error("Imported row checksum mismatch");
       }
       for (const row of schema.filter((row) => row.type !== "table"))
         await db.exec(row.sql);
       await db.exec(storageSchema);
+      for (const item of media) {
+        await db
+          .prepare("INSERT OR IGNORE INTO media_publications VALUES(?,?)")
+          .run(item.id, item.bytes.length);
+      }
       await db.exec(
         "CREATE TABLE IF NOT EXISTS club_profiles(id TEXT PRIMARY KEY,body TEXT NOT NULL CHECK(json_valid(body)))",
       );
-      await db.batch(
-        clubProfiles.map((profile) => ({
-          sql: "INSERT OR IGNORE INTO club_profiles VALUES(?,?)",
-          args: [profile.id, JSON.stringify(profile)],
-        })),
-      );
+      if (!tables.some((table) => table.name === "club_profiles"))
+        await db.batch(
+          clubProfiles.map((profile) => ({
+            sql: "INSERT OR IGNORE INTO club_profiles VALUES(?,?)",
+            args: [profile.id, JSON.stringify(profile)],
+          })),
+        );
+      if (
+        (await db.prepare("PRAGMA integrity_check").get())?.integrity_check !==
+        "ok"
+      )
+        throw Error("Destination integrity failed");
       if ((await db.prepare("PRAGMA foreign_key_check").all()).length)
         throw Error("Destination references failed");
       const sourceRevision = content.find((table) => table.name === "revision")

@@ -69,6 +69,7 @@ export class SqlDatabase {
       this.opening = (async () => {
         const config = this.config();
         if (config.kind === "sqlite" || config.url.startsWith("file:")) {
+          assertLocalStorageAllowed();
           this.serialize = true;
           const key =
             config.kind === "sqlite" ? resolve(config.path) : config.url;
@@ -184,14 +185,14 @@ export class SqlDatabase {
       else {
         // Retry only acquisition; never replay the body or an uncertain COMMIT.
         for (let attempt = 0; ; attempt++) {
-          tx = await this.client!.transaction(mode);
           try {
+            tx = await this.client!.transaction(mode);
             const check = await tx.execute("PRAGMA foreign_keys");
             if (Number(check.rows[0]?.foreign_keys) !== 1)
               throw Error("Database must enforce foreign keys");
             break;
           } catch (error) {
-            tx.close();
+            tx?.close();
             if (
               attempt >= 3 ||
               !["SQLITE_BUSY", "SQLITE_LOCKED"].includes(

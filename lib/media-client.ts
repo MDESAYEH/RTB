@@ -12,23 +12,32 @@ export async function uploadMedia(file: File) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     }).then(json);
-  const { uploadId, chunkSize } = await send({
+  const { uploadId, chunkSize, pathname, clientToken } = await send({
     action: "start",
     name: file.name,
     type: file.type,
     size: file.size,
   });
-  for (
-    let offset = 0, part = 0;
-    offset < file.size;
-    offset += chunkSize, part++
-  ) {
-    const body = file.slice(offset, offset + chunkSize);
-    const response = await fetch(
-      `/api/media?upload=${encodeURIComponent(uploadId)}&part=${part}`,
-      { method: "PUT", body },
-    );
-    await json(response);
+  if (clientToken) {
+    const { put } = await import("@vercel/blob/client");
+    await put(pathname, file, {
+      access: "private",
+      token: clientToken,
+      contentType: file.type,
+    });
+  } else {
+    for (
+      let offset = 0, part = 0;
+      offset < file.size;
+      offset += chunkSize, part++
+    ) {
+      const body = file.slice(offset, offset + chunkSize);
+      const response = await fetch(
+        `/api/media?upload=${encodeURIComponent(uploadId)}&part=${part}`,
+        { method: "PUT", body },
+      );
+      await json(response);
+    }
   }
   return send({ action: "complete", uploadId }) as Promise<{ url: string }>;
 }

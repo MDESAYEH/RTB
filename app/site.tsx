@@ -713,14 +713,10 @@ export default function Site({
           count={count}
           seconds={seconds}
           ended={now > Date.parse(s.end)}
+          clubs={teams.length}
+          nations={new Set(teams.map((team) => team.country)).size}
+          groups={s.groups.length}
         />
-        <div className="ticker">
-          <span>THE ROAD TO BAL</span>
-          <span>
-            TRIPOLI → TOP {s.qualificationSlots} → ELITE 16 → BAL 2027
-          </span>
-          <span>21—25 OCTOBER</span>
-        </div>
         <section>
           <div className="section-title">
             <div>
@@ -1229,7 +1225,9 @@ export default function Site({
               ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : ""}`
               : route !== "admin" && route !== "team"
                 ? `public-page public-${route}`
-                : undefined
+                : route === "admin"
+                  ? "operator-page"
+                  : "club-page"
         }
       >
         {route !== "home" &&

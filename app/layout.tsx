@@ -5,6 +5,8 @@ import "./tournament-campaign.css";
 import "./editorial-club.css";
 import "./sports-utility.css";
 import "./basketball-loading.css";
+import "./home-hero.css";
+import "./african-pattern.css";
 import "@fontsource-variable/noto-sans-arabic/wght.css";
 const displayFont = localFont({
   src: "../node_modules/@fontsource/bebas-neue/files/bebas-neue-latin-400-normal.woff2",
