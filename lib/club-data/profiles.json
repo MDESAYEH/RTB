@@ -1,0 +1,1057 @@
+{
+  "version": 1,
+  "checkedAt": "2026-10-07",
+  "profiles": [
+    {
+      "id": "al-ittihad",
+      "slug": "al-ittihad",
+      "aliases": [],
+      "officialTournamentName": "Al Ittihad",
+      "displayName": "Al Ittihad",
+      "arabicName": "الاتحاد",
+      "shortName": "AI",
+      "country": "Libya",
+      "countryCode": "LY",
+      "group": "A",
+      "bioShort": "الاتحاد يمثل ليبيا في طرابلس بعد تتويجه بلقب الدوري الثامن عشر في 2026.",
+      "bioLong": "حسم الاتحاد بطولة الدوري الليبي لكرة السلة 2026 بسجل كامل من الانتصارات في مرحلة التتويج. يدخل البطولة القارية على أرضه بإرث محلي كبير.",
+      "history": "في 2023 توج الاتحاد بكأس ليبيا بعد الفوز على الأهلي بنغازي 68–55 في طرابلس، محققًا أول لقب له في الكأس منذ 2004.",
+      "storyHeadline": "THE HOSTS OF TRIPOLI",
+      "domesticHonours": [
+        {
+          "title": "LIBYAN CHAMPION",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "league18"
+          ],
+          "count": 18,
+          "year": 2026
+        },
+        {
+          "title": "LIBYAN CUP",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "cup2023"
+          ],
+          "year": 2023
+        }
+      ],
+      "continentalHonours": [],
+      "continentalJourney": [],
+      "recentAchievements": [
+        {
+          "year": 2026,
+          "title": "UNBEATEN CHAMPIONSHIP RUN",
+          "description": "انتصارات كاملة في مرحلة تتويج الدوري.",
+          "sources": [
+            "league18"
+          ],
+          "verificationStatus": "VERIFIED"
+        }
+      ],
+      "keyFacts": [
+        {
+          "text": "بطل ليبيا 2026",
+          "sources": [
+            "league18"
+          ],
+          "verificationStatus": "VERIFIED"
+        },
+        {
+          "text": "18 لقب دوري",
+          "sources": [
+            "league18"
+          ],
+          "verificationStatus": "VERIFIED"
+        }
+      ],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "league18",
+          "title": "Libya Observer — الدوري 2026",
+          "url": "https://libyaobserver.ly/inbrief/al-ittihad-wins-libyan-basketball-championship-18th-time-history",
+          "sourceType": "MEDIA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "cup2023",
+          "title": "Libya Observer — كأس ليبيا 2023",
+          "url": "https://libyaobserver.ly/inbrief/al-ittihad-wins-libyan-basketball-cup-after-beating-al-ahly-benghazi",
+          "sourceType": "MEDIA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "league18"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ],
+        "city": [
+          "fiba2027",
+          "cup2023"
+        ],
+        "bioLong": [
+          "league18"
+        ],
+        "history": [
+          "cup2023"
+        ]
+      },
+      "verificationStatus": "VERIFIED",
+      "verificationNotes": [],
+      "reviewItems": [],
+      "checkedAt": "2026-10-07",
+      "city": "Tripoli"
+    },
+    {
+      "id": "stade-malien",
+      "slug": "stade-malien",
+      "aliases": [],
+      "officialTournamentName": "Stade Malien",
+      "displayName": "Stade Malien",
+      "arabicName": "ستاد ماليان",
+      "shortName": "SM",
+      "country": "Mali",
+      "countryCode": "ML",
+      "group": "A",
+      "bioShort": "من باماكو إلى منصة BAL 2023: ستاد ماليان صاحب المركز الثالث وإرث محلي كبير.",
+      "bioLong": "تأسس النادي في 1960 ويشارك في أعلى درجات الدوري المالي. توثق FIBA له 19 بطولة وطنية و25 كأسًا، وفق تقريرها عن موسم Road to BAL 2025.",
+      "history": "بلغ النهائي الأفريقي للأندية في 1972 و1989. وفي BAL 2023 أنهى رحلته ثالثًا بعد الفوز على Petro de Luanda 73–65، ليصبح أول فريق قادم من Road to BAL يصعد إلى منصة BAL.",
+      "storyHeadline": "FROM BAMAKO TO THE BAL PODIUM",
+      "domesticHonours": [
+        {
+          "title": "MALI NATIONAL CHAMPION",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "stade"
+          ],
+          "count": 19,
+          "note": "إجمالي موثق في تقرير FIBA لموسم 2025؛ لا يُفترض أنه تحديث لجميع المواسم اللاحقة."
+        },
+        {
+          "title": "MALI NATIONAL CUP",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "stade"
+          ],
+          "count": 25
+        }
+      ],
+      "continentalHonours": [
+        {
+          "title": "BAL — 3RD PLACE",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "stade"
+          ],
+          "year": 2023
+        },
+        {
+          "title": "AFRICAN CLUB FINALIST",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "stade"
+          ],
+          "year": 1972
+        },
+        {
+          "title": "AFRICAN CLUB FINALIST",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "stade"
+          ],
+          "year": 1989
+        }
+      ],
+      "continentalJourney": [
+        {
+          "competition": "BAL",
+          "year": 2023,
+          "achievement": "Third place",
+          "sources": [
+            "stade"
+          ],
+          "verificationStatus": "VERIFIED"
+        },
+        {
+          "competition": "Road to BAL",
+          "year": 2024,
+          "achievement": "Advanced from Tripoli group to Elite 16",
+          "sources": [
+            "stade"
+          ],
+          "verificationStatus": "VERIFIED",
+          "season": 2025,
+          "note": "سنة الموسم 2025؛ مرحلة طرابلس أُقيمت في أكتوبر 2024."
+        }
+      ],
+      "recentAchievements": [],
+      "keyFacts": [
+        {
+          "text": "BAL 2023 — المركز الثالث",
+          "sources": [
+            "stade"
+          ],
+          "verificationStatus": "VERIFIED"
+        }
+      ],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "stade",
+          "title": "FIBA — Stade Malien",
+          "url": "https://www.fiba.basketball/en/news/meet-the-team-stade-malien",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "stade"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ],
+        "city": [
+          "stade"
+        ],
+        "foundedYear": [
+          "stade"
+        ],
+        "league": [
+          "stade"
+        ],
+        "arena": [
+          "stade"
+        ],
+        "bioLong": [
+          "stade"
+        ],
+        "history": [
+          "stade"
+        ]
+      },
+      "verificationStatus": "VERIFIED",
+      "verificationNotes": [],
+      "reviewItems": [],
+      "checkedAt": "2026-10-07",
+      "city": "Bamako",
+      "foundedYear": 1960,
+      "league": "Ligue 1",
+      "arena": {
+        "name": "Palais des Sports Salamatou Maiga",
+        "capacity": 8000
+      }
+    },
+    {
+      "id": "nb-staoueli",
+      "slug": "nb-staoueli",
+      "aliases": [],
+      "officialTournamentName": "Nadi Staouedi",
+      "displayName": "NB Staouéli",
+      "arabicName": "ستاولي",
+      "shortName": "NS",
+      "country": "Algeria",
+      "countryCode": "DZ",
+      "group": "A",
+      "bioShort": "نادي ستاوالي حقق ثنائية الدوري والكأس في 2025، للمرة الثانية في تاريخه.",
+      "bioLong": "فاز على USM Alger بنتيجة 59–46 في نهائي كأس الجزائر 2025 ليحقق لقبه الرابع. وفي 2026 بلغ نهائي الدوري قبل خسارة المباراة الحاسمة أمام WO Boufarik 70–66.",
+      "history": "",
+      "storyHeadline": "2025 ALGERIAN DOUBLE",
+      "domesticHonours": [
+        {
+          "title": "ALGERIAN CUP",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "nbcup"
+          ],
+          "count": 4,
+          "year": 2025
+        },
+        {
+          "title": "ALGERIAN CHAMPION",
+          "year": 2025,
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "nbcup"
+          ]
+        },
+        {
+          "title": "LEAGUE + CUP DOUBLE",
+          "count": 2,
+          "year": 2025,
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "nbcup"
+          ],
+          "note": "ثنائيتا 2007 و2025."
+        }
+      ],
+      "continentalHonours": [],
+      "continentalJourney": [],
+      "recentAchievements": [
+        {
+          "year": 2025,
+          "title": "ALGERIAN CUP WINNER",
+          "description": "الفوز على USM Alger بنتيجة 59–46.",
+          "sources": [
+            "nbcup"
+          ],
+          "verificationStatus": "VERIFIED"
+        },
+        {
+          "year": 2026,
+          "title": "LEAGUE RUNNER-UP",
+          "description": "خسارة المباراة الحاسمة أمام WO Boufarik 70–66.",
+          "sources": [
+            "nbleague2026"
+          ],
+          "verificationStatus": "VERIFIED"
+        }
+      ],
+      "keyFacts": [],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "nbcup",
+          "title": "Radio Algérienne — كأس الجزائر 2025",
+          "url": "https://news.radioalgerie.dz/fr/node/66483",
+          "sourceType": "MEDIA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "nbleague2026",
+          "title": "Radio Algérienne — نهائي الدوري 2026",
+          "url": "https://news.radioalgerie.dz/fr/articles/sports?page=6",
+          "sourceType": "MEDIA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "nbcounts",
+          "title": "Radio Algérienne — أرقام الدوري والكأس (النص الكامل يحتاج إعادة تحقق)",
+          "url": "https://news.radioalgerie.dz/fr/node/66483",
+          "sourceType": "MEDIA",
+          "verificationStatus": "PARTIALLY_VERIFIED",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "nbcup"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ],
+        "bioLong": [
+          "nbcup",
+          "nbleague2026"
+        ]
+      },
+      "verificationStatus": "PARTIALLY_VERIFIED",
+      "verificationNotes": [
+        "الاسم القادم من إعلان FIBA محفوظ منفصلًا عن اسم العرض.",
+        "الثنائية 2025 وعدد الثنائيات والكؤوس موثقة؛ إجمالي بطولات الدوري ينتظر مصدرًا إضافيًا."
+      ],
+      "reviewItems": [
+        {
+          "field": "domesticHonours",
+          "value": "3 league titles (2007, 2022, 2025)",
+          "sources": [
+            "nbcounts"
+          ],
+          "verificationStatus": "NEEDS_REVIEW"
+        },
+        {
+          "field": "recentAchievements",
+          "value": "2026 Cup runner-up",
+          "sources": [],
+          "verificationStatus": "NEEDS_REVIEW"
+        }
+      ],
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "nabaya-sofas",
+      "slug": "nabaya-sofas",
+      "aliases": [
+        "nabaya"
+      ],
+      "officialTournamentName": "Nabaya",
+      "displayName": "Nabaya Sofas",
+      "arabicName": "نابايا",
+      "shortName": "NS",
+      "country": "Guinea",
+      "countryCode": "GN",
+      "group": "A",
+      "bioShort": "نابايا ممثل Guinea في مجموعة طرابلس A ضمن Road to BAL 2027.",
+      "bioLong": "",
+      "history": "",
+      "storyHeadline": "FROM GUINEA TO AFRICA",
+      "domesticHonours": [],
+      "continentalHonours": [],
+      "continentalJourney": [],
+      "recentAchievements": [],
+      "keyFacts": [],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "nabmirror",
+          "title": "مرآة منشورات FGBB — 18 سبتمبر 2026",
+          "url": "https://www.localgymsandfitness.com/GN/Conakry/486461414553806/FGBB---F%C3%A9d%C3%A9ration-Guin%C3%A9enne-de-Basketball",
+          "sourceType": "MEDIA",
+          "verificationStatus": "PARTIALLY_VERIFIED",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "fiba2027"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ]
+      },
+      "verificationStatus": "PARTIALLY_VERIFIED",
+      "verificationNotes": [
+        "مرآة منشورات الاتحاد تؤيد أول لقب؛ يلزم رابط أولي مباشر لاعتماد الإنجاز للنشر."
+      ],
+      "reviewItems": [
+        {
+          "field": "city",
+          "value": "Kankan",
+          "sources": [],
+          "verificationStatus": "NEEDS_REVIEW"
+        },
+        {
+          "field": "domesticHonours",
+          "value": "2026 first Guinea league title; Moussa Diabaté MVP",
+          "sources": [
+            "nabmirror"
+          ],
+          "verificationStatus": "PARTIALLY_VERIFIED"
+        },
+        {
+          "field": "domesticHonours",
+          "value": "2026 Cup / league and cup double",
+          "sources": [],
+          "verificationStatus": "NEEDS_REVIEW"
+        }
+      ],
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "kriol-star",
+      "slug": "kriol-star",
+      "aliases": [],
+      "officialTournamentName": "Kriol Star",
+      "displayName": "Kriol Star",
+      "arabicName": "كريول ستار",
+      "shortName": "KS",
+      "country": "Cape Verde",
+      "countryCode": "CV",
+      "group": "A",
+      "bioShort": "أول ممثل للرأس الأخضر في Road to BAL، ومشارك لأول مرة في BAL 2025.",
+      "bioLong": "أنشأ الأخوان Joel وIvan Almeida الفريق التنافسي عام 2024 من خلال Kriol Star Foundation. فاز بالدوري في موسمه الأول ووصل إلى Elite 16 عبر بطاقة دعوة.",
+      "history": "بدأت الرحلة القارية في طرابلس بخسارتين أمام الأهلي طرابلس وستاد ماليان، ثم فتحت بطاقة الدعوة طريق Elite 16. تؤكد FIBA لاحقًا مشاركته في BAL 2025 كأول فريق من الرأس الأخضر.",
+      "storyHeadline": "CAPE VERDE TRAILBLAZERS",
+      "domesticHonours": [
+        {
+          "title": "CHAMPION IN FIRST SEASON",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "kriol"
+          ]
+        }
+      ],
+      "continentalHonours": [
+        {
+          "title": "FIRST CAPE VERDE ROAD TO BAL TEAM",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "kriol"
+          ]
+        },
+        {
+          "title": "BAL PARTICIPANT",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "kriolbal"
+          ],
+          "year": 2025
+        }
+      ],
+      "continentalJourney": [
+        {
+          "competition": "Road to BAL",
+          "year": 2024,
+          "achievement": "Elite 16 wild card",
+          "sources": [
+            "kriol"
+          ],
+          "verificationStatus": "VERIFIED",
+          "season": 2025
+        },
+        {
+          "competition": "BAL",
+          "year": 2025,
+          "achievement": "Debut participant",
+          "sources": [
+            "kriolbal"
+          ],
+          "verificationStatus": "VERIFIED"
+        }
+      ],
+      "recentAchievements": [],
+      "keyFacts": [],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "kriol",
+          "title": "FIBA — Kriol Star",
+          "url": "https://www.fiba.basketball/en/news/meet-the-team-kriol-star",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "kriolbal",
+          "title": "FIBA — المشاركون الجدد في BAL 2025",
+          "url": "https://about.fiba.basketball/en/news/2025-basketball-africa-league-season-to-feature-record-six-new-teams",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "kriol",
+          "kriolbal"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ],
+        "city": [
+          "kriol"
+        ],
+        "foundedYear": [
+          "kriol"
+        ],
+        "league": [
+          "kriol"
+        ],
+        "arena": [
+          "kriol"
+        ],
+        "bioLong": [
+          "kriol"
+        ],
+        "history": [
+          "kriol",
+          "kriolbal"
+        ]
+      },
+      "verificationStatus": "VERIFIED",
+      "verificationNotes": [
+        "2024 تخص الفريق التنافسي؛ ليست تاريخ تأسيس المؤسسة الاجتماعية.",
+        "السعة موثقة؛ الاسم التفصيلي Vavá Duarte بحاجة إلى مصدر مستقل."
+      ],
+      "reviewItems": [],
+      "checkedAt": "2026-10-07",
+      "city": "Praia",
+      "foundedYear": 2024,
+      "foundedScope": "COMPETITIVE_BASKETBALL_TEAM",
+      "league": "Capeverdean Basketball League",
+      "arena": {
+        "name": "Gimno Desportive",
+        "capacity": 7000
+      }
+    },
+    {
+      "id": "spintex-knights",
+      "slug": "spintex-knights",
+      "aliases": [],
+      "officialTournamentName": "Spintex Knights",
+      "displayName": "Spintex Knights",
+      "arabicName": "سبينتكس نايتس",
+      "shortName": "SK",
+      "country": "Ghana",
+      "countryCode": "GH",
+      "group": "B",
+      "bioShort": "تأسس Spintex Knights في 2018 وصنع التاريخ كأول فريق غاني يصل إلى Elite 16.",
+      "bioLong": "أسس النادي Eric Opoku-Antwi وEli Tetteh Bedzrah. فاز بالدوري المحلي قبل رحلته إلى طرابلس، حيث حجز بطاقة Elite 16 في مشاركته القارية الأولى.",
+      "history": "أنهى مجموعة طرابلس ضمن الطريق إلى BAL 2025 ثانيًا بفضل فارق النقاط، ليصبح أول نادٍ غاني يتجاوز هذه المرحلة.",
+      "storyHeadline": "FROM 2018 TO ELITE 16",
+      "domesticHonours": [],
+      "continentalHonours": [
+        {
+          "title": "FIRST GHANAIAN ELITE 16 CLUB",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "spintex"
+          ]
+        }
+      ],
+      "continentalJourney": [
+        {
+          "competition": "Road to BAL",
+          "year": 2024,
+          "achievement": "Elite 16",
+          "sources": [
+            "spintex"
+          ],
+          "verificationStatus": "VERIFIED",
+          "season": 2025
+        }
+      ],
+      "recentAchievements": [],
+      "keyFacts": [
+        {
+          "text": "تأسس في 2018",
+          "sources": [
+            "spintex"
+          ],
+          "verificationStatus": "VERIFIED"
+        },
+        {
+          "text": "أول فريق غاني في Elite 16",
+          "sources": [
+            "spintex"
+          ],
+          "verificationStatus": "VERIFIED"
+        }
+      ],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "spintex",
+          "title": "FIBA — Spintex Knights",
+          "url": "https://www.fiba.basketball/en/news/meet-the-team-spintex-knights",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "spintexclub",
+          "title": "Spintex Knights — الموقع الرسمي",
+          "url": "https://www.spintexknights.com/",
+          "sourceType": "CLUB",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "spintex"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ],
+        "city": [
+          "spintex"
+        ],
+        "foundedYear": [
+          "spintex"
+        ],
+        "bioLong": [
+          "spintex"
+        ],
+        "history": [
+          "spintex"
+        ],
+        "nickname": [
+          "spintexclub"
+        ]
+      },
+      "verificationStatus": "VERIFIED",
+      "verificationNotes": [],
+      "reviewItems": [
+        {
+          "field": "recentAchievements",
+          "value": "2023 top-division champion",
+          "sources": [
+            "spintex"
+          ],
+          "verificationStatus": "NEEDS_REVIEW"
+        }
+      ],
+      "checkedAt": "2026-10-07",
+      "city": "Accra",
+      "foundedYear": 2018,
+      "nickname": "The Nobles"
+    },
+    {
+      "id": "as-douanes",
+      "slug": "as-douanes",
+      "aliases": [
+        "as-douanes-burkina"
+      ],
+      "officialTournamentName": "AS Douanes",
+      "displayName": "AS Douanes",
+      "arabicName": "الجمارك",
+      "shortName": "AD",
+      "country": "Burkina Faso",
+      "countryCode": "BF",
+      "group": "B",
+      "bioShort": "الجمارك ممثل Burkina Faso في مجموعة طرابلس B ضمن Road to BAL 2027.",
+      "bioLong": "",
+      "history": "",
+      "storyHeadline": "BURKINA FASO TO TRIPOLI",
+      "domesticHonours": [],
+      "continentalHonours": [],
+      "continentalJourney": [],
+      "recentAchievements": [],
+      "keyFacts": [],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "douaneswiki",
+          "title": "سجل ثانوي — دوري بوركينا فاسو",
+          "url": "https://en.wikipedia.org/wiki/Burkinab%C3%A9_Men%27s_Basketball_Championship",
+          "sourceType": "MEDIA",
+          "verificationStatus": "NEEDS_REVIEW",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "fiba2027"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ]
+      },
+      "verificationStatus": "PARTIALLY_VERIFIED",
+      "verificationNotes": [
+        "هذا نادي بوركينا فاسو؛ يُمنع دمجه مع نادي السنغال.",
+        "المدينة والتأسيس وعدد الألقاب والملعب غير معتمدة."
+      ],
+      "reviewItems": [
+        {
+          "field": "domesticHonours",
+          "value": "2024–25 champion; USFA 51–29",
+          "sources": [
+            "douaneswiki"
+          ],
+          "verificationStatus": "NEEDS_REVIEW"
+        }
+      ],
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "energie-bc",
+      "slug": "energie-bbc",
+      "aliases": [
+        "energie-bbc"
+      ],
+      "officialTournamentName": "Energie BC",
+      "displayName": "Énergie BBC",
+      "arabicName": "إنرجي",
+      "shortName": "EB",
+      "country": "Benin",
+      "countryCode": "BJ",
+      "group": "B",
+      "bioShort": "بطل بنين للرجال 2026 بعد الفوز على ASPAC BBC بنتيجة 58–55.",
+      "bioLong": "حسم فريق الرجال بطولة بنين في 25 يوليو 2026 بعد نهائي متقارب أمام ASPAC BBC. إنجازاته هنا تخص الرجال وحدهم، وتبقى منفصلة عن ألقاب فريق السيدات.",
+      "history": "",
+      "storyHeadline": "2026 BENIN CHAMPIONS",
+      "domesticHonours": [
+        {
+          "title": "BENIN MEN’S CHAMPION",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "energie"
+          ],
+          "year": 2026
+        }
+      ],
+      "continentalHonours": [],
+      "continentalJourney": [],
+      "recentAchievements": [
+        {
+          "year": 2026,
+          "title": "BENIN MEN’S CHAMPION",
+          "description": "Énergie BBC 58–55 ASPAC BBC",
+          "sources": [
+            "energie"
+          ],
+          "verificationStatus": "VERIFIED"
+        }
+      ],
+      "keyFacts": [],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "energie",
+          "title": "MEGA SPORTS — نهائي الرجال 2026",
+          "url": "https://megasportsmedia.com/articles/benin-energie-bbc-double-basketb",
+          "sourceType": "MEDIA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "energie"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ],
+        "bioLong": [
+          "energie"
+        ]
+      },
+      "verificationStatus": "VERIFIED",
+      "verificationNotes": [],
+      "reviewItems": [
+        {
+          "field": "keyFacts",
+          "value": "Nour Seydou Diallo — season MVP",
+          "sources": [],
+          "verificationStatus": "NEEDS_REVIEW"
+        }
+      ],
+      "checkedAt": "2026-10-07"
+    },
+    {
+      "id": "npa-pythons",
+      "slug": "npa-pythons",
+      "aliases": [],
+      "officialTournamentName": "NPA Pythons",
+      "displayName": "NPA Pythons",
+      "arabicName": "إن بي إيه بايثونز",
+      "shortName": "NP",
+      "country": "Liberia",
+      "countryCode": "LR",
+      "group": "B",
+      "bioShort": "بطل ليبيريا 2026 بعد الفوز بسلسلة النهائي 3–2 أمام LPRC Oilers.",
+      "bioLong": "حسم NPA Pythons المباراة الخامسة 46–38 في 15 أغسطس 2026. منح التتويج الفريق فرصة تمثيل ليبيريا في منافسات الأندية الأفريقية.",
+      "history": "",
+      "storyHeadline": "THE PYTHONS ARE BACK",
+      "domesticHonours": [
+        {
+          "title": "LIBERIA FIRST DIVISION CHAMPION",
+          "verified": true,
+          "verificationStatus": "VERIFIED",
+          "sources": [
+            "npa"
+          ],
+          "year": 2026
+        }
+      ],
+      "continentalHonours": [],
+      "continentalJourney": [],
+      "recentAchievements": [
+        {
+          "year": 2026,
+          "title": "CHAMPIONSHIP SERIES 3–2",
+          "description": "Game 5: NPA Pythons 46–38 LPRC Oilers",
+          "sources": [
+            "npa"
+          ],
+          "verificationStatus": "VERIFIED"
+        }
+      ],
+      "keyFacts": [
+        {
+          "text": "Jerror Tarwo — First Division MVP 2026",
+          "sources": [
+            "npa"
+          ],
+          "verificationStatus": "VERIFIED"
+        },
+        {
+          "text": "Raphael Quaye — Best Coach 2026",
+          "sources": [
+            "npa"
+          ],
+          "verificationStatus": "VERIFIED"
+        }
+      ],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        },
+        {
+          "id": "npa",
+          "title": "FrontPageAfrica — LBA 2026",
+          "url": "https://frontpageafricaonline.com/liberia-npa-pythons-crowned-2026-lba-first-division-champions/",
+          "sourceType": "MEDIA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "npa"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ],
+        "city": [
+          "npa"
+        ],
+        "league": [
+          "npa"
+        ],
+        "bioLong": [
+          "npa"
+        ]
+      },
+      "verificationStatus": "VERIFIED",
+      "verificationNotes": [],
+      "reviewItems": [
+        {
+          "field": "historicTitleCount",
+          "value": 3,
+          "sources": [],
+          "verificationStatus": "PARTIALLY_VERIFIED"
+        },
+        {
+          "field": "domesticHonours",
+          "value": "2007 and 2019 titles",
+          "sources": [],
+          "verificationStatus": "NEEDS_REVIEW"
+        }
+      ],
+      "checkedAt": "2026-10-07",
+      "city": "Monrovia",
+      "league": "LBA First Division"
+    },
+    {
+      "id": "red-flames",
+      "slug": "red-flames",
+      "aliases": [],
+      "officialTournamentName": "Red Flames",
+      "displayName": "Red Flames",
+      "arabicName": "ريد فليمز",
+      "shortName": "RF",
+      "country": "Sierra Leone",
+      "countryCode": "SL",
+      "group": "B",
+      "bioShort": "ريد فليمز ممثل Sierra Leone في مجموعة طرابلس B ضمن Road to BAL 2027.",
+      "bioLong": "",
+      "history": "",
+      "storyHeadline": "SIERRA LEONE TO TRIPOLI",
+      "domesticHonours": [],
+      "continentalHonours": [],
+      "continentalJourney": [],
+      "recentAchievements": [],
+      "keyFacts": [],
+      "sources": [
+        {
+          "id": "fiba2027",
+          "title": "FIBA — مجموعات Road to BAL 2027",
+          "url": "https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027",
+          "sourceType": "FIBA",
+          "verificationStatus": "VERIFIED",
+          "checkedAt": "2026-10-07"
+        }
+      ],
+      "fieldSources": {
+        "bioShort": [
+          "fiba2027"
+        ],
+        "officialTournamentName": [
+          "fiba2027"
+        ]
+      },
+      "verificationStatus": "NEEDS_REVIEW",
+      "verificationNotes": [
+        "المشاركة والدولة والمجموعة موثقة؛ التاريخ المحلي يحتاج التحقق."
+      ],
+      "reviewItems": [
+        {
+          "field": "possibleLocalName",
+          "value": "Archibald Red Flames",
+          "sources": [],
+          "verificationStatus": "NEEDS_REVIEW"
+        }
+      ],
+      "checkedAt": "2026-10-07"
+    }
+  ]
+}

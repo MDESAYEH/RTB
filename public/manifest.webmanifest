@@ -1,0 +1,18 @@
+{
+  "name": "THE ROAD · طرابلس 2027",
+  "short_name": "THE ROAD",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07111F",
+  "theme_color": "#07111F",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/Artboard%201-8.png",
+      "sizes": "1920x1921",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
