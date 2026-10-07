@@ -34,9 +34,9 @@ test("production-like imports do not create SQLite or media directories", () => 
       const {db}=await import('./lib/store.ts');
       await import('./lib/club-repository.ts');
       const {mediaStorage}=await import('./lib/media-storage.ts');
-      assert.throws(()=>db.prepare('SELECT 1'), /Persistent storage is not configured/);
-      await assert.rejects(mediaStorage.put('a'.repeat(64)+'.webp', new Uint8Array([1])), /Persistent storage is not configured/);
-      await assert.rejects(mediaStorage.get('a'.repeat(64)+'.webp'), /Persistent storage is not configured/);`;
+      await assert.rejects(db.prepare('SELECT 1').get(), /TURSO_DATABASE_URL/);
+      await assert.rejects(mediaStorage.put('a'.repeat(64)+'.webp', new Uint8Array([1])), /BLOB_READ_WRITE_TOKEN/);
+      await assert.rejects(mediaStorage.get('a'.repeat(64)+'.webp'), /BLOB_READ_WRITE_TOKEN/);`;
     const result = spawnSync(
       process.execPath,
       ["--import", "tsx", "--input-type=module", "-e", code],
@@ -46,6 +46,9 @@ test("production-like imports do not create SQLite or media directories", () => 
           NODE_ENV: "production",
           VERCEL: "1",
           DATABASE_PATH: path,
+          TURSO_DATABASE_URL: "",
+          TURSO_AUTH_TOKEN: "",
+          BLOB_READ_WRITE_TOKEN: "",
         },
         encoding: "utf8",
       },

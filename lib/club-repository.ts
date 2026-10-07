@@ -7,22 +7,26 @@ import {
 } from "./club-profile";
 // Independent historical records. No writes to games, teams, stats, revision or qualification.
 let initialized = false;
-function initialize() {
+async function initialize() {
   if (initialized) return;
-  db.exec(
+  if (process.env.TURSO_DATABASE_URL) {
+    initialized = true;
+    return;
+  }
+  await db.exec(
     "CREATE TABLE IF NOT EXISTS club_profiles(id TEXT PRIMARY KEY,body TEXT NOT NULL CHECK(json_valid(body)))",
   );
-  db.transaction(() => {
+  await db.transaction(async () => {
     const insert = db.prepare(
       "INSERT OR IGNORE INTO club_profiles(id,body) VALUES(?,?)",
     );
-    for (const p of clubProfiles) insert.run(p.id, JSON.stringify(p));
+    for (const p of clubProfiles) await insert.run(p.id, JSON.stringify(p));
   })();
   initialized = true;
 }
 export class ManualClubDataProvider {
-  getProfile(idOrSlug: string): ClubProfile | undefined {
-    initialize();
+  async getProfile(idOrSlug: string): Promise<ClubProfile | undefined> {
+    await initialize();
     const match = clubProfiles.find(
       (p) =>
         p.id === idOrSlug ||
@@ -30,13 +34,17 @@ export class ManualClubDataProvider {
         p.aliases.includes(idOrSlug),
     );
     if (!match) return;
-    const row = db
+    const row = (await db
       .prepare("SELECT body FROM club_profiles WHERE id=?")
-      .get(match.id) as { body: string } | undefined;
+      .get(match.id)) as
+      | {
+          body: string;
+        }
+      | undefined;
     return clubProfileSchema.parse(row ? JSON.parse(row.body) : match);
   }
-  getPublicProfile(idOrSlug: string) {
-    const p = this.getProfile(idOrSlug);
+  async getPublicProfile(idOrSlug: string) {
+    const p = await this.getProfile(idOrSlug);
     return p ? publicClubProfile(p) : undefined;
   }
 }

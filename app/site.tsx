@@ -1,4 +1,5 @@
 "use client";
+import { uploadMedia } from "@/lib/media-client";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import type { ClubProfile } from "@/lib/club-profile";
@@ -1781,15 +1782,8 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
               onChange={async (e) => {
                 const file = e.target.files?.[0];
                 if (!file) return;
-                const body = new FormData();
-                body.append("file", file);
                 try {
-                  const r = await fetch("/api/media", { method: "POST", body });
-                  const v = await r.json();
-                  if (!r.ok) {
-                    setError(v.error);
-                    return;
-                  }
+                  const v = await uploadMedia(file);
                   const key =
                     kind === "teams"
                       ? "logo"

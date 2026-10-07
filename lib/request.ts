@@ -1,6 +1,6 @@
 /** Enforce byte limits while reading, including requests without Content-Length. */
 export async function boundedBody(
-  req: Request,
+  req: Pick<Request, "headers" | "body">,
   limit: number,
 ): Promise<Uint8Array> {
   if (Number(req.headers.get("content-length") || 0) > limit)

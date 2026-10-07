@@ -10,17 +10,17 @@ export async function GET(req: Request) {
   const query = new URL(req.url).searchParams;
   const path = [query.get("type") || "", query.get("id") || ""];
   const game =
-    path[0] === "matches" && path[1] ? provider.getGame(path[1]) : null;
+    path[0] === "matches" && path[1] ? await provider.getGame(path[1]) : null;
   const team =
     ["team", "teams"].includes(path[0]) && path[1]
-      ? provider.getTeam(path[1])
+      ? await provider.getTeam(path[1])
       : null;
   const news =
     path[0] === "news"
-      ? provider.getNews().find((n) => n.slug === path[1])
+      ? (await provider.getNews()).find((n) => n.slug === path[1])
       : null;
   const title = game
-    ? `${provider.getTeam(game.home)?.name} vs ${provider.getTeam(game.away)?.name}`
+    ? `${(await provider.getTeam(game.home))?.name} vs ${(await provider.getTeam(game.away))?.name}`
     : team?.name || news?.title || "TRIPOLI IS THE COURT";
   // Pango shapes Arabic correctly; Satori's OpenType subset cannot render this font's GSUB.
   const escape = (text: string) =>

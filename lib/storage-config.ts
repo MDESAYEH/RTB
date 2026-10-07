@@ -11,6 +11,10 @@ export class StorageConfigurationError extends Error {
 export function assertLocalStorageAllowed(
   env: Record<string, string | undefined> = process.env,
 ) {
-  if (env.VERCEL === "1" || env.VERCEL_ENV || env.VERCEL_TARGET_ENV)
+  if (isVercel(env))
     throw new StorageConfigurationError();
+}
+
+export function isVercel(env: Record<string, string | undefined> = process.env) {
+  return env.VERCEL === "1" || Boolean(env.VERCEL_ENV || env.VERCEL_TARGET_ENV);
 }

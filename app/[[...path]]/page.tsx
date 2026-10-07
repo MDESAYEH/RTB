@@ -1,31 +1,33 @@
 import { clubProvider } from "@/lib/club-repository";
 import { notFound, permanentRedirect } from "next/navigation";
-import { provider, list, revision } from "@/lib/store";
+import { provider, snapshotData } from "@/lib/store";
 import Site from "@/app/site";
 export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ path?: string[] }>;
+  params: Promise<{
+    path?: string[];
+  }>;
 }) {
   const { path = [] } = await params;
   const game =
-    path[0] === "matches" && path[1] ? provider.getGame(path[1]) : null;
+    path[0] === "matches" && path[1] ? await provider.getGame(path[1]) : null;
   const profile =
     ["team", "teams"].includes(path[0]) && path[1]
-      ? clubProvider.getPublicProfile(path[1])
+      ? await clubProvider.getPublicProfile(path[1])
       : undefined;
-  const team = profile ? provider.getTeam(profile.id) : null;
+  const team = profile ? await provider.getTeam(profile.id) : null;
   const news =
     path[0] === "news"
-      ? provider.getNews().find((n) => n.slug === path[1])
+      ? (await provider.getNews()).find((n) => n.slug === path[1])
       : null;
   const title = profile
     ? `${profile.displayName} | Road to BAL Tripoli 2027`
     : game
-      ? provider.getTeam(game.home)?.name +
+      ? (await provider.getTeam(game.home))?.name +
         " vs " +
-        provider.getTeam(game.away)?.name
+        (await provider.getTeam(game.away))?.name
       : team?.name ||
         news?.title ||
         (
@@ -92,7 +94,9 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ path?: string[] }>;
+  params: Promise<{
+    path?: string[];
+  }>;
 }) {
   const { path = [] } = await params;
   const valid = [
@@ -116,14 +120,18 @@ export default async function Page({
     notFound();
   if (
     path[0] === "players" &&
-    !(provider.getPlayers() as { id: string }[]).some((p) => p.id === path[1])
+    !(
+      (await provider.getPlayers()) as {
+        id: string;
+      }[]
+    ).some((p) => p.id === path[1])
   )
     notFound();
-  if (path[0] === "matches" && path[1] && !provider.getGame(path[1]))
+  if (path[0] === "matches" && path[1] && !(await provider.getGame(path[1])))
     notFound();
   const profile =
     ["team", "teams"].includes(path[0]) && path[1]
-      ? clubProvider.getPublicProfile(path[1])
+      ? await clubProvider.getPublicProfile(path[1])
       : undefined;
   if ((path[0] === "team" || (path[0] === "teams" && path[1])) && !profile)
     notFound();
@@ -133,25 +141,14 @@ export default async function Page({
   if (
     path[0] === "news" &&
     path[1] &&
-    !provider.getNews().some((n) => n.slug === path[1])
+    !(await provider.getNews()).some((n) => n.slug === path[1])
   )
     notFound();
   return (
     <Site
       historicalProfile={profile}
       path={renderPath}
-      initial={{
-        settings: provider.getTournament(),
-        teams: provider.getTeams(),
-        games: provider.getGames(),
-        news: provider.getNews(),
-        players: provider.getPlayers(),
-        stats: list("stats"),
-        events: list("events"),
-        teamStats: list("teamStats"),
-        pulse: list("pulse"),
-        revision: revision(),
-      }}
+      initial={await snapshotData()}
     />
   );
 }

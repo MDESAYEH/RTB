@@ -1,15 +1,37 @@
 import { revision } from "@/lib/store";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-export function GET(req: Request) {
+export const maxDuration = 300;
+export async function GET(req: Request) {
+  // Fail before streaming, so unavailable storage is not mistaken for a healthy feed.
+  await revision();
   const encoder = new TextEncoder();
-  let timer: ReturnType<typeof setInterval>;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  let stopped = false;
+  let closeStream: (() => void) | undefined;
+  const stop = () => {
+    stopped = true;
+    clearTimeout(timer);
+    req.signal.removeEventListener("abort", stop);
+    closeStream?.();
+  };
   const stream = new ReadableStream({
     start(controller) {
-      let last = -1;
-      const send = () => {
+      closeStream = () => {
         try {
-          const r = revision();
+          controller.close();
+        } catch {}
+      };
+      let last = -1;
+      const deadline = Date.now() + 240000;
+      const send = async () => {
+        try {
+          if (stopped || Date.now() >= deadline) {
+            stop();
+            return;
+          }
+          const r = await revision();
+          if (stopped) return;
           controller.enqueue(
             encoder.encode(
               r !== last
@@ -18,35 +40,26 @@ export function GET(req: Request) {
             ),
           );
           last = r;
+          timer = setTimeout(() => {
+            void send();
+          }, 2000);
         } catch {
-          clearInterval(timer);
-          try {
-            controller.close();
-          } catch {}
+          stop();
         }
       };
-      send();
-      timer = setInterval(send, 2000);
-      req.signal.addEventListener(
-        "abort",
-        () => {
-          clearInterval(timer);
-          try {
-            controller.close();
-          } catch {}
-        },
-        { once: true },
-      );
+      req.signal.addEventListener("abort", stop, { once: true });
+      if (req.signal.aborted) stop();
+      else void send();
     },
     cancel() {
-      clearInterval(timer);
+      closeStream = undefined;
+      stop();
     },
   });
   return new Response(stream, {
     headers: {
       "Content-Type": "text/event-stream",
       "Cache-Control": "no-cache, no-transform",
-      Connection: "keep-alive",
       "X-Accel-Buffering": "no",
     },
   });
