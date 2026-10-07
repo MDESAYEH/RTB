@@ -19,11 +19,10 @@ test-results/
 coverage/
 
 # Verification artifacts
-verification/*.png
+verification/
 
 # TypeScript
 *.tsbuildinfo
-tsconfig.tsbuildinfo
 
 # Logs
 *.log
@@ -32,10 +31,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Vercel
+.vercel/
+
 # OS / Editor
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
-.vercel
-.env*
