@@ -1,0 +1,1159 @@
+{
+  "base": "http://127.0.0.1:3001",
+  "errors": [],
+  "expectedUnauthorized": [],
+  "views": [
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 256,
+        "cls": 0.005452634279760804
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 84,
+        "cls": 0.006117406277302731
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 80,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 72,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 72,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0.44371863650559024
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/matches/visual-ended",
+      "overflow": false,
+      "metrics": {
+        "lcp": 72,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/matches/visual-halftime",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/matches/visual-live",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/matches/visual-scheduled",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/news/visual-news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "خبر تجريبي للمراجعة البصرية",
+      "resources": 156543
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/players/visual-player",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "لاعب اختبار بصري",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 88,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 44,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 44,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0.4444650178743006
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/matches/visual-ended",
+      "overflow": false,
+      "metrics": {
+        "lcp": 76,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/matches/visual-halftime",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/matches/visual-live",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/matches/visual-scheduled",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/news/visual-news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "خبر تجريبي للمراجعة البصرية",
+      "resources": 156543
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/players/visual-player",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "لاعب اختبار بصري",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 104,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 84,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 76,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0.3249119006795809
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/matches/visual-ended",
+      "overflow": false,
+      "metrics": {
+        "lcp": 80,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/matches/visual-halftime",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/matches/visual-live",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/matches/visual-scheduled",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/news/visual-news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "خبر تجريبي للمراجعة البصرية",
+      "resources": 156543
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/players/visual-player",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "لاعب اختبار بصري",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 104,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0.14825081899483875
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/matches/visual-ended",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/matches/visual-halftime",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/matches/visual-live",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/matches/visual-scheduled",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/news/visual-news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "خبر تجريبي للمراجعة البصرية",
+      "resources": 156543
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/players/visual-player",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "لاعب اختبار بصري",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 84,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 96,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0.18000680514363104
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/matches/visual-ended",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/matches/visual-halftime",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/matches/visual-live",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/matches/visual-scheduled",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/news/visual-news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "خبر تجريبي للمراجعة البصرية",
+      "resources": 156543
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/players/visual-player",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "لاعب اختبار بصري",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 108,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 72,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0.11974978365329067
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/matches/visual-ended",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/matches/visual-halftime",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/matches/visual-live",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/matches/visual-scheduled",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/news/visual-news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "خبر تجريبي للمراجعة البصرية",
+      "resources": 156543
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/players/visual-player",
+      "overflow": false,
+      "metrics": {
+        "lcp": 44,
+        "cls": 0
+      },
+      "h1": "لاعب اختبار بصري",
+      "resources": 156543
+    }
+  ]
+}

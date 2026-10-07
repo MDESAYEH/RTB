@@ -1,0 +1,1053 @@
+{
+  "conditions": "cold cache;390x844;CPU4x;RTT150ms;1.6Mbps;3 samples",
+  "results": [
+    {
+      "lcp": [
+        {
+          "time": 1364,
+          "size": 26162,
+          "url": "",
+          "element": "<strong>TRI<span>POLI</span></strong>",
+          "font": "displayFont, Impact, sans-serif"
+        }
+      ],
+      "cls": 0.004544680801742076,
+      "longTasks": [
+        {
+          "start": 787.7000000011176,
+          "duration": 525
+        },
+        {
+          "start": 1975.4000000003725,
+          "duration": 244
+        },
+        {
+          "start": 2702.7000000011176,
+          "duration": 678
+        },
+        {
+          "start": 3381.0999999996275,
+          "duration": 546
+        },
+        {
+          "start": 3987.2000000011176,
+          "duration": 303
+        },
+        {
+          "start": 4476,
+          "duration": 118
+        },
+        {
+          "start": 4616.4000000003725,
+          "duration": 69
+        },
+        {
+          "start": 5029.700000001118,
+          "duration": 110
+        },
+        {
+          "start": 6081.9000000003725,
+          "duration": 79
+        },
+        {
+          "start": 6709.300000000745,
+          "duration": 104
+        },
+        {
+          "start": 7593.300000000745,
+          "duration": 118
+        }
+      ],
+      "navigation": {
+        "name": "http://127.0.0.1:3000/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 3403.4000000003725,
+        "navigationId": 3595,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "gzip",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.599999999627471,
+        "domainLookupStart": 0.599999999627471,
+        "domainLookupEnd": 0.599999999627471,
+        "connectStart": 0.599999999627471,
+        "secureConnectionStart": 0,
+        "connectEnd": 0.599999999627471,
+        "requestStart": 2,
+        "responseStart": 273.30000000074506,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 273.30000000074506,
+        "responseEnd": 314.40000000037253,
+        "transferSize": 7432,
+        "encodedBodySize": 7132,
+        "decodedBodySize": 25610,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 694.5999999996275,
+        "domContentLoadedEventStart": 694.8000000007451,
+        "domContentLoadedEventEnd": 695,
+        "domComplete": 3402.9000000003725,
+        "loadEventStart": 3403.2000000011176,
+        "loadEventEnd": 3403.4000000003725,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "low"
+        }
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "type": "link",
+          "start": 304,
+          "request": 306.7000000011176,
+          "response": 316.80000000074506,
+          "end": 752.2000000011176,
+          "bytes": 13768,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/1mny81wjnoe_i.css",
+          "type": "link",
+          "start": 309.59999999962747,
+          "request": 311.2000000011176,
+          "response": 319.40000000037253,
+          "end": 672.9000000003725,
+          "bytes": 8298,
+          "blocking": "blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "type": "link",
+          "start": 310.30000000074506,
+          "request": 343.90000000037253,
+          "response": 348.2000000011176,
+          "end": 562.5,
+          "bytes": 2029,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/19mx3mg6lkumu.js",
+          "type": "script",
+          "start": 311.40000000037253,
+          "request": 345.90000000037253,
+          "response": 351.2000000011176,
+          "end": 720.2000000011176,
+          "bytes": 7614,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3g4px251sg85e.js",
+          "type": "script",
+          "start": 312.2000000011176,
+          "request": 346,
+          "response": 353.7000000011176,
+          "end": 1966.800000000745,
+          "bytes": 71576,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2z-e6jheq0ftu.js",
+          "type": "script",
+          "start": 312.90000000037253,
+          "request": 346.09999999962747,
+          "response": 352.80000000074506,
+          "end": 1495.2000000011176,
+          "bytes": 45185,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/turbopack-2rm0-2te9ex-9.js",
+          "type": "script",
+          "start": 314,
+          "request": 562.9000000003725,
+          "response": 566.3000000007451,
+          "end": 815.5,
+          "bytes": 4305,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3fntmmi971322.js",
+          "type": "script",
+          "start": 315,
+          "request": 673.3000000007451,
+          "response": 675.7000000011176,
+          "end": 894.5,
+          "bytes": 3661,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/1po0b7sgaw-ij.js",
+          "type": "script",
+          "start": 316,
+          "request": 752.5999999996275,
+          "response": 754.9000000003725,
+          "end": 942.2000000011176,
+          "bytes": 447,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2g8y-4s0bp0kj.js",
+          "type": "script",
+          "start": 316.90000000037253,
+          "request": 894.8000000007451,
+          "response": 899.5999999996275,
+          "end": 2693.4000000003725,
+          "bytes": 114990,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-arabic-wght-normal.30bz475acv3ru.woff2",
+          "type": "css",
+          "start": 702,
+          "request": 720.5,
+          "response": 723.3000000007451,
+          "end": 2899,
+          "bytes": 165960,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-latin-wght-normal.1cdblfv-mupc1.woff2",
+          "type": "css",
+          "start": 803.0999999996275,
+          "request": 815.5999999996275,
+          "response": 818,
+          "end": 1715.7000000011176,
+          "bytes": 31416,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/icon.svg?icon.2lyu3-gl6hzm7.svg",
+          "type": "other",
+          "start": 4297.200000001118,
+          "request": 4298.300000000745,
+          "response": 4302.800000000745,
+          "end": 4476.300000000745,
+          "bytes": 285,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 4570.0999999996275,
+          "request": 4571,
+          "response": 4587.200000001118,
+          "end": 4760.0999999996275,
+          "bytes": 1077,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/matches?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 4574.700000001118,
+          "request": 4576.300000000745,
+          "response": 4600.4000000003725,
+          "end": 4776.0999999996275,
+          "bytes": 1063,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/the-road?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 4585.4000000003725,
+          "request": 4586.700000001118,
+          "response": 4607.9000000003725,
+          "end": 4791.700000001118,
+          "bytes": 1038,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/standings?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 4593.300000000745,
+          "request": 4595,
+          "response": 4715.9000000003725,
+          "end": 4792.0999999996275,
+          "bytes": 1065,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/teams?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 4803.9000000003725,
+          "request": 4807.5999999996275,
+          "response": 4816.9000000003725,
+          "end": 4981.9000000003725,
+          "bytes": 1049,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/api/data",
+          "type": "fetch",
+          "start": 4837.4000000003725,
+          "request": 4839.200000001118,
+          "response": 4879.300000000745,
+          "end": 5013,
+          "bytes": 1560,
+          "blocking": "non-blocking"
+        }
+      ],
+      "fonts": [
+        {
+          "family": "displayFont",
+          "weight": "400",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        }
+      ],
+      "images": [],
+      "preloads": [
+        {
+          "href": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "as": "script"
+        },
+        {
+          "href": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "as": "font"
+        }
+      ]
+    },
+    {
+      "lcp": [
+        {
+          "time": 1256,
+          "size": 26162,
+          "url": "",
+          "element": "<strong>TRI<span>POLI</span></strong>",
+          "font": "displayFont, Impact, sans-serif"
+        }
+      ],
+      "cls": 0.004544680801742076,
+      "longTasks": [
+        {
+          "start": 641.2999999988824,
+          "duration": 592
+        },
+        {
+          "start": 1875,
+          "duration": 250
+        },
+        {
+          "start": 2506.2999999988824,
+          "duration": 261
+        },
+        {
+          "start": 2768.199999999255,
+          "duration": 112
+        },
+        {
+          "start": 2880.4000000003725,
+          "duration": 448
+        },
+        {
+          "start": 3714,
+          "duration": 121
+        },
+        {
+          "start": 4269.5999999996275,
+          "duration": 108
+        },
+        {
+          "start": 5334,
+          "duration": 98
+        },
+        {
+          "start": 5875.799999998882,
+          "duration": 63
+        }
+      ],
+      "navigation": {
+        "name": "http://127.0.0.1:3000/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 2888.0999999996275,
+        "navigationId": 2038,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "gzip",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 1,
+        "domainLookupStart": 1,
+        "domainLookupEnd": 1,
+        "connectStart": 1,
+        "secureConnectionStart": 0,
+        "connectEnd": 1,
+        "requestStart": 2.5,
+        "responseStart": 48.5,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 48.5,
+        "responseEnd": 194.59999999962747,
+        "transferSize": 7432,
+        "encodedBodySize": 7132,
+        "decodedBodySize": 25610,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 1249.2999999988824,
+        "domContentLoadedEventStart": 1249.4000000003725,
+        "domContentLoadedEventEnd": 1249.699999999255,
+        "domComplete": 2888.0999999996275,
+        "loadEventStart": 2888.0999999996275,
+        "loadEventEnd": 2888.0999999996275,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "type": "link",
+          "start": 182.19999999925494,
+          "request": 184.59999999962747,
+          "response": 190,
+          "end": 621.1999999992549,
+          "bytes": 13768,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/1mny81wjnoe_i.css",
+          "type": "link",
+          "start": 186.59999999962747,
+          "request": 188.40000000037253,
+          "response": 194.2999999988824,
+          "end": 621.5999999996275,
+          "bytes": 8298,
+          "blocking": "blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "type": "link",
+          "start": 187.2999999988824,
+          "request": 212.2999999988824,
+          "response": 216.5,
+          "end": 420,
+          "bytes": 2029,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/19mx3mg6lkumu.js",
+          "type": "script",
+          "start": 187.69999999925494,
+          "request": 215.7999999988824,
+          "response": 221.09999999962747,
+          "end": 589.6999999992549,
+          "bytes": 7614,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3g4px251sg85e.js",
+          "type": "script",
+          "start": 188.09999999962747,
+          "request": 216.09999999962747,
+          "response": 225.09999999962747,
+          "end": 1866.9000000003725,
+          "bytes": 71576,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2z-e6jheq0ftu.js",
+          "type": "script",
+          "start": 188.2999999988824,
+          "request": 216.2999999988824,
+          "response": 223.40000000037253,
+          "end": 1347.2999999988824,
+          "bytes": 45185,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/turbopack-2rm0-2te9ex-9.js",
+          "type": "script",
+          "start": 188.69999999925494,
+          "request": 420.5,
+          "response": 423.69999999925494,
+          "end": 683.9000000003725,
+          "bytes": 4305,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3fntmmi971322.js",
+          "type": "script",
+          "start": 188.90000000037253,
+          "request": 590.4000000003725,
+          "response": 593.7999999988824,
+          "end": 824.5999999996275,
+          "bytes": 3661,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/1po0b7sgaw-ij.js",
+          "type": "script",
+          "start": 189.40000000037253,
+          "request": 622.1999999992549,
+          "response": 626.2999999988824,
+          "end": 793.5999999996275,
+          "bytes": 447,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2g8y-4s0bp0kj.js",
+          "type": "script",
+          "start": 189.69999999925494,
+          "request": 622.4000000003725,
+          "response": 630,
+          "end": 2497.5,
+          "bytes": 114990,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-arabic-wght-normal.30bz475acv3ru.woff2",
+          "type": "css",
+          "start": 669.2999999988824,
+          "request": 684.2999999988824,
+          "response": 688,
+          "end": 2783.5,
+          "bytes": 165960,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-latin-wght-normal.1cdblfv-mupc1.woff2",
+          "type": "css",
+          "start": 669.6999999992549,
+          "request": 793.7999999988824,
+          "response": 797.5,
+          "end": 1675.7999999988824,
+          "bytes": 31416,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/icon.svg?icon.2lyu3-gl6hzm7.svg",
+          "type": "other",
+          "start": 3442.5,
+          "request": 3443.5999999996275,
+          "response": 3447.4000000003725,
+          "end": 3620.9000000003725,
+          "bytes": 285,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3820.2999999988824,
+          "request": 3821.4000000003725,
+          "response": 3830,
+          "end": 4032.5999999996275,
+          "bytes": 1077,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/matches?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3825.5,
+          "request": 3827.4000000003725,
+          "response": 3841.199999999255,
+          "end": 4048,
+          "bytes": 1062,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/the-road?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3829.5999999996275,
+          "request": 3830.7999999988824,
+          "response": 3847.699999999255,
+          "end": 4048.2999999988824,
+          "bytes": 1037,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/standings?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3835.7999999988824,
+          "request": 3836.7999999988824,
+          "response": 3855.199999999255,
+          "end": 4063.2999999988824,
+          "bytes": 1065,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/teams?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 4062.4000000003725,
+          "request": 4065.5,
+          "response": 4072.2999999988824,
+          "end": 4238.699999999255,
+          "bytes": 1049,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/api/data",
+          "type": "fetch",
+          "start": 4078.9000000003725,
+          "request": 4081.699999999255,
+          "response": 4089.0999999996275,
+          "end": 4254.9000000003725,
+          "bytes": 1560,
+          "blocking": "non-blocking"
+        }
+      ],
+      "fonts": [
+        {
+          "family": "displayFont",
+          "weight": "400",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        }
+      ],
+      "images": [],
+      "preloads": [
+        {
+          "href": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "as": "script"
+        },
+        {
+          "href": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "as": "font"
+        }
+      ]
+    },
+    {
+      "lcp": [
+        {
+          "time": 1256,
+          "size": 26162,
+          "url": "",
+          "element": "<strong>TRI<span>POLI</span></strong>",
+          "font": "displayFont, Impact, sans-serif"
+        }
+      ],
+      "cls": 0.004544680801742076,
+      "longTasks": [
+        {
+          "start": 710.6999999992549,
+          "duration": 530
+        },
+        {
+          "start": 1855.699999999255,
+          "duration": 242
+        },
+        {
+          "start": 2545,
+          "duration": 235
+        },
+        {
+          "start": 2780.7999999988824,
+          "duration": 105
+        },
+        {
+          "start": 2886.2999999988824,
+          "duration": 459
+        },
+        {
+          "start": 3605.7999999988824,
+          "duration": 53
+        },
+        {
+          "start": 3672.7999999988824,
+          "duration": 117
+        },
+        {
+          "start": 4225.299999998882,
+          "duration": 146
+        },
+        {
+          "start": 5246.199999999255,
+          "duration": 92
+        },
+        {
+          "start": 5826.0999999996275,
+          "duration": 78
+        },
+        {
+          "start": 6730.0999999996275,
+          "duration": 65
+        }
+      ],
+      "navigation": {
+        "name": "http://127.0.0.1:3000/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 2891.699999999255,
+        "navigationId": 1971,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "gzip",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.8999999985098839,
+        "domainLookupStart": 0.8999999985098839,
+        "domainLookupEnd": 0.8999999985098839,
+        "connectStart": 0.8999999985098839,
+        "secureConnectionStart": 0,
+        "connectEnd": 0.8999999985098839,
+        "requestStart": 2.099999999627471,
+        "responseStart": 41.19999999925494,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 41.19999999925494,
+        "responseEnd": 198.09999999962747,
+        "transferSize": 7432,
+        "encodedBodySize": 7132,
+        "decodedBodySize": 25610,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 608.5,
+        "domContentLoadedEventStart": 608.6999999992549,
+        "domContentLoadedEventEnd": 608.8999999985099,
+        "domComplete": 2891.5999999996275,
+        "loadEventStart": 2891.699999999255,
+        "loadEventEnd": 2891.699999999255,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "type": "link",
+          "start": 184.7999999988824,
+          "request": 187.59999999962747,
+          "response": 192.09999999962747,
+          "end": 676.1999999992549,
+          "bytes": 13768,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/1mny81wjnoe_i.css",
+          "type": "link",
+          "start": 190.09999999962747,
+          "request": 191.7999999988824,
+          "response": 198.5,
+          "end": 580.6999999992549,
+          "bytes": 8298,
+          "blocking": "blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "type": "link",
+          "start": 190.89999999850988,
+          "request": 219.7999999988824,
+          "response": 224,
+          "end": 438.09999999962747,
+          "bytes": 2029,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/19mx3mg6lkumu.js",
+          "type": "script",
+          "start": 191.2999999988824,
+          "request": 223.2999999988824,
+          "response": 228.59999999962747,
+          "end": 585.2999999988824,
+          "bytes": 7614,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3g4px251sg85e.js",
+          "type": "script",
+          "start": 191.69999999925494,
+          "request": 223.59999999962747,
+          "response": 231.2999999988824,
+          "end": 1844.699999999255,
+          "bytes": 71576,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2z-e6jheq0ftu.js",
+          "type": "script",
+          "start": 191.89999999850988,
+          "request": 223.7999999988824,
+          "response": 230.7999999988824,
+          "end": 1372.8999999985099,
+          "bytes": 45185,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/turbopack-2rm0-2te9ex-9.js",
+          "type": "script",
+          "start": 192.09999999962747,
+          "request": 438.59999999962747,
+          "response": 441.8999999985099,
+          "end": 708.3999999985099,
+          "bytes": 4305,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3fntmmi971322.js",
+          "type": "script",
+          "start": 192.2999999988824,
+          "request": 581.2999999988824,
+          "response": 584.8999999985099,
+          "end": 803.5,
+          "bytes": 3661,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/1po0b7sgaw-ij.js",
+          "type": "script",
+          "start": 192.69999999925494,
+          "request": 585.7999999988824,
+          "response": 588.6999999992549,
+          "end": 756.7999999988824,
+          "bytes": 447,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2g8y-4s0bp0kj.js",
+          "type": "script",
+          "start": 192.89999999850988,
+          "request": 708.8999999985099,
+          "response": 714.1999999992549,
+          "end": 2535.7999999988824,
+          "bytes": 114990,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-arabic-wght-normal.30bz475acv3ru.woff2",
+          "type": "css",
+          "start": 616.5999999996275,
+          "request": 676.5999999996275,
+          "response": 680.1999999992549,
+          "end": 2787.7999999988824,
+          "bytes": 165960,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-latin-wght-normal.1cdblfv-mupc1.woff2",
+          "type": "css",
+          "start": 732,
+          "request": 757,
+          "response": 761.5,
+          "end": 1655.5,
+          "bytes": 31416,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/icon.svg?icon.2lyu3-gl6hzm7.svg",
+          "type": "other",
+          "start": 3413.2999999988824,
+          "request": 3414.5999999996275,
+          "response": 3419,
+          "end": 3594.699999999255,
+          "bytes": 285,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3774,
+          "request": 3774.89999999851,
+          "response": 3782.2999999988824,
+          "end": 3942.2999999988824,
+          "bytes": 1076,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/matches?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3776.5,
+          "request": 3779.199999999255,
+          "response": 3790.5,
+          "end": 3974.0999999996275,
+          "bytes": 1064,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/the-road?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3782.5,
+          "request": 3783.699999999255,
+          "response": 3799.0999999996275,
+          "end": 3989.199999999255,
+          "bytes": 1037,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/standings?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3788.7999999988824,
+          "request": 3790.0999999996275,
+          "response": 3804.7999999988824,
+          "end": 3989.5999999996275,
+          "bytes": 1066,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/teams?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3999.2999999988824,
+          "request": 4004.2999999988824,
+          "response": 4011.5999999996275,
+          "end": 4179.799999998882,
+          "bytes": 1050,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/api/data",
+          "type": "fetch",
+          "start": 4041.7999999988824,
+          "request": 4043.5999999996275,
+          "response": 4051.2999999988824,
+          "end": 4211.5999999996275,
+          "bytes": 1560,
+          "blocking": "non-blocking"
+        }
+      ],
+      "fonts": [
+        {
+          "family": "displayFont",
+          "weight": "400",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        }
+      ],
+      "images": [],
+      "preloads": [
+        {
+          "href": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "as": "script"
+        },
+        {
+          "href": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "as": "font"
+        }
+      ]
+    }
+  ]
+}

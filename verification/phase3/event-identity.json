@@ -1,0 +1,1106 @@
+{
+  "conditions": "cold cache;390x844;CPU4x;RTT150ms;1.6Mbps;3 samples",
+  "results": [
+    {
+      "lcp": [
+        {
+          "time": 1500,
+          "size": 29455,
+          "url": "",
+          "element": "<strong>TRI<span>POLI</span></strong>",
+          "font": "displayFont, Impact, sans-serif"
+        },
+        {
+          "time": 1652,
+          "size": 132600,
+          "url": "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Ftripoli-court.webp&w=640&q=75",
+          "element": "<img alt=\"\" decoding=\"async\" data-nimg=\"fill\" style=\"position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent\" sizes=\"(max-width: 1440px) 100vw, 1440px\" srcset=\"/_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=640&amp;q=75 640w, /_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=750&amp;q=75 750w, /_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=828&amp;q=75 828w, /_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=1080&amp;q=75 1080w, /_next/image?",
+          "font": "\"Noto Sans Arabic Variable\", Tahoma, sans-serif"
+        }
+      ],
+      "cls": 0.004120491114661966,
+      "longTasks": [
+        {
+          "start": 742,
+          "duration": 689
+        },
+        {
+          "start": 1928.300000000745,
+          "duration": 291
+        },
+        {
+          "start": 2349.300000000745,
+          "duration": 143
+        },
+        {
+          "start": 2506.5,
+          "duration": 168
+        },
+        {
+          "start": 3235.699999999255,
+          "duration": 165
+        },
+        {
+          "start": 4023.300000000745,
+          "duration": 127
+        },
+        {
+          "start": 4844.0999999996275,
+          "duration": 101
+        },
+        {
+          "start": 5977.300000000745,
+          "duration": 128
+        }
+      ],
+      "navigation": {
+        "name": "http://127.0.0.1:3000/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 2514.0999999996275,
+        "navigationId": 5372,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "gzip",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 1.300000000745058,
+        "domainLookupStart": 1.300000000745058,
+        "domainLookupEnd": 1.300000000745058,
+        "connectStart": 1.300000000745058,
+        "secureConnectionStart": 0,
+        "connectEnd": 1.300000000745058,
+        "requestStart": 3.300000000745058,
+        "responseStart": 36.69999999925494,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 36.69999999925494,
+        "responseEnd": 206.30000000074506,
+        "transferSize": 7660,
+        "encodedBodySize": 7360,
+        "decodedBodySize": 27178,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 651,
+        "domContentLoadedEventStart": 651.3000000007451,
+        "domContentLoadedEventEnd": 651.6999999992549,
+        "domComplete": 2513.9000000003725,
+        "loadEventStart": 2514.0999999996275,
+        "loadEventEnd": 2514.0999999996275,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "type": "link",
+          "start": 204.90000000037253,
+          "request": 207.19999999925494,
+          "response": 211.80000000074506,
+          "end": 683.5,
+          "bytes": 13768,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Ftripoli-court.webp&w=640&q=75",
+          "type": "link",
+          "start": 214.30000000074506,
+          "request": 215.90000000037253,
+          "response": 223.30000000074506,
+          "end": 980.8000000007451,
+          "bytes": 27490,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3g2s7mh7j5m-x.css",
+          "type": "link",
+          "start": 215.30000000074506,
+          "request": 216.80000000074506,
+          "response": 224.59999999962747,
+          "end": 619.9000000003725,
+          "bytes": 9626,
+          "blocking": "blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "type": "link",
+          "start": 216.19999999925494,
+          "request": 253.09999999962747,
+          "response": 257.30000000074506,
+          "end": 473.30000000074506,
+          "bytes": 2029,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/19mx3mg6lkumu.js",
+          "type": "script",
+          "start": 217.69999999925494,
+          "request": 254.69999999925494,
+          "response": 259.40000000037253,
+          "end": 635.9000000003725,
+          "bytes": 7614,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3g4px251sg85e.js",
+          "type": "script",
+          "start": 218.69999999925494,
+          "request": 254.80000000074506,
+          "response": 262.09999999962747,
+          "end": 1923.800000000745,
+          "bytes": 71576,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2z-e6jheq0ftu.js",
+          "type": "script",
+          "start": 219.5,
+          "request": 473.90000000037253,
+          "response": 479.5,
+          "end": 1653,
+          "bytes": 45185,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/turbopack-2rm0-2te9ex-9.js",
+          "type": "script",
+          "start": 219.90000000037253,
+          "request": 620.6999999992549,
+          "response": 624.1999999992549,
+          "end": 919.4000000003725,
+          "bytes": 4305,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3fntmmi971322.js",
+          "type": "script",
+          "start": 220.40000000037253,
+          "request": 636.6999999992549,
+          "response": 639.4000000003725,
+          "end": 903.5,
+          "bytes": 3661,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/1po0b7sgaw-ij.js",
+          "type": "script",
+          "start": 221,
+          "request": 919.6999999992549,
+          "response": 921.9000000003725,
+          "end": 1106.0999999996275,
+          "bytes": 447,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2rossrmu-xqd0.js",
+          "type": "script",
+          "start": 221.59999999962747,
+          "request": 982.0999999996275,
+          "response": 987.4000000003725,
+          "end": 1748.699999999255,
+          "bytes": 23825,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-arabic-wght-normal.30bz475acv3ru.woff2",
+          "type": "css",
+          "start": 665.9000000003725,
+          "request": 684.3000000007451,
+          "response": 687.9000000003725,
+          "end": 2491.5999999996275,
+          "bytes": 165960,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-latin-wght-normal.1cdblfv-mupc1.woff2",
+          "type": "css",
+          "start": 765.5,
+          "request": 903.6999999992549,
+          "response": 907.3000000007451,
+          "end": 1796.800000000745,
+          "bytes": 31416,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/icon.svg?icon.2lyu3-gl6hzm7.svg",
+          "type": "other",
+          "start": 2710.4000000003725,
+          "request": 2711.699999999255,
+          "response": 2716.0999999996275,
+          "end": 2886.9000000003725,
+          "bytes": 285,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 2809.199999999255,
+          "request": 2810,
+          "response": 2817.800000000745,
+          "end": 3012.4000000003725,
+          "bytes": 1076,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/matches?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 2810.199999999255,
+          "request": 2810.699999999255,
+          "response": 2821.800000000745,
+          "end": 3012.800000000745,
+          "bytes": 1061,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/the-road?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 2811.0999999996275,
+          "request": 2812.199999999255,
+          "response": 2829.300000000745,
+          "end": 3028.5,
+          "bytes": 1037,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/standings?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 2812,
+          "request": 2813.5,
+          "response": 2840,
+          "end": 3028.9000000003725,
+          "bytes": 1064,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/api/data",
+          "type": "fetch",
+          "start": 3037.9000000003725,
+          "request": 3043.5999999996275,
+          "response": 3048.9000000003725,
+          "end": 3218.4000000003725,
+          "bytes": 1560,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/teams?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3085.800000000745,
+          "request": 3087.699999999255,
+          "response": 3094.4000000003725,
+          "end": 3265.5999999996275,
+          "bytes": 1047,
+          "blocking": "non-blocking"
+        }
+      ],
+      "fonts": [
+        {
+          "family": "displayFont",
+          "weight": "400",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        }
+      ],
+      "images": [
+        {
+          "src": "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Ftripoli-court.webp&w=640&q=75",
+          "width": 390,
+          "height": 219
+        }
+      ],
+      "preloads": [
+        {
+          "href": "",
+          "as": "image"
+        },
+        {
+          "href": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "as": "script"
+        },
+        {
+          "href": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "as": "font"
+        }
+      ]
+    },
+    {
+      "lcp": [
+        {
+          "time": 1320,
+          "size": 29455,
+          "url": "",
+          "element": "<strong>TRI<span>POLI</span></strong>",
+          "font": "displayFont, Impact, sans-serif"
+        },
+        {
+          "time": 1388,
+          "size": 132600,
+          "url": "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Ftripoli-court.webp&w=640&q=75",
+          "element": "<img alt=\"\" decoding=\"async\" data-nimg=\"fill\" style=\"position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent\" sizes=\"(max-width: 1440px) 100vw, 1440px\" srcset=\"/_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=640&amp;q=75 640w, /_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=750&amp;q=75 750w, /_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=828&amp;q=75 828w, /_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=1080&amp;q=75 1080w, /_next/image?",
+          "font": "\"Noto Sans Arabic Variable\", Tahoma, sans-serif"
+        }
+      ],
+      "cls": 0.004120491114661966,
+      "longTasks": [
+        {
+          "start": 598.0999999996275,
+          "duration": 689
+        },
+        {
+          "start": 1955.5999999996275,
+          "duration": 293
+        },
+        {
+          "start": 2375.199999999255,
+          "duration": 137
+        },
+        {
+          "start": 2520.4000000003725,
+          "duration": 137
+        },
+        {
+          "start": 2749,
+          "duration": 66
+        },
+        {
+          "start": 3185.5999999996275,
+          "duration": 52
+        }
+      ],
+      "navigation": {
+        "name": "http://127.0.0.1:3000/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 2525.7999999988824,
+        "navigationId": 8908,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "gzip",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.7999999988824129,
+        "domainLookupStart": 0.7999999988824129,
+        "domainLookupEnd": 0.7999999988824129,
+        "connectStart": 0.7999999988824129,
+        "secureConnectionStart": 0,
+        "connectEnd": 0.7999999988824129,
+        "requestStart": 2.199999999254942,
+        "responseStart": 26.5,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 26.5,
+        "responseEnd": 207.19999999925494,
+        "transferSize": 7660,
+        "encodedBodySize": 7360,
+        "decodedBodySize": 27178,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 588.0999999996275,
+        "domContentLoadedEventStart": 588.2999999988824,
+        "domContentLoadedEventEnd": 588.6999999992549,
+        "domComplete": 2525.7999999988824,
+        "loadEventStart": 2525.7999999988824,
+        "loadEventEnd": 2525.7999999988824,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "low"
+        }
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "type": "link",
+          "start": 200.2999999988824,
+          "request": 203.09999999962747,
+          "response": 207,
+          "end": 565.5,
+          "bytes": 13768,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Ftripoli-court.webp&w=640&q=75",
+          "type": "link",
+          "start": 208.59999999962747,
+          "request": 209.5,
+          "response": 214.7999999988824,
+          "end": 691.2999999988824,
+          "bytes": 27490,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3g2s7mh7j5m-x.css",
+          "type": "link",
+          "start": 209.5,
+          "request": 211.5,
+          "response": 216.19999999925494,
+          "end": 550.5,
+          "bytes": 9626,
+          "blocking": "blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "type": "link",
+          "start": 210.59999999962747,
+          "request": 246.19999999925494,
+          "response": 248.90000000037253,
+          "end": 457,
+          "bytes": 2029,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/19mx3mg6lkumu.js",
+          "type": "script",
+          "start": 210.90000000037253,
+          "request": 457.5,
+          "response": 460.90000000037253,
+          "end": 706.9000000003725,
+          "bytes": 7614,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3g4px251sg85e.js",
+          "type": "script",
+          "start": 211.40000000037253,
+          "request": 552.5999999996275,
+          "response": 560.5,
+          "end": 1947.699999999255,
+          "bytes": 71576,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2z-e6jheq0ftu.js",
+          "type": "script",
+          "start": 212,
+          "request": 553,
+          "response": 560.2999999988824,
+          "end": 1571,
+          "bytes": 45185,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/turbopack-2rm0-2te9ex-9.js",
+          "type": "script",
+          "start": 212.40000000037253,
+          "request": 553.1999999992549,
+          "response": 558.1999999992549,
+          "end": 800.0999999996275,
+          "bytes": 4305,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3fntmmi971322.js",
+          "type": "script",
+          "start": 212.7999999988824,
+          "request": 566.1999999992549,
+          "response": 569.9000000003725,
+          "end": 800.5,
+          "bytes": 3661,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/1po0b7sgaw-ij.js",
+          "type": "script",
+          "start": 213.59999999962747,
+          "request": 1510.699999999255,
+          "response": 1512.7999999988824,
+          "end": 1682.4000000003725,
+          "bytes": 447,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2rossrmu-xqd0.js",
+          "type": "script",
+          "start": 214.19999999925494,
+          "request": 1511,
+          "response": 1514.7999999988824,
+          "end": 2027,
+          "bytes": 23825,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-arabic-wght-normal.30bz475acv3ru.woff2",
+          "type": "css",
+          "start": 595.7999999988824,
+          "request": 691.5999999996275,
+          "response": 694.9000000003725,
+          "end": 2503.4000000003725,
+          "bytes": 165960,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-latin-wght-normal.1cdblfv-mupc1.woff2",
+          "type": "css",
+          "start": 627.1999999992549,
+          "request": 707.0999999996275,
+          "response": 710.1999999992549,
+          "end": 1510,
+          "bytes": 31416,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/icon.svg?icon.2lyu3-gl6hzm7.svg",
+          "type": "other",
+          "start": 2691.4000000003725,
+          "request": 2692,
+          "response": 2694.2999999988824,
+          "end": 2864.699999999255,
+          "bytes": 285,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 2805.5999999996275,
+          "request": 2807.0999999996275,
+          "response": 2810.5999999996275,
+          "end": 2974.2999999988824,
+          "bytes": 1074,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/matches?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 2810,
+          "request": 2811.0999999996275,
+          "response": 2814.2999999988824,
+          "end": 3012.199999999255,
+          "bytes": 1063,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/the-road?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 2812.699999999255,
+          "request": 2813.7999999988824,
+          "response": 2817.0999999996275,
+          "end": 3021.7999999988824,
+          "bytes": 1035,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/standings?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 2815,
+          "request": 2815.5999999996275,
+          "response": 2821.4000000003725,
+          "end": 3037.9000000003725,
+          "bytes": 1068,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/teams?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 2992.4000000003725,
+          "request": 2996.2999999988824,
+          "response": 3000.0999999996275,
+          "end": 3165.5999999996275,
+          "bytes": 1049,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/api/data",
+          "type": "fetch",
+          "start": 3011.5999999996275,
+          "request": 3012.5999999996275,
+          "response": 3016.0999999996275,
+          "end": 3180.5999999996275,
+          "bytes": 1560,
+          "blocking": "non-blocking"
+        }
+      ],
+      "fonts": [
+        {
+          "family": "displayFont",
+          "weight": "400",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        }
+      ],
+      "images": [
+        {
+          "src": "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Ftripoli-court.webp&w=640&q=75",
+          "width": 390,
+          "height": 219
+        }
+      ],
+      "preloads": [
+        {
+          "href": "",
+          "as": "image"
+        },
+        {
+          "href": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "as": "script"
+        },
+        {
+          "href": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "as": "font"
+        }
+      ]
+    },
+    {
+      "lcp": [
+        {
+          "time": 1216,
+          "size": 29455,
+          "url": "",
+          "element": "<strong>TRI<span>POLI</span></strong>",
+          "font": "displayFont, Impact, sans-serif"
+        },
+        {
+          "time": 1316,
+          "size": 132600,
+          "url": "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Ftripoli-court.webp&w=640&q=75",
+          "element": "<img alt=\"\" decoding=\"async\" data-nimg=\"fill\" style=\"position:absolute;height:100%;width:100%;left:0;top:0;right:0;bottom:0;color:transparent\" sizes=\"(max-width: 1440px) 100vw, 1440px\" srcset=\"/_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=640&amp;q=75 640w, /_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=750&amp;q=75 750w, /_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=828&amp;q=75 828w, /_next/image?url=%2Fimages%2Ftripoli-court.webp&amp;w=1080&amp;q=75 1080w, /_next/image?",
+          "font": "\"Noto Sans Arabic Variable\", Tahoma, sans-serif"
+        }
+      ],
+      "cls": 0.004120491114661966,
+      "longTasks": [
+        {
+          "start": 590.8000000007451,
+          "duration": 615
+        },
+        {
+          "start": 1975.0999999996275,
+          "duration": 355
+        },
+        {
+          "start": 2439.5,
+          "duration": 120
+        },
+        {
+          "start": 2560.199999999255,
+          "duration": 253
+        },
+        {
+          "start": 2928.300000000745,
+          "duration": 167
+        },
+        {
+          "start": 3119.5,
+          "duration": 50
+        },
+        {
+          "start": 3531.199999999255,
+          "duration": 193
+        },
+        {
+          "start": 4341.300000000745,
+          "duration": 95
+        },
+        {
+          "start": 5139.0999999996275,
+          "duration": 113
+        },
+        {
+          "start": 5953.699999999255,
+          "duration": 82
+        }
+      ],
+      "navigation": {
+        "name": "http://127.0.0.1:3000/",
+        "entryType": "navigation",
+        "startTime": 0,
+        "duration": 2565,
+        "navigationId": 1363,
+        "initiatorType": "navigation",
+        "deliveryType": "",
+        "nextHopProtocol": "http/1.1",
+        "renderBlockingStatus": "non-blocking",
+        "contentType": "text/html",
+        "contentEncoding": "gzip",
+        "workerStart": 0,
+        "workerRouterEvaluationStart": 0,
+        "workerCacheLookupStart": 0,
+        "workerMatchedSourceType": "",
+        "workerFinalSourceType": "",
+        "redirectStart": 0,
+        "redirectEnd": 0,
+        "fetchStart": 0.900000000372529,
+        "domainLookupStart": 0.900000000372529,
+        "domainLookupEnd": 0.900000000372529,
+        "connectStart": 0.900000000372529,
+        "secureConnectionStart": 0,
+        "connectEnd": 0.900000000372529,
+        "requestStart": 1.900000000372529,
+        "responseStart": 13.400000000372529,
+        "firstInterimResponseStart": 0,
+        "finalResponseHeadersStart": 13.400000000372529,
+        "responseEnd": 207.5,
+        "transferSize": 7657,
+        "encodedBodySize": 7357,
+        "decodedBodySize": 27178,
+        "responseStatus": 200,
+        "serverTiming": [],
+        "unloadEventStart": 0,
+        "unloadEventEnd": 0,
+        "domInteractive": 579.6999999992549,
+        "domContentLoadedEventStart": 579.8000000007451,
+        "domContentLoadedEventEnd": 580.1999999992549,
+        "domComplete": 2565,
+        "loadEventStart": 2565,
+        "loadEventEnd": 2565,
+        "type": "navigate",
+        "redirectCount": 0,
+        "activationStart": 0,
+        "criticalCHRestart": 0,
+        "notRestoredReasons": null,
+        "confidence": {
+          "randomizedTriggerRate": 0.4994798,
+          "value": "high"
+        }
+      },
+      "resources": [
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "type": "link",
+          "start": 211,
+          "request": 212.69999999925494,
+          "response": 215.40000000037253,
+          "end": 566.3000000007451,
+          "bytes": 13768,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Ftripoli-court.webp&w=640&q=75",
+          "type": "link",
+          "start": 217.80000000074506,
+          "request": 219,
+          "response": 223.09999999962747,
+          "end": 692.5,
+          "bytes": 27490,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3g2s7mh7j5m-x.css",
+          "type": "link",
+          "start": 218.80000000074506,
+          "request": 219.69999999925494,
+          "response": 223.80000000074506,
+          "end": 552.3000000007451,
+          "bytes": 9626,
+          "blocking": "blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "type": "link",
+          "start": 219.69999999925494,
+          "request": 249.40000000037253,
+          "response": 251.5,
+          "end": 456.80000000074506,
+          "bytes": 2029,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/19mx3mg6lkumu.js",
+          "type": "script",
+          "start": 221.40000000037253,
+          "request": 457.19999999925494,
+          "response": 459.09999999962747,
+          "end": 692.8000000007451,
+          "bytes": 7614,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3g4px251sg85e.js",
+          "type": "script",
+          "start": 222.09999999962747,
+          "request": 553.5999999996275,
+          "response": 557.8000000007451,
+          "end": 1970.4000000003725,
+          "bytes": 71576,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2z-e6jheq0ftu.js",
+          "type": "script",
+          "start": 222.69999999925494,
+          "request": 553.8000000007451,
+          "response": 557.5999999996275,
+          "end": 1575.9000000003725,
+          "bytes": 45185,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/turbopack-2rm0-2te9ex-9.js",
+          "type": "script",
+          "start": 223.5,
+          "request": 553.8000000007451,
+          "response": 556.4000000003725,
+          "end": 816.1999999992549,
+          "bytes": 4305,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/3fntmmi971322.js",
+          "type": "script",
+          "start": 224.59999999962747,
+          "request": 566.8000000007451,
+          "response": 569.3000000007451,
+          "end": 800.4000000003725,
+          "bytes": 3661,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/1po0b7sgaw-ij.js",
+          "type": "script",
+          "start": 224.90000000037253,
+          "request": 1479.699999999255,
+          "response": 1481.5,
+          "end": 1655.800000000745,
+          "bytes": 447,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/chunks/2rossrmu-xqd0.js",
+          "type": "script",
+          "start": 225.40000000037253,
+          "request": 1479.800000000745,
+          "response": 1483.300000000745,
+          "end": 2002.0999999996275,
+          "bytes": 23825,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-arabic-wght-normal.30bz475acv3ru.woff2",
+          "type": "css",
+          "start": 588.6999999992549,
+          "request": 692.6999999992549,
+          "response": 695.6999999992549,
+          "end": 2508.800000000745,
+          "bytes": 165960,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/_next/static/media/noto-sans-arabic-latin-wght-normal.1cdblfv-mupc1.woff2",
+          "type": "css",
+          "start": 607.9000000003725,
+          "request": 693,
+          "response": 695.4000000003725,
+          "end": 1479.199999999255,
+          "bytes": 31416,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/icon.svg?icon.2lyu3-gl6hzm7.svg",
+          "type": "other",
+          "start": 2845.5,
+          "request": 2846.199999999255,
+          "response": 2849.5999999996275,
+          "end": 3027.4000000003725,
+          "bytes": 285,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3087.9000000003725,
+          "request": 3089.0999999996275,
+          "response": 3094.300000000745,
+          "end": 3294.800000000745,
+          "bytes": 1076,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/matches?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3090.9000000003725,
+          "request": 3092.300000000745,
+          "response": 3102.0999999996275,
+          "end": 3295.300000000745,
+          "bytes": 1061,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/the-road?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3092.699999999255,
+          "request": 3093.9000000003725,
+          "response": 3105.5999999996275,
+          "end": 3310.800000000745,
+          "bytes": 1036,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/standings?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3095.800000000745,
+          "request": 3097,
+          "response": 3112,
+          "end": 3311.199999999255,
+          "bytes": 1064,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/api/data",
+          "type": "fetch",
+          "start": 3329.0999999996275,
+          "request": 3341.5999999996275,
+          "response": 3346.4000000003725,
+          "end": 3517.5,
+          "bytes": 1560,
+          "blocking": "non-blocking"
+        },
+        {
+          "url": "http://127.0.0.1:3000/teams?_rsc=tXyZJ52UQVBCVsD3",
+          "type": "fetch",
+          "start": 3401.699999999255,
+          "request": 3403.4000000003725,
+          "response": 3409.199999999255,
+          "end": 3580.4000000003725,
+          "bytes": 1048,
+          "blocking": "non-blocking"
+        }
+      ],
+      "fonts": [
+        {
+          "family": "displayFont",
+          "weight": "400",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "unloaded",
+          "display": "swap"
+        },
+        {
+          "family": "Noto Sans Arabic Variable",
+          "weight": "100 900",
+          "status": "loaded",
+          "display": "swap"
+        }
+      ],
+      "images": [
+        {
+          "src": "http://127.0.0.1:3000/_next/image?url=%2Fimages%2Ftripoli-court.webp&w=640&q=75",
+          "width": 390,
+          "height": 219
+        }
+      ],
+      "preloads": [
+        {
+          "href": "",
+          "as": "image"
+        },
+        {
+          "href": "http://127.0.0.1:3000/_next/static/chunks/3s6nzrbk-8mnv.js",
+          "as": "script"
+        },
+        {
+          "href": "http://127.0.0.1:3000/_next/static/media/bebas_neue_latin_400_normal.p.2cmc76j2knfd_.woff2",
+          "as": "font"
+        }
+      ]
+    }
+  ]
+}

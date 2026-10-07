@@ -1,0 +1,72 @@
+[
+  {
+    "path": "public/al-ittihad.svg",
+    "bytes": 9022,
+    "role": "TEAM / AL ITTIHAD"
+  },
+  {
+    "path": "public/Artboard 1-8.png",
+    "bytes": 40448,
+    "role": "INSTITUTIONAL / OWNER LABELLED"
+  },
+  {
+    "path": "public/Artboard 2-8.png",
+    "bytes": 25931,
+    "role": "INSTITUTIONAL / OWNER LABELLED"
+  },
+  {
+    "path": "public/Artboard 3-8.png",
+    "bytes": 53002,
+    "role": "INSTITUTIONAL / OWNER LABELLED"
+  },
+  {
+    "path": "public/Artboard 4-8.png",
+    "bytes": 32548,
+    "role": "INSTITUTIONAL / OWNER LABELLED"
+  },
+  {
+    "path": "public/Artboard 5-8.png",
+    "bytes": 47327,
+    "role": "INSTITUTIONAL / OWNER LABELLED"
+  },
+  {
+    "path": "public/fonts.css",
+    "bytes": 2,
+    "role": "PWA / SUPPORT"
+  },
+  {
+    "path": "public/icon-192.png",
+    "bytes": 3892,
+    "role": "APP ICON"
+  },
+  {
+    "path": "public/icon-512.png",
+    "bytes": 17219,
+    "role": "APP ICON"
+  },
+  {
+    "path": "public/icon.svg",
+    "bytes": 285,
+    "role": "APP ICON"
+  },
+  {
+    "path": "public/images/tripoli-court.webp",
+    "bytes": 122830,
+    "role": "CAMPAIGN IMAGE"
+  },
+  {
+    "path": "public/manifest.webmanifest",
+    "bytes": 583,
+    "role": "PWA / SUPPORT"
+  },
+  {
+    "path": "public/offline.html",
+    "bytes": 544,
+    "role": "PWA / SUPPORT"
+  },
+  {
+    "path": "public/sw.js",
+    "bytes": 824,
+    "role": "PWA / SUPPORT"
+  }
+]

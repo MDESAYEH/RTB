@@ -1,0 +1,14 @@
+[
+  {
+    "mode": "desktop",
+    "overflow": false,
+    "broken": false,
+    "clubs": 5
+  },
+  {
+    "mode": "mobile",
+    "overflow": false,
+    "broken": false,
+    "clubs": 5
+  }
+]

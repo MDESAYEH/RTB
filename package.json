@@ -1,0 +1,49 @@
+{
+  "name": "the-road-tripoli",
+  "version": "1.0.0",
+  "description": "Arabic tournament platform for Road to BAL 2027 Tripoli",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start --hostname 127.0.0.1",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts",
+    "admin:create": "tsx scripts/admin.ts",
+    "test:e2e": "playwright test",
+    "db:backup": "node scripts/backup.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "module",
+  "dependencies": {
+    "@fontsource-variable/noto-sans-arabic": "^5.3.0",
+    "@fontsource/bebas-neue": "^5.3.0",
+    "@fontsource/noto-sans-arabic": "^5.3.0",
+    "lucide-react": "^1.52.0",
+    "next": "^16.3.8",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sharp": "^0.35.5",
+    "zod": "^4.6.5"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "9.39.1",
+    "prettier": "^3.6.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "8.48.1"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}

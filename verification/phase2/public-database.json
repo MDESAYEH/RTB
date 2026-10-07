@@ -1,0 +1,41 @@
+{
+  "journal_mode": [
+    {
+      "journal_mode": "wal"
+    }
+  ],
+  "busy_timeout": [
+    {
+      "timeout": 5000
+    }
+  ],
+  "foreign_keys": [
+    {
+      "foreign_keys": 1
+    }
+  ],
+  "integrity_check": [
+    {
+      "integrity_check": "ok"
+    }
+  ],
+  "foreign_key_check": [],
+  "user_version": [
+    {
+      "user_version": 3
+    }
+  ],
+  "records": [
+    {
+      "kind": "settings",
+      "n": 1
+    },
+    {
+      "kind": "teams",
+      "n": 10
+    }
+  ],
+  "admins": {
+    "n": 0
+  }
+}

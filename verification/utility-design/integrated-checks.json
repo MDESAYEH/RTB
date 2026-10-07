@@ -1,0 +1,218 @@
+[
+  {
+    "route": "matches",
+    "width": 320,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings",
+    "width": 320,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings-B",
+    "width": 320,
+    "overflow": false,
+    "broken": []
+  },
+  {
+    "route": "stats",
+    "width": 320,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "matches",
+    "width": 360,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings",
+    "width": 360,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings-B",
+    "width": 360,
+    "overflow": false,
+    "broken": []
+  },
+  {
+    "route": "stats",
+    "width": 360,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "matches",
+    "width": 390,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings",
+    "width": 390,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings-B",
+    "width": 390,
+    "overflow": false,
+    "broken": []
+  },
+  {
+    "route": "stats",
+    "width": 390,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "matches",
+    "width": 430,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings",
+    "width": 430,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings-B",
+    "width": 430,
+    "overflow": false,
+    "broken": []
+  },
+  {
+    "route": "stats",
+    "width": 430,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "matches",
+    "width": 768,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings",
+    "width": 768,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings-B",
+    "width": 768,
+    "overflow": false,
+    "broken": []
+  },
+  {
+    "route": "stats",
+    "width": 768,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "matches",
+    "width": 1024,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings",
+    "width": 1024,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings-B",
+    "width": 1024,
+    "overflow": false,
+    "broken": []
+  },
+  {
+    "route": "stats",
+    "width": 1024,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "matches",
+    "width": 1440,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings",
+    "width": 1440,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings-B",
+    "width": 1440,
+    "overflow": false,
+    "broken": []
+  },
+  {
+    "route": "stats",
+    "width": 1440,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "matches",
+    "width": 1920,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings",
+    "width": 1920,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  },
+  {
+    "route": "standings-B",
+    "width": 1920,
+    "overflow": false,
+    "broken": []
+  },
+  {
+    "route": "stats",
+    "width": 1920,
+    "overflow": false,
+    "broken": [],
+    "errors": []
+  }
+]

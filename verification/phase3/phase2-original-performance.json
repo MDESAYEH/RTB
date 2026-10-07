@@ -1,0 +1,21 @@
+{
+  "conditions": "Local Chrome, cold cache, 390x844, CPU 4x, 150ms RTT, 1.6Mbps down. One synthetic sample per screen; no field Core Web Vitals claim.",
+  "results": [
+    {
+      "route": "/",
+      "lcp": 5692,
+      "cls": 0.05908883606641406,
+      "jsBytes": 247778,
+      "fontBytes": 225728,
+      "documentBytes": 10861
+    },
+    {
+      "route": "/matches/visual-live",
+      "lcp": 1096,
+      "cls": 0.02802355295392509,
+      "jsBytes": 247778,
+      "fontBytes": 225728,
+      "documentBytes": 7390
+    }
+  ]
+}

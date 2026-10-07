@@ -1,0 +1,142 @@
+[
+  {
+    "view": "hero",
+    "size": "desktop",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "missingImages": 0,
+    "h1": [
+      "TRIPOLI."
+    ],
+    "networkEntries": [
+      "http://127.0.0.1:3030/prototype.css",
+      "http://127.0.0.1:3030/polish.css",
+      "http://127.0.0.1:3030/assets/tripoli-reference.png",
+      "http://127.0.0.1:3030/assets/athlete-cutout-reference.png",
+      "http://127.0.0.1:3030/assets/arena-reference.png",
+      "http://127.0.0.1:3030/prototype.js",
+      "http://127.0.0.1:3030/assets/arabic.woff2",
+      "http://127.0.0.1:3030/assets/display.woff2"
+    ],
+    "errors": []
+  },
+  {
+    "view": "road",
+    "size": "desktop",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "missingImages": 0,
+    "h1": [
+      "THE ROAD."
+    ],
+    "networkEntries": [
+      "http://127.0.0.1:3030/prototype.css",
+      "http://127.0.0.1:3030/polish.css",
+      "http://127.0.0.1:3030/assets/athlete-cutout-reference.png",
+      "http://127.0.0.1:3030/assets/tripoli-reference.png",
+      "http://127.0.0.1:3030/assets/arena-reference.png",
+      "http://127.0.0.1:3030/prototype.js",
+      "http://127.0.0.1:3030/assets/arabic.woff2",
+      "http://127.0.0.1:3030/assets/display.woff2"
+    ],
+    "errors": []
+  },
+  {
+    "view": "game",
+    "size": "desktop",
+    "width": 1440,
+    "height": 900,
+    "overflow": false,
+    "missingImages": 0,
+    "h1": [
+      "GAME CENTER."
+    ],
+    "networkEntries": [
+      "http://127.0.0.1:3030/prototype.css",
+      "http://127.0.0.1:3030/polish.css",
+      "http://127.0.0.1:3030/assets/tripoli-reference.png",
+      "http://127.0.0.1:3030/assets/arena-reference.png",
+      "http://127.0.0.1:3030/prototype.js",
+      "http://127.0.0.1:3030/assets/athlete-cutout-reference.png",
+      "http://127.0.0.1:3030/assets/display.woff2",
+      "http://127.0.0.1:3030/assets/arabic.woff2"
+    ],
+    "errors": []
+  },
+  {
+    "size": "desktop",
+    "reducedMotion": "none"
+  },
+  {
+    "view": "hero",
+    "size": "mobile",
+    "width": 390,
+    "height": 844,
+    "overflow": false,
+    "missingImages": 0,
+    "h1": [
+      "TRIPOLI."
+    ],
+    "networkEntries": [
+      "http://127.0.0.1:3030/prototype.css",
+      "http://127.0.0.1:3030/polish.css",
+      "http://127.0.0.1:3030/assets/tripoli-reference.png",
+      "http://127.0.0.1:3030/assets/athlete-cutout-reference.png",
+      "http://127.0.0.1:3030/prototype.js",
+      "http://127.0.0.1:3030/assets/arena-reference.png",
+      "http://127.0.0.1:3030/assets/display.woff2",
+      "http://127.0.0.1:3030/assets/arabic.woff2"
+    ],
+    "errors": []
+  },
+  {
+    "view": "road",
+    "size": "mobile",
+    "width": 390,
+    "height": 844,
+    "overflow": false,
+    "missingImages": 0,
+    "h1": [
+      "THE ROAD."
+    ],
+    "networkEntries": [
+      "http://127.0.0.1:3030/prototype.css",
+      "http://127.0.0.1:3030/polish.css",
+      "http://127.0.0.1:3030/assets/tripoli-reference.png",
+      "http://127.0.0.1:3030/assets/arena-reference.png",
+      "http://127.0.0.1:3030/prototype.js",
+      "http://127.0.0.1:3030/assets/athlete-cutout-reference.png",
+      "http://127.0.0.1:3030/assets/arabic.woff2",
+      "http://127.0.0.1:3030/assets/display.woff2"
+    ],
+    "errors": []
+  },
+  {
+    "view": "game",
+    "size": "mobile",
+    "width": 390,
+    "height": 844,
+    "overflow": false,
+    "missingImages": 0,
+    "h1": [
+      "GAME CENTER."
+    ],
+    "networkEntries": [
+      "http://127.0.0.1:3030/prototype.css",
+      "http://127.0.0.1:3030/polish.css",
+      "http://127.0.0.1:3030/assets/tripoli-reference.png",
+      "http://127.0.0.1:3030/assets/arena-reference.png",
+      "http://127.0.0.1:3030/assets/athlete-cutout-reference.png",
+      "http://127.0.0.1:3030/prototype.js",
+      "http://127.0.0.1:3030/assets/arabic.woff2",
+      "http://127.0.0.1:3030/assets/display.woff2"
+    ],
+    "errors": []
+  },
+  {
+    "size": "mobile",
+    "reducedMotion": "none"
+  }
+]

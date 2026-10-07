@@ -1,0 +1,726 @@
+{
+  "base": "http://127.0.0.1:3000",
+  "errors": [],
+  "views": [
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 132837
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 132837
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 132837
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 132837
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 44,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 132837
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 44,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 132837
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "الصفحة غير موجودة",
+      "resources": 132837
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 132837
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 132837
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 72,
+        "cls": 0.012433457974912044
+      },
+      "h1": "الصفحة غير موجودة",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 132837
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 72,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0.0102996826171875
+      },
+      "h1": "الصفحة غير موجودة",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 132837
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 68,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 76,
+        "cls": 0.010294655929721817
+      },
+      "h1": "الصفحة غير موجودة",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 132837
+    },
+    {
+      "width": 1366,
+      "height": 768,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 44,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "الصفحة غير موجودة",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 48,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 132837
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 56,
+        "cls": 0
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "طرابلس تستضيف أفريقيا",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/matches",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "المباريات",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/standings",
+      "overflow": false,
+      "metrics": {
+        "lcp": 52,
+        "cls": 0
+      },
+      "h1": "المجموعات",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/teams",
+      "overflow": false,
+      "metrics": {
+        "lcp": 0,
+        "cls": 0
+      },
+      "h1": "الفرق",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/stats",
+      "overflow": false,
+      "metrics": {
+        "lcp": 64,
+        "cls": 0
+      },
+      "h1": "الإحصائيات",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/news",
+      "overflow": false,
+      "metrics": {
+        "lcp": 44,
+        "cls": 0
+      },
+      "h1": "الأخبار",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/the-road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "الصفحة غير موجودة",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/road",
+      "overflow": false,
+      "metrics": {
+        "lcp": 44,
+        "cls": 0
+      },
+      "h1": "THE ROAD",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/team/al-ittihad",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "Al Ittihad",
+      "resources": 132837
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "route": "/admin",
+      "overflow": false,
+      "metrics": {
+        "lcp": 60,
+        "cls": 0
+      },
+      "h1": "غرفة إدارة البطولة",
+      "resources": 132837
+    }
+  ]
+}

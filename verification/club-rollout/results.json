@@ -1,0 +1,422 @@
+[
+  {
+    "id": "al-ittihad",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "al-ittihad",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "al-ittihad",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "al-ittihad",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "al-ittihad",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "al-ittihad",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "stade-malien",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "stade-malien",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "stade-malien",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "stade-malien",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "stade-malien",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "stade-malien",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nb-staoueli",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nb-staoueli",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nb-staoueli",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nb-staoueli",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nb-staoueli",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nb-staoueli",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nabaya-sofas",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nabaya-sofas",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nabaya-sofas",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nabaya-sofas",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nabaya-sofas",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "nabaya-sofas",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "kriol-star",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "kriol-star",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "kriol-star",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "kriol-star",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "kriol-star",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "kriol-star",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "spintex-knights",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "spintex-knights",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "spintex-knights",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "spintex-knights",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "spintex-knights",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "spintex-knights",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "as-douanes",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "as-douanes",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "as-douanes",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "as-douanes",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "as-douanes",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "as-douanes",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "energie-bc",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "energie-bc",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "energie-bc",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "energie-bc",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "energie-bc",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "energie-bc",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "npa-pythons",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "npa-pythons",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "npa-pythons",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "npa-pythons",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "npa-pythons",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "npa-pythons",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "red-flames",
+    "width": 390,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "red-flames",
+    "width": 430,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "red-flames",
+    "width": 768,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "red-flames",
+    "width": 1024,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "red-flames",
+    "width": 1440,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  },
+  {
+    "id": "red-flames",
+    "width": 1920,
+    "overflow": false,
+    "heroOverlap": false,
+    "brokenImages": 0
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "clients": 20,
+  "writes": 30,
+  "ordering": "monotonic snapshot notifications",
+  "reconnect": "pass",
+  "serverRestart": "pass",
+  "refresh": "pass",
+  "offlineShell": "pass",
+  "scorePreserved": 33,
+  "writeP95Ms": 24,
+  "localOnly": true
+}

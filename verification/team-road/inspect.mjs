@@ -1,0 +1,2 @@
+import {chromium} from '@playwright/test';const b=await chromium.launch();const p=await b.newPage({viewport:{width:390,height:844}});await p.goto('http://127.0.0.1:3000/teams/npa-pythons');console.log(await p.locator(".hub-club").evaluateAll(els=>els.map(e=>({id:e.dataset.team,rect:e.getBoundingClientRect().toJSON(),top:getComputedStyle(e).top,bottom:getComputedStyle(e).bottom,height:getComputedStyle(e).height}))));await b.close();
+

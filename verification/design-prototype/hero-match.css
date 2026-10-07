@@ -1,0 +1,42 @@
+/* Approved reference composition, scoped exclusively to the homepage preview. */
+#hero .campaign{height:640px}
+#hero .city{filter:brightness(.63);object-position:50% 50%}
+#hero .athlete{top:0;right:-4%;width:59%;height:100%;object-position:53% 38%;filter:brightness(.83);mask-image:linear-gradient(90deg,transparent,black 22%),linear-gradient(0deg,transparent,black 23%);mask-composite:intersect}
+#hero .campaign-shade{background:linear-gradient(0deg,#080e14 0%,transparent 31%),linear-gradient(90deg,#080e1433,transparent 70%)}
+#hero .campaign-top{font-size:10px;letter-spacing:2px}
+#hero .campaign-title{position:static;margin-top:42px;width:70%}
+#hero .edition{font-size:42px}
+#hero .campaign h1{font-size:clamp(140px,16.8vw,250px);line-height:.94;letter-spacing:-4px;margin:18px 0 3px}
+#hero .campaign-title p{font-size:25px;margin-top:0}
+#hero .campaign-bottom{bottom:32px;gap:64px;align-items:end}
+#hero .date strong{font:82px/.9 Display;color:var(--orange)}
+#hero .date>span{font:25px Display;letter-spacing:1px;margin-top:0;display:inline}
+#hero .countdown>.micro{font-size:10px}
+#hero .countdown>div{gap:14px}
+#hero .countdown b{font:36px/1 Display}
+#hero .countdown i{font:24px Display;color:#899399}
+#hero .campaign-link{font-size:13px;color:var(--paper);border-bottom:1px solid #ffffff40;padding-bottom:10px}
+#hero .campaign-link span{font-size:24px;color:var(--orange)}
+#hero .africa h2{font-size:46px}
+@media(max-width:600px){
+#hero .campaign{height:605px;padding:22px 20px}
+#hero .campaign-top{font-size:8px;letter-spacing:1px}
+#hero .campaign-title{margin-top:25px;width:100%}
+#hero .edition{font-size:31px}
+#hero .campaign h1{font-size:102px;letter-spacing:-1px;line-height:1;margin:9px 0 0}
+#hero .campaign-title p{font-size:20px;margin-top:0}
+#hero .city{object-position:50% 50%;filter:brightness(.65)}
+#hero .athlete{top:168px;right:-13%;width:113%;height:340px;object-position:53% 28%;filter:brightness(.8);mask-image:linear-gradient(0deg,transparent,black 30%,black 80%,transparent);mask-composite:add}
+#hero .campaign-shade{background:linear-gradient(0deg,#080e14 0%,transparent 31%,#080e1433 67%,#080e14aa 100%)}
+#hero .campaign-bottom{bottom:22px;left:20px;right:20px;gap:14px;flex-wrap:wrap;align-items:end}
+#hero .date strong{font-size:65px}
+#hero .date>span{font-size:21px}
+#hero .countdown{padding-top:0}
+#hero .countdown>div{gap:7px}
+#hero .countdown b{font-size:25px}
+#hero .countdown i{font-size:20px}
+#hero .countdown>.micro{font-size:9px;margin-bottom:7px}
+#hero .campaign-link{font-size:11px;width:100%;text-align:right;padding-bottom:4px;margin-top:3px;border-top:0;padding-top:0}
+#hero .campaign-link span{font-size:18px}
+#hero .africa h2{font-size:30px}
+}
