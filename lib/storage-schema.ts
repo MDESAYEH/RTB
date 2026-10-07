@@ -5,5 +5,6 @@ CREATE INDEX IF NOT EXISTS media_upload_expiry ON media_uploads(expires);
 CREATE TABLE IF NOT EXISTS media_chunks(upload TEXT NOT NULL REFERENCES media_uploads(id) ON DELETE CASCADE,part INTEGER NOT NULL,bytes BLOB NOT NULL,PRIMARY KEY(upload,part));
 CREATE TABLE IF NOT EXISTS migration_imports(id TEXT PRIMARY KEY,fingerprint TEXT NOT NULL,time TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS media_publications(id TEXT PRIMARY KEY,bytes INTEGER NOT NULL);
-PRAGMA user_version=5;
 `;
+
+export const storageSchemaVersion = 5;
