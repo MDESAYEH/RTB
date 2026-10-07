@@ -430,7 +430,7 @@ test("Vercel configuration never falls back to writable SQLite or accepts local 
     VERCEL: "1",
     TURSO_DATABASE_URL: "libsql://fixture.turso.io",
     TURSO_AUTH_TOKEN: "test-only",
-    NODE_ENV: "production",
+    NODE_ENV: "production" as const,
   };
   assert.throws(() => databaseConfig(remote), /SITE_URL/);
   assert.throws(
