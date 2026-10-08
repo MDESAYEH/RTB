@@ -272,3 +272,8 @@ body { background: #091522; }
   .public-teams .team-line .badge { width: 48px; height: 48px; }
   .event-home .group-preview > div { padding: 20px 16px; }
 }
+/* Every page uses the full viewport width, like the home page. */
+main#main { max-width: none; width: 100%; margin-inline: 0; }
+.public-page .article { max-width: none; }
+.public-page .article-body { max-width: min(100%, 980px); }
+.sports-page { margin-inline: 0; }
