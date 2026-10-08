@@ -373,3 +373,5 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
   .tournament-ending > small { margin-top: 22px; padding-top: 16px; border-top: 1px solid #ffffff26; text-align: center; }
 }
 .public-road > .page-heading { margin-bottom: 0; }
+.public-page.public-road { padding-bottom: 0; }
+.public-road .teams-field { padding-bottom: 40px; }
