@@ -338,7 +338,7 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
     position: sticky;
     top: 8px;
     z-index: 5;
-    width: 100%;
+    width: auto;
     flex-wrap: nowrap;
   }
   .sports-standings .group-switch button { flex: 1; padding-inline: 8px; }
