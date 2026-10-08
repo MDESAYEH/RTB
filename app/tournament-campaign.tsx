@@ -163,7 +163,11 @@ export function TournamentHeader() {
   return (
     <>
       <header
-        className={"tournament-header " + (scrolled ? "is-scrolled" : "")}
+        className={
+          "tournament-header " +
+          (pathname === "/" ? "is-home " : "") +
+          (scrolled ? "is-scrolled" : "")
+        }
       >
         <Brand />
         <nav className="tournament-nav" aria-label={tr("أقسام البطولة")} dir={dir}>
