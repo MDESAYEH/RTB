@@ -427,3 +427,4 @@ html[dir="ltr"] .road-section .section-title,
 html[dir="ltr"] .hub-heading { direction: ltr; }
 html[dir="ltr"] .road-section > .muted { margin: 35px auto 0 0; }
 html[dir="ltr"] .road-step p { text-align: left; }
+html[dir="ltr"] .lucide-chevron-left { transform: scaleX(-1); }
