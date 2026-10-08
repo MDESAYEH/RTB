@@ -81,6 +81,9 @@ export const en: Record<string, string> = {
   "ستظهر المواعيد هنا بعد اعتماد جدول المباريات.":
     "Times will appear here once the schedule is confirmed.",
 
+  "تعرّف على الفرق": "Meet the teams",
+  "شاهد المجموعات": "See the groups",
+
   // The Road
   "من كل مجموعة": "From each group",
   "إلى Elite 16.": "to Elite 16.",

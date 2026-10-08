@@ -472,3 +472,46 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 }
 /* The offline notice must sit below the floating home header, not under it. */
 .tournament-header.is-home + .notice { margin-top: var(--hh); position: relative; z-index: 1; }
+.eyebrow { unicode-bidi: plaintext; }
+/* Phones: filters and day pickers scroll sideways in one row instead of wrapping. */
+@media (max-width: 700px) {
+  .sports-matches .tabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    width: auto;
+    max-width: 100%;
+    scrollbar-width: none;
+    border-radius: 999px;
+  }
+  .sports-matches .tabs::-webkit-scrollbar { display: none; }
+  .sports-matches .tabs button { flex: 0 0 auto; padding-inline: 18px; white-space: nowrap; }
+  .sports-matches .days {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0;
+    scrollbar-width: none;
+    padding-bottom: 6px;
+  }
+  .sports-matches .days::-webkit-scrollbar { display: none; }
+  .sports-matches .days button { flex: 0 0 auto; min-width: 88px; }
+  .sports-stats .stat-categories { font-size: clamp(20px, 7vw, 28px); white-space: nowrap; overflow: hidden; }
+}
+/* Readability over the hero photo. */
+.tripoli-poster :is(.poster-copy, .poster-timing, .poster-road) { text-shadow: 0 2px 14px #000a, 0 1px 3px #0008; }
+/* Primary links first: secondary sections are visually quieter in the top navigation. */
+.tournament-nav a:is([href="/stats"], [href="/news"]):not([aria-current]) { opacity: .72; }
+.tournament-nav a:is([href="/stats"], [href="/news"]):hover { opacity: 1; }
+/* Calls to action under empty states. */
+.empty-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0 32px; }
+.empty-actions a {
+  padding: 12px 22px;
+  border: 1px solid #192b3933;
+  border-radius: 999px;
+  background: #fff;
+  color: #07542d;
+  font-weight: 800;
+  transition: background .2s, color .2s;
+}
+.empty-actions a:hover { background: #07542d; color: #fff; }

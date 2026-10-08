@@ -562,6 +562,13 @@ export default function Site({
             detail={tr("ستظهر المواعيد هنا بعد اعتماد جدول المباريات.")}
           />
         )}
+        {!visible.length && (
+          <div className="empty-actions">
+            <Link href="/teams">{tr("تعرّف على الفرق")}</Link>
+            <Link href="/standings">{tr("شاهد المجموعات")}</Link>
+            <Link href="/the-road">{tr("اكتشف THE ROAD")}</Link>
+          </div>
+        )}
       </>
     );
   }
