@@ -7,7 +7,7 @@
   --white: #f0efe9;
   --muted: #a8b3b3;
   --line: #ffffff26;
-  --font-arabic: "Noto Sans Arabic Variable", Arial, sans-serif;
+  --font-arabic: "Cairo Variable", Cairo, Arial, sans-serif;
 }
 * {
   box-sizing: border-box;

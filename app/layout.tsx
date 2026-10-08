@@ -7,7 +7,7 @@ import "./sports-utility.css";
 import "./basketball-loading.css";
 import "./home-hero.css";
 import "./african-pattern.css";
-import "@fontsource-variable/noto-sans-arabic/wght.css";
+import "@fontsource-variable/cairo/wght.css";
 const displayFont = localFont({
   src: "../node_modules/@fontsource-variable/roboto-condensed/files/roboto-condensed-latin-wght-normal.woff2",
   weight: "100 900",

@@ -10,7 +10,7 @@
   --white: var(--brand-paper);
   --muted: #a8b3b3;
   --line: #ffffff26;
-  --brand-body: "Noto Sans Arabic Variable", Arial, sans-serif;
+  --brand-body: "Cairo Variable", Cairo, Arial, sans-serif;
 }
 body {
   font-family: var(--brand-body);
