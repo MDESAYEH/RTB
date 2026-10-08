@@ -1,12 +1,21 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { parseEventPage, FibaParseError, extractPayload } from "../lib/providers/fiba/parser";
-import { mapEvent } from "../lib/providers/fiba/mapper";
+import {
+  parseEventPage,
+  parseStandingsPage,
+  probeLeadersPage,
+  FibaParseError,
+  extractPayload,
+} from "../lib/providers/fiba/parser";
+import { mapEvent, mapStandings } from "../lib/providers/fiba/mapper";
 import { fetchFibaPage, FibaFetchError } from "../lib/providers/fiba/client";
 import { runDryRun, formatReport } from "../lib/providers/fiba/sync";
 
-const fixture = readFileSync(new URL("./fixtures/fiba-games.html", import.meta.url), "utf8");
+const load = (name: string) => readFileSync(new URL(`./fixtures/${name}`, import.meta.url), "utf8");
+const fixture = load("fiba-games.html");
+const standingsFixture = load("fiba-standings.html");
+const leadersFixture = load("fiba-leaders.html");
 
 /** Rebuild a page from a (possibly edited) payload object, as FIBA's script chunks encode it. */
 function pageFrom(edit: (data: Record<string, unknown>) => void): string {
@@ -100,12 +109,50 @@ test("client refuses non-200, non-HTML and foreign redirects", async () => {
   await assert.rejects(fetchFibaPage("games", redirected), /redirect/);
 });
 
+test("standings: draw-order tables resolve to local teams and agree on groups", () => {
+  const standings = parseStandingsPage(standingsFixture);
+  assert.deepEqual(
+    standings.stages.map((stage) => stage.code),
+    ["DW-GP", "DE-GP"],
+  );
+  const tables = mapStandings(standings, mapEvent(parseEventPage(fixture)).teams);
+  const groupA = tables.find((table) => table.group === "A");
+  assert.ok(groupA);
+  assert.equal(groupA.rows, 5);
+  assert.deepEqual(groupA.teams, ["kriol-star", "nabaya-sofas", "al-ittihad", "stade-malien"]);
+  assert.match(groupA.unresolved[0], /nadi-basket-staoueli not in local registry/);
+  const groupB = tables.find((table) => table.group === "B");
+  assert.ok(groupB?.unresolved.some((line) => /slot not assigned/.test(line)));
+  assert.equal(tables.flatMap((table) => table.groupMismatches).length, 0);
+  assert.ok(tables.every((table) => table.gamesPlayed === 0));
+});
+
+test("standings and leaders fail closed on structural change", () => {
+  assert.throws(() => parseStandingsPage(fixture), /No standings stages found/);
+  assert.throws(() => parseStandingsPage("<html></html>"), FibaParseError);
+  assert.throws(() => probeLeadersPage("<html></html>"), FibaParseError);
+  assert.equal(probeLeadersPage(leadersFixture).playerRecords, 0);
+});
+
 test("dry run reports counts and never touches a database", async () => {
-  const report = await runDryRun(() => htmlResponse(fixture));
+  const pages: Record<string, string> = {
+    "/games": fixture,
+    "/standings": standingsFixture,
+    "/leaders": leadersFixture,
+  };
+  const calls: string[] = [];
+  const report = await runDryRun((url) => {
+    calls.push(url);
+    const key = Object.keys(pages).find((suffix) => url.endsWith(suffix));
+    assert.ok(key, `unexpected URL ${url}`);
+    return htmlResponse(pages[key]);
+  });
+  assert.equal(calls.length, 3);
   assert.equal(report.counts.teamsFound, 21);
   assert.equal(report.counts.gamesFound, 2);
-  assert.equal(report.counts.standingsFound, 0);
+  assert.equal(report.counts.standingsFound, 19);
+  assert.equal(report.counts.statsFound, 0);
   assert.equal(report.games.mappable.length, 0);
   assert.ok(report.teams.matched.includes("al-ittihad"));
-  assert.match(formatReport(report), /teams found: 21/);
+  assert.match(formatReport(report), /standings found: 19/);
 });
