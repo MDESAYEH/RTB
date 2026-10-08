@@ -515,3 +515,19 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   transition: background .2s, color .2s;
 }
 .empty-actions a:hover { background: #07542d; color: #fff; }
+/* One primary colour: green. Maroon is kept for special moments (honours podium, tournament pulse). */
+:is(.public-page, .sports-page) > .page-heading {
+  background-color: #07542d;
+  background-image: linear-gradient(90deg, #00351b66, #00351bd0), var(--pattern-rings);
+}
+:is(.public-page, .sports-page) .page-heading .eyebrow,
+.operator-page .page-heading .eyebrow { color: #e0edcd; }
+.operator-page > .page-heading { background: linear-gradient(90deg, #00351b99, #00351be8), var(--pattern-rings) #07542d; }
+.system-message,
+.basketball-loading { background: linear-gradient(90deg, #00351be8, #00351be8), var(--pattern-rings) #07542d; }
+.editorial-club-opening { background: linear-gradient(90deg, #00351be8, #00351b8c), var(--pattern-rings) #07542d; }
+.public-news .article > h1 { background: linear-gradient(90deg, #00351bee, #00351bb0), var(--pattern-rings) #07542d; }
+.sports-match-page .broadcast-stage { background: linear-gradient(90deg, #00351bee, #00351b99), var(--pattern-rings) #07542d; }
+.tournament-ending { background: linear-gradient(90deg, #04150cf5 30%, #00351b99), var(--pattern-rings) #07542d; background-size: auto, 300px 230px; }
+.tournament-ending .ending-word { color: var(--pattern-yellow); }
+.public-news .empty::after { direction: ltr; unicode-bidi: isolate; }
