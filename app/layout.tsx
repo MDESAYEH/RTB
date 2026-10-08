@@ -9,8 +9,8 @@ import "./home-hero.css";
 import "./african-pattern.css";
 import "@fontsource-variable/noto-sans-arabic/wght.css";
 const displayFont = localFont({
-  src: "../node_modules/@fontsource/bebas-neue/files/bebas-neue-latin-400-normal.woff2",
-  weight: "400",
+  src: "../node_modules/@fontsource-variable/roboto-condensed/files/roboto-condensed-latin-wght-normal.woff2",
+  weight: "100 900",
   display: "swap",
   variable: "--font-display",
   preload: true,
