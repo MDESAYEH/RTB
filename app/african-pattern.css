@@ -380,3 +380,23 @@ summary { caret-color: transparent; user-select: none; -webkit-user-select: none
 summary:focus:not(:focus-visible) { outline: none; }
 .event-sponsors-logos li > a { display: flex; justify-content: center; align-items: center; transition: transform .2s; }
 .event-sponsors-logos li > a:hover { transform: translateY(-4px) scale(1.04); }
+/* Standings, side-by-side layout: give the team name room so it stays on one line. */
+@media (min-width: 1001px) {
+  .sports-standings .standings-wrap th:nth-child(2),
+  .sports-standings .standings-wrap td:nth-child(2) { width: 45%; }
+  .sports-standings .standings-wrap th:first-child,
+  .sports-standings .standings-wrap td:first-child { width: 6%; }
+  .sports-standings .standings-wrap td { font-size: 15px; }
+  .sports-standings .standings-wrap td:nth-child(2) a { gap: 12px; white-space: nowrap; }
+  .sports-standings .standings-wrap td:nth-child(2) a > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 17px;
+    font-weight: 700;
+  }
+}
+@media (min-width: 1001px) and (max-width: 1400px) {
+  .sports-standings .standings-wrap :is(th, td).wide { display: none; }
+  .sports-standings .standings-wrap td:nth-child(2) a > span { font-size: 15px; }
+}
