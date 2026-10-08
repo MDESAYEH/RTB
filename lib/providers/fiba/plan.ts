@@ -6,7 +6,15 @@ import type { FibaEventData, FibaGame, FibaStandingsData, FibaTeam } from "./par
 /** The stage whose group tables are this tournament's groups (Tripoli = Division West group phase). */
 export const FIBA_SCOPE_STAGE = "DW-GP";
 /** Record owners that are not human edits. Anything else in the audit trail is a manual override. */
-export const SYSTEM_ACTORS = ["seed", "fiba-sync", "import", "system"] as const;
+export const SYSTEM_ACTORS = [
+  "seed",
+  "fiba-sync",
+  "import",
+  "system",
+  "verified-research-import",
+] as const;
+/** Scripted source reviews are tooling, not a supervisor's decision (e.g. `source-review:FIBA-fr-2026-10-05`). */
+export const SYSTEM_ACTOR_PREFIXES = ["source-review:"] as const;
 
 export type PlanAction = "create" | "update" | "unchanged" | "ignored" | "skipped";
 export type PlanEntry = {
@@ -195,6 +203,17 @@ export function buildPlan(
       awayScore: fiba.teamBScore,
     };
     if (!existing) {
+      // A fixture an admin already entered by hand keeps priority; importing it again would duplicate it.
+      const manual = state.games.find(
+        (game) =>
+          !game.id.startsWith("fiba-") &&
+          ((game.home === published.home && game.away === published.away) ||
+            (game.home === published.away && game.away === published.home)),
+      );
+      if (manual) {
+        skip(`same fixture already exists locally as ${manual.id}; the manual record takes priority`);
+        continue;
+      }
       const parsed = gameSchema.safeParse({ id, ...published, venue: fiba.venueName ?? "" });
       if (!parsed.success) skip(`failed schema validation: ${parsed.error.issues[0]?.message}`);
       else entries.push({ kind: "games", id, action: "create", reason: "published by FIBA", value: parsed.data });

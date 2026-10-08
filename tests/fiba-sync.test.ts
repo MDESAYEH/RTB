@@ -72,7 +72,8 @@ for (const [label, config] of backends) {
   test(`${label}: teams and groups are imported from FIBA group tables; unreviewed teams are not merged`, async () => {
     const store = fresh();
     await store.provider.getTeams();
-    const result = await runSync(store, { apply: true, fetchImpl: fetcher() });
+    const unreviewed = { aliases: {} };
+    const result = await runSync(store, { apply: true, fetchImpl: fetcher(), plan: unreviewed });
     assert.equal(result.counts["teams.skipped"], 1);
     const skipped = result.plan.entries.find((entry) => entry.action === "skipped");
     assert.equal(skipped?.id, "nadi-basket-staoueli");
@@ -85,7 +86,7 @@ for (const [label, config] of backends) {
     // A seeded (non-manual) record whose group disagrees is corrected from the group table.
     const kriol = (await store.get<Team>("teams", "kriol-star"))!;
     await store.write("teams", "kriol-star", { ...kriol, group: "B" }, "seed");
-    await runSync(store, { apply: true, fetchImpl: fetcher() });
+    await runSync(store, { apply: true, fetchImpl: fetcher(), plan: unreviewed });
     assert.equal((await store.get<Team>("teams", "kriol-star"))?.group, "A");
     await store.db.close();
   });
@@ -98,6 +99,7 @@ for (const [label, config] of backends) {
     assert.equal(staoueli.name, "Nadi Basket Staoueli");
     assert.equal(staoueli.group, "A");
     assert.equal(staoueli.country, "الجزائر");
+    assert.equal(staoueli.verified, false, "spelling stays flagged until confirmed");
     // Group B's unassigned slot is never filled; an explicitly approved FIBA team is created.
     const approved = await runSync(store, {
       apply: true,
@@ -155,6 +157,44 @@ for (const [label, config] of backends) {
     await store.db.close();
   });
 
+  test(`${label}: the shipped alias links Staoueli by default; a hand-entered fixture is not duplicated`, async () => {
+    const store = fresh();
+    await store.provider.getTeams();
+    // No plan options: the reviewed alias in aliases.ts applies.
+    const first = await runSync(store, { apply: true, fetchImpl: fetcher() });
+    assert.equal(first.counts["teams.skipped"] ?? 0, 0);
+    assert.equal((await store.get<Team>("teams", "nb-staoueli"))?.name, "Nadi Basket Staoueli");
+    // An admin already entered Al Ittihad v Stade Malien by hand.
+    await store.write(
+      "games",
+      "manual-1",
+      {
+        id: "manual-1",
+        home: "al-ittihad",
+        away: "stade-malien",
+        group: "A",
+        date: "2026-10-21T16:00:00+02:00",
+        venue: "",
+        status: "Scheduled",
+        homeScore: 0,
+        awayScore: 0,
+        quarter: 1,
+        clock: 600,
+        running: false,
+        updatedAt: "",
+        version: 0,
+        periods: [],
+      },
+      "admin",
+    );
+    const result = await runSync(store, { apply: true, fetchImpl: fetcher({ games: gamesPage() }) });
+    const entry = result.plan.entries.find((candidate) => candidate.kind === "games");
+    assert.equal(entry?.action, "skipped");
+    assert.match(entry?.reason ?? "", /manual-1/);
+    assert.equal((await store.provider.getGames()).length, 1);
+    await store.db.close();
+  });
+
   test(`${label}: manual overrides are never overwritten`, async () => {
     const store = fresh();
     await store.provider.getTeams();
@@ -173,6 +213,11 @@ for (const [label, config] of backends) {
     assert.ok(result.plan.entries.some((entry) => entry.id === "energie-bc" && entry.action === "ignored"));
     assert.equal((await store.provider.getGame(game.id))?.homeScore, 99);
     assert.equal((await store.get<Team>("teams", "energie-bc"))?.name, "Énergie BC");
+    // Scripted reviews are tooling, not supervisors: they do not freeze a record.
+    const douanes = (await store.get<Team>("teams", "as-douanes"))!;
+    await store.write("teams", "as-douanes", { ...douanes, name: "AS Douanes (reviewed)" }, "source-review:FIBA-test");
+    const later = await runSync(store, { apply: true, fetchImpl: fetcher(), plan: alias });
+    assert.equal(later.plan.entries.find((entry) => entry.id === "as-douanes")?.action, "update");
     await store.db.close();
   });
 

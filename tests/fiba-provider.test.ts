@@ -119,8 +119,9 @@ test("standings: draw-order tables resolve to local teams and agree on groups", 
   const groupA = tables.find((table) => table.group === "A");
   assert.ok(groupA);
   assert.equal(groupA.rows, 5);
-  assert.deepEqual(groupA.teams, ["kriol-star", "nabaya-sofas", "al-ittihad", "stade-malien"]);
-  assert.match(groupA.unresolved[0], /nadi-basket-staoueli not in local registry/);
+  // Staoueli resolves through the reviewed alias in aliases.ts.
+  assert.deepEqual(groupA.teams, ["nb-staoueli", "kriol-star", "nabaya-sofas", "al-ittihad", "stade-malien"]);
+  assert.deepEqual(groupA.unresolved, []);
   const groupB = tables.find((table) => table.group === "B");
   assert.ok(groupB?.unresolved.some((line) => /slot not assigned/.test(line)));
   assert.equal(tables.flatMap((table) => table.groupMismatches).length, 0);

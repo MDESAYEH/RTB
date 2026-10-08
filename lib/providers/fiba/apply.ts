@@ -3,7 +3,7 @@ import { gameSchema, settingsSchema, teamSchema } from "../../domain";
 import type { TournamentStore } from "../../store";
 import { fetchFibaPage, type FetchLike } from "./client";
 import { parseEventPage, parseStandingsPage, probeLeadersPage } from "./parser";
-import { buildPlan, SYSTEM_ACTORS, type PlanEntry, type PlanOptions, type SyncPlan } from "./plan";
+import { buildPlan, SYSTEM_ACTORS, SYSTEM_ACTOR_PREFIXES, type PlanEntry, type PlanOptions, type SyncPlan } from "./plan";
 
 export const SYNC_ACTOR = "fiba-sync";
 
@@ -34,8 +34,12 @@ function countActions(entries: PlanEntry[]): Record<string, number> {
 async function manualOverrides(store: TournamentStore): Promise<Set<string>> {
   const placeholders = SYSTEM_ACTORS.map(() => "?").join(",");
   const rows = (await store.db
-    .prepare(`SELECT DISTINCT kind,target FROM audit WHERE actor NOT IN (${placeholders})`)
-    .all(...SYSTEM_ACTORS)) as { kind: string; target: string }[];
+    .prepare(
+      `SELECT DISTINCT kind,target FROM audit WHERE actor NOT IN (${placeholders})${SYSTEM_ACTOR_PREFIXES.map(
+        () => " AND actor NOT LIKE ?",
+      ).join("")}`,
+    )
+    .all(...SYSTEM_ACTORS, ...SYSTEM_ACTOR_PREFIXES.map((prefix) => `${prefix}%`))) as { kind: string; target: string }[];
   return new Set(rows.map((row) => `${row.kind}:${row.target}`));
 }
 
