@@ -564,3 +564,14 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 .tournament-nav .nav-more-list a { padding: 12px 14px; border-radius: 6px; }
 .tournament-nav .nav-more-list a::after { display: none; }
 .tournament-nav .nav-more-list a:hover { background: #ffffff14; }
+/* Phones: a tighter club page. */
+@media (max-width: 700px) {
+  .club-editorial-story, .club-trophy-wall, .club-african-journey { padding-block: 26px; }
+  .club-story-copy { margin-top: 16px; }
+  .club-story-copy > p { font-size: 15.5px; line-height: 1.85; }
+  .club-story-copy > p + p { margin-top: 12px; }
+  .club-trophy-totals { gap: 14px; margin-top: 16px; }
+  .club-trophy-totals strong { font-size: 64px; }
+  .club-journey-row > div { padding-bottom: 16px; }
+  .hub-body { padding-block: 28px 34px; }
+}
