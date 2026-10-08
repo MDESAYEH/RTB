@@ -281,3 +281,9 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
 .public-road > .page-heading { margin-inline: 0; padding-inline: clamp(20px, 6vw, 108px); }
 .public-road > .road-section { padding-inline: clamp(20px, 6vw, 108px) !important; border-radius: 0; }
 .public-road .teams-field { padding-inline: clamp(20px, 6vw, 108px); }
+/* Sports pages: the heading band is full bleed; other blocks keep the side gutter. */
+.sports-page { padding-inline: 0; }
+.sports-page > * { margin-inline: clamp(20px, 6vw, 108px); }
+.sports-page > .page-heading { margin-inline: 0; padding-inline: clamp(20px, 6vw, 108px); width: auto; }
+.sports-page.sports-match-page > .match-scoreboard,
+.sports-page.sports-match-page > .broadcast-stage { margin-inline: clamp(20px, 6vw, 108px); }
