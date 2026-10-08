@@ -1,5 +1,6 @@
 import { gameSchema, teamSchema, type Game, type Team } from "../../domain";
 import registry from "../../team-identity.json";
+import { fibaTeamAliases } from "./aliases";
 import type { FibaEventData, FibaGame, FibaStandingsData, FibaTeam } from "./parser";
 
 type LocalTeam = (typeof registry.teams)[number];
@@ -16,8 +17,13 @@ export type GameOutcome =
 
 const normalise = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-/** Match by slug/id first, then exact normalised name. Never guesses further. */
-export function matchLocalTeam(team: FibaTeam): LocalTeam | null {
+/** Reviewed alias first, then slug/id, then exact normalised name. Never guesses further. */
+export function matchLocalTeam(
+  team: FibaTeam,
+  aliases: Record<string, string> = fibaTeamAliases,
+): LocalTeam | null {
+  const aliased = aliases[team.slug];
+  if (aliased) return registry.teams.find((local) => local.id === aliased) ?? null;
   const bySlug = registry.teams.find(
     (local) => local.id === team.slug || local.slug === team.slug,
   );

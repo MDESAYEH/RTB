@@ -13,6 +13,8 @@
     "test:e2e": "playwright test",
     "db:backup": "node scripts/backup.mjs",
     "fiba:sync": "tsx scripts/sync-fiba.ts",
+    "fiba:dry-run": "tsx scripts/sync-fiba.ts --dry-run",
+    "fiba:report": "tsx scripts/sync-fiba.ts --report",
     "db:import": "tsx scripts/import.ts",
     "db:verify": "tsx scripts/verify-import.ts",
     "media:cleanup": "tsx scripts/media-cleanup.ts"

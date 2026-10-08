@@ -58,3 +58,19 @@ Pure `resolveSource` contract enforces manual → primary → secondary and flag
 On 5 October 2026 the official indexed announcement was rechecked at https://about.fiba.basketball/en/news/introducing-the-road-to-bal-2027 and the French event article https://www.fiba.basketball/fr/events/fiba-africa-champions-clubs-road-to-bal-2027/news/introducing-the-road-to-bal-2027 . They confirm Tripoli 21–25 October, Groups A/B and top two to West Elite 16. The French article explicitly spells Stade Malien; its existing local verification flag was updated with a source-review audit entry. The Arabic/English display name and stable ID are retained. The Algeria spelling remains unresolved.
 
 The announcement names Abidjan for West Elite 16, 10–15 November, but does not establish individual game dates/times or a complete competition classification contract. No new official game IDs, fixture times or rosters were verified. No fixtures/players/scores/statistics were added to the public seed. All visual/lifecycle test data lives in a separate QA database and is not tournament news. Direct event overview/games retrieval failed through the web tool; that is an access limitation, not evidence that FIBA is offline. No new scraping or undocumented API integration was added.
+
+
+## FIBA provider (added after phase 2)
+
+The earlier statements "No scraping collector" and "No external adapter enabled" are superseded by this section.
+
+`lib/providers/fiba/` reads the public FIBA event pages (games, standings, leaders) with a plain HTTP GET and parses the data FIBA embeds in the page (`self.__next_f`). It is HTML parsing, not a documented API. No undocumented endpoint (`api.fiba.basketball/hapi`) is called and no protection is bypassed. Use of this data remains subject to FIBA's terms; confirm them before relying on it in production.
+
+- `npm run fiba:sync` applies FIBA data to the configured database (SQLite locally, Turso when `TURSO_*` is set). `--dry-run` prints the plan only; `--report` is the registry comparison and never opens the database.
+- Scope: FIBA stage `DW-GP` groups that match `settings.groups` (A, B). Teams, group membership, games and scores come from FIBA; standings stay computed locally.
+- Never guessed: unpublished dates, unrecognised status codes, unassigned group slots, statistics. They are skipped and logged.
+- Manual wins: a record edited by any non-system actor (audit trail) is never overwritten. Clock/period/running state of games stays local.
+- FIBA teams without a reviewed local match are skipped. Link them in `lib/providers/fiba/aliases.ts` (`fibaTeamAliases`) or approve creation (`fibaApprovedNewTeams`).
+- Every run is recorded in `fiba_sync_runs` / `fiba_sync_entries`; each write also appears in `audit` with actor `fiba-sync`.
+- Fail closed: any structure change aborts before writes. All writes of a run are one transaction.
+- `GET /api/cron/fiba` (header `Authorization: Bearer $CRON_SECRET`) runs the same sync; it is disabled when `CRON_SECRET` is unset. No schedule is configured in the repository.
