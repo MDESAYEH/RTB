@@ -104,6 +104,16 @@ export const en: Record<string, string> = {
     "Teams level on points await the confirmed tie-break rules.",
 
   // Teams
+  ليبيا: "Libya",
+  مالي: "Mali",
+  الجزائر: "Algeria",
+  غينيا: "Guinea",
+  "الرأس الأخضر": "Cape Verde",
+  غانا: "Ghana",
+  "بوركينا فاسو": "Burkina Faso",
+  بنين: "Benin",
+  ليبيريا: "Liberia",
+  سيراليون: "Sierra Leone",
   "عشرة أندية أفريقية.": "Ten African clubs.",
   "هنا تبدأ حكايات المنافسة.": "The stories of the competition begin here.",
   "رمز نصي · ": "Text badge · ",

@@ -590,7 +590,7 @@ export default function Site({
                       {lang === "ar"
                         ? `${getTeamIdentity(t.id)?.arabicName} / `
                         : ""}
-                      {t.country}
+                      {tr(t.country)}
                     </p>
                   </div>
                   <span className="team-status">
@@ -816,7 +816,7 @@ export default function Site({
                     <Link key={t.id} href={"/teams/" + t.id}>
                       <Badge team={t} />
                       <b dir="auto">{t.name}</b>
-                      <span>{t.country}</span>
+                      <span>{tr(t.country)}</span>
                     </Link>
                   ))}
               </div>
@@ -955,7 +955,7 @@ export default function Site({
               {team(g.home) && <Badge team={team(g.home)!} />}
               <h2 dir="auto">{team(g.home)?.name}</h2>
               <small className="scoreboard-country">
-                {team(g.home)?.country}
+                {tr(team(g.home)?.country ?? "")}
               </small>
             </Link>
             <strong
@@ -984,7 +984,7 @@ export default function Site({
               {team(g.away) && <Badge team={team(g.away)!} />}
               <h2 dir="auto">{team(g.away)?.name}</h2>
               <small className="scoreboard-country">
-                {team(g.away)?.country}
+                {tr(team(g.away)?.country ?? "")}
               </small>
             </Link>
           </div>

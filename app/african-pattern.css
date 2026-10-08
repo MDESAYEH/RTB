@@ -336,7 +336,7 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
   .sports-standings .group-switch {
     display: flex;
     position: sticky;
-    top: 8px;
+    top: calc(var(--hh, 76px) + 6px);
     z-index: 5;
     width: auto;
     flex-wrap: nowrap;
@@ -464,3 +464,11 @@ html[dir="ltr"] .lucide-chevron-left { transform: scaleX(-1); }
 html[dir="ltr"] :is(main, footer, .tournament-shell) * { direction: ltr; }
 html[dir="ltr"] :is(.stade-closing p, .public-page .empty, .event-home .empty, .team-field-intro p, .section-title p) { text-align: left; }
 html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
+/* Phones: keep the four hero facts inside the screen. */
+@media (max-width: 480px) {
+  .poster-facts > div { min-width: 0; gap: 8px; padding-inline: 4px; }
+  .poster-facts strong { font-size: 22px; white-space: nowrap; }
+  .poster-facts svg { width: 28px; height: 28px; flex-shrink: 0; }
+}
+/* The offline notice must sit below the floating home header, not under it. */
+.tournament-header.is-home + .notice { margin-top: var(--hh); position: relative; z-index: 1; }

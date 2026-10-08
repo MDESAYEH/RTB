@@ -153,7 +153,7 @@ export function StadeTournamentHub({
               </span>
               <strong dir="ltr">{t.name}</strong>
               <small>
-                {getTeamIdentity(t.id)?.countryCode} / {t.country}
+                {getTeamIdentity(t.id)?.countryCode} / {tr(t.country)}
               </small>
               {t.id === team.id && (
                 <span className="hub-anchor-label">
