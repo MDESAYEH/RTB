@@ -610,3 +610,8 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   .poster-facts svg { width: 30px; height: 30px; flex-shrink: 0; }
 }
 .poster-road a { white-space: nowrap; }
+/* Hero hierarchy: event → date → countdown (the countdown supports the date, it doesn't compete with it). */
+@media (min-width: 701px) {
+  .poster-countdown strong { font-size: 40px; color: #ffffffe0; }
+  .poster-countdown span { font-size: 14px; opacity: .8; }
+}
