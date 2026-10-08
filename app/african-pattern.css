@@ -378,3 +378,5 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
 /* No text caret or mouse-click focus ring on disclosure toggles. */
 summary { caret-color: transparent; user-select: none; -webkit-user-select: none; }
 summary:focus:not(:focus-visible) { outline: none; }
+.event-sponsors-logos li > a { display: flex; justify-content: center; align-items: center; transition: transform .2s; }
+.event-sponsors-logos li > a:hover { transform: translateY(-4px) scale(1.04); }
