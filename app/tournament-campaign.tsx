@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import Image from "next/image";
 import { Globe, Users, Mountain, ChevronLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
@@ -187,14 +186,17 @@ export function CampaignHero({
         aria-label="طرابلس — Road to BAL"
         dir="ltr"
       >
-        <Image
-          className="poster-background"
-          src="/0d09b692-c5de-4597-9837-1324b8b56828.png"
-          alt=""
-          fill
-          sizes="(max-width: 700px) 1400px, 100vw"
-          preload
-        />
+        <picture className="poster-background" aria-hidden="true">
+          <source
+            media="(max-width: 700px)"
+            srcSet="/fa03d6d7-02b1-47c7-b272-31f78f0a6947.png"
+          />
+          <img
+            src="/0d09b692-c5de-4597-9837-1324b8b56828.png"
+            alt=""
+            fetchPriority="high"
+          />
+        </picture>
         <div className="poster-copy">
           <p className="poster-eyebrow">AFRICAN BASKETBALL. NEXT CHAPTER.</p>
           <p className="poster-title">
