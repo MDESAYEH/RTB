@@ -11,6 +11,7 @@ export const en: Record<string, string> = {
   الأخبار: "News",
   الإدارة: "Admin",
   القائمة: "Menu",
+  المزيد: "More",
   "أقسام البطولة": "Tournament sections",
   "أقسام البطولة على الهاتف": "Tournament sections",
   "فتح قائمة البطولة": "Open tournament menu",

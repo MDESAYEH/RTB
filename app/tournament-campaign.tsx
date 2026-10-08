@@ -71,15 +71,18 @@ const factIcons = {
     </svg>
   ),
 };
-const sections = [
+const primarySections = [
   ["/", "الرئيسية"],
   ["/matches", "المباريات"],
   ["/standings", "الترتيب"],
   ["/teams", "الفرق"],
-  ["/stats", "الإحصائيات"],
   ["/the-road", "THE ROAD"],
+];
+const secondarySections = [
+  ["/stats", "الإحصائيات"],
   ["/news", "الأخبار"],
 ];
+const sections = [...primarySections, ...secondarySections];
 function Brand() {
   const { tr } = useLang();
   return (
@@ -98,8 +101,25 @@ export function TournamentHeader() {
   const pathname = usePathname(),
     dialog = useRef<HTMLDialogElement>(null),
     trigger = useRef<HTMLButtonElement>(null);
+  const more = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false),
+    [moreOpen, setMoreOpen] = useState<string | null>(null),
     [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    if (!moreOpen) return;
+    const away = (event: MouseEvent) => {
+      if (!more.current?.contains(event.target as Node)) setMoreOpen(null);
+    };
+    const esc = (event: globalThis.KeyboardEvent) => {
+      if (event.key === "Escape") setMoreOpen(null);
+    };
+    document.addEventListener("mousedown", away);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("mousedown", away);
+      document.removeEventListener("keydown", esc);
+    };
+  }, [moreOpen]);
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 88);
     update();
@@ -136,29 +156,50 @@ export function TournamentHeader() {
       first?.focus();
     }
   }
-  function links(mobile = false) {
-    return sections.map(([url, label], i) => (
+  const isActive = (url: string) =>
+    url === "/"
+      ? pathname === "/"
+      : pathname === url ||
+        pathname.startsWith(url + "/") ||
+        (url === "/teams" && pathname.startsWith("/team/"));
+  function item(url: string, label: string, mobile = false, i = 0) {
+    return (
       <Link
         key={url}
         href={url}
-        aria-current={
-          (
-            url === "/"
-              ? pathname === "/"
-              : pathname === url ||
-                pathname.startsWith(url + "/") ||
-                (url === "/teams" && pathname.startsWith("/team/"))
-          )
-            ? "page"
-            : undefined
-        }
+        aria-current={isActive(url) ? "page" : undefined}
         onClick={mobile ? close : undefined}
       >
         {mobile && <small>{String(i + 1).padStart(2, "0")}</small>}
         <span>{tr(label)}</span>
         {mobile && <i aria-hidden="true">↗</i>}
       </Link>
-    ));
+    );
+  }
+  function links(mobile = false) {
+    if (mobile) return sections.map(([url, label], i) => item(url, label, true, i));
+    const moreActive = secondarySections.some(([url]) => isActive(url));
+    return (
+      <>
+        {primarySections.map(([url, label]) => item(url, label))}
+        <div className="nav-more" ref={more}>
+          <button
+            type="button"
+            className={moreActive ? "is-current" : ""}
+            aria-haspopup="true"
+            aria-expanded={moreOpen === pathname}
+            onClick={() => setMoreOpen(moreOpen === pathname ? null : pathname)}
+          >
+            {tr("المزيد")} <i aria-hidden="true">▾</i>
+          </button>
+          {moreOpen === pathname && (
+            <div className="nav-more-list">
+              {secondarySections.map(([url, label]) => item(url, label))}
+            </div>
+          )}
+        </div>
+      </>
+    );
   }
   return (
     <>

@@ -501,8 +501,8 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 /* Readability over the hero photo. */
 .tripoli-poster :is(.poster-copy, .poster-timing, .poster-road) { text-shadow: 0 2px 14px #000a, 0 1px 3px #0008; }
 /* Primary links first: secondary sections are visually quieter in the top navigation. */
-.tournament-nav a:is([href="/stats"], [href="/news"]):not([aria-current]) { opacity: .72; }
-.tournament-nav a:is([href="/stats"], [href="/news"]):hover { opacity: 1; }
+
+
 /* Calls to action under empty states. */
 .empty-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 8px 0 32px; }
 .empty-actions a {
@@ -531,3 +531,36 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 .tournament-ending { background: linear-gradient(90deg, #04150cf5 30%, #00351b99), var(--pattern-rings) #07542d; background-size: auto, 300px 230px; }
 .tournament-ending .ending-word { color: var(--pattern-yellow); }
 .public-news .empty::after { direction: ltr; unicode-bidi: isolate; }
+/* "More" menu for secondary sections. */
+.tournament-nav .nav-more { position: relative; }
+.tournament-nav .nav-more > button {
+  padding: 23px 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tournament-nav .nav-more > button i { font-style: normal; font-size: 10px; }
+.tournament-nav .nav-more > button:hover,
+.tournament-nav .nav-more > button.is-current { color: var(--pattern-yellow); }
+.tournament-nav .nav-more-list {
+  position: absolute;
+  top: calc(100% - 8px);
+  inset-inline-start: 0;
+  min-width: 170px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  background: #1d2a38;
+  border: 1px solid #ffffff26;
+  border-radius: 10px;
+  box-shadow: 0 14px 30px #0006;
+  z-index: 60;
+}
+.tournament-nav .nav-more-list a { padding: 12px 14px; border-radius: 6px; }
+.tournament-nav .nav-more-list a::after { display: none; }
+.tournament-nav .nav-more-list a:hover { background: #ffffff14; }
