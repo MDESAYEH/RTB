@@ -375,3 +375,6 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
 .public-road > .page-heading { margin-bottom: 0; }
 .public-page.public-road { padding-bottom: 0; }
 .public-road .teams-field { padding-bottom: 40px; }
+/* No text caret or mouse-click focus ring on disclosure toggles. */
+summary { caret-color: transparent; user-select: none; -webkit-user-select: none; }
+summary:focus:not(:focus-visible) { outline: none; }
