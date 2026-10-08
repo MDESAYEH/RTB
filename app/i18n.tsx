@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import {
   createContext,
   useCallback,
@@ -7,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { en } from "./i18n-en";
+import { en } from "./i18n-dict";
 
 export type Lang = "ar" | "en";
 type Ctx = {
@@ -31,6 +32,7 @@ export function LangProvider({
   initial: Lang;
   children: ReactNode;
 }) {
+  const router = useRouter();
   const [lang, setLang] = useState<Lang>(initial);
   const toggle = useCallback(() => {
     const next: Lang = lang === "ar" ? "en" : "ar";
@@ -38,7 +40,8 @@ export function LangProvider({
     document.cookie = `lang=${next}; path=/; max-age=31536000; samesite=lax`;
     document.documentElement.lang = next;
     document.documentElement.dir = next === "ar" ? "rtl" : "ltr";
-  }, [lang]);
+    router.refresh();
+  }, [lang, router]);
   const value = useMemo<Ctx>(
     () => ({
       lang,

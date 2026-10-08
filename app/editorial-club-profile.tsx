@@ -8,7 +8,7 @@ import {
 import { ClubRoadMark, ClubCourt } from "./club-road-primitives";
 import { useLang } from "./i18n";
 export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
-  const { lang, tr } = useLang();
+  const { lang, dir, tr } = useLang();
   const f = clubFeature(p),
     mode = clubPresentation(p),
     honours = supportingHonours(p);
@@ -50,8 +50,8 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
           </div>
         </div>
         <div className="club-arabic-statement">
-          <h2>{p.arabicName}</h2>
-          <p>{p.bioShort}</p>
+          <h2>{lang === "ar" ? p.arabicName : p.displayName}</h2>
+          <p>{tr(p.bioShort)}</p>
         </div>
         <span className="club-date-outline" dir="ltr" aria-hidden="true">
           21—25
@@ -115,7 +115,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
                 <span>{lastResult[1]}</span>
               </div>
             ) : (
-              f.detail && <p>{f.detail}</p>
+              f.detail && <p>{tr(f.detail)}</p>
             )}
           </div>
           {movement && (
@@ -141,13 +141,13 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
               THE CLUB / THE LEGACY
             </span>
             <h2>
-              {p.arabicName}
+              {lang === "ar" ? p.arabicName : p.displayName}
               <span>{p.country}</span>
             </h2>
           </div>
           <div className="club-story-copy">
             {narrative.map((text, i) => (
-              <p key={i}>{text}</p>
+              <p key={i}>{tr(text)}</p>
             ))}
             {mode === "MEDIUM" && honours.length > 0 && (
               <div
@@ -161,7 +161,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
                   <div key={i} dir="ltr">
                     {h.displayNumber && <strong>{h.displayNumber}</strong>}
                     <span>{h.title}</span>
-                    {h.note && <small dir="rtl">{h.note}</small>}
+                    {h.note && <small dir={dir}>{tr(h.note)}</small>}
                   </div>
                 ))}
               </div>
@@ -182,7 +182,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
                   <strong dir="ltr">{h.count ? `${h.count}×` : h.year}</strong>
                 )}
                 <span dir="ltr">{h.title}</span>
-                {h.note && <small>{h.note}</small>}
+                {h.note && <small>{tr(h.note)}</small>}
               </div>
             ))}
           </div>
@@ -208,7 +208,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
                 <div>
                   <strong dir="ltr">{j.competition}</strong>
                   <p dir="ltr">{j.achievement}</p>
-                  {j.note && <small>{j.note}</small>}
+                  {j.note && <small>{tr(j.note)}</small>}
                 </div>
               </div>
             ))}
@@ -226,7 +226,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {s.title} ↗
+              {tr(s.title)} ↗
             </a>
           ))}
       </details>

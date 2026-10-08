@@ -460,3 +460,7 @@ html[dir="ltr"] .lucide-chevron-left { transform: scaleX(-1); }
   }
   .event-home > section.tripoli-poster .poster-copy { top: calc(48px + var(--hh) / 2); }
 }
+/* English mode: undo the hard-coded right-to-left blocks. */
+html[dir="ltr"] :is(main, footer, .tournament-shell) * { direction: ltr; }
+html[dir="ltr"] :is(.stade-closing p, .public-page .empty, .event-home .empty, .team-field-intro p, .section-title p) { text-align: left; }
+html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }

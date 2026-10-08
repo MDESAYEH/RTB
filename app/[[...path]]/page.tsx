@@ -1,5 +1,7 @@
 import { clubProvider } from "@/lib/club-repository";
 import { notFound, permanentRedirect } from "next/navigation";
+import { cookies } from "next/headers";
+import { en } from "@/app/i18n-dict";
 import { provider, snapshotData } from "@/lib/store";
 import Site from "@/app/site";
 export const dynamic = "force-dynamic";
@@ -11,6 +13,8 @@ export async function generateMetadata({
   }>;
 }) {
   const { path = [] } = await params;
+  const english = (await cookies()).get("lang")?.value === "en";
+  const tr = (text: string) => (english ? (en[text] ?? text) : text);
   const game =
     path[0] === "matches" && path[1] ? await provider.getGame(path[1]) : null;
   const profile =
@@ -32,22 +36,22 @@ export async function generateMetadata({
         news?.title ||
         (
           {
-            matches: "المباريات",
-            standings: "المجموعات",
-            teams: "الفرق",
-            stats: "الإحصائيات",
-            news: "الأخبار",
+            matches: tr("المباريات"),
+            standings: tr("المجموعات"),
+            teams: tr("الفرق"),
+            stats: tr("الإحصائيات"),
+            news: tr("الأخبار"),
             road: "THE ROAD",
             "the-road": "THE ROAD",
-            admin: "الإدارة",
+            admin: tr("الإدارة"),
           } as Record<string, string>
         )[path[0]] ||
-        "طرابلس تستضيف أفريقيا";
+        tr("طرابلس تستضيف أفريقيا");
   const description =
-    profile?.bioShort ||
+    (profile?.bioShort && tr(profile.bioShort)) ||
     news?.excerpt ||
     (game
-      ? "مركز المباراة · " + game.date + " · GROUP " + game.group
+      ? tr("مركز المباراة") + " · " + game.date + " · GROUP " + game.group
       : "ROAD TO BAL 2027 · TRIPOLI · 21–25 OCTOBER 2026");
   const canonical = profile
     ? "/teams/" + encodeURIComponent(profile.slug)
