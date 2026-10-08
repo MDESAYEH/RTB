@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { cookies } from "next/headers";
+import { LangProvider, type Lang } from "./i18n";
 import "./globals.css";
 import "./tournament-campaign.css";
 import "./editorial-club.css";
@@ -33,10 +35,21 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const lang: Lang = (await cookies()).get("lang")?.value === "en" ? "en" : "ar";
   return (
-    <html lang="ar" dir="rtl" className={displayFont.variable}>
-      <body>{children}</body>
+    <html
+      lang={lang}
+      dir={lang === "ar" ? "rtl" : "ltr"}
+      className={displayFont.variable}
+    >
+      <body>
+        <LangProvider initial={lang}>{children}</LangProvider>
+      </body>
     </html>
   );
 }

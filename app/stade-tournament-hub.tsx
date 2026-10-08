@@ -3,6 +3,7 @@ import type { Team, Game } from "@/lib/public-domain";
 import { remainingClock } from "@/lib/public-domain";
 import { getTeamIdentity, teamProfileHref } from "@/lib/team-identity";
 import { ClubCourt, ClubRoadMark } from "./club-road-primitives";
+import { useLang } from "./i18n";
 
 export function ClubMatchLine({
   game: g,
@@ -13,6 +14,7 @@ export function ClubMatchLine({
   team: Team;
   opponents: Team[];
 }) {
+  const { lang, tr } = useLang();
   const opponent = opponents.find(
     (t) => t.id === (g.home === team.id ? g.away : g.home),
   );
@@ -30,7 +32,7 @@ export function ClubMatchLine({
     >
       <div className="club-match-date">
         <span>
-          {date.toLocaleDateString("ar-LY", {
+          {date.toLocaleDateString(lang === "ar" ? "ar-LY" : "en-GB", {
             day: "numeric",
             month: "short",
             timeZone: "Africa/Tripoli",
@@ -38,14 +40,14 @@ export function ClubMatchLine({
         </span>
         <small>
           {g.status === "Cancelled"
-            ? "ألغيت"
+            ? tr("ألغيت")
             : g.status === "Postponed"
-              ? "مؤجلة"
+              ? tr("مؤجلة")
               : live
-                ? `مباشر · Q${g.quarter} · ${Math.floor(clock / 60)}:${String(clock % 60).padStart(2, "0")}`
+                ? `${tr("مباشر")} · Q${g.quarter} · ${Math.floor(clock / 60)}:${String(clock % 60).padStart(2, "0")}`
                 : final
-                  ? "النتيجة النهائية"
-                  : "قادمة"}
+                  ? tr("النتيجة النهائية")
+                  : tr("قادمة")}
         </small>
       </div>
       <Link
@@ -65,7 +67,7 @@ export function ClubMatchLine({
         className="club-match-result"
         href={"/matches/" + g.id}
         dir="ltr"
-        aria-label={`مركز مباراة ${team.name} و${opponent?.name}`}
+        aria-label={`${tr("مركز مباراة")} ${team.name} ${tr("و")} ${opponent?.name}`}
       >
         <strong>
           {live || final
@@ -82,7 +84,7 @@ export function ClubMatchLine({
               ? team.name
               : own < other
                 ? opponent?.name
-                : "النتيجة المعتمدة"
+                : tr("النتيجة المعتمدة")
             : "GAME CENTER ↗"}
         </small>
       </Link>
@@ -111,6 +113,7 @@ export function StadeTournamentHub({
   };
   status: string;
 }) {
+  const { tr } = useLang();
   return (
     <section id="club-tournament" className="stade-tournament-hub">
       <div className="club-group-scene">
@@ -121,13 +124,13 @@ export function StadeTournamentHub({
               GROUP <em>{team.group}</em>
             </h2>
             <p>
-              على أرض واحدة.
+              {tr("على أرض واحدة.")}
               <br />
-              من أجل الطريق نفسه.
+              {tr("من أجل الطريق نفسه.")}
             </p>
           </div>
           <Link href={"/standings?group=" + team.group}>
-            تابع المجموعة {team.group} ↗
+            {tr("تابع المجموعة")} {team.group} ↗
           </Link>
         </div>
         <ClubCourt />
@@ -154,7 +157,7 @@ export function StadeTournamentHub({
               </small>
               {t.id === team.id && (
                 <span className="hub-anchor-label">
-                  {team.id === "al-ittihad" ? "صاحب الأرض" : "على هذا الطريق"}
+                  {tr(team.id === "al-ittihad" ? "صاحب الأرض" : "على هذا الطريق")}
                 </span>
               )}
             </Link>
@@ -168,8 +171,8 @@ export function StadeTournamentHub({
         <div className="hub-matches">
           <div className="hub-part-heading">
             <span dir="ltr">THE MATCH LINE</span>
-            <h2>حان وقت المواجهة.</h2>
-            <Link href="/matches">كل المباريات ↗</Link>
+            <h2>{tr("حان وقت المواجهة.")}</h2>
+            <Link href="/matches">{tr("كل المباريات")} ↗</Link>
           </div>
           {matches.length ? (
             matches.map((g) => (
@@ -190,17 +193,17 @@ export function StadeTournamentHub({
                   2026
                 </small>
               </span>
-              <h3>بانتظار جدول المواجهات الرسمي.</h3>
+              <h3>{tr("بانتظار جدول المواجهات الرسمي.")}</h3>
               <p>
-                ستظهر مواعيد مباريات {team.name} ونتائجها وحالاتها بعد اعتماد
-                الجدول الرسمي.
+                {tr("ستظهر مواعيد مباريات")} {team.name}{" "}
+                {tr("ونتائجها وحالاتها بعد اعتماد الجدول الرسمي.")}
               </p>
             </div>
           )}
         </div>
         <div className="hub-team-info">
           <div className="hub-roster">
-            <h3>قائمة اللاعبين</h3>
+            <h3>{tr("قائمة اللاعبين")}</h3>
             {roster.length ? (
               roster.map((p) => (
                 <Link
@@ -215,39 +218,41 @@ export function StadeTournamentHub({
                 </Link>
               ))
             ) : (
-              <p>سيتم نشر القائمة الرسمية بعد اعتمادها</p>
+              <p>{tr("سيتم نشر القائمة الرسمية بعد اعتمادها")}</p>
             )}
           </div>
           <div className="hub-stats">
-            <h3>إحصائيات البطولة</h3>
+            <h3>{tr("إحصائيات البطولة")}</h3>
             {record.p ? (
               <div className="hub-real-record">
                 <span>
-                  المباريات <b>{record.p}</b>
+                  {tr("المباريات")} <b>{record.p}</b>
                 </span>
                 <span>
-                  فوز / خسارة{" "}
+                  {tr("فوز / خسارة")}{" "}
                   <b dir="ltr">
                     {record.w} / {record.l}
                   </b>
                 </span>
                 <span>
-                  النقاط المسجلة <b>{record.pf}</b>
+                  {tr("النقاط المسجلة")} <b>{record.pf}</b>
                 </span>
                 <span>
-                  النقاط المستقبلة <b>{record.pa}</b>
+                  {tr("النقاط المستقبلة")} <b>{record.pa}</b>
                 </span>
               </div>
             ) : (
-              <p>تبدأ إحصائيات البطولة مع أول مباراة</p>
+              <p>{tr("تبدأ إحصائيات البطولة مع أول مباراة")}</p>
             )}
             {record.p > 0 && (
               <small>
-                {status === "QUALIFIED"
-                  ? "تأهل إلى Elite 16"
-                  : status === "ELIMINATED"
-                    ? "انتهت رحلة المجموعة"
-                    : "في سباق التأهل"}
+                {tr(
+                  status === "QUALIFIED"
+                    ? "تأهل إلى Elite 16"
+                    : status === "ELIMINATED"
+                      ? "انتهت رحلة المجموعة"
+                      : "في سباق التأهل",
+                )}
               </small>
             )}
           </div>
@@ -262,16 +267,16 @@ export function StadeTournamentHub({
           ELITE 16 <small>THE NEXT STAGE</small>
         </div>
         <p>
-          الملعب هو البداية.
+          {tr("الملعب هو البداية.")}
           <br />
-          والطريق يستمر.
+          {tr("والطريق يستمر.")}
         </p>
         <div className="club-closing-links">
           <Link href="/the-road">
-            اكتشف THE ROAD <span aria-hidden="true">↗</span>
+            {tr("اكتشف THE ROAD")} <span aria-hidden="true">↗</span>
           </Link>
           <Link href={"/standings?group=" + team.group}>
-            تابع المجموعة {team.group} <span aria-hidden="true">↗</span>
+            {tr("تابع المجموعة")} {team.group} <span aria-hidden="true">↗</span>
           </Link>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useLang } from "./i18n";
 
 const sponsors: {
   file: string;
@@ -14,8 +15,9 @@ const sponsors: {
 ];
 
 export function EventSponsors() {
+  const { tr } = useLang();
   return (
-    <section className="event-sponsors" aria-label="رعاة الحدث">
+    <section className="event-sponsors" aria-label={tr("رعاة الحدث")}>
       <ul className="event-sponsors-logos">
         {sponsors.map((sponsor) => (
           <li key={sponsor.file}>
@@ -23,7 +25,7 @@ export function EventSponsors() {
               const logo = (
                 <Image
                   src={`/${encodeURIComponent(sponsor.file)}`}
-                  alt={sponsor.name}
+                  alt={tr(sponsor.name)}
                   width={sponsor.width}
                   height={sponsor.height}
                   sizes="(max-width: 600px) 130px, 180px"
@@ -31,7 +33,7 @@ export function EventSponsors() {
               );
               if (!sponsor.href) return logo;
               return sponsor.href.startsWith("/") ? (
-                <Link href={sponsor.href} aria-label={sponsor.name}>
+                <Link href={sponsor.href} aria-label={tr(sponsor.name)}>
                   {logo}
                 </Link>
               ) : (
@@ -39,7 +41,7 @@ export function EventSponsors() {
                   href={sponsor.href}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={sponsor.name}
+                  aria-label={tr(sponsor.name)}
                 >
                   {logo}
                 </a>

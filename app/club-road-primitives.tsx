@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useLang } from "./i18n";
 import { getTeamIdentity, teamLogoAsset } from "@/lib/team-identity";
 /** Asset ownership does not verify club history. */
 export function ClubRoadMark({
@@ -10,6 +11,7 @@ export function ClubRoadMark({
   name: string;
   fallback?: string;
 }) {
+  const { tr } = useLang();
   const identity = getTeamIdentity(id);
   const asset = teamLogoAsset(id);
   return asset ? (
@@ -18,7 +20,7 @@ export function ClubRoadMark({
         id === "red-flames" ? "club-mark red-flames-mark" : "club-mark"
       }
       src={asset}
-      alt={`شعار ${name}`}
+      alt={`${tr("شعار")} ${name}`}
       width={180}
       height={180}
       sizes="(max-width:767px) 120px, 180px"

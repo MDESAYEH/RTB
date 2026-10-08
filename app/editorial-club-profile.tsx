@@ -6,7 +6,9 @@ import {
   supportingHonours,
 } from "@/lib/club-presentation";
 import { ClubRoadMark, ClubCourt } from "./club-road-primitives";
+import { useLang } from "./i18n";
 export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
+  const { lang, tr } = useLang();
   const f = clubFeature(p),
     mode = clubPresentation(p),
     honours = supportingHonours(p);
@@ -23,7 +25,9 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
     <div className="club-profile-content" data-profile={mode} data-club={p.id}>
       <div className="editorial-club-opening">
         <div className="club-opening-meta">
-          <Link href="/teams">الفرق / {p.arabicName}</Link>
+          <Link href="/teams">
+            {tr("الفرق")} / {lang === "ar" ? p.arabicName : p.displayName}
+          </Link>
           <span dir="ltr">TRIPOLI 2027 · GROUP {p.group}</span>
         </div>
         <ClubCourt kind="arc" />
@@ -59,7 +63,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
           className="club-opening-next"
           href={f ? "#club-feature" : "#club-tournament"}
         >
-          {f ? "إرث على أرض الملعب" : "من هنا يبدأ الطريق"}
+          {f ? tr("إرث على أرض الملعب") : tr("من هنا يبدأ الطريق")}
           <span aria-hidden="true">↓</span>
         </a>
       </div>
@@ -78,7 +82,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
                   ? "double"
                   : "champion"
           }
-          aria-label="أبرز الإنجازات"
+          aria-label={tr("أبرز الإنجازات")}
         >
           <div className="podium-number" dir="ltr">
             <strong data-year={/^\d{4}$/.test(f.number) || undefined}>
@@ -148,7 +152,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
             {mode === "MEDIUM" && honours.length > 0 && (
               <div
                 className="club-inline-honours"
-                aria-label="الإنجازات المحلية"
+                aria-label={tr("الإنجازات المحلية")}
               >
                 <span className="eyebrow" dir="ltr">
                   DOMESTIC ACHIEVEMENTS
@@ -169,7 +173,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
         <section className="club-trophy-wall">
           <div className="club-section-label">
             <span dir="ltr">DOMESTIC HONOURS</span>
-            <h2>أرقام صنعت الإرث.</h2>
+            <h2>{tr("أرقام صنعت الإرث.")}</h2>
           </div>
           <div className="club-trophy-totals">
             {p.domesticHonours.map((h, i) => (
@@ -195,7 +199,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
         <section className="club-african-journey">
           <div className="club-section-label">
             <span dir="ltr">THE AFRICAN JOURNEY</span>
-            <h2>فصول على الطريق الأفريقي.</h2>
+            <h2>{tr("فصول على الطريق الأفريقي.")}</h2>
           </div>
           <div className="club-journey-row">
             {journey.map((j, i) => (
@@ -212,7 +216,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
         </section>
       )}
       <details className="editorial-sources club-source-footer">
-        <summary>المصادر وتوثيق المعلومات</summary>
+        <summary>{tr("المصادر وتوثيق المعلومات")}</summary>
         {p.sources
           .filter((s) => s.verificationStatus === "VERIFIED")
           .map((s) => (

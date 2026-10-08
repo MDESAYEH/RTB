@@ -11,6 +11,7 @@ import { TournamentHeader, CampaignHero } from "./tournament-campaign";
 import Image from "next/image";
 import { CourtArc } from "./brand-primitives";
 import { EventSponsors } from "./event-sponsors";
+import { useLang } from "./i18n";
 import { getTeamIdentity } from "@/lib/team-identity";
 import {
   CalendarDays,
@@ -94,6 +95,7 @@ function Empty({ title, detail }: { title: string; detail?: string }) {
   );
 }
 function Badge({ team }: { team: Team }) {
+  const { tr } = useLang();
   const logo = team.logo || getTeamIdentity(team.id)?.logoAsset;
   if (logo)
     return (
@@ -109,7 +111,7 @@ function Badge({ team }: { team: Team }) {
   return (
     <span
       className={"team-badge " + (team.id === "al-ittihad" ? "host" : "")}
-      aria-label={"رمز نصي · " + team.name}
+      aria-label={tr("رمز نصي · ") + team.name}
     >
       {team.name
         .split(" ")
@@ -128,6 +130,7 @@ export default function Site({
   initial: Data;
   historicalProfile?: ClubProfile;
 }) {
+  const { lang, dir, tr } = useLang();
   const [data, setData] = useState(initial),
     [now, setNow] = useState(Date.now()),
     [connected, setConnected] = useState(true),
@@ -223,7 +226,7 @@ export default function Site({
     (g) => g.status === "Live" || g.status === "Halftime",
   );
   const date = (v: string) =>
-    new Intl.DateTimeFormat("ar-LY", {
+    new Intl.DateTimeFormat(lang === "ar" ? "ar-LY" : "en-GB", {
       timeZone: s.timezone,
       day: "numeric",
       month: "long",
@@ -266,8 +269,8 @@ export default function Site({
           className={"tag " + (g.status === "Live" && connected ? "live" : "")}
         >
           {!connected && ["Live", "Halftime"].includes(g.status)
-            ? "آخر نتيجة"
-            : statusLabel[g.status]}
+            ? tr("آخر نتيجة")
+            : tr(statusLabel[g.status])}
         </span>
         <Link href={"/teams/" + g.home} className="game-team">
           {h && <Badge team={h} />}
@@ -276,7 +279,7 @@ export default function Site({
         <Link
           href={"/matches/" + g.id}
           className="fixture-center"
-          aria-label={`${h?.name} ضد ${a?.name} — مركز المباراة`}
+          aria-label={`${h?.name} ${tr("ضد")} ${a?.name} — ${tr("مركز المباراة")}`}
         >
           <strong
             className="score"
@@ -312,7 +315,7 @@ export default function Site({
             </span>
           )}
         </Link>
-        {stale(g, now) && <small>التحديث متأخر</small>}
+        {stale(g, now) && <small>{tr("التحديث متأخر")}</small>}
       </article>
     );
   }
@@ -327,18 +330,24 @@ export default function Site({
       <div className="standings-wrap">
         <div className="group-heading">
           <span>GROUP {g}</span>
-          <span className="muted">أول {s.qualificationSlots} إلى Elite 16</span>
+          <span className="muted">
+            {lang === "ar"
+              ? `أول ${s.qualificationSlots} إلى Elite 16`
+              : `Top ${s.qualificationSlots} advance to Elite 16`}
+          </span>
         </div>
         {!played && (
           <p className="muted">
-            لم تبدأ مباريات المجموعة. ترتيب الأسماء لا يمثل ترتيبًا تنافسيًا.
+            {tr(
+              "لم تبدأ مباريات المجموعة. ترتيب الأسماء لا يمثل ترتيبًا تنافسيًا.",
+            )}
           </p>
         )}
         <table>
           <thead>
             <tr>
               <th>#</th>
-              <th>الفريق</th>
+              <th>{tr("الفريق")}</th>
               <th className="wide">P</th>
               <th>W</th>
               <th>L</th>
@@ -370,7 +379,7 @@ export default function Site({
                       <small className="mobile-aux">
                         {played
                           ? `P ${r.p} · PF ${r.pf} · PA ${r.pa}`
-                          : "لم يلعب بعد"}
+                          : tr("لم يلعب بعد")}
                       </small>
                     </span>
                   </Link>
@@ -389,12 +398,12 @@ export default function Site({
         </table>
         {played && !s.rulesConfirmed && (
           <p className="notice">
-            نقاط الترتيب مؤقتة إلى حين اعتماد قواعد المسابقة.
+            {tr("نقاط الترتيب مؤقتة إلى حين اعتماد قواعد المسابقة.")}
           </p>
         )}
         {played && (
           <p className="muted">
-            المتعادلون بالنقاط ينتظرون اعتماد قواعد كسر التعادل.
+            {tr("المتعادلون بالنقاط ينتظرون اعتماد قواعد كسر التعادل.")}
           </p>
         )}
       </div>
@@ -430,7 +439,8 @@ export default function Site({
           <div>
             <span className="eyebrow">EVERY GAME. ONE DESTINATION.</span>
             <h2>
-              الطريق يبدأ من هنا<span className="orange">.</span>
+              {tr("الطريق يبدأ من هنا")}
+              <span className="orange">.</span>
             </h2>
           </div>
           <Trophy className="gold" size={36} />
@@ -444,27 +454,27 @@ export default function Site({
               <i>↗</i>
             </strong>
           </div>
-          <p dir="rtl">
-            من كل مجموعة
+          <p dir={dir}>
+            {tr("من كل مجموعة")}
             <br />
-            <b>إلى Elite 16.</b>
+            <b>{tr("إلى Elite 16.")}</b>
             <small>
-              كل مباراة خطوة. الوصول إلى BAL يُحسم في المرحلة التالية.
+              {tr("كل مباراة خطوة. الوصول إلى BAL يُحسم في المرحلة التالية.")}
             </small>
           </p>
         </div>
         {preview ? (
           <Link className="road-preview-link" href="/the-road">
-            اكتشف THE ROAD <span aria-hidden="true">↗</span>
+            {tr("اكتشف THE ROAD")} <span aria-hidden="true">↗</span>
           </Link>
         ) : (
           <div className="road" dir="ltr">
             {[
               ["01", "TRIPOLI", "21–25 OCT 2026"],
-              ["02", "GROUP STAGE", "مجموعتان · عشرة فرق"],
-              ["03", "TOP " + s.qualificationSlots, "من كل مجموعة"],
-              ["04", "ELITE 16", "المرحلة التالية"],
-              ["05", "BAL 2027", "الوجهة"],
+              ["02", "GROUP STAGE", tr("مجموعتان · عشرة فرق")],
+              ["03", "TOP " + s.qualificationSlots, tr("من كل مجموعة")],
+              ["04", "ELITE 16", tr("المرحلة التالية")],
+              ["05", "BAL 2027", tr("الوجهة")],
             ].map(([n, title, sub], i) => (
               <Link
                 href={i === 0 ? "/matches" : "/standings"}
@@ -488,8 +498,9 @@ export default function Site({
             ))}
         </div>
         <p className="muted">
-          أول فريقين من كل مجموعة في طرابلس يتأهلان إلى Elite 16. التأهل إلى BAL
-          يُحسم في المرحلة التالية.
+          {tr(
+            "أول فريقين من كل مجموعة في طرابلس يتأهلان إلى Elite 16. التأهل إلى BAL يُحسم في المرحلة التالية.",
+          )}
         </p>
       </section>
     );
@@ -520,7 +531,7 @@ export default function Site({
               className={filter === id ? "active" : ""}
               onClick={() => setFilter(id)}
             >
-              {label}
+              {tr(label)}
             </button>
           ))}
         </div>
@@ -547,8 +558,8 @@ export default function Site({
           visible.map((g) => <GameCard key={g.id} g={g} />)
         ) : (
           <Empty
-            title="لم تُنشر مباريات هذا اليوم بعد."
-            detail="ستظهر المواعيد هنا بعد اعتماد جدول المباريات."
+            title={tr("لم تُنشر مباريات هذا اليوم بعد.")}
+            detail={tr("ستظهر المواعيد هنا بعد اعتماد جدول المباريات.")}
           />
         )}
       </>
@@ -576,17 +587,20 @@ export default function Site({
                   <div>
                     <h3 dir="auto">{t.name}</h3>
                     <p>
-                      {getTeamIdentity(t.id)?.arabicName} / {t.country}
+                      {lang === "ar"
+                        ? `${getTeamIdentity(t.id)?.arabicName} / `
+                        : ""}
+                      {t.country}
                     </p>
                   </div>
                   <span className="team-status">
-                    {
+                    {tr(
                       {
                         QUALIFIED: "تأهل ✓",
                         ELIMINATED: "خرج من سباق التأهل",
                         IN_CONTENTION: "في سباق التأهل",
-                      }[qualification(t, teams, games, s)]
-                    }
+                      }[qualification(t, teams, games, s)],
+                    )}
                   </span>
                   <span className="team-arrow" aria-hidden="true">
                     ↗
@@ -621,8 +635,8 @@ export default function Site({
       </div>
     ) : (
       <Empty
-        title="أخبار البطولة، من المصدر."
-        detail="ستُنشر التحديثات المعتمدة هنا فور توفرها."
+        title={tr("أخبار البطولة، من المصدر.")}
+        detail={tr("ستُنشر التحديثات المعتمدة هنا فور توفرها.")}
       />
     );
   }
@@ -643,7 +657,7 @@ export default function Site({
         ).map((key, i) => (
           <section key={key}>
             <h3>
-              {
+              {tr(
                 [
                   "النقاط",
                   "المتابعات",
@@ -651,8 +665,8 @@ export default function Site({
                   "السرقات",
                   "الصدات",
                   "الكفاءة",
-                ][i]
-              }
+                ][i],
+              )}
             </h3>
             {players
               .map((p) => ({ p, rows: stats.filter((s) => s.player === p.id) }))
@@ -679,16 +693,18 @@ export default function Site({
     ) : (
       <section className="stats-preview">
         <span className="eyebrow">THE NUMBERS WILL TELL THE STORY</span>
-        <h2>كل نقطة. كل متابعة. كل خطوة.</h2>
+        <h2>{tr("كل نقطة. كل متابعة. كل خطوة.")}</h2>
         <Empty
-          title="ستظهر إحصائيات اللاعبين بعد انطلاق البطولة."
-          detail="تبدأ المنافسة في الملعب؛ ثم نقرأ قصتها بالأرقام المعتمدة."
+          title={tr("ستظهر إحصائيات اللاعبين بعد انطلاق البطولة.")}
+          detail={tr(
+            "تبدأ المنافسة في الملعب؛ ثم نقرأ قصتها بالأرقام المعتمدة.",
+          )}
         />
         <div className="stat-categories" dir="ltr">
           PTS <span>REB</span> AST <span>STL</span> BLK
         </div>
         <Link className="text-link" href="/matches">
-          تابع بداية المنافسة <ChevronLeft size={18} />
+          {tr("تابع بداية المنافسة")} <ChevronLeft size={18} />
         </Link>
       </section>
     );
@@ -701,9 +717,9 @@ export default function Site({
           <section className="live-strip">
             <div className="section-title">
               <h2>
-                <Radio size={22} /> مباشر من طرابلس
+                <Radio size={22} /> {tr("مباشر من طرابلس")}
               </h2>
-              <Link href="/matches">مركز المباريات</Link>
+              <Link href="/matches">{tr("مركز المباريات")}</Link>
             </div>
             {live.map((g) => (
               <GameCard key={g.id} g={g} />
@@ -724,14 +740,14 @@ export default function Site({
               <span className="eyebrow">ON THE COURT</span>
               <h2>
                 {live.length
-                  ? "مباشر الآن"
+                  ? tr("مباشر الآن")
                   : now > Date.parse(s.end)
-                    ? "نتائج البطولة"
-                    : "الموعد القادم"}
+                    ? tr("نتائج البطولة")
+                    : tr("الموعد القادم")}
               </h2>
             </div>
             <Link href="/matches">
-              كل المباريات <ChevronLeft size={18} />
+              {tr("كل المباريات")} <ChevronLeft size={18} />
             </Link>
           </div>
           {(live.length
@@ -766,14 +782,15 @@ export default function Site({
                 <CalendarDays size={28} />
               </span>
               <div>
-                <h3>العد التنازلي بدأ. الجدول قريبًا.</h3>
+                <h3>{tr("العد التنازلي بدأ. الجدول قريبًا.")}</h3>
                 <p>
-                  خمسة أيام من كرة السلة الأفريقية في قلب طرابلس. تابع هنا
-                  مواعيد المباريات عند اعتمادها.
+                  {tr(
+                    "خمسة أيام من كرة السلة الأفريقية في قلب طرابلس. تابع هنا مواعيد المباريات عند اعتمادها.",
+                  )}
                 </p>
               </div>
               <Link href="/matches" className="text-link">
-                المباريات <ChevronLeft size={20} />
+                {tr("المباريات")} <ChevronLeft size={20} />
               </Link>
             </div>
           )}
@@ -783,10 +800,10 @@ export default function Site({
           <div className="section-title">
             <div>
               <span className="eyebrow">TEN TEAMS. FOUR PLACES.</span>
-              <h2>أفريقيا تلتقي في طرابلس</h2>
+              <h2>{tr("أفريقيا تلتقي في طرابلس")}</h2>
             </div>
             <Link href="/teams">
-              كل الفرق <ChevronLeft size={18} />
+              {tr("كل الفرق")} <ChevronLeft size={18} />
             </Link>
           </div>
           <div className="group-preview">
@@ -812,8 +829,8 @@ export default function Site({
               <span className="eyebrow">
                 <Activity size={16} /> TRIPOLI PULSE
               </span>
-              <h2>نبض البطولة</h2>
-              <p>من صافرة البداية إلى آخر مقعد في Elite 16.</p>
+              <h2>{tr("نبض البطولة")}</h2>
+              <p>{tr("من صافرة البداية إلى آخر مقعد في Elite 16.")}</p>
             </div>
             <div>
               {data.pulse.length ? (
@@ -836,27 +853,29 @@ export default function Site({
                       <p>{p.text}</p>
                       {p.game && (
                         <Link className="text-link" href={"/matches/" + p.game}>
-                          مركز المباراة <ChevronLeft size={14} />
+                          {tr("مركز المباراة")} <ChevronLeft size={14} />
                         </Link>
                       )}
                     </article>
                   ))
               ) : (
-                <p className="muted">هنا تُكتب لحظات البطولة، فور حدوثها.</p>
+                <p className="muted">
+                  {tr("هنا تُكتب لحظات البطولة، فور حدوثها.")}
+                </p>
               )}
             </div>
           </section>
         )}
         {s.featuredGameId && games.find((g) => g.id === s.featuredGameId) && (
           <section>
-            <h2>مباراة اليوم</h2>
+            <h2>{tr("مباراة اليوم")}</h2>
             <GameCard g={games.find((g) => g.id === s.featuredGameId)!} />
           </section>
         )}
         {games.length > 0 && (
           <section>
             <div className="section-title">
-              <h2>أيام طرابلس</h2>
+              <h2>{tr("أيام طرابلس")}</h2>
               <span className="muted">21—25 OCTOBER</span>
             </div>
             <div className="timeline">
@@ -888,7 +907,9 @@ export default function Site({
                   .filter((g) => dayKey(g.date) === (day || dayKey(days[0])))
                   .map((g) => <GameCard key={g.id} g={g} />)
               ) : (
-                <p className="muted">لم يُعلن جدول مباريات هذا اليوم بعد.</p>
+                <p className="muted">
+                  {tr("لم يُعلن جدول مباريات هذا اليوم بعد.")}
+                </p>
               )}
             </div>
           </section>
@@ -896,9 +917,9 @@ export default function Site({
         {data.news.length > 0 && (
           <section>
             <div className="section-title">
-              <h2>من قلب الحدث</h2>
+              <h2>{tr("من قلب الحدث")}</h2>
               <Link href="/news">
-                الأخبار <ChevronLeft size={18} />
+                {tr("الأخبار")} <ChevronLeft size={18} />
               </Link>
             </div>
             <NewsList />
@@ -918,8 +939,8 @@ export default function Site({
             }
           >
             {!connected && ["Live", "Halftime"].includes(g.status)
-              ? "آخر نتيجة"
-              : statusLabel[g.status]}
+              ? tr("آخر نتيجة")
+              : tr(statusLabel[g.status])}
           </span>
           <div className="scoreboard-teams" dir="ltr">
             <Link
@@ -939,7 +960,7 @@ export default function Site({
             </Link>
             <strong
               className="score"
-              aria-label="النتيجة"
+              aria-label={tr("النتيجة")}
               dir="ltr"
               key={`${g.homeScore}:${g.awayScore}`}
             >
@@ -979,13 +1000,13 @@ export default function Site({
         )}
         {stale(g, now) && (
           <p className="notice">
-            البيانات المباشرة متأخرة؛ نعرض آخر نتيجة مؤكدة.
+            {tr("البيانات المباشرة متأخرة؛ نعرض آخر نتيجة مؤكدة.")}
           </p>
         )}
         <p>
-          {g.venue || "سيُعلن مكان المباراة لاحقًا"} · GROUP {g.group}
+          {g.venue || tr("سيُعلن مكان المباراة لاحقًا")} · GROUP {g.group}
         </p>
-        <section className="broadcast-stage" aria-label="البث المباشر">
+        <section className="broadcast-stage" aria-label={tr("البث المباشر")}>
           <CourtArc />
           <span className="broadcast-play" aria-hidden="true">
             ▷
@@ -993,8 +1014,8 @@ export default function Site({
           <span className="broadcast-label" dir="ltr">
             LIVE BROADCAST
           </span>
-          <h2>سيتم عرض البث المباشر للمباراة هنا</h2>
-          <p>البث الرسمي سيكون متاحًا عند بدء المباراة.</p>
+          <h2>{tr("سيتم عرض البث المباشر للمباراة هنا")}</h2>
+          <p>{tr("البث الرسمي سيكون متاحًا عند بدء المباراة.")}</p>
           <span className="broadcast-opponents" dir="ltr">
             {team(g.home)?.name} × {team(g.away)?.name}
           </span>
@@ -1003,7 +1024,7 @@ export default function Site({
           <table>
             <thead>
               <tr>
-                <th>الفترة</th>
+                <th>{tr("الفترة")}</th>
                 {g.periods.map((_, i) => (
                   <th key={i}>Q{i + 1}</th>
                 ))}
@@ -1023,7 +1044,7 @@ export default function Site({
         )}
         {data.events.some((e) => e.game === g.id) && (
           <section>
-            <h2>تسلسل أحداث المباراة</h2>
+            <h2>{tr("تسلسل أحداث المباراة")}</h2>
             {data.events
               .filter((e) => e.game === g.id)
               .map((e) => (
@@ -1038,7 +1059,7 @@ export default function Site({
         )}
         {data.teamStats.some((t) => t.game === g.id) && (
           <section>
-            <h2>إحصائيات الفريقين</h2>
+            <h2>{tr("إحصائيات الفريقين")}</h2>
             {data.teamStats
               .filter((t) => t.game === g.id)
               .map((t) => (
@@ -1056,7 +1077,7 @@ export default function Site({
               ))}
           </section>
         )}
-        <h2>سياق المجموعة</h2>
+        <h2>{tr("سياق المجموعة")}</h2>
         <Table g={g.group} />
         {(data.stats as Stat[]).some((st) => st.game === g.id) && (
           <>
@@ -1115,9 +1136,9 @@ export default function Site({
             ONE ROAD.
           </strong>
           <p>
-            عشرة أندية أفريقية.
+            {tr("عشرة أندية أفريقية.")}
             <br />
-            هنا تبدأ حكايات المنافسة.
+            {tr("هنا تبدأ حكايات المنافسة.")}
           </p>
         </div>
         <TeamGrid />
@@ -1172,12 +1193,12 @@ export default function Site({
         <p>
           #{p.number} · {p.position} · {team(p.team)?.name}
         </p>
-        <h2>سجل المباريات</h2>
+        <h2>{tr("سجل المباريات")}</h2>
         {(data.stats as Stat[])
           .filter((st) => st.player === p.id)
           .map((st) => (
             <div className="stat-row" key={st.id}>
-              <Link href={"/matches/" + st.game}>المباراة</Link>
+              <Link href={"/matches/" + st.game}>{tr("المباراة")}</Link>
               <span>
                 {st.points} PTS · {st.rebounds} REB · {st.assists} AST
               </span>
@@ -1185,7 +1206,7 @@ export default function Site({
           ))}
       </>
     ) : (
-      <Empty title="بيانات اللاعب غير متاحة." />
+      <Empty title={tr("بيانات اللاعب غير متاحة.")} />
     );
   } else if (route === "news" && path[1]) {
     const n = data.news.find((n) => n.slug === path[1])!;
@@ -1214,16 +1235,18 @@ export default function Site({
   return (
     <div className="tournament-shell">
       <a className="skip" href="#main">
-        انتقل للمحتوى
+        {tr("انتقل للمحتوى")}
       </a>
       <TournamentHeader />
       {!connected && (
         <div className="notice" role="status">
-          أنت غير متصل بالمصدر المباشر — آخر تحديث{" "}
+          {tr("أنت غير متصل بالمصدر المباشر — آخر تحديث")}{" "}
           {lastReceived
-            ? new Date(lastReceived).toLocaleTimeString("ar-LY")
-            : "عند فتح الصفحة"}
-          . تُعرض آخر بيانات مستلمة.
+            ? new Date(lastReceived).toLocaleTimeString(
+                lang === "ar" ? "ar-LY" : "en-GB",
+              )
+            : tr("عند فتح الصفحة")}
+          {tr(". تُعرض آخر بيانات مستلمة.")}
         </div>
       )}
       <main
@@ -1250,11 +1273,11 @@ export default function Site({
                 {
                   (
                     {
-                      matches: "المباريات",
-                      standings: "المجموعات",
-                      teams: "الفرق",
-                      stats: "الإحصائيات",
-                      news: "الأخبار",
+                      matches: tr("المباريات"),
+                      standings: tr("المجموعات"),
+                      teams: tr("الفرق"),
+                      stats: tr("الإحصائيات"),
+                      news: tr("الأخبار"),
                       road: "THE ROAD",
                       admin: "غرفة إدارة البطولة",
                     } as Record<string, string>
@@ -1269,13 +1292,13 @@ export default function Site({
         <EventSponsors />
         <div className="ending-details">
           <div>
-            <p>منصة تصفيات Road to BAL 2027 في طرابلس.</p>
-            <p>النتائج والبيانات تُنشر بعد اعتمادها.</p>
+            <p>{tr("منصة تصفيات Road to BAL 2027 في طرابلس.")}</p>
+            <p>{tr("النتائج والبيانات تُنشر بعد اعتمادها.")}</p>
           </div>
           <div className="ending-links">
-            <Link href="/teams">الأندية</Link>
-            <Link href="/matches">المباريات</Link>
-            <Link href="/admin">الإدارة</Link>
+            <Link href="/teams">{tr("الأندية")}</Link>
+            <Link href="/matches">{tr("المباريات")}</Link>
+            <Link href="/admin">{tr("الإدارة")}</Link>
             <a
               href="https://www.fiba.basketball/en/news/introducing-the-road-to-bal-2027"
               target="_blank"
@@ -1287,16 +1310,16 @@ export default function Site({
         </div>
         <small dir="ltr">2027 TRIPOLI IS THE COURT. © ROAD TO BAL</small>
       </footer>
-      <div className="bottom-nav" role="navigation" aria-label="التنقل السريع">
+      <div className="bottom-nav" role="navigation" aria-label={tr("التنقل السريع")}>
         {[
-          ["/", "الرئيسية"],
-          ["/matches", "المباريات"],
+          ["/", tr("الرئيسية")],
+          ["/matches", tr("المباريات")],
           [
             live.length ? "/matches?filter=live" : "/the-road",
-            live.length ? "● مباشر" : "THE ROAD",
+            live.length ? "● " + tr("مباشر") : "THE ROAD",
           ],
-          ["/standings", "المجموعات"],
-          ["/teams", "الفرق"],
+          ["/standings", tr("المجموعات")],
+          ["/teams", tr("الفرق")],
         ].map(([href, label], i) => (
           <Link className={i === 2 ? "focal" : ""} key={i} href={href}>
             {label}
