@@ -283,7 +283,43 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
 .public-road .teams-field { padding-inline: clamp(20px, 6vw, 108px); }
 /* Sports pages: the heading band is full bleed; other blocks keep the side gutter. */
 .sports-page { padding-inline: 0; }
-.sports-page > * { margin-inline: clamp(20px, 6vw, 108px); }
+.sports-page > :not(.page-heading) { margin-inline: clamp(20px, 6vw, 108px) !important; }
 .sports-page > .page-heading { margin-inline: 0; padding-inline: clamp(20px, 6vw, 108px); width: auto; }
-.sports-page.sports-match-page > .match-scoreboard,
-.sports-page.sports-match-page > .broadcast-stage { margin-inline: clamp(20px, 6vw, 108px); }
+/* Filter / group switchers: centred pill segmented control. */
+.sports-page .tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 8px auto 32px !important;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #192b3920;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px #10151d14;
+}
+.sports-page .tabs button {
+  min-height: 44px;
+  padding: 8px 26px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  color: #526067;
+  font-weight: 800;
+  letter-spacing: .08em;
+  transition: background .2s, color .2s, box-shadow .2s;
+}
+.sports-page .tabs button::after { display: none; }
+.sports-page .tabs button:hover { background: #edf3eb; color: #07542d; }
+.sports-page .tabs button.active {
+  background: #07542d;
+  color: #fff;
+  box-shadow: 0 4px 12px #07542d55;
+}
+.sports-page .tabs button.active::after { display: none; }
+@media (max-width: 600px) {
+  .sports-page .tabs { gap: 4px; padding: 4px; }
+  .sports-page .tabs button { padding: 8px 16px; font-size: 13px; }
+}
