@@ -99,10 +99,25 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
   background: linear-gradient(90deg, #420b16ee, #420b1699), var(--pattern-weave) #951b2a;
 }
 .public-road > .road-section {
-  background: #edf3eb;
-  border-radius: 8px;
-  padding: clamp(20px, 4vw, 48px);
+  background-color: #07542d;
+  background-image: linear-gradient(90deg, #00351b85, #00351bc9), var(--pattern-rings);
+  background-size: auto, 360px 280px;
+  color: #fff;
 }
+.public-road .road-section :is(.muted, .eyebrow, .section-title .eyebrow) { color: #e0edcd !important; }
+.public-road .road-section :is(.orange, .gold) { color: var(--pattern-yellow); }
+.public-road .road-section .road-step { border-bottom-color: #ffffff4d; }
+.public-road .road-section .road-step > span,
+.public-road .road-section .road-step p,
+.public-road .road-section .road-status { color: #e0edcd; }
+.public-road .road-section .road::before { background: linear-gradient(var(--pattern-yellow), #ffffff40); }
+.public-road .road-section .road-dot { background: #07542d; border-color: #e0edcd; }
+.public-road .road-section .road-step.current { background: #00351b99; border-color: #ffdf4280; }
+.public-road .road-section .road-step.current :is(h3, .road-status), .public-road .road-section .road-step.current > span { color: var(--pattern-yellow); }
+.public-road .road-section .road-step.current .road-dot { background: var(--pattern-yellow); border-color: var(--pattern-yellow); }
+.public-road .road-section .road-step:is(.completed, .qualified) h3 { color: var(--pattern-yellow); }
+.public-road .road-section .road-step.locked { opacity: .8; }
+.public-road .road-section .road-step.locked:last-child { opacity: .6; }
 .public-news .news-list > a {
   background: #fff;
   border: 1px solid #192b3918;
