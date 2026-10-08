@@ -277,3 +277,7 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
 .public-page .article { max-width: none; }
 .public-page .article-body { max-width: min(100%, 980px); }
 .sports-page { margin-inline: 0; }
+.public-page.public-road { padding-inline: 0; }
+.public-road > .page-heading { margin-inline: 0; padding-inline: clamp(20px, 6vw, 108px); }
+.public-road > .road-section { padding-inline: clamp(20px, 6vw, 108px) !important; border-radius: 0; }
+.public-road .teams-field { padding-inline: clamp(20px, 6vw, 108px); }
