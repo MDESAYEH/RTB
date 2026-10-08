@@ -1,6 +1,6 @@
 import { gameSchema, teamSchema, type Game, type Team } from "../../domain";
 import registry from "../../team-identity.json";
-import type { FibaEventData, FibaGame, FibaTeam } from "./parser";
+import type { FibaEventData, FibaGame, FibaStandingsData, FibaTeam } from "./parser";
 
 type LocalTeam = (typeof registry.teams)[number];
 
@@ -82,6 +82,62 @@ export function mapGames(games: FibaGame[], teams: TeamMatch[]): GameOutcome[] {
       ? { fiba, game: parsed.data }
       : reject(`failed schema validation: ${parsed.error.issues[0]?.message}`);
   });
+}
+
+export type StandingGroupReport = {
+  stage: string;
+  group: string;
+  rows: number;
+  /** Local team ids resolved from FIBA team ids, in FIBA rank order. */
+  teams: string[];
+  /** FIBA slots with no team assigned yet, or a team the local registry lacks. */
+  unresolved: string[];
+  /** Local registry disagrees with FIBA about which group a team is in. */
+  groupMismatches: string[];
+  gamesPlayed: number;
+};
+
+/** Read-only comparison of FIBA group tables with the local registry. No schema exists for FIBA tables; nothing is stored. */
+export function mapStandings(
+  standings: FibaStandingsData,
+  teams: TeamMatch[],
+): StandingGroupReport[] {
+  const byFibaId = new Map(teams.map((match) => [match.fiba.teamId, match]));
+  return standings.stages.flatMap((stage) =>
+    stage.groups.map((group) => {
+      const resolved: string[] = [];
+      const unresolved: string[] = [];
+      const groupMismatches: string[] = [];
+      for (const row of group.teamsStats) {
+        const match = typeof row.team === "number" ? byFibaId.get(row.team) : undefined;
+        if (!match) {
+          unresolved.push(
+            typeof row.team === "number"
+              ? `rank ${row.rank}: FIBA team ${row.team} not on team list`
+              : `rank ${row.rank}: slot not assigned by FIBA`,
+          );
+        } else if (!match.local) {
+          unresolved.push(`rank ${row.rank}: ${match.fiba.slug} not in local registry`);
+        } else {
+          resolved.push(match.local.id);
+          if (match.local.group !== group.groupName) {
+            groupMismatches.push(
+              `${match.local.id}: local group ${match.local.group}, FIBA group ${group.groupName}`,
+            );
+          }
+        }
+      }
+      return {
+        stage: stage.stage,
+        group: group.groupName,
+        rows: group.teamsStats.length,
+        teams: resolved,
+        unresolved,
+        groupMismatches,
+        gamesPlayed: group.teamsStats.reduce((sum, row) => sum + row.gamesPlayed, 0),
+      };
+    }),
+  );
 }
 
 export function mapEvent(data: FibaEventData) {

@@ -1,12 +1,12 @@
 import registry from "../../team-identity.json";
 import { fetchFibaPage, fibaPageUrl, type FetchLike } from "./client";
-import { mapEvent } from "./mapper";
-import { parseEventPage } from "./parser";
+import { mapEvent, mapStandings, type StandingGroupReport } from "./mapper";
+import { parseEventPage, parseStandingsPage, probeLeadersPage } from "./parser";
 
 export type DryRunReport = {
   source: string;
   event: { name: string; code: string; start: string; end: string; phase: string | null };
-  counts: { teamsFound: number; gamesFound: number; standingsFound: 0; statsFound: 0 };
+  counts: { teamsFound: number; gamesFound: number; standingsFound: number; statsFound: number };
   teams: {
     matched: string[];
     /** On FIBA's page but not in the local registry (other divisions are expected here). */
@@ -20,6 +20,8 @@ export type DryRunReport = {
     mappable: string[];
     unmapped: { id: string; reason: string }[];
   };
+  /** One entry per FIBA group table; standingsFound counts team rows across them. */
+  standings: StandingGroupReport[];
   notes: string[];
 };
 
@@ -28,6 +30,11 @@ export async function runDryRun(fetchImpl?: FetchLike): Promise<DryRunReport> {
   const { url, html } = await fetchFibaPage("games", fetchImpl);
   const data = parseEventPage(html);
   const { teams, games } = mapEvent(data);
+  const standings = mapStandings(
+    parseStandingsPage((await fetchFibaPage("standings", fetchImpl)).html),
+    teams,
+  );
+  const leaders = probeLeadersPage((await fetchFibaPage("leaders", fetchImpl)).html);
 
   const matchedIds = new Set<string>();
   const report: DryRunReport = {
@@ -42,14 +49,20 @@ export async function runDryRun(fetchImpl?: FetchLike): Promise<DryRunReport> {
     counts: {
       teamsFound: data.teams.length,
       gamesFound: data.games.length,
-      standingsFound: 0,
-      statsFound: 0,
+      standingsFound: standings.reduce((sum, group) => sum + group.rows, 0),
+      statsFound: leaders.playerRecords,
     },
     teams: { matched: [], added: [], changed: [], missing: [] },
     games: { mappable: [], unmapped: [] },
+    standings,
     notes: [
       "Phase 1 never opens the database; manual admin data is untouched.",
-      "Standings and stats pages are not read in phase 1 (no verified payload shape yet).",
+      leaders.playerRecords === 0
+        ? "Leaders page carries no player-statistics records yet."
+        : `Leaders page carries ${leaders.playerRecords} player records; they are counted, not parsed, in phase 1.`,
+      ...(standings.every((group) => group.gamesPlayed === 0)
+        ? ["Every standings row shows 0 games played: tables are the initial draw order, not results."]
+        : []),
       `Local registry teams: ${registry.teams.length}. Local games are not loaded, so mappable games are candidates only.`,
     ],
   };
@@ -98,6 +111,12 @@ export function formatReport(report: DryRunReport): string {
     "",
     `games mappable (${report.games.mappable.length}): ${list(report.games.mappable)}`,
     `games unmapped (${report.games.unmapped.length}): ${report.games.unmapped.length ? report.games.unmapped.map((g) => `${g.id} — ${g.reason}`).join("; ") : "none"}`,
+    "",
+    `standings tables (${report.standings.length}):`,
+    ...report.standings.map(
+      (group) =>
+        `  ${group.stage} / group ${group.group}: ${group.rows} rows, teams ${list(group.teams)}${group.unresolved.length ? `; unresolved ${group.unresolved.join(" | ")}` : ""}${group.groupMismatches.length ? `; GROUP MISMATCH ${group.groupMismatches.join(" | ")}` : ""}`,
+    ),
     "",
     ...report.notes.map((note) => `note: ${note}`),
   ].join("\n");

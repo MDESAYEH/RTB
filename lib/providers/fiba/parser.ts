@@ -46,6 +46,34 @@ const fibaCompetitionSchema = z.object({
   status: z.string(),
 });
 
+/** `team` is a numeric FIBA team id, or a placeholder string when the slot is unassigned. */
+const fibaStandingRowSchema = z.object({
+  rank: z.number().int(),
+  team: z.union([z.number().int(), z.string()]),
+  gamesPlayed: z.number().int(),
+  gamesWon: z.number().int(),
+  gamesLost: z.number().int(),
+  pointsFor: z.number(),
+  pointsAgainst: z.number(),
+  points: z.number(),
+});
+const fibaStandingGroupSchema = z.object({
+  groupName: z.string().min(1),
+  numberOfTeamsQualifying: z.number().int().nullable(),
+  teamsStats: z.array(fibaStandingRowSchema),
+});
+const fibaStandingStageSchema = z.object({
+  standingHeaderName: z.string().min(1),
+  standingHeaderCode: z.string().min(1),
+  data: z.object({ groups: z.array(fibaStandingGroupSchema).optional() }).passthrough(),
+});
+
+export type FibaStandingRow = z.infer<typeof fibaStandingRowSchema>;
+export type FibaStandingStage = {
+  stage: string;
+  code: string;
+  groups: z.infer<typeof fibaStandingGroupSchema>[];
+};
 export type FibaTeam = z.infer<typeof fibaTeamSchema>;
 export type FibaGame = z.infer<typeof fibaGameSchema>;
 export type FibaCompetition = z.infer<typeof fibaCompetitionSchema>;
@@ -137,17 +165,23 @@ function dedupe<T>(rows: T[], id: (row: T) => number): T[] {
   return [...new Map(rows.map((row) => [id(row), row])).values()];
 }
 
-export function parseEventPage(html: string): FibaEventData {
-  const payload = extractPayload(html);
-
-  const competitions = jsonValuesFor(payload, "competition", "{");
-  const competitionRaw = competitions.find(
-    (value) => value && typeof value === "object" && "competitionCode" in value,
-  );
+/** Shared by every event page: the competition block must be present and well-formed. */
+function parseCompetition(payload: string): FibaCompetition {
+  // Event-level pages carry it as `fibaSourceDatas`; game rows nest it as `competition`.
+  const competitionRaw = [
+    ...jsonValuesFor(payload, "fibaSourceDatas", "{"),
+    ...jsonValuesFor(payload, "competition", "{"),
+  ].find((value) => value && typeof value === "object" && "competitionCode" in value);
   if (!competitionRaw) {
     throw new FibaParseError("Competition details not found; page structure changed");
   }
-  const [competition] = parseAll(fibaCompetitionSchema, [competitionRaw], "competition");
+  return parseAll(fibaCompetitionSchema, [competitionRaw], "competition")[0];
+}
+
+export function parseEventPage(html: string): FibaEventData {
+  const payload = extractPayload(html);
+
+  const competition = parseCompetition(payload);
 
   const teamArrays = jsonValuesFor(payload, "teams", "[").filter(
     (value): value is unknown[] =>
@@ -177,4 +211,63 @@ export function parseEventPage(html: string): FibaEventData {
 
   const phase = /"currentPhase":"([A-Z_]+)"/.exec(payload);
   return { competition, currentPhase: phase?.[1] ?? null, teams, games };
+}
+
+export type FibaStandingsData = {
+  competition: FibaCompetition;
+  stages: FibaStandingStage[];
+};
+
+/**
+ * Standings are tab objects `{"type":"groups"|"flat", …, "standingHeaderName":…, "data":{…}}`.
+ * Only stages that carry `data.groups` are read; knockout stages without groups are skipped.
+ */
+export function parseStandingsPage(html: string): FibaStandingsData {
+  const payload = extractPayload(html);
+  const competition = parseCompetition(payload);
+  const stages: FibaStandingStage[] = [];
+  const seen = new Set<string>();
+  let at = payload.indexOf('{"type":"');
+  while (at >= 0) {
+    const header = payload.indexOf('"standingHeaderName"', at);
+    if (header >= 0 && header - at < 400) {
+      let raw: unknown;
+      try {
+        raw = JSON.parse(sliceBalanced(payload, at));
+      } catch (error) {
+        if (error instanceof FibaParseError) throw error;
+        throw new FibaParseError("A standings stage is not valid JSON");
+      }
+      const [stage] = parseAll(fibaStandingStageSchema, [raw], "standings stage");
+      const key = `${stage.standingHeaderCode}:${JSON.stringify(stage.data.groups)}`;
+      if (stage.data.groups && !seen.has(key)) {
+        seen.add(key);
+        stages.push({
+          stage: stage.standingHeaderName,
+          code: stage.standingHeaderCode,
+          groups: stage.data.groups,
+        });
+      }
+    }
+    at = payload.indexOf('{"type":"', at + 1);
+  }
+  if (!payload.includes('"standingHeaderName"')) {
+    throw new FibaParseError("No standings stages found; page structure changed");
+  }
+  return { competition, stages };
+}
+
+/**
+ * Player statistics: phase 1 only counts player records. Anything found is reported,
+ * not interpreted, because no verified payload shape exists for it yet.
+ */
+export function probeLeadersPage(html: string): {
+  competition: FibaCompetition;
+  playerRecords: number;
+} {
+  const payload = extractPayload(html);
+  return {
+    competition: parseCompetition(payload),
+    playerRecords: payload.split('"playerId":').length - 1,
+  };
 }

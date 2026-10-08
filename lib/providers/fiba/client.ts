@@ -6,6 +6,8 @@ export const FIBA_HOST = "www.fiba.basketball";
 export const FIBA_EVENT_SLUG = "fiba-africa-champions-clubs-road-to-bal-2027";
 export const FIBA_PAGES = {
   games: `/en/events/${FIBA_EVENT_SLUG}/games`,
+  standings: `/en/events/${FIBA_EVENT_SLUG}/standings`,
+  leaders: `/en/events/${FIBA_EVENT_SLUG}/leaders`,
 } as const;
 export type FibaPage = keyof typeof FIBA_PAGES;
 
