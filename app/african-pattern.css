@@ -575,3 +575,38 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   .club-journey-row > div { padding-bottom: 16px; }
   .hub-body { padding-block: 28px 34px; }
 }
+/* Schedule placeholder before game times are confirmed. */
+.schedule-soon { padding: 24px 0 8px; }
+.schedule-soon > h2 { font-size: clamp(26px, 4vw, 44px); margin: 8px 0 24px; }
+.soon-count { display: flex; gap: 0; margin-bottom: 28px; max-width: 520px; }
+.soon-count > div { flex: 1; padding: 0 14px; border-inline-start: 1px solid #192b3933; }
+.soon-count > div:first-child { border-inline-start: 0; padding-inline-start: 0; }
+.soon-count strong { display: block; font: 52px/1 var(--font-display); color: #07542d; }
+.soon-count span { font: 11px Arial, sans-serif; letter-spacing: .12em; color: #526067; }
+.soon-days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 20px; }
+.soon-days > div {
+  display: grid;
+  gap: 2px;
+  padding: 16px 14px;
+  background: #fff;
+  border: 1px solid #192b3918;
+  border-top: 4px solid #07542d;
+  border-radius: 8px;
+}
+.soon-days small { font: 11px Arial, sans-serif; letter-spacing: .12em; color: #526067; }
+.soon-days strong { font: 44px/1 var(--font-display); }
+.soon-days span { font: 12px Arial, sans-serif; letter-spacing: .1em; }
+.soon-days em { margin-top: 8px; font-style: normal; font-size: 12px; color: #526067; }
+@media (max-width: 700px) {
+  .soon-days { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .soon-count strong { font-size: 40px; }
+}
+.tournament-header.is-home ~ .notice { margin-top: var(--hh); position: relative; z-index: 1; }
+.poster-date > strong { white-space: nowrap; }
+/* Tablets: the four hero facts must fit one row. */
+@media (min-width: 481px) and (max-width: 900px) {
+  .poster-facts > div { min-width: 0; gap: 8px; padding-inline: 6px; }
+  .poster-facts strong { font-size: clamp(20px, 3.4vw, 28px); white-space: nowrap; }
+  .poster-facts svg { width: 30px; height: 30px; flex-shrink: 0; }
+}
+.poster-road a { white-space: nowrap; }

@@ -507,6 +507,50 @@ export default function Site({
       </section>
     );
   }
+  function ScheduleSoon() {
+    return (
+      <section className="schedule-soon">
+        <span className="eyebrow">{tr("الجدول قيد الاعتماد")}</span>
+        <h2>{tr("خمسة أيام. مواعيد المباريات قريبًا.")}</h2>
+        {seconds > 0 && (
+          <div
+            className="soon-count"
+            dir="ltr"
+            aria-label={tr("العد التنازلي لبدء البطولة")}
+          >
+            {count.map((n, i) => (
+              <div key={i}>
+                <strong suppressHydrationWarning>
+                  {String(n).padStart(2, "0")}
+                </strong>
+                <span>{["DAYS", "HOURS", "MINUTES", "SECONDS"][i]}</span>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="soon-days" dir="ltr">
+          {days.map((d, i) => (
+            <div key={d}>
+              <small>DAY {i + 1}</small>
+              <strong>
+                {new Intl.DateTimeFormat("en", {
+                  timeZone: s.timezone,
+                  day: "numeric",
+                }).format(new Date(d))}
+              </strong>
+              <span>OCT</span>
+              <em>{tr("سيُعلن الموعد")}</em>
+            </div>
+          ))}
+        </div>
+        <div className="empty-actions">
+          <Link href="/teams">{tr("تعرّف على الفرق")}</Link>
+          <Link href="/standings">{tr("شاهد المجموعات")}</Link>
+          <Link href="/the-road">{tr("اكتشف THE ROAD")}</Link>
+        </div>
+      </section>
+    );
+  }
   function Matches() {
     const visible = games.filter(
       (g) =>
@@ -556,7 +600,9 @@ export default function Site({
             </button>
           ))}
         </div>
-        {visible.length ? (
+        {!games.length ? (
+          <ScheduleSoon />
+        ) : visible.length ? (
           visible.map((g) => <GameCard key={g.id} g={g} />)
         ) : (
           <Empty

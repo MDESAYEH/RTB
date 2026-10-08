@@ -285,4 +285,7 @@ export const en: Record<string, string> = {
   "المجموعات (مفصولة بفواصل)": "Groups (comma-separated)",
   "معرّف المباراة المميزة": "Featured game ID",
   المجموعة: "Group",
+  "الجدول قيد الاعتماد": "Schedule pending confirmation",
+  "خمسة أيام. مواعيد المباريات قريبًا.": "Five days. Game times coming soon.",
+  "سيُعلن الموعد": "Time to be announced",
 };
