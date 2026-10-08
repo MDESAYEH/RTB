@@ -133,9 +133,9 @@ body { background: #091522; }
   max-width: none;
   margin-inline: auto;
   padding: 44px clamp(20px, 6vw, 108px) 52px;
-  background: #fff;
-  color: #101b22;
-  border-top: 1px solid #192b3918;
+  background: transparent;
+  color: #fff;
+  border-top: 1px solid #ffffff20;
   text-align: center;
 }
 .tournament-ending .event-sponsors {
@@ -154,7 +154,7 @@ body { background: #091522; }
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(20px, 4vw, 60px);
   align-items: center;
 }

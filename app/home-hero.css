@@ -158,7 +158,7 @@
   color: #080a0c;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  padding: 30px 4.7% 12px;
+  padding: 14px 4.7% 18px;
   gap: 0;
 }
 .poster-facts > p {
@@ -176,13 +176,14 @@
   gap: 18px;
   border-left: 1px solid #0002;
 }
-.poster-facts > div:nth-child(2) {
+.poster-facts > div:first-child {
   border: 0;
 }
 .poster-facts svg {
-  height: 46px;
-  width: 46px;
-  stroke-width: 1.6;
+  height: 58px;
+  width: 58px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 4px 6px #0003);
 }
 .poster-facts strong {
   font-family: var(--font-display), sans-serif;
@@ -292,7 +293,7 @@
   }
   .poster-facts {
     grid-template-columns: repeat(2, 1fr);
-    padding: 38px 16px 12px;
+    padding: 16px 16px 18px;
     row-gap: 18px;
   }
   .poster-facts > p {
