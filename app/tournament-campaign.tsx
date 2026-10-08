@@ -4,6 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { TournamentLogo } from "./tournament-logo";
+import { LangToggle, useLang } from "./i18n";
 const factIcons = {
   ball: (
     <svg viewBox="0 0 64 64" aria-hidden="true">
@@ -80,11 +81,12 @@ const sections = [
   ["/news", "الأخبار"],
 ];
 function Brand() {
+  const { tr } = useLang();
   return (
     <Link
       className="tournament-brand"
       href="/"
-      aria-label="ROAD TO BAL — الرئيسية"
+      aria-label={`ROAD TO BAL — ${tr("الرئيسية")}`}
     >
       <TournamentLogo />
       <span className="tournament-brand-location">TRIPOLI / 2027</span>
@@ -92,6 +94,7 @@ function Brand() {
   );
 }
 export function TournamentHeader() {
+  const { dir, tr } = useLang();
   const pathname = usePathname(),
     dialog = useRef<HTMLDialogElement>(null),
     trigger = useRef<HTMLButtonElement>(null);
@@ -152,7 +155,7 @@ export function TournamentHeader() {
         onClick={mobile ? close : undefined}
       >
         {mobile && <small>{String(i + 1).padStart(2, "0")}</small>}
-        <span>{label}</span>
+        <span>{tr(label)}</span>
         {mobile && <i aria-hidden="true">↗</i>}
       </Link>
     ));
@@ -163,17 +166,18 @@ export function TournamentHeader() {
         className={"tournament-header " + (scrolled ? "is-scrolled" : "")}
       >
         <Brand />
-        <nav className="tournament-nav" aria-label="أقسام البطولة" dir="rtl">
+        <nav className="tournament-nav" aria-label={tr("أقسام البطولة")} dir={dir}>
           {links()}
         </nav>
         <div className="event-meta" dir="ltr">
           <strong>21—25 OCT</strong>
           <span>2026 / TRIPOLI, LIBYA</span>
         </div>
+        <LangToggle className="header-lang" />
         <button
           ref={trigger}
           className="menu-trigger"
-          aria-label="فتح قائمة البطولة"
+          aria-label={tr("فتح قائمة البطولة")}
           aria-haspopup="dialog"
           aria-controls="tournament-menu"
           aria-expanded={open}
@@ -182,7 +186,7 @@ export function TournamentHeader() {
             setOpen(true);
           }}
         >
-          <span>القائمة</span>
+          <span>{tr("القائمة")}</span>
           <i aria-hidden="true">
             <span />
             <span />
@@ -204,7 +208,7 @@ export function TournamentHeader() {
           <Brand />
           <button
             className="menu-close"
-            aria-label="إغلاق قائمة البطولة"
+            aria-label={tr("إغلاق قائمة البطولة")}
             onClick={close}
           >
             ✕
@@ -216,11 +220,12 @@ export function TournamentHeader() {
         </div>
         <nav
           className="mobile-tournament-nav"
-          aria-label="أقسام البطولة على الهاتف"
-          dir="rtl"
+          aria-label={tr("أقسام البطولة على الهاتف")}
+          dir={dir}
         >
           {links(true)}
         </nav>
+        <LangToggle className="menu-lang" />
         <div className="menu-foot">
           <span>21—25 OCT 2026</span>
           <span>TRIPOLI, LIBYA</span>
@@ -244,11 +249,12 @@ export function CampaignHero({
   nations: number;
   groups: number;
 }) {
+  const { dir, tr } = useLang();
   return (
     <>
       <section
         className="tipoff-hero tripoli-poster"
-        aria-label="طرابلس — Road to BAL"
+        aria-label={`${tr("طرابلس")} — Road to BAL`}
         dir="ltr"
       >
         <picture className="poster-background" aria-hidden="true">
@@ -271,8 +277,8 @@ export function CampaignHero({
             TRIPOLI
             <span aria-hidden="true" />
           </h1>
-          <p className="poster-arabic" dir="rtl">
-            طرابلس تستضيف أفريقيا
+          <p className="poster-arabic" dir={dir}>
+            {tr("طرابلس تستضيف أفريقيا")}
           </p>
         </div>
         <div className="poster-bottom">
@@ -284,7 +290,7 @@ export function CampaignHero({
             {seconds > 0 ? (
               <div
                 className="poster-countdown"
-                aria-label="العد التنازلي لبدء البطولة"
+                aria-label={tr("العد التنازلي لبدء البطولة")}
               >
                 {count.map((n, i) => (
                   <div key={i}>
@@ -297,13 +303,13 @@ export function CampaignHero({
               </div>
             ) : (
               <Link className="poster-live" href="/matches">
-                {ended ? "النتائج النهائية" : "تابع المباريات"}
+                {ended ? tr("النتائج النهائية") : tr("تابع المباريات")}
               </Link>
             )}
           </div>
           <div className="poster-road">
-            <Link href="/the-road" dir="rtl">
-              الطريق يبدأ هنا <ChevronLeft aria-hidden="true" />
+            <Link href="/the-road" dir={dir}>
+              {tr("الطريق يبدأ هنا")} <ChevronLeft aria-hidden="true" />
             </Link>
           </div>
         </div>

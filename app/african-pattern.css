@@ -400,3 +400,30 @@ summary:focus:not(:focus-visible) { outline: none; }
   .sports-standings .standings-wrap :is(th, td).wide { display: none; }
   .sports-standings .standings-wrap td:nth-child(2) a > span { font-size: 15px; }
 }
+/* Language switch (Arabic / English). */
+.lang-toggle {
+  min-width: 52px;
+  min-height: 38px;
+  padding: 6px 14px;
+  border: 1px solid #ffffff55;
+  border-radius: 999px;
+  background: #ffffff14;
+  color: #fff;
+  font: 700 13px/1 Arial, sans-serif;
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.lang-toggle:hover { background: var(--pattern-yellow); color: #101b22; border-color: var(--pattern-yellow); }
+.header-lang { margin-inline: 18px 0; flex-shrink: 0; }
+.menu-lang { margin: 24px 0 0; min-height: 46px; padding-inline: 24px; font-size: 15px; }
+@media (max-width: 900px) {
+  .header-lang { margin-inline: auto 12px; }
+  .tournament-header .menu-trigger { margin-inline: 0; }
+}
+/* English (LTR) mode: mirror the physical-direction details. */
+html[dir="ltr"] .tournament-nav a::after { transform-origin: left; }
+html[dir="ltr"] .road-section .section-title,
+html[dir="ltr"] .hub-heading { direction: ltr; }
+html[dir="ltr"] .road-section > .muted { margin: 35px auto 0 0; }
+html[dir="ltr"] .road-step p { text-align: left; }

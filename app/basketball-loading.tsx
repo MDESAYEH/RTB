@@ -1,11 +1,14 @@
+"use client";
+import { useLang } from "./i18n";
 import { BasketballGlyph, CourtArc } from "./brand-primitives";
 export function BasketballLoading() {
+  const { tr } = useLang();
   return (
     <main
       className="basketball-loading"
       role="status"
       aria-live="polite"
-      aria-label="جارٍ تحميل البطولة"
+      aria-label={tr("جارٍ تحميل البطولة")}
     >
       <span className="loading-edition" dir="ltr">
         TRIPOLI / 2027
@@ -25,8 +28,8 @@ export function BasketballLoading() {
         <small>TO</small>
         <span>BAL</span>
       </div>
-      <p>اللعبة تبدأ هنا</p>
-      <span className="loading-caption">جارٍ التحميل</span>
+      <p>{tr("اللعبة تبدأ هنا")}</p>
+      <span className="loading-caption">{tr("جارٍ التحميل")}</span>
     </main>
   );
 }
