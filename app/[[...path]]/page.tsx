@@ -33,7 +33,7 @@ export async function generateMetadata({
         " vs " +
         (await provider.getTeam(game.away))?.name
       : team?.name ||
-        news?.title ||
+        (english && news?.titleEn ? news.titleEn : news?.title) ||
         (
           {
             matches: tr("المباريات"),
@@ -49,7 +49,7 @@ export async function generateMetadata({
         tr("طرابلس تستضيف أفريقيا");
   const description =
     (profile?.bioShort && tr(profile.bioShort)) ||
-    news?.excerpt ||
+    (english && news?.excerptEn ? news.excerptEn : news?.excerpt) ||
     (game
       ? tr("مركز المباراة") + " · " + game.date + " · GROUP " + game.group
       : "ROAD TO BAL 2027 · TRIPOLI · 21–25 OCTOBER 2026");

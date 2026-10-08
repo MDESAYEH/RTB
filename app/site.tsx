@@ -64,11 +64,13 @@ type Data = {
     period: number;
     clock: string;
     text: string;
+    textEn?: string;
   }[];
   teamStats: Record<string, string | number>[];
   pulse: {
     id: string;
     text: string;
+    textEn?: string;
     date: string;
     type?: string;
     game?: string;
@@ -635,8 +637,8 @@ export default function Site({
                 sizes="(max-width:600px) 90vw, 50vw"
               />
             )}
-            <h3>{n.title}</h3>
-            <p>{n.excerpt}</p>
+            <h3>{lang === "en" && n.titleEn ? n.titleEn : n.title}</h3>
+            <p>{lang === "en" && n.excerptEn ? n.excerptEn : n.excerpt}</p>
           </Link>
         ))}
       </div>
@@ -857,7 +859,7 @@ export default function Site({
                       <span className="pulse-type">
                         {p.type || "ANNOUNCEMENT"}
                       </span>
-                      <p>{p.text}</p>
+                      <p>{lang === "en" && p.textEn ? p.textEn : p.text}</p>
                       {p.game && (
                         <Link className="text-link" href={"/matches/" + p.game}>
                           {tr("مركز المباراة")} <ChevronLeft size={14} />
@@ -1059,7 +1061,7 @@ export default function Site({
                   <time dir="ltr">
                     Q{e.period} · {e.clock}
                   </time>
-                  <span>{e.text}</span>
+                  <span>{lang === "en" && e.textEn ? e.textEn : e.text}</span>
                 </div>
               ))}
           </section>
@@ -1222,7 +1224,7 @@ export default function Site({
         <span className="eyebrow">
           {date(n.publishedAt)} · {n.author}
         </span>
-        <h1>{n.title}</h1>
+        <h1>{lang === "en" && n.titleEn ? n.titleEn : n.title}</h1>
         {n.cover && (
           <Image
             className="news-cover"
@@ -1233,8 +1235,12 @@ export default function Site({
             sizes="(max-width:1200px) 90vw, 1100px"
           />
         )}
-        <p className="lead">{n.excerpt}</p>
-        <div className="article-body">{n.content}</div>
+        <p className="lead">
+          {lang === "en" && n.excerptEn ? n.excerptEn : n.excerpt}
+        </p>
+        <div className="article-body">
+          {lang === "en" && n.contentEn ? n.contentEn : n.content}
+        </div>
       </article>
     );
   } else if (route === "news") content = <NewsList />;
@@ -1286,7 +1292,7 @@ export default function Site({
                       stats: tr("الإحصائيات"),
                       news: tr("الأخبار"),
                       road: "THE ROAD",
-                      admin: "غرفة إدارة البطولة",
+                      admin: tr("غرفة إدارة البطولة"),
                     } as Record<string, string>
                   )[route]
                 }
@@ -1337,6 +1343,7 @@ export default function Site({
   );
 }
 function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
+  const { tr } = useLang();
   const [auth, setAuth] = useState(false),
     [password, setPassword] = useState(""),
     [tab, setTab] = useState("live"),
@@ -1410,7 +1417,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
       }
       await load();
     } catch {
-      setError("تعذر الاتصال؛ تحقق من الشبكة قبل إعادة المحاولة.");
+      setError(tr("تعذر الاتصال؛ تحقق من الشبكة قبل إعادة المحاولة."));
     } finally {
       saving.current = false;
       setBusy(false);
@@ -1481,9 +1488,12 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
     news: {
       id: crypto.randomUUID(),
       title: "",
+      titleEn: "",
       slug: "article-slug",
       excerpt: "",
+      excerptEn: "",
       content: "",
+      contentEn: "",
       author: "",
       publishedAt: new Date().toISOString(),
       status: "draft",
@@ -1491,6 +1501,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
     pulse: {
       id: crypto.randomUUID(),
       text: "",
+      textEn: "",
       date: new Date().toISOString(),
     },
     settings: data.settings,
@@ -1510,7 +1521,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
     return (
       <div className="login">
         <Shield size={36} />
-        <h2>دخول الإدارة</h2>
+        <h2>{tr("دخول الإدارة")}</h2>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -1518,7 +1529,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
           }}
         >
           <label>
-            كلمة المرور
+            {tr("كلمة المرور")}
             <input
               type="password"
               autoComplete="current-password"
@@ -1527,11 +1538,11 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
               required
             />
           </label>
-          <button className="primary">دخول آمن</button>
+          <button className="primary">{tr("دخول آمن")}</button>
         </form>
         {error && <p role="alert">{error}</p>}
         <p className="muted">
-          يلزم إنشاء حساب الإدارة من الخادم قبل تسجيل الدخول.
+          {tr("يلزم إنشاء حساب الإدارة من الخادم قبل تسجيل الدخول.")}
         </p>
       </div>
     );
@@ -1549,10 +1560,12 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
             onClick={() => setTab(id)}
             className={tab === id ? "active" : ""}
           >
-            {title}
+            {tr(title)}
           </button>
         ))}
-        <button onClick={() => void mutate({ action: "logout" })}>خروج</button>
+        <button onClick={() => void mutate({ action: "logout" })}>
+          {tr("خروج")}
+        </button>
       </div>
       {danger && (
         <dialog
@@ -1565,14 +1578,14 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
         >
           <h2 id="confirm-title">
             {danger.action === "correct"
-              ? "تصحيح إداري موثق"
-              : "تأكيد تغيير حالة المباراة"}
+              ? tr("تصحيح إداري موثق")
+              : tr("تأكيد تغيير حالة المباراة")}
           </h2>
-          <p>راجع الفريقين والنتيجة. سيُحفظ هذا الإجراء في سجل التدقيق.</p>
+          <p>{tr("راجع الفريقين والنتيجة. سيُحفظ هذا الإجراء في سجل التدقيق.")}</p>
           {danger.action === "correct" && (
             <>
               <label>
-                بيانات المباراة المصححة (JSON)
+                {tr("بيانات المباراة المصححة (JSON)")}
                 <textarea
                   value={correction}
                   onChange={(e) => setCorrection(e.target.value)}
@@ -1580,7 +1593,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                 />
               </label>
               <label>
-                سبب التصحيح
+                {tr("سبب التصحيح")}
                 <input
                   value={reason}
                   minLength={8}
@@ -1606,14 +1619,14 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                     : danger,
                 );
               } catch {
-                setError("JSON غير صالح");
+                setError(tr("JSON غير صالح"));
               }
             }}
           >
-            تأكيد وحفظ
+            {tr("تأكيد وحفظ")}
           </button>
           <button disabled={busy} onClick={() => setDanger(null)}>
-            إلغاء
+            {tr("إلغاء")}
           </button>
         </dialog>
       )}
@@ -1626,10 +1639,10 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
         (g ? (
           <>
             <label>
-              المباراة
+              {tr("المباراة")}
               <select
                 value={g.id}
-                aria-label="المباراة"
+                aria-label={tr("المباراة")}
                 onChange={(e) => {
                   setSelected(e.target.value);
                   setClock(
@@ -1656,9 +1669,12 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                     {[1, 2, 3].map((p) => (
                       <button
                         aria-label={
-                          "إضافة " +
+                          tr("إضافة") +
+                          " " +
                           p +
-                          " إلى " +
+                          " " +
+                          tr("إلى") +
+                          " " +
                           data.teams.find((t) => t.id === g[side])?.name
                         }
                         disabled={busy || g.status !== "Live"}
@@ -1681,7 +1697,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
               ))}
             </div>
             <p>
-              الحالة: {statusLabel[g.status]} · Q{g.quarter}
+              {tr("الحالة")}: {tr(statusLabel[g.status])} · Q{g.quarter}
               <b className="operator-clock" dir="ltr">
                 {String(Math.floor(remainingClock(g) / 60)).padStart(2, "0")}:
                 {String(remainingClock(g) % 60).padStart(2, "0")}
@@ -1708,7 +1724,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                         })
                   }
                 >
-                  {statusLabel[status]}
+                  {tr(statusLabel[status])}
                 </button>
               ))}
               <button
@@ -1716,7 +1732,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                   void mutate({ action: "undo", id: g.id, version: g.version })
                 }
               >
-                تراجع / Undo
+                {tr("تراجع")} / Undo
               </button>
             </div>
             {["Live", "Halftime", "Ended"].includes(g.status) && (
@@ -1732,12 +1748,12 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                   });
                 }}
               >
-                تصحيح إداري موثق
+                {tr("تصحيح إداري موثق")}
               </button>
             )}
             <div className="controls">
               <label>
-                الساعة (ثوانٍ)
+                {tr("الساعة (ثوانٍ)")}
                 <input
                   type="number"
                   min="0"
@@ -1757,7 +1773,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                   })
                 }
               >
-                ضبط
+                {tr("ضبط")}
               </button>
               <button
                 onClick={() =>
@@ -1795,17 +1811,17 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                   })
                 }
               >
-                الفترة التالية
+                {tr("الفترة التالية")}
               </button>
             </div>
           </>
         ) : (
-          <Empty title="أنشئ مباراة معتمدة من محرر البيانات للبدء." />
+          <Empty title={tr("أنشئ مباراة معتمدة من محرر البيانات للبدء.")} />
         ))}
       {tab === "editor" && (
         <>
           <label>
-            رفع صورة معتمدة (PNG / JPEG / WebP، حتى 5 MB)
+            {tr("رفع صورة معتمدة (PNG / JPEG / WebP، حتى 5 MB)")}
             <input
               type="file"
               accept="image/png,image/jpeg,image/webp"
@@ -1822,16 +1838,18 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                         : "cover";
                   setJson(JSON.stringify({ ...draft, [key]: v.url }, null, 2));
                 } catch {
-                  setError("تعذر رفع الصورة");
+                  setError(tr("تعذر رفع الصورة"));
                 }
               }}
             />
           </label>
           <p>
-            محرر بيانات منظم. لا تنشر أي موعد أو قائمة أو نتيجة قبل التحقق منها.
+            {tr(
+              "محرر بيانات منظم. لا تنشر أي موعد أو قائمة أو نتيجة قبل التحقق منها.",
+            )}
           </p>
           <label>
-            نوع البيانات
+            {tr("نوع البيانات")}
             <select
               value={kind}
               onChange={(e) => {
@@ -1848,7 +1866,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
             <button
               onClick={() => setJson(JSON.stringify(template[kind], null, 2))}
             >
-              سجل جديد
+              {tr("سجل جديد")}
             </button>
             {records
               .filter((r) => r.kind === kind)
@@ -1858,7 +1876,10 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                   onClick={() => setJson(JSON.stringify(r.value, null, 2))}
                 >
                   {String(
-                    r.value.name || r.value.title || r.value.id || "الإعدادات",
+                    r.value.name ||
+                      r.value.title ||
+                      r.value.id ||
+                      tr("الإعدادات"),
                   )}
                 </button>
               ))}
@@ -1875,7 +1896,8 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                 )
                 .map(([key, v]) => (
                   <label key={key}>
-                    {(
+                    {tr(
+                      (
                       {
                         id: "المعرّف",
                         name: "الاسم",
@@ -1889,6 +1911,10 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                         slug: "رابط الخبر",
                         excerpt: "المقدمة",
                         content: "المحتوى",
+                        titleEn: "العنوان (English)",
+                        excerptEn: "المقدمة (English)",
+                        contentEn: "المحتوى (English)",
+                        textEn: "النص (English)",
                         author: "الكاتب",
                         publishedAt: "تاريخ النشر",
                         status: "الحالة",
@@ -1906,7 +1932,8 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                         groups: "المجموعات (مفصولة بفواصل)",
                         featuredGameId: "معرّف المباراة المميزة",
                       } as Record<string, string>
-                    )[key] || key}
+                      )[key] || key,
+                    )}
                     {typeof v === "boolean" ? (
                       <input
                         type="checkbox"
@@ -1960,7 +1987,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                           <option key={st}>{st}</option>
                         ))}
                       </select>
-                    ) : ["content", "excerpt", "announcement"].includes(key) ? (
+                    ) : ["content", "excerpt", "contentEn", "excerptEn", "announcement"].includes(key) ? (
                       <textarea
                         value={String(v)}
                         onChange={(e) =>
@@ -1972,7 +1999,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                             ),
                           )
                         }
-                        rows={key === "content" ? 8 : 3}
+                        rows={key.startsWith("content") ? 8 : 3}
                       />
                     ) : (
                       <input
@@ -2016,7 +2043,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
             </div>
           )}
           <details>
-            <summary>محرر JSON المتقدم</summary>
+            <summary>{tr("محرر JSON المتقدم")}</summary>
             <label>
               JSON
               <textarea
@@ -2034,35 +2061,36 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
               try {
                 void mutate({ action: "save", kind, value: JSON.parse(json) });
               } catch {
-                setError("JSON غير صالح");
+                setError(tr("JSON غير صالح"));
               }
             }}
           >
-            تحقق واحفظ
+            {tr("تحقق واحفظ")}
           </button>
           <p className="muted">
-            المباريات الموجودة تُدار من غرفة التحكم. المجموعات، التأهل والمحتوى
-            في settings. stats للبيانات المعتمدة لكل لاعب ومباراة.
+            {tr(
+              "المباريات الموجودة تُدار من غرفة التحكم. المجموعات، التأهل والمحتوى في settings. stats للبيانات المعتمدة لكل لاعب ومباراة.",
+            )}
           </p>
         </>
       )}
       {tab === "health" && (
         <>
-          <h2>مصادر البيانات</h2>
+          <h2>{tr("مصادر البيانات")}</h2>
           {["Manual", "FIBA", "Sofascore", "365Scores"].map((name, i) => (
             <div className="health-row" key={name}>
               <b>{name}</b>
               <span>
-                {i === 0 ? "HEALTHY · المصدر الحالي" : "NOT_CONFIGURED"}
+                {i === 0 ? "HEALTHY · " + tr("المصدر الحالي") : "NOT_CONFIGURED"}
               </span>
               <span>
                 {i === 0
-                  ? "قاعدة البيانات المحلية · لا مزامنة خارجية"
-                  : "لم يُثبت تكامل API معتمد"}
+                  ? tr("قاعدة البيانات المحلية · لا مزامنة خارجية")
+                  : tr("لم يُثبت تكامل API معتمد")}
               </span>
             </div>
           ))}
-          <h3>جودة البيانات</h3>
+          <h3>{tr("جودة البيانات")}</h3>
           {data.teams
             .filter((t) => !t.verified)
             .map((t) => (
@@ -2072,12 +2100,13 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
             .filter((g) => stale(g))
             .map((g) => (
               <p key={g.id}>
-                STALE · {g.id} · آخر تحديث {g.updatedAt}
+                STALE · {g.id} · {tr("آخر تحديث")} {g.updatedAt}
               </p>
             ))}
           <p>
-            عتبة تأخر البيانات المباشرة: 45 ثانية. لا يوجد مصدر خارجي نشط أو
-            تعارض مصادر حالي.
+            {tr(
+              "عتبة تأخر البيانات المباشرة: 45 ثانية. لا يوجد مصدر خارجي نشط أو تعارض مصادر حالي.",
+            )}
           </p>
         </>
       )}
@@ -2089,7 +2118,9 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                 {String(a.time)} · {String(a.actor)} · {String(a.kind)} ·{" "}
                 {String(a.action || "historical")} · {String(a.target)}
               </summary>
-              {a.reason ? <p>سبب التصحيح: {String(a.reason)}</p> : null}
+              {a.reason ? <p>
+                  {tr("سبب التصحيح")}: {String(a.reason)}
+                </p> : null}
               <pre dir="ltr">
                 {JSON.stringify(
                   {

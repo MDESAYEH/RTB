@@ -87,9 +87,12 @@ export const settingsSchema = z
 export const newsSchema = z.object({
   id: z.string().min(1),
   title: z.string().min(2).max(160),
+  titleEn: z.string().max(160).optional(),
   slug: z.string().regex(/^[a-z0-9-]+$/),
   excerpt: z.string().max(400),
+  excerptEn: z.string().max(400).optional(),
   content: z.string().max(30000),
+  contentEn: z.string().max(30000).optional(),
   author: z.string().max(100),
   publishedAt: z.iso.datetime({ offset: true }),
   status: z.enum(["draft", "published"]),
@@ -120,6 +123,7 @@ export const eventSchema = z.object({
   period: z.number().int().min(1),
   clock: z.string().regex(/^[0-9]{2}:[0-5][0-9]$/),
   text: z.string().min(1).max(500),
+  textEn: z.string().max(500).optional(),
   date: z.iso.datetime({ offset: true }),
 });
 export const teamStatSchema = z
@@ -153,6 +157,7 @@ export const teamStatSchema = z
 export const pulseSchema = z.object({
   id: z.string(),
   text: z.string().min(2).max(500),
+  textEn: z.string().max(500).optional(),
   date: z.iso.datetime({ offset: true }),
   type: z
     .enum(["LIVE", "FINAL", "QUALIFIED", "ANNOUNCEMENT", "MILESTONE"])
