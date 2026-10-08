@@ -586,7 +586,6 @@ html {
   object-fit: contain;
   padding: 2px;
 }
-.badge.real img[alt*="Kriol"],
 .badge.real img[alt*="Nabaya"] {
   background: #101b22 !important;
   padding: 5px;
@@ -1826,7 +1825,6 @@ html {
   filter: url("/images/clubs/red-flames-background.svg#remove-white");
   background: transparent;
 }
-.team-logo[alt="Kriol Star"],
 .team-logo[alt="Nabaya Sofas"] {
   background: var(--brand-ink);
   padding: 5px;

@@ -341,8 +341,11 @@
   clip-path: none;
   border-radius: 0;
 }
-.sports-page :is(.standings-wrap, .game-row) .team-logo:is([src*="kriol-star"], [alt="Kriol Star"]) {
-  background: var(--utility-ink);
+.team-logo:is([src*="kriol-star"], [alt="Kriol Star"]) {
+  background: transparent;
+}
+:is(.sports-page, .event-home) .team-logo:is([src*="kriol-star"], [alt="Kriol Star"]) {
+  filter: brightness(0);
 }
 .sports-page .standings-wrap .zone { background: #d8ee5525; }
 .sports-page .standings-wrap .zone td:first-child { border-inline-start: 4px solid var(--utility-ink); color: var(--utility-ink); }

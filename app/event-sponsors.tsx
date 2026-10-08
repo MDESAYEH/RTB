@@ -3,8 +3,7 @@ import Image from "next/image";
 const sponsors = [
   { file: "Artboard 2-8.png", name: "FIBA Africa", width: 875, height: 1800 },
   { file: "Artboard 3-8.png", name: "وزارة الرياضة", width: 1920, height: 1921 },
-  { file: "Artboard 4-8.png", name: "خطة عودة الحياة", width: 1920, height: 1921 },
-  { file: "Artboard 5-8.png", name: "الاتحاد الليبي لكرة السلة", width: 1920, height: 1921 },
+  { file: "al-ittihad.svg", name: "نادي الاتحاد الليبي", width: 154, height: 161 },
 ];
 
 export function EventSponsors() {
