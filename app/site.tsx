@@ -1082,7 +1082,7 @@ export default function Site({
   else if (route === "standings")
     content = (
       <>
-        <div className="tabs">
+        <div className="tabs group-switch">
           {s.groups.map((g) => (
             <button
               key={g}
@@ -1093,7 +1093,16 @@ export default function Site({
             </button>
           ))}
         </div>
-        <Table g={group} />
+        <div className="standings-grid">
+          {s.groups.map((g) => (
+            <div
+              key={g}
+              className={"group-panel" + (group === g ? " active" : "")}
+            >
+              <Table g={g} />
+            </div>
+          ))}
+        </div>
       </>
     );
   else if (route === "teams")

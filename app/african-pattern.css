@@ -323,3 +323,25 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
   .sports-page .tabs { gap: 4px; padding: 4px; }
   .sports-page .tabs button { padding: 8px 16px; font-size: 13px; }
 }
+/* Standings: both groups side by side on wide screens; a switcher on phones/tablets. */
+.sports-standings .group-switch { display: none; }
+.sports-standings .standings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: start;
+}
+.sports-standings .group-panel > .standings-wrap { margin-block: 0; }
+@media (max-width: 1000px) {
+  .sports-standings .group-switch {
+    display: flex;
+    position: sticky;
+    top: 8px;
+    z-index: 5;
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+  .sports-standings .group-switch button { flex: 1; padding-inline: 8px; }
+  .sports-standings .standings-grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .sports-standings .group-panel:not(.active) { display: none; }
+}
