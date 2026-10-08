@@ -19,8 +19,8 @@
 }
 :is(.tournament-header, .tournament-menu, .tournament-ending) :focus-visible { outline-color: var(--pattern-yellow); }
 .club-page,
-.operator-page { max-width: 1440px; margin-inline: auto; }
-main.club-page:has(.team-editorial-prototype) { max-width: 1440px; margin-inline: auto; }
+.operator-page { max-width: none; margin-inline: auto; }
+main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: auto; }
 .operator-page {
   padding: 0 clamp(20px, 6vw, 108px) 60px;
   background: #f4f5f2;
@@ -130,7 +130,7 @@ main.club-page:has(.team-editorial-prototype) { max-width: 1440px; margin-inline
 }
 body { background: #091522; }
 .event-sponsors {
-  max-width: 1440px;
+  max-width: none;
   margin-inline: auto;
   padding: 44px clamp(20px, 6vw, 108px) 52px;
   background: #fff;
@@ -189,7 +189,7 @@ body { background: #091522; }
 .event-home,
 .public-page,
 .sports-page {
-  max-width: 1440px;
+  max-width: none;
   margin-inline: auto;
   background-color: #f4f5f2;
 }
@@ -244,7 +244,7 @@ body { background: #091522; }
 .public-teams .team-line h3 { font-size: clamp(27px, 3vw, 42px); }
 .public-teams .team-line .team-arrow { color: #825524; }
 .tournament-ending {
-  max-width: 1440px;
+  max-width: none;
   margin-inline: auto;
   background: linear-gradient(90deg, #14151af5 30%, #35141a99), var(--pattern-weave) #6b1724;
   background-size: auto, 240px 240px;
