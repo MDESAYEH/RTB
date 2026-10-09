@@ -615,3 +615,68 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   .poster-countdown strong { font-size: 40px; color: #ffffffe0; }
   .poster-countdown span { font-size: 14px; opacity: .8; }
 }
+/* Bigger, clearer hero controls. */
+.tripoli-poster .poster-road a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: var(--pattern-yellow);
+  color: #101b22;
+  font-size: 18px;
+  font-weight: 800;
+  text-shadow: none;
+  box-shadow: 0 8px 24px #0006;
+  transition: transform .2s, box-shadow .2s;
+}
+.tripoli-poster .poster-road a:hover { transform: translateY(-2px); box-shadow: 0 12px 28px #0008; }
+.tripoli-poster .poster-road a svg { stroke: currentColor; color: #101b22; }
+.poster-countdown span { font-size: 15px; letter-spacing: .08em; opacity: .92; }
+@media (min-width: 901px) {
+  .tournament-nav a, .tournament-nav .nav-more > button { font-size: 16px; font-weight: 700; }
+  .tournament-nav { gap: clamp(20px, 2.4vw, 38px); }
+}
+@media (max-width: 700px) {
+  .tripoli-poster .poster-road a { padding: 12px 20px; font-size: 16px; }
+  .poster-countdown span { font-size: 12px; }
+}
+/* Home: lower sections carry the hero's identity (green + rings + yellow accent). */
+.event-home .section-title h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 4px;
+  margin-top: 10px;
+  background: var(--pattern-yellow);
+  border-radius: 2px;
+}
+.event-home .schedule-note {
+  background: linear-gradient(90deg, #00351bd0, #00351b99), var(--pattern-rings) #07542d;
+  background-size: auto, 300px 230px;
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  padding: clamp(20px, 3vw, 36px);
+}
+.event-home .schedule-note :is(h3, p) { color: #fff; }
+.event-home .schedule-note p { color: #e0edcd; }
+.event-home .schedule-note .schedule-icon { color: var(--pattern-yellow); }
+.event-home .schedule-note .text-link { color: var(--pattern-yellow); }
+.event-home .group-preview > div {
+  padding: 0 0 8px;
+  border-top: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px #10151d14;
+}
+.event-home .group-preview > div > h3 {
+  margin: 0 0 6px;
+  padding: 18px 24px;
+  background: linear-gradient(90deg, #00351bd0, #00351b99), var(--pattern-rings) #07542d;
+  background-size: auto, 260px 200px;
+  color: #fff;
+  letter-spacing: .06em;
+}
+.event-home .group-preview > div > a { padding-inline: 24px; }
+.event-home .group-preview > div > a:hover { background: #edf3eb; }
