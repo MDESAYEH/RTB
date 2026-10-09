@@ -16,7 +16,6 @@ export function StreamPlayer({ url }: { url: string | undefined }) {
             title={tr("البث المباشر")}
             loading="lazy"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen"
-            allowFullScreen
             referrerPolicy="strict-origin-when-cross-origin"
           />
         </div>
