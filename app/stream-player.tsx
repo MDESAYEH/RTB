@@ -18,6 +18,7 @@ export function StreamPlayer({ url }: { url: string | undefined }) {
             src={embed.src}
             title={tr("البث المباشر")}
             loading="lazy"
+            scrolling="no"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen"
             referrerPolicy="strict-origin-when-cross-origin"
           />

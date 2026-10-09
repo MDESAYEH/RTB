@@ -728,3 +728,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 .live-broadcasts { display: grid; gap: 32px; padding-top: 8px; }
 .live-broadcast-item > h2 { font-size: clamp(20px, 2.6vw, 30px); margin: 0 0 4px; }
 .live-broadcast-item .stream-player { margin-block: 12px 0; }
+.stream-frame iframe { overflow: hidden; }
+@media (max-width: 700px) {
+  .stream-open { display: flex; justify-content: center; width: 100%; padding: 14px 20px; font-size: 16px; background: var(--pattern-yellow); color: #101b22; }
+}

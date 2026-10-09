@@ -25,7 +25,7 @@ export function streamEmbed(raw: string | undefined | null): StreamEmbed | null 
       return {
         kind: "iframe",
         src:
-          "https://www.facebook.com/plugins/video.php?show_text=false&href=" +
+          "https://www.facebook.com/plugins/video.php?show_text=false&width=560&height=315&href=" +
           encodeURIComponent(url.toString()),
         href: url.toString(),
         label: "Facebook",
