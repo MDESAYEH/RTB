@@ -149,6 +149,19 @@ export default function Site({
       next.revision >= previous.revision ? next : previous,
     );
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const day = params.get("day"),
+      filter = params.get("filter"),
+      link = params.get("stream");
+    if (day) setDay(day);
+    if (link) setPreviewStream(link);
+    if (
+      filter &&
+      ["all", "today", "upcoming", "finished", "live"].includes(filter)
+    )
+      setFilter(filter);
+  }, []);
+  useEffect(() => {
     const timer = setInterval(() => setNow(Date.now()), 1000);
     const stream = new EventSource("/api/live");
     let active = true,
@@ -568,9 +581,27 @@ export default function Site({
           (filter === "upcoming" &&
             ["Scheduled", "Warmup"].includes(g.status))),
     );
+    const liveTab = filter === "live";
+    const broadcasts = [
+      ...(streamEmbed(streamUrl)
+        ? [{ key: "site", url: streamUrl, title: tr("البث المباشر") }]
+        : []),
+      ...games
+        .filter(
+          (g) =>
+            g.streamUrl &&
+            g.streamUrl !== streamUrl &&
+            streamEmbed(g.streamUrl) &&
+            ["Warmup", "Live", "Halftime"].includes(g.status),
+        )
+        .map((g) => ({
+          key: g.id,
+          url: g.streamUrl as string,
+          title: `${team(g.home)?.name ?? ""} × ${team(g.away)?.name ?? ""}`,
+        })),
+    ];
     return (
       <>
-        {streamEmbed(streamUrl) && <StreamPlayer url={streamUrl} />}
         <div className="tabs">
           {[
             ["all", "الكل"],
@@ -588,41 +619,64 @@ export default function Site({
             </button>
           ))}
         </div>
-        <div className="days" dir="ltr">
-          <button onClick={() => setDay("")} className={!day ? "active" : ""}>
-            ALL
-          </button>
-          {days.map((d, i) => (
-            <button
-              key={d}
-              className={day === dayKey(d) ? "active" : ""}
-              onClick={() => setDay(dayKey(d))}
-            >
-              <small>DAY {i + 1}</small>
-              {new Intl.DateTimeFormat("en", {
-                timeZone: s.timezone,
-                day: "numeric",
-              }).format(new Date(d))}{" "}
-              OCT
-            </button>
-          ))}
-        </div>
-        {!games.length ? (
-          <ScheduleSoon />
-        ) : visible.length ? (
-          visible.map((g) => <GameCard key={g.id} g={g} />)
+        {liveTab ? (
+          <section className="live-broadcasts">
+            {broadcasts.length ? (
+              broadcasts.map((b) => (
+                <article key={b.key} className="live-broadcast-item">
+                  <h2 dir="auto">{b.title}</h2>
+                  <StreamPlayer url={b.url} />
+                </article>
+              ))
+            ) : (
+              <Empty
+                title={tr("لا يوجد بث مباشر الآن.")}
+                detail={tr("ستظهر البثوث المباشرة هنا فور بدئها.")}
+              />
+            )}
+          </section>
         ) : (
-          <Empty
-            title={tr("لم تُنشر مباريات هذا اليوم بعد.")}
-            detail={tr("ستظهر المواعيد هنا بعد اعتماد جدول المباريات.")}
-          />
-        )}
-        {!visible.length && (
-          <div className="empty-actions">
-            <Link href="/teams">{tr("تعرّف على الفرق")}</Link>
-            <Link href="/standings">{tr("شاهد المجموعات")}</Link>
-            <Link href="/the-road">{tr("اكتشف THE ROAD")}</Link>
-          </div>
+          <>
+            <div className="days" dir="ltr">
+              <button
+                onClick={() => setDay("")}
+                className={!day ? "active" : ""}
+              >
+                ALL
+              </button>
+              {days.map((d, i) => (
+                <button
+                  key={d}
+                  className={day === dayKey(d) ? "active" : ""}
+                  onClick={() => setDay(dayKey(d))}
+                >
+                  <small>DAY {i + 1}</small>
+                  {new Intl.DateTimeFormat("en", {
+                    timeZone: s.timezone,
+                    day: "numeric",
+                  }).format(new Date(d))}{" "}
+                  OCT
+                </button>
+              ))}
+            </div>
+            {!games.length ? (
+              <ScheduleSoon />
+            ) : visible.length ? (
+              visible.map((g) => <GameCard key={g.id} g={g} />)
+            ) : (
+              <Empty
+                title={tr("لم تُنشر مباريات هذا اليوم بعد.")}
+                detail={tr("ستظهر المواعيد هنا بعد اعتماد جدول المباريات.")}
+              />
+            )}
+            {!visible.length && (
+              <div className="empty-actions">
+                <Link href="/teams">{tr("تعرّف على الفرق")}</Link>
+                <Link href="/standings">{tr("شاهد المجموعات")}</Link>
+                <Link href="/the-road">{tr("اكتشف THE ROAD")}</Link>
+              </div>
+            )}
+          </>
         )}
       </>
     );
@@ -796,17 +850,6 @@ export default function Site({
           nations={new Set(teams.map((team) => team.country)).size}
           groups={s.groups.length}
         />
-        {streamEmbed(streamUrl) && (
-          <section className="live-broadcast">
-            <div className="section-title">
-              <div>
-                <span className="eyebrow">LIVE BROADCAST</span>
-                <h2>{tr("البث المباشر")}</h2>
-              </div>
-            </div>
-            <StreamPlayer url={streamUrl} />
-          </section>
-        )}
         <section>
           <div className="section-title">
             <div>

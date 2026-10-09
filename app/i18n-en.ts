@@ -291,4 +291,6 @@ export const en: Record<string, string> = {
   "افتح البث في": "Open the stream on",
   "شاهد البث على": "Watch the stream on",
   "رابط البث المباشر (HTTPS)": "Live stream link (HTTPS)",
+  "لا يوجد بث مباشر الآن.": "No live broadcast right now.",
+  "ستظهر البثوث المباشرة هنا فور بدئها.": "Live broadcasts will appear here as soon as they start.",
 };
