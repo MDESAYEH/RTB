@@ -13,7 +13,7 @@ import { CourtArc } from "./brand-primitives";
 import { EventSponsors } from "./event-sponsors";
 import { useLang } from "./i18n";
 import { StreamPlayer } from "./stream-player";
-import { streamEmbed } from "@/lib/stream";
+import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
 import {
   CalendarDays,
@@ -226,7 +226,7 @@ export default function Site({
     };
   }, []);
   const s = data.settings,
-    streamUrl = previewStream || s.streamUrl,
+    streamUrl = previewStream || s.streamUrl || DEFAULT_STREAM_URL,
     teams = data.teams,
     games = data.games;
   const team = (id: string) => teams.find((t) => t.id === id);
