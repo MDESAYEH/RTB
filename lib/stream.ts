@@ -53,4 +53,4 @@ export function streamEmbed(raw: string | undefined | null): StreamEmbed | null 
 
 /** Used until an admin sets `streamUrl` in settings. Clear the value to show the "coming soon" placeholder again. */
 export const DEFAULT_STREAM_URL =
-  "https://www.facebook.com/MsJgaming143/videos/2371144426959269/";
+  "https://www.facebook.com/Ittihadscofficial/videos/2356351284771130/";
