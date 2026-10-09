@@ -290,6 +290,8 @@ export const en: Record<string, string> = {
   "سيُعلن الموعد": "Time to be announced",
   "افتح البث في": "Open the stream on",
   "شاهد البث على": "Watch the stream on",
+  "قد لا يعمل مشغل فيسبوك داخل متصفح الهاتف؛ افتح البث مباشرة على فيسبوك.":
+    "Facebook's embedded player may not work in some mobile browsers. Open the stream directly on Facebook.",
   "رابط البث المباشر (HTTPS)": "Live stream link (HTTPS)",
   "لا يوجد بث مباشر الآن.": "No live broadcast right now.",
   "ستظهر البثوث المباشرة هنا فور بدئها.": "Live broadcasts will appear here as soon as they start.",

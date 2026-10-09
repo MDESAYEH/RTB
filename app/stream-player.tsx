@@ -8,7 +8,10 @@ export function StreamPlayer({ url }: { url: string | undefined }) {
   const embed = streamEmbed(url);
   if (!embed) return null;
   return (
-    <section className="stream-player" aria-label={tr("البث المباشر")}>
+    <section
+      className={`stream-player${embed.label === "Facebook" ? " stream-player-facebook" : ""}`}
+      aria-label={tr("البث المباشر")}
+    >
       {embed.kind === "iframe" ? (
         <div className="stream-frame">
           <iframe
@@ -20,6 +23,13 @@ export function StreamPlayer({ url }: { url: string | undefined }) {
           />
         </div>
       ) : null}
+      {embed.label === "Facebook" && (
+        <p className="stream-mobile-note">
+          {tr(
+            "قد لا يعمل مشغل فيسبوك داخل متصفح الهاتف؛ افتح البث مباشرة على فيسبوك.",
+          )}
+        </p>
+      )}
       <a
         className="stream-open"
         href={embed.href}
