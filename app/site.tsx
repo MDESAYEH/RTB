@@ -12,6 +12,8 @@ import Image from "next/image";
 import { CourtArc } from "./brand-primitives";
 import { EventSponsors } from "./event-sponsors";
 import { useLang } from "./i18n";
+import { StreamPlayer } from "./stream-player";
+import { streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
 import {
   CalendarDays,
@@ -138,7 +140,8 @@ export default function Site({
     [connected, setConnected] = useState(true),
     [filter, setFilter] = useState("all"),
     [day, setDay] = useState(""),
-    [group, setGroup] = useState("A");
+    [group, setGroup] = useState("A"),
+    [previewStream, setPreviewStream] = useState("");
   const route = path[0] === "the-road" ? "road" : path[0] || "home";
   const [lastReceived, setLastReceived] = useState<number | null>(null);
   const acceptData = (next: Data) =>
@@ -203,6 +206,8 @@ export default function Site({
     }, 2000);
     const selectedDay = new URLSearchParams(location.search).get("day");
     if (selectedDay) setDay(selectedDay);
+    const previewLink = new URLSearchParams(location.search).get("stream");
+    if (previewLink) setPreviewStream(previewLink);
     const selectedFilter = new URLSearchParams(location.search).get("filter");
     if (
       selectedFilter &&
@@ -221,6 +226,7 @@ export default function Site({
     };
   }, []);
   const s = data.settings,
+    streamUrl = previewStream || s.streamUrl,
     teams = data.teams,
     games = data.games;
   const team = (id: string) => teams.find((t) => t.id === id);
@@ -564,6 +570,7 @@ export default function Site({
     );
     return (
       <>
+        {streamEmbed(streamUrl) && <StreamPlayer url={streamUrl} />}
         <div className="tabs">
           {[
             ["all", "الكل"],
@@ -789,6 +796,17 @@ export default function Site({
           nations={new Set(teams.map((team) => team.country)).size}
           groups={s.groups.length}
         />
+        {streamEmbed(streamUrl) && (
+          <section className="live-broadcast">
+            <div className="section-title">
+              <div>
+                <span className="eyebrow">LIVE BROADCAST</span>
+                <h2>{tr("البث المباشر")}</h2>
+              </div>
+            </div>
+            <StreamPlayer url={streamUrl} />
+          </section>
+        )}
         <section>
           <div className="section-title">
             <div>
@@ -1061,20 +1079,24 @@ export default function Site({
         <p>
           {g.venue || tr("سيُعلن مكان المباراة لاحقًا")} · GROUP {g.group}
         </p>
-        <section className="broadcast-stage" aria-label={tr("البث المباشر")}>
-          <CourtArc />
-          <span className="broadcast-play" aria-hidden="true">
-            ▷
-          </span>
-          <span className="broadcast-label" dir="ltr">
-            LIVE BROADCAST
-          </span>
-          <h2>{tr("سيتم عرض البث المباشر للمباراة هنا")}</h2>
-          <p>{tr("البث الرسمي سيكون متاحًا عند بدء المباراة.")}</p>
-          <span className="broadcast-opponents" dir="ltr">
-            {team(g.home)?.name} × {team(g.away)?.name}
-          </span>
-        </section>
+        {streamEmbed(previewStream || g.streamUrl || streamUrl) ? (
+          <StreamPlayer url={previewStream || g.streamUrl || streamUrl} />
+        ) : (
+          <section className="broadcast-stage" aria-label={tr("البث المباشر")}>
+            <CourtArc />
+            <span className="broadcast-play" aria-hidden="true">
+              ▷
+            </span>
+            <span className="broadcast-label" dir="ltr">
+              LIVE BROADCAST
+            </span>
+            <h2>{tr("سيتم عرض البث المباشر للمباراة هنا")}</h2>
+            <p>{tr("البث الرسمي سيكون متاحًا عند بدء المباراة.")}</p>
+            <span className="broadcast-opponents" dir="ltr">
+              {team(g.home)?.name} × {team(g.away)?.name}
+            </span>
+          </section>
+        )}
         {g.periods.length > 0 && (
           <table>
             <thead>
@@ -1369,7 +1391,11 @@ export default function Site({
         </div>
         <small dir="ltr">2027 TRIPOLI IS THE COURT. © ROAD TO BAL</small>
       </footer>
-      <div className="bottom-nav" role="navigation" aria-label={tr("التنقل السريع")}>
+      <div
+        className="bottom-nav"
+        role="navigation"
+        aria-label={tr("التنقل السريع")}
+      >
         {[
           ["/", tr("الرئيسية")],
           ["/matches", tr("المباريات")],
@@ -1479,6 +1505,8 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
   let draft: Record<string, unknown> = {};
   try {
     draft = JSON.parse(json || "{}");
+    if (["settings", "games"].includes(kind) && draft.streamUrl === undefined)
+      draft = { ...draft, streamUrl: "" };
   } catch {}
   const template: Record<string, unknown> = {
     events: {
@@ -1627,7 +1655,9 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
               ? tr("تصحيح إداري موثق")
               : tr("تأكيد تغيير حالة المباراة")}
           </h2>
-          <p>{tr("راجع الفريقين والنتيجة. سيُحفظ هذا الإجراء في سجل التدقيق.")}</p>
+          <p>
+            {tr("راجع الفريقين والنتيجة. سيُحفظ هذا الإجراء في سجل التدقيق.")}
+          </p>
           {danger.action === "correct" && (
             <>
               <label>
@@ -1944,40 +1974,41 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                   <label key={key}>
                     {tr(
                       (
-                      {
-                        id: "المعرّف",
-                        name: "الاسم",
-                        country: "الدولة",
-                        group: "المجموعة",
-                        home: "الفريق الأول",
-                        away: "الفريق الثاني",
-                        date: "موعد المباراة مع المنطقة الزمنية",
-                        venue: "المكان",
-                        title: "العنوان",
-                        slug: "رابط الخبر",
-                        excerpt: "المقدمة",
-                        content: "المحتوى",
-                        titleEn: "العنوان (English)",
-                        excerptEn: "المقدمة (English)",
-                        contentEn: "المحتوى (English)",
-                        textEn: "النص (English)",
-                        author: "الكاتب",
-                        publishedAt: "تاريخ النشر",
-                        status: "الحالة",
-                        team: "الفريق",
-                        number: "الرقم",
-                        position: "المركز",
-                        verified: "تم التحقق",
-                        hero: "عنوان الرئيسية",
-                        announcement: "الإعلان",
-                        rulesConfirmed: "تم اعتماد قواعد البطولة",
-                        qualificationSlots: "عدد المتأهلين",
-                        start: "بداية البطولة",
-                        end: "نهاية البطولة",
-                        timezone: "المنطقة الزمنية",
-                        groups: "المجموعات (مفصولة بفواصل)",
-                        featuredGameId: "معرّف المباراة المميزة",
-                      } as Record<string, string>
+                        {
+                          id: "المعرّف",
+                          name: "الاسم",
+                          country: "الدولة",
+                          group: "المجموعة",
+                          home: "الفريق الأول",
+                          away: "الفريق الثاني",
+                          date: "موعد المباراة مع المنطقة الزمنية",
+                          venue: "المكان",
+                          title: "العنوان",
+                          slug: "رابط الخبر",
+                          excerpt: "المقدمة",
+                          content: "المحتوى",
+                          streamUrl: "رابط البث المباشر (HTTPS)",
+                          titleEn: "العنوان (English)",
+                          excerptEn: "المقدمة (English)",
+                          contentEn: "المحتوى (English)",
+                          textEn: "النص (English)",
+                          author: "الكاتب",
+                          publishedAt: "تاريخ النشر",
+                          status: "الحالة",
+                          team: "الفريق",
+                          number: "الرقم",
+                          position: "المركز",
+                          verified: "تم التحقق",
+                          hero: "عنوان الرئيسية",
+                          announcement: "الإعلان",
+                          rulesConfirmed: "تم اعتماد قواعد البطولة",
+                          qualificationSlots: "عدد المتأهلين",
+                          start: "بداية البطولة",
+                          end: "نهاية البطولة",
+                          timezone: "المنطقة الزمنية",
+                          groups: "المجموعات (مفصولة بفواصل)",
+                          featuredGameId: "معرّف المباراة المميزة",
+                        } as Record<string, string>
                       )[key] || key,
                     )}
                     {typeof v === "boolean" ? (
@@ -2033,7 +2064,13 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                           <option key={st}>{st}</option>
                         ))}
                       </select>
-                    ) : ["content", "excerpt", "contentEn", "excerptEn", "announcement"].includes(key) ? (
+                    ) : [
+                        "content",
+                        "excerpt",
+                        "contentEn",
+                        "excerptEn",
+                        "announcement",
+                      ].includes(key) ? (
                       <textarea
                         value={String(v)}
                         onChange={(e) =>
@@ -2127,7 +2164,9 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
             <div className="health-row" key={name}>
               <b>{name}</b>
               <span>
-                {i === 0 ? "HEALTHY · " + tr("المصدر الحالي") : "NOT_CONFIGURED"}
+                {i === 0
+                  ? "HEALTHY · " + tr("المصدر الحالي")
+                  : "NOT_CONFIGURED"}
               </span>
               <span>
                 {i === 0
@@ -2164,9 +2203,11 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                 {String(a.time)} · {String(a.actor)} · {String(a.kind)} ·{" "}
                 {String(a.action || "historical")} · {String(a.target)}
               </summary>
-              {a.reason ? <p>
+              {a.reason ? (
+                <p>
                   {tr("سبب التصحيح")}: {String(a.reason)}
-                </p> : null}
+                </p>
+              ) : null}
               <pre dir="ltr">
                 {JSON.stringify(
                   {

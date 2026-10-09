@@ -680,3 +680,28 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 }
 .event-home .group-preview > div > a { padding-inline: 24px; }
 .event-home .group-preview > div > a:hover { background: #edf3eb; }
+/* Live stream player. */
+.stream-player { margin-block: 24px; }
+.stream-frame {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  aspect-ratio: 16 / 9;
+  background: #04150c;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px #10151d33;
+}
+.stream-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.stream-open {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #07542d;
+  color: #fff;
+  font-weight: 800;
+  font-size: 14px;
+}
+.stream-open:hover { background: var(--pattern-yellow); color: #101b22; }
+.live-broadcast { padding-block: 40px 8px; }

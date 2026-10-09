@@ -288,4 +288,7 @@ export const en: Record<string, string> = {
   "الجدول قيد الاعتماد": "Schedule pending confirmation",
   "خمسة أيام. مواعيد المباريات قريبًا.": "Five days. Game times coming soon.",
   "سيُعلن الموعد": "Time to be announced",
+  "افتح البث في": "Open the stream on",
+  "شاهد البث على": "Watch the stream on",
+  "رابط البث المباشر (HTTPS)": "Live stream link (HTTPS)",
 };

@@ -22,6 +22,11 @@ export const statuses = [
   "Postponed",
   "Cancelled",
 ] as const;
+const streamUrlSchema = z
+  .string()
+  .max(500)
+  .refine((v) => v === "" || /^https:\/\//.test(v), "HTTPS link required")
+  .optional();
 export const gameSchema = z
   .object({
     id: z.string().min(1).max(80),
@@ -30,6 +35,7 @@ export const gameSchema = z
     group: z.string(),
     date: z.iso.datetime({ offset: true }),
     venue: z.string().max(150).default(""),
+    streamUrl: streamUrlSchema,
     status: z.enum(statuses).default("Scheduled"),
     homeScore: z.number().int().min(0).max(999).default(0),
     awayScore: z.number().int().min(0).max(999).default(0),
@@ -75,6 +81,7 @@ export const settingsSchema = z
     lossPoints: z.number().int().min(0).max(5),
     rulesConfirmed: z.boolean(),
     featuredGameId: z.string().nullable(),
+    streamUrl: streamUrlSchema,
   })
   .refine(
     (s) => Date.parse(s.end) > Date.parse(s.start),
