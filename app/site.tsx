@@ -660,7 +660,7 @@ export default function Site({
               ))}
             </div>
             {!games.length ? (
-              <ScheduleSoon />
+              ScheduleSoon()
             ) : visible.length ? (
               visible.map((g) => <GameCard key={g.id} g={g} />)
             ) : (
@@ -911,7 +911,7 @@ export default function Site({
             </div>
           )}
         </section>
-        <Road preview />
+        {Road({ preview: true })}
         <section>
           <div className="section-title">
             <div>
@@ -1038,7 +1038,7 @@ export default function Site({
                 {tr("الأخبار")} <ChevronLeft size={18} />
               </Link>
             </div>
-            <NewsList />
+            {NewsList()}
           </section>
         )}
       </>
@@ -1219,7 +1219,7 @@ export default function Site({
         )}
       </>
     );
-  } else if (route === "matches") content = <Matches />;
+  } else if (route === "matches") content = Matches();
   else if (route === "standings")
     content = (
       <>
@@ -1261,17 +1261,17 @@ export default function Site({
             {tr("هنا تبدأ حكايات المنافسة.")}
           </p>
         </div>
-        <TeamGrid />
+        {TeamGrid()}
       </>
     );
   else if (route === "road")
     content = (
       <>
-        <Road />
-        <TeamGrid />
+        {Road({})}
+        {TeamGrid()}
       </>
     );
-  else if (route === "stats") content = <Statistics />;
+  else if (route === "stats") content = Statistics();
   else if (route === "team") {
     const t = team(path[1])!;
     const roster = (data.players as Player[]).filter((p) => p.team === t.id);
@@ -1354,7 +1354,7 @@ export default function Site({
         </div>
       </article>
     );
-  } else if (route === "news") content = <NewsList />;
+  } else if (route === "news") content = NewsList();
   else content = <Admin data={data} onData={acceptData} />;
   return (
     <div className="tournament-shell">
