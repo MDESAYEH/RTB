@@ -732,3 +732,92 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 @media (max-width: 700px) {
   .stream-open { display: flex; justify-content: center; width: 100%; padding: 14px 20px; font-size: 16px; background: var(--pattern-yellow); color: #101b22; }
 }
+
+/* ===== Ittihad-inspired typography, order and rhythm (identity unchanged) ===== */
+:root { --font-heading-ar: "Noto Kufi Arabic Variable", "Noto Kufi Arabic", "Cairo Variable", Cairo, Arial, sans-serif; }
+/* Arabic: a sturdier heading face with tight tracking; Latin display type stays for TRIPOLI / GROUP etc. */
+html[lang="ar"] :is(
+  .page-heading h1, .section-title h2, .event-home h2:not(.team-group-title),
+  .empty h3, .schedule-note h3, .article h1, .news-list h3, .stats-preview h2,
+  .live-broadcast-item > h2, .schedule-soon > h2, .team-field-intro p, .club-section-label h2,
+  .club-story-heading h2, .hub-heading p
+) {
+  font-family: var(--font-heading-ar);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+}
+html[lang="ar"] .page-heading h1 { font-size: clamp(34px, 5vw, 56px); font-weight: 700; }
+html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
+/* Body copy: calm size, generous leading, softened colour. */
+:is(.event-home, .public-page, .sports-page, .club-profile-content) p { line-height: 2; }
+:is(.event-home, .public-page, .sports-page) :is(p.muted, .muted, .news-list p, .schedule-note p) { color: #5a6469; }
+:is(.event-home, .public-page, .sports-page) :is(.text-link, .empty-actions a, .stream-open) { font-size: 16px; }
+/* Section rhythm: one vertical scale. */
+.event-home > section:not(.tripoli-poster):not(.road-section) { padding-block: clamp(56px, 7vw, 96px); }
+.event-home .section-title { margin-bottom: clamp(24px, 3vw, 40px); }
+/* Pill label above section titles. */
+.event-home .section-title .eyebrow,
+.public-page .stats-preview .eyebrow,
+.schedule-soon > .eyebrow {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #edf3eb;
+  color: #07542d;
+  font: 700 11px/1.6 Arial, sans-serif;
+  letter-spacing: .14em;
+}
+.event-home .road-section .section-title .eyebrow { background: #ffffff1c; color: #e0edcd; }
+/* Stats ribbon: closer to the hero and bigger. */
+.poster-facts strong { font-size: clamp(26px, 2.8vw, 40px); }
+.poster-facts { padding-block: clamp(20px, 2.4vw, 34px); }
+/* Rounder cards. */
+.event-home .group-preview > div, .event-home .schedule-note { border-radius: 16px; }
+.public-teams .team-line, .sports-page .standings-wrap { border-radius: 14px; }
+/* News: image-led cards with a caption over a gradient, first card wide. */
+.news-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.public-news .news-list > a, .event-home .news-list > a, .news-list > a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  min-height: 280px;
+  margin: 0;
+  padding: 22px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 0;
+  border-radius: 20px;
+  background: linear-gradient(160deg, #0a6a38, #00351b);
+  color: #fff;
+}
+.news-list > a:first-child { grid-column: span 2; min-height: 360px; }
+.news-list > a .news-cover { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; max-height: none; object-fit: cover; margin: 0; }
+.news-list > a::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, #000d 0%, #0000 70%); }
+.news-list > a :is(h3, p, .eyebrow) { color: #fff; margin: 0; }
+.news-list > a h3 { font-size: clamp(18px, 2vw, 24px); }
+.news-list > a .eyebrow { font-size: 12px; opacity: .85; }
+.news-list > a p { font-size: 14px; opacity: .88; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+@media (max-width: 900px) {
+  .news-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .news-list > a:first-child { grid-column: span 2; }
+}
+@media (max-width: 600px) {
+  .news-list { grid-template-columns: minmax(0, 1fr); }
+  .news-list > a:first-child { grid-column: auto; min-height: 280px; }
+}
+/* Slim top bar above the header (desktop). */
+.topbar {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px clamp(20px, 3.2vw, 56px);
+  background: #04150c;
+  color: #e0edcd;
+  font: 600 11px/1.4 Arial, sans-serif;
+  letter-spacing: .14em;
+}
+.topbar a { color: var(--pattern-yellow); }
+@media (min-width: 901px) { .topbar { display: flex; } }

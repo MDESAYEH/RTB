@@ -850,6 +850,17 @@ export default function Site({
           nations={new Set(teams.map((team) => team.country)).size}
           groups={s.groups.length}
         />
+        {data.news.length > 0 && (
+          <section>
+            <div className="section-title">
+              <h2>{tr("من قلب الحدث")}</h2>
+              <Link href="/news">
+                {tr("الأخبار")} <ChevronLeft size={18} />
+              </Link>
+            </div>
+            {NewsList()}
+          </section>
+        )}
         <section>
           <div className="section-title">
             <div>
@@ -1028,17 +1039,6 @@ export default function Site({
                 </p>
               )}
             </div>
-          </section>
-        )}
-        {data.news.length > 0 && (
-          <section>
-            <div className="section-title">
-              <h2>{tr("من قلب الحدث")}</h2>
-              <Link href="/news">
-                {tr("الأخبار")} <ChevronLeft size={18} />
-              </Link>
-            </div>
-            {NewsList()}
           </section>
         )}
       </>
@@ -1361,6 +1361,16 @@ export default function Site({
       <a className="skip" href="#main">
         {tr("انتقل للمحتوى")}
       </a>
+      <div className="topbar" dir="ltr">
+        <span>ROAD TO BAL 2027 · TRIPOLI · 21—25 OCT 2026</span>
+        <a
+          href="https://www.fiba.basketball/en/news/introducing-the-road-to-bal-2027"
+          target="_blank"
+          rel="noreferrer"
+        >
+          FIBA ↗
+        </a>
+      </div>
       <TournamentHeader />
       {!connected && (
         <div className="notice" role="status">
