@@ -821,3 +821,24 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
 }
 .topbar a { color: var(--pattern-yellow); }
 @media (min-width: 901px) { .topbar { display: flex; } }
+
+/* ===== Phone pass: readable micro-labels, comfortable tap targets, contrast ===== */
+.event-home .schedule-note p, .event-home .schedule-note :is(h3) { color: #fff; }
+.event-home .schedule-note p { color: #e0edcd !important; }
+@media (max-width: 700px) {
+  .tournament-brand-location, .event-meta span, .menu-context span, .menu-foot span,
+  .poster-eyebrow, .tournament-ending > small, .page-heading .eyebrow, .eyebrow,
+  .road-step .road-status, .club-opening-meta span, .club-crest-coordinate span,
+  .club-opening-event, .podium-number span, .podium-caption span, .club-group-signature,
+  .hub-part-heading > span, .stade-closing > span, .club-next-stage small,
+  .road-qualification-scene > div > span {
+    font-size: 11px !important;
+    letter-spacing: .1em !important;
+  }
+  .event-home .section-title > a, .text-link, .event-home .schedule-note .text-link, .empty-actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .tournament-ending .ending-links a { min-height: 44px; }
+}
