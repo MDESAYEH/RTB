@@ -1,0 +1,5 @@
+# crontab -e  (غيّر YOUR_SECRET إلى CRON_SECRET)
+# مزامنة FIBA كل 15 دقيقة
+*/15 * * * * curl -fsS -m 70 -H "Authorization: Bearer YOUR_SECRET" http://127.0.0.1:3000/api/cron/fiba >> /var/log/roadtobal-fiba.log 2>&1
+# نسخة احتياطية يوميًا 03:00
+0 3 * * * cd /var/www/roadtobal && set -a && . ./.env.production && set +a && npm run db:backup >> /var/log/roadtobal-backup.log 2>&1
