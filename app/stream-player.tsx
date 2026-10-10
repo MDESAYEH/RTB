@@ -34,7 +34,7 @@ export function StreamPlayer({ url }: { url: string | undefined }) {
       <a
         className="stream-open"
         href={embed.href}
-        target={embed.label === "Facebook" ? "_self" : "_blank"}
+        target="_blank"
         rel="noopener noreferrer"
       >
         {embed.kind === "iframe"
