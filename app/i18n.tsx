@@ -9,18 +9,22 @@ import {
   type ReactNode,
 } from "react";
 import { en } from "./i18n-dict";
+import { arData } from "./i18n-ar-data";
 
 export type Lang = "ar" | "en";
 type Ctx = {
   lang: Lang;
   dir: "rtl" | "ltr";
   tr: (arabic: string) => string;
+  /** English club data → Arabic when the site is in Arabic. */
+  td: (english: string) => string;
   toggle: () => void;
 };
 const LangContext = createContext<Ctx>({
   lang: "ar",
   dir: "rtl",
   tr: (arabic) => arabic,
+  td: (english) => english,
   toggle: () => {},
 });
 
@@ -47,6 +51,7 @@ export function LangProvider({
       lang,
       dir: lang === "ar" ? "rtl" : "ltr",
       tr: (arabic) => (lang === "en" ? (en[arabic] ?? arabic) : arabic),
+      td: (english) => (lang === "ar" ? (arData[english] ?? english) : english),
       toggle,
     }),
     [lang, toggle],

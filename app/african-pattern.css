@@ -842,3 +842,18 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   }
   .tournament-ending .ending-links a { min-height: 44px; }
 }
+
+/* Home: THE ROAD preview, compact (the full /the-road page keeps its roomy layout). */
+.event-home .road-section { padding-block: clamp(44px, 5.5vw, 68px) !important; }
+.event-home .road-section .section-title { margin-bottom: 20px; }
+.event-home .road-qualification-scene { min-height: 0; padding: 0 0 26px; gap: 6%; }
+.event-home .road-qualification-scene strong { font-size: clamp(130px, 17vw, 220px); }
+.event-home .road-qualification-scene > p { font-size: clamp(24px, 3vw, 40px); line-height: 1.5; width: 52%; }
+.event-home .road-qualification-scene > p small { display: block; margin-top: 8px; font-size: clamp(13px, 1.1vw, 15px); font-weight: 400; line-height: 1.8; }
+.event-home .road-preview-link { padding-block: 14px; }
+.event-home .road-section > .muted { margin-top: 12px; font-size: 14px; line-height: 1.9; }
+@media (max-width: 700px) {
+  .event-home .road-qualification-scene { gap: 4%; padding-bottom: 20px; }
+  .event-home .road-qualification-scene strong { font-size: 120px; }
+  .event-home .road-qualification-scene > p { width: 58%; font-size: 22px; }
+}
