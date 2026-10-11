@@ -59,11 +59,11 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
 }
 .editorial-club-opening .club-opening-meta { border-color: #ffffff40; }
 .editorial-club-opening .club-crest-block {
-  background: #f4f5f2;
-  color: #101b22;
-  border-radius: 8px;
+  background: transparent;
+  color: #fff;
   padding: 24px;
 }
+.editorial-club-opening .club-crest-block img { filter: drop-shadow(0 6px 22px #0007); }
 .editorial-club-opening .club-opening-next { color: var(--pattern-yellow); }
 .editorial-club-opening > .club-court-geometry { display: none; }
 .club-podium {
@@ -1085,3 +1085,9 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @media (prefers-reduced-motion: reduce) { .operator-page .admin-toast { animation: none; } }
+
+
+/* Red Flames' source image has an opaque white background; strip it so the crest sits directly on the hero. */
+.editorial-club-opening .club-crest-block img.red-flames-mark {
+  filter: url("/images/clubs/red-flames-background.svg#remove-white") drop-shadow(0 6px 22px #0007);
+}
