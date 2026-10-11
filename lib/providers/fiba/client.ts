@@ -1,3 +1,5 @@
+import { boundedBody, PayloadLimit } from "../../request";
+
 /**
  * Phase 1 FIBA client: plain HTTP GET of public event pages only.
  * No authentication, no anti-bot handling, no undocumented API calls.
@@ -55,9 +57,14 @@ export async function fetchFibaPage(
   if (!(response.headers.get("content-type") ?? "").includes("text/html")) {
     throw new FibaFetchError(`${url} did not return HTML`);
   }
-  const html = await response.text();
-  if (html.length > MAX_BYTES) {
-    throw new FibaFetchError(`${url} exceeded ${MAX_BYTES} bytes`);
+  // Stop reading at the cap instead of buffering an unbounded body first.
+  let bytes: Uint8Array;
+  try {
+    bytes = await boundedBody(response, MAX_BYTES);
+  } catch (error) {
+    if (error instanceof PayloadLimit)
+      throw new FibaFetchError(`${url} exceeded ${MAX_BYTES} bytes`);
+    throw error;
   }
-  return { url, html };
+  return { url, html: new TextDecoder().decode(bytes) };
 }

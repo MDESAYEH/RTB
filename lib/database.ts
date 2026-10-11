@@ -22,11 +22,16 @@ export class LocalDatabase {
   get inTransaction() {
     return this.database.isTransaction;
   }
-  transaction<T>(fn: () => T) {
+  /** Synchronous only: an async callback would commit before its awaits run. */
+  transaction<T>(fn: () => T extends PromiseLike<unknown> ? never : T) {
     return () => {
       this.database.exec("BEGIN IMMEDIATE");
       try {
         const result = fn();
+        if (result instanceof Promise)
+          throw Error(
+            "LocalDatabase.transaction requires a synchronous callback",
+          );
         this.database.exec("COMMIT");
         return result;
       } catch (e) {

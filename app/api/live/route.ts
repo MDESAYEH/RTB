@@ -1,10 +1,12 @@
-import { revision } from "@/lib/store";
+import { revision as readRevision } from "@/lib/store";
+import { sharedRevision } from "@/lib/revision-cache";
+const revision = sharedRevision(readRevision);
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 export const maxDuration = 300;
 export async function GET(req: Request) {
   // Fail before streaming, so unavailable storage is not mistaken for a healthy feed.
-  await revision();
+  await readRevision();
   const encoder = new TextEncoder();
   let timer: ReturnType<typeof setTimeout> | undefined;
   let stopped = false;

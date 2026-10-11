@@ -401,6 +401,9 @@ export function createTournamentStore(
       return true;
     })();
   }
+  async function rateLimitReset(key: string) {
+    await db.prepare("DELETE FROM rate_limits WHERE key=?").run(key);
+  }
   async function revoke(token: string | undefined) {
     if (token)
       await db
@@ -455,6 +458,7 @@ export function createTournamentStore(
     login,
     authorize,
     rateLimit,
+    rateLimitReset,
     revoke,
   };
 }
@@ -473,6 +477,7 @@ export const {
   login,
   authorize,
   rateLimit,
+  rateLimitReset,
   revoke,
 } = store;
 export type TournamentStore = ReturnType<typeof createTournamentStore>;

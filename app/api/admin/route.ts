@@ -8,6 +8,7 @@ import {
   authorize,
   login,
   rateLimit,
+  rateLimitReset,
   snapshotData,
 } from "@/lib/store";
 import { boundedBody, PayloadLimit, trustedOrigin } from "@/lib/request";
@@ -81,9 +82,11 @@ export async function POST(req: NextRequest) {
     })();
     if (!token)
       return NextResponse.json(
-        { error: "������ ������ ��� ����� �� �� ����� ���� �������." },
+        { error: "بيانات الدخول غير صحيحة أو لم يُنشأ حساب الإدارة." },
         { status: 401 },
       );
+    // Only failed attempts count toward the limit.
+    await rateLimitReset(bucket);
     jar.set("road-session", token, {
       httpOnly: true,
       secure: new URL(process.env.SITE_URL || req.url).protocol === "https:",

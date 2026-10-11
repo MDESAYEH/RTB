@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       headers: { "Content-Type": req.headers.get("content-type") || "" },
     }).formData();
     const file = form.get("file");
-    if (!(file instanceof File)) throw Error("�� ������ 5 MB");
+    if (!(file instanceof File)) throw Error("حد الصورة 5 MB");
     const { id, bytes: clean } = await validateImage(file);
     await mediaStorage.put(id, clean);
     await db.transaction(async () => {
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ url: "/api/media/" + id });
   } catch (error) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "���� ��� ������" },
+      { error: error instanceof Error ? error.message : "تعذر رفع الصورة" },
       {
         status: error instanceof PayloadLimit ? 413 : 400,
         headers: { "Cache-Control": "no-store" },
@@ -129,7 +129,7 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ ok: true });
   } catch (error) {
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "���� ��� ������" },
+      { error: error instanceof Error ? error.message : "تعذر رفع الصورة" },
       {
         status: error instanceof PayloadLimit ? 413 : 400,
         headers: { "Cache-Control": "no-store" },
