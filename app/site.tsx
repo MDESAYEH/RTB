@@ -1476,7 +1476,7 @@ const CONTENT_TABS = [
 const MORE_KINDS = ["settings", "events", "pulse", "stats", "teamStats"];
 const UPLOAD_KINDS = ["teams", "players", "news"];
 function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
-  const { tr } = useLang();
+  const { lang, tr } = useLang();
   const [auth, setAuth] = useState(false),
     [password, setPassword] = useState(""),
     [tab, setTab] = useState("live"),
@@ -1485,6 +1485,11 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
       { kind: string; value: Record<string, unknown> }[]
     >([]),
     [audit, setAudit] = useState<Record<string, unknown>[]>([]),
+    [fiba, setFiba] = useState<{
+      finished: string;
+      status: string;
+      error: string | null;
+    } | null>(null),
     [kind, setKind] = useState("games"),
     [json, setJson] = useState(""),
     [selected, setSelected] = useState(""),
@@ -1496,6 +1501,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
       setAuth(true);
       setRecords(v.records);
       setAudit(v.audit);
+      setFiba(v.fiba ?? null);
     }
   }
   useEffect(() => {
@@ -2229,12 +2235,21 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
               <span>
                 {i === 0
                   ? "HEALTHY · " + tr("المصدر الحالي")
-                  : "NOT_CONFIGURED"}
+                  : i === 1 && fiba
+                    ? fiba.status.toUpperCase() + " · " + tr("مزامنة دورية")
+                    : "NOT_CONFIGURED"}
               </span>
               <span>
                 {i === 0
                   ? tr("قاعدة البيانات المحلية · لا مزامنة خارجية")
-                  : tr("لم يُثبت تكامل API معتمد")}
+                  : i === 1 && fiba
+                    ? tr("آخر مزامنة") +
+                      " " +
+                      new Date(fiba.finished).toLocaleString(
+                        lang === "ar" ? "ar-LY" : "en-GB",
+                      ) +
+                      (fiba.error ? " · " + fiba.error : "")
+                    : tr("لم يُثبت تكامل API معتمد")}
               </span>
             </div>
           ))}

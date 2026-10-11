@@ -135,8 +135,20 @@ export async function GET() {
     kind: string;
     body: string;
   }[];
+  let fiba: unknown = null;
+  try {
+    fiba =
+      (await db
+        .prepare(
+          "SELECT finished,mode,status,error FROM fiba_sync_runs ORDER BY id DESC LIMIT 1",
+        )
+        .get()) ?? null;
+  } catch {
+    // The sync tables are created on the first FIBA run.
+  }
   return NextResponse.json(
     {
+      fiba,
       records: records.map((r) => ({
         kind: r.kind,
         value: JSON.parse(r.body),
