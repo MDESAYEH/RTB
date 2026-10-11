@@ -7,6 +7,7 @@ import {
   writeFileSync,
   readFileSync,
   readdirSync,
+  rmSync,
 } from "node:fs";
 import { createHash } from "node:crypto";
 if (process.env.TURSO_DATABASE_URL)
@@ -79,10 +80,34 @@ writeFileSync(
     2,
   ),
 );
+// Retention: keep the newest BACKUP_KEEP verified backups (default 14). Only
+// directories this script created (timestamp name + manifest.json) are pruned,
+// and only after the new backup above passed its integrity checks.
+const keep = Number(process.env.BACKUP_KEEP ?? 14);
+const pruned = [];
+if (Number.isInteger(keep) && keep >= 1) {
+  const root = dirname(directory);
+  const ours = readdirSync(root, { withFileTypes: true })
+    .filter(
+      (entry) =>
+        entry.isDirectory() &&
+        /^\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.\d{3}Z-[a-f0-9]{8}$/.test(
+          entry.name,
+        ) &&
+        existsSync(join(root, entry.name, "manifest.json")),
+    )
+    .map((entry) => entry.name)
+    .sort();
+  for (const name of ours.slice(0, Math.max(0, ours.length - keep))) {
+    rmSync(join(root, name), { recursive: true, force: true });
+    pruned.push(name);
+  }
+}
 console.log(
   JSON.stringify({
     backup: directory,
     integrity: "ok",
     media: "copied when present",
+    pruned,
   }),
 );
