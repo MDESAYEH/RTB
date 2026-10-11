@@ -1466,6 +1466,15 @@ const KIND_LABELS: Record<string, string> = {
   stats: "إحصاءات اللاعبين",
   settings: "الإعدادات",
 };
+const CONTENT_TABS = [
+  ["games", "المباريات"],
+  ["teams", "الأندية"],
+  ["players", "اللاعبون"],
+  ["news", "الأخبار"],
+  ["more", "الإعدادات وأخرى"],
+];
+const MORE_KINDS = ["settings", "events", "pulse", "stats", "teamStats"];
+const UPLOAD_KINDS = ["teams", "players", "news"];
 function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
   const { tr } = useLang();
   const [auth, setAuth] = useState(false),
@@ -1677,13 +1686,19 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
       <div className="tabs">
         {[
           ["live", "التحكم المباشر"],
-          ["editor", "البيانات والمحتوى"],
+          ...CONTENT_TABS,
           ["health", "صحة البيانات"],
           ["audit", "سجل التدقيق"],
         ].map(([id, title]) => (
           <button
             key={id}
-            onClick={() => setTab(id)}
+            onClick={() => {
+              setTab(id);
+              if (CONTENT_TABS.some(([t]) => t === id)) {
+                setKind(id === "more" ? MORE_KINDS[0] : id);
+                setJson("");
+              }
+            }}
             className={tab === id ? "active" : ""}
           >
             {tr(title)}
@@ -1946,52 +1961,58 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
         ) : (
           <Empty title={tr("أنشئ مباراة معتمدة من محرر البيانات للبدء.")} />
         ))}
-      {tab === "editor" && (
+      {CONTENT_TABS.some(([t]) => t === tab) && (
         <>
-          <label className="admin-upload">
-            {tr("رفع صورة معتمدة (PNG / JPEG / WebP، حتى 5 MB)")}
-            <input
-              type="file"
-              accept="image/png,image/jpeg,image/webp"
-              onChange={async (e) => {
-                const file = e.target.files?.[0];
-                if (!file) return;
-                try {
-                  const v = await uploadMedia(file);
-                  const key =
-                    kind === "teams"
-                      ? "logo"
-                      : kind === "players"
-                        ? "photo"
-                        : "cover";
-                  setJson(JSON.stringify({ ...draft, [key]: v.url }, null, 2));
-                } catch {
-                  setError(tr("تعذر رفع الصورة"));
-                }
-              }}
-            />
-          </label>
+          {UPLOAD_KINDS.includes(kind) && (
+            <label className="admin-upload">
+              {tr("رفع صورة معتمدة (PNG / JPEG / WebP، حتى 5 MB)")}
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  try {
+                    const v = await uploadMedia(file);
+                    const key =
+                      kind === "teams"
+                        ? "logo"
+                        : kind === "players"
+                          ? "photo"
+                          : "cover";
+                    setJson(
+                      JSON.stringify({ ...draft, [key]: v.url }, null, 2),
+                    );
+                  } catch {
+                    setError(tr("تعذر رفع الصورة"));
+                  }
+                }}
+              />
+            </label>
+          )}
           <p>
             {tr(
               "محرر بيانات منظم. لا تنشر أي موعد أو قائمة أو نتيجة قبل التحقق منها.",
             )}
           </p>
-          <label>
-            {tr("نوع البيانات")}
-            <select
-              value={kind}
-              onChange={(e) => {
-                setKind(e.target.value);
-                setJson("");
-              }}
-            >
-              {Object.keys(template).map((k) => (
-                <option key={k} value={k}>
-                  {tr(KIND_LABELS[k] || k)}
-                </option>
-              ))}
-            </select>
-          </label>
+          {tab === "more" && (
+            <label>
+              {tr("نوع البيانات")}
+              <select
+                value={kind}
+                onChange={(e) => {
+                  setKind(e.target.value);
+                  setJson("");
+                }}
+              >
+                {MORE_KINDS.map((k) => (
+                  <option key={k} value={k}>
+                    {tr(KIND_LABELS[k] || k)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
           <div className="controls">
             <button
               onClick={() => setJson(JSON.stringify(template[kind], null, 2))}
@@ -2179,21 +2200,9 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
                 ))}
             </div>
           )}
-          <details>
-            <summary>{tr("محرر JSON المتقدم")}</summary>
-            <label>
-              JSON
-              <textarea
-                dir="ltr"
-                spellCheck={false}
-                rows={20}
-                value={json}
-                onChange={(e) => setJson(e.target.value)}
-              />
-            </label>
-          </details>
           <button
             className="primary"
+            disabled={!json}
             onClick={() => {
               try {
                 void mutate({ action: "save", kind, value: JSON.parse(json) });
@@ -2206,7 +2215,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
           </button>
           <p className="muted">
             {tr(
-              "المباريات الموجودة تُدار من غرفة التحكم. المجموعات، التأهل والمحتوى في settings. stats للبيانات المعتمدة لكل لاعب ومباراة.",
+              "المباريات الموجودة تُدار من التحكم المباشر. المجموعات والتأهل والمحتوى ضمن «الإعدادات وأخرى»، وإحصاءات اللاعبين تجدها هناك أيضًا.",
             )}
           </p>
         </>
