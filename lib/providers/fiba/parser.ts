@@ -34,7 +34,7 @@ export const fibaGameSchema = z.object({
   venueName: nullableString,
   gameDateTimeUTC: z.string(),
   hasTimeGameDateTime: z.boolean(),
-  windowName: z.string(),
+  windowName: nullableString,
   groupPairingCode: nullableString,
 });
 const fibaCompetitionSchema = z.object({
