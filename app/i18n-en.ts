@@ -127,6 +127,7 @@ export const en: Record<string, string> = {
   "رعاة الحدث": "Event sponsors",
   "برعاية": "Under the patronage of",
   "باستضافة": "Hosted by",
+  "باعتماد": "Sanctioned by",
 
   // News / stats
   "أخبار البطولة، من المصدر.": "Tournament news, straight from the source.",
