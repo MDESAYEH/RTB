@@ -67,6 +67,7 @@ test("match lines prioritize time, live scores and final winner without nested l
         game: { ...game, status, homeScore: 78, awayScore: 72 },
         team: host,
         opponents: [other],
+        now: Date.parse(game.date),
       }),
     );
     assert.match(html, /\/teams\/test-stade/);
@@ -93,6 +94,7 @@ test("group focal identity follows selected club and no reviewed trophy becomes 
       roster: [],
       record: { p: 0, w: 0, l: 0, pf: 0, pa: 0, diff: 0 },
       status: "IN_CONTENTION",
+      now: 0,
     }),
   );
   assert.match(html, /class="hub-club current-club" data-team="test-stade"/);

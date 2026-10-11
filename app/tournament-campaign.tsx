@@ -305,10 +305,10 @@ export function CampaignHero({
         <picture className="poster-background" aria-hidden="true">
           <source
             media="(max-width: 700px)"
-            srcSet="/fa03d6d7-02b1-47c7-b272-31f78f0a6947.png"
+            srcSet="/hero-tall.webp"
           />
           <img
-            src="/0d09b692-c5de-4597-9837-1324b8b56828.png"
+            src="/hero-wide.webp"
             alt=""
             fetchPriority="high"
           />

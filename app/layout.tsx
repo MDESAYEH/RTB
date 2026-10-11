@@ -32,8 +32,11 @@ export async function generateMetadata(): Promise<Metadata> {
       : "طرابلس تستضيف أفريقيا. منصة مستقلة لتصفيات Road to BAL 2027، 21–25 أكتوبر 2026.",
     manifest: "/manifest.webmanifest",
     icons: {
-      icon: "/Artboard%201-8.png",
-      apple: "/Artboard%201-8.png",
+      icon: [
+        { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+        { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: "/apple-touch-icon.png",
     },
     openGraph: {
       title: "TRIPOLI IS THE COURT · ROAD TO BAL 2027",

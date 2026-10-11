@@ -20,7 +20,7 @@ export async function GET(req: Request) {
       ? (await provider.getNews()).find((n) => n.slug === path[1])
       : null;
   const title = game
-    ? `${(await provider.getTeam(game.home))?.name} vs ${(await provider.getTeam(game.away))?.name}`
+    ? `${(await provider.getTeam(game.home))?.name ?? "TBD"} vs ${(await provider.getTeam(game.away))?.name ?? "TBD"}`
     : team?.name || news?.title || "TRIPOLI IS THE COURT";
   // Pango shapes Arabic correctly; Satori's OpenType subset cannot render this font's GSUB.
   const escape = (text: string) =>

@@ -9,10 +9,13 @@ export function ClubMatchLine({
   game: g,
   team,
   opponents,
+  now,
 }: {
   game: Game;
   team: Team;
   opponents: Team[];
+  /** Ticking time from the page; keeps the clock live and hydration-stable. */
+  now: number;
 }) {
   const { lang, tr } = useLang();
   const opponent = opponents.find(
@@ -24,7 +27,7 @@ export function ClubMatchLine({
   const live = g.status === "Live" || g.status === "Halftime";
   const final = g.status === "Ended";
   const date = new Date(g.date);
-  const clock = remainingClock(g);
+  const clock = remainingClock(g, now);
   return (
     <article
       className="club-match-line"
@@ -98,6 +101,7 @@ export function StadeTournamentHub({
   roster,
   record,
   status,
+  now,
 }: {
   team: Team;
   opponents: Team[];
@@ -112,6 +116,7 @@ export function StadeTournamentHub({
     diff: number;
   };
   status: string;
+  now: number;
 }) {
   const { tr } = useLang();
   return (
@@ -181,6 +186,7 @@ export function StadeTournamentHub({
                 game={g}
                 team={team}
                 opponents={opponents}
+                now={now}
               />
             ))
           ) : (

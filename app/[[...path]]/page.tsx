@@ -21,7 +21,10 @@ export async function generateMetadata({
     ["team", "teams"].includes(path[0]) && path[1]
       ? await clubProvider.getPublicProfile(path[1])
       : undefined;
-  const team = profile ? await provider.getTeam(profile.id) : null;
+  const team =
+    ["team", "teams"].includes(path[0]) && path[1]
+      ? await provider.getTeam(profile?.id ?? path[1])
+      : null;
   const news =
     path[0] === "news"
       ? (await provider.getNews()).find((n) => n.slug === path[1])
@@ -29,9 +32,9 @@ export async function generateMetadata({
   const title = profile
     ? `${profile.displayName} | Road to BAL Tripoli 2027`
     : game
-      ? (await provider.getTeam(game.home))?.name +
+      ? ((await provider.getTeam(game.home))?.name ?? "TBD") +
         " vs " +
-        (await provider.getTeam(game.away))?.name
+        ((await provider.getTeam(game.away))?.name ?? "TBD")
       : team?.name ||
         (english && news?.titleEn ? news.titleEn : news?.title) ||
         (
@@ -59,11 +62,12 @@ export async function generateMetadata({
       path
         .map((p) => encodeURIComponent(p === "road" ? "the-road" : p))
         .join("/");
+  // The OG route looks teams up by id, so resolve slugs/aliases first.
   const image =
     "/api/og?type=" +
     encodeURIComponent(path[0] || "home") +
     "&id=" +
-    encodeURIComponent(path[1] || "");
+    encodeURIComponent(team?.id ?? path[1] ?? "");
   return {
     description,
     alternates: { canonical },
@@ -79,13 +83,11 @@ export async function generateMetadata({
       description,
       url: canonical,
       type: news ? "article" : "website",
+      // Page-level openGraph replaces the layout's, so restate the locale.
+      locale: english ? "en_GB" : "ar_LY",
       images: [
         {
-          url:
-            "/api/og?type=" +
-            encodeURIComponent(path[0] || "home") +
-            "&id=" +
-            encodeURIComponent(path[1] || ""),
+          url: image,
           width: 1200,
           height: 630,
           alt: "Road to BAL 2027 · Tripoli",
@@ -137,11 +139,20 @@ export default async function Page({
     ["team", "teams"].includes(path[0]) && path[1]
       ? await clubProvider.getPublicProfile(path[1])
       : undefined;
-  if ((path[0] === "team" || (path[0] === "teams" && path[1])) && !profile)
-    notFound();
+  // Teams created in admin may have no club profile yet; they still get a page.
+  const plainTeam =
+    path[0] === "teams" && path[1] && !profile
+      ? await provider.getTeam(path[1])
+      : null;
+  if (path[0] === "team" && !profile) notFound();
+  if (path[0] === "teams" && path[1] && !profile && !plainTeam) notFound();
   if (path[0] === "team" && profile)
     permanentRedirect("/teams/" + encodeURIComponent(profile.slug));
-  const renderPath = profile ? ["team", profile.id] : path;
+  const renderPath = profile
+    ? ["team", profile.id]
+    : plainTeam
+      ? ["team", plainTeam.id]
+      : path;
   if (
     path[0] === "news" &&
     path[1] &&
@@ -153,6 +164,7 @@ export default async function Page({
       historicalProfile={profile}
       path={renderPath}
       initial={await snapshotData()}
+      serverNow={Date.now()}
     />
   );
 }
