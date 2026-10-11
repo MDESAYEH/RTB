@@ -1012,3 +1012,29 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   .operator-page .audit .audit-changes li { grid-template-columns: 1fr; gap: 2px; }
   .operator-page .audit .audit-changes li > span[aria-hidden] { display: none; }
 }
+
+/* Hero scales with both viewport width and height: copy stacks at the top, timing at the bottom, never overlapping. */
+@media (min-width: 701px) {
+  .event-home > section.tripoli-poster {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: clamp(16px, 3svh, 40px);
+    height: auto;
+    min-height: clamp(calc(540px + var(--hh)), calc(100svh - 330px + var(--hh)), 880px);
+    max-height: none;
+    padding: calc(var(--hh) + clamp(20px, 4svh, 56px)) 4.7% clamp(20px, 3.5svh, 36px);
+  }
+  .event-home > section.tripoli-poster .poster-copy,
+  .event-home > section.tripoli-poster .poster-bottom {
+    position: static;
+    inset: auto;
+    width: 100%;
+  }
+  .event-home > section.tripoli-poster .poster-eyebrow { margin-bottom: clamp(10px, 2.4svh, 24px); }
+  .event-home > section.tripoli-poster .poster-title { font-size: clamp(26px, min(3.2vw, 5svh), 54px); }
+  .event-home > section.tripoli-poster .poster-copy h1 { font-size: clamp(88px, min(13vw, 21svh), 230px); }
+  .event-home > section.tripoli-poster .poster-arabic { font-size: clamp(22px, min(2.2vw, 4svh), 36px); margin-top: clamp(6px, 1.4svh, 14px); }
+  .event-home > section.tripoli-poster .poster-date strong { font-size: clamp(48px, min(5.2vw, 9svh), 90px); }
+  .event-home > section.tripoli-poster .poster-countdown strong { font-size: clamp(34px, min(3.4vw, 6.5svh), 48px); }
+}
