@@ -2229,28 +2229,41 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
       {tab === "health" && (
         <>
           <h2>{tr("مصادر البيانات")}</h2>
-          {["Manual", "FIBA", "Sofascore", "365Scores"].map((name, i) => (
+          {[
+            {
+              name: "Manual",
+              state: "HEALTHY · " + tr("المصدر الحالي"),
+              note: tr("قاعدة البيانات المحلية · لا مزامنة خارجية"),
+            },
+            {
+              name: "FIBA",
+              state: fiba
+                ? fiba.status.toUpperCase() + " · " + tr("مزامنة دورية")
+                : "NOT_CONFIGURED",
+              note: fiba
+                ? tr("آخر مزامنة") +
+                  " " +
+                  new Date(fiba.finished).toLocaleString(
+                    lang === "ar" ? "ar-LY" : "en-GB",
+                  ) +
+                  (fiba.error ? " · " + fiba.error : "")
+                : tr("لم تُجرَ مزامنة بعد"),
+            },
+            {
+              name: "FIBA LiveStats",
+              state: "NOT_CONFIGURED",
+              note: tr("بانتظار صلاحية الوصول من الجهة المنظِّمة"),
+            },
+            {
+              name: "API-Basketball",
+              state: "NOT_CONFIGURED",
+              note: tr("غير مفعّل · يتطلب مفتاحًا وتأكيد تغطية البطولة"),
+            },
+          ].map(({ name, state, note }) => (
             <div className="health-row" key={name}>
               <b>{name}</b>
-              <span>
-                {i === 0
-                  ? "HEALTHY · " + tr("المصدر الحالي")
-                  : i === 1 && fiba
-                    ? fiba.status.toUpperCase() + " · " + tr("مزامنة دورية")
-                    : "NOT_CONFIGURED"}
-              </span>
-              <span>
-                {i === 0
-                  ? tr("قاعدة البيانات المحلية · لا مزامنة خارجية")
-                  : i === 1 && fiba
-                    ? tr("آخر مزامنة") +
-                      " " +
-                      new Date(fiba.finished).toLocaleString(
-                        lang === "ar" ? "ar-LY" : "en-GB",
-                      ) +
-                      (fiba.error ? " · " + fiba.error : "")
-                    : tr("لم يُثبت تكامل API معتمد")}
-              </span>
+              <span>{state}</span>
+              <span>{note}</span>
             </div>
           ))}
           <h3>{tr("جودة البيانات")}</h3>
