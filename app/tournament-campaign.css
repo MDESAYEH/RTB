@@ -30,7 +30,7 @@ html {
   max-width: none;
   margin: 0;
   padding: 0 3.2%;
-  height: 96px;
+  height: 84px;
   position: sticky;
   top: 0;
   z-index: 50;
@@ -42,9 +42,6 @@ html {
   border-bottom: 1px solid #101b2233;
   direction: ltr;
   transition: height 0.2s ease;
-}
-.tournament-header.is-scrolled {
-  height: 76px;
 }
 .tournament-brand {
   display: flex;

@@ -195,3 +195,66 @@
     left: 115px;
   }
 }
+
+/* Full-screen hardwood court: fixed to the viewport so it ignores the page's max-width column. */
+main.basketball-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  width: 100vw;
+  max-width: none;
+  min-height: 100svh;
+  margin: 0;
+  padding: 32px;
+  background:
+    radial-gradient(ellipse at 50% 42%, #0000 0%, #0000 38%, #040a0eaa 100%),
+    repeating-linear-gradient(90deg, #0000 0 118px, #0000002b 118px 120px),
+    repeating-linear-gradient(90deg, #b9824a 0 120px, #c18a50 120px 240px, #b57d45 240px 360px, #bf8850 360px 480px);
+  color: #f0efe9;
+}
+main.basketball-loading::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 120%, #ffffff00 0 31%, #f6efe0d9 31.2% 31.8%, #ffffff00 32%),
+    radial-gradient(circle at 50% 120%, #ffffff00 0 52%, #f6efe0d9 52.2% 52.8%, #ffffff00 53%),
+    linear-gradient(90deg, #0000 0 38%, #8c2a2a55 38% 62%, #0000 62%);
+  opacity: 0.75;
+  pointer-events: none;
+}
+.basketball-loading > * { position: relative; z-index: 1; }
+.basketball-loading .loading-edition { position: absolute; color: #f6efe0cc; z-index: 1; }
+.basketball-loading .loading-court {
+  position: absolute;
+  left: 50%;
+  bottom: -35%;
+  height: 120%;
+  width: min(120vw, 1100px);
+  translate: -50% 0;
+  stroke: #f6efe0cc;
+  stroke-width: 2;
+  z-index: 0;
+}
+.basketball-loading .loading-baseline { border-top-color: #00000066; }
+.basketball-loading .loading-ball {
+  --ball-seam: #3a1706;
+  color: transparent;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, #ffa05c 0, #f26a1b 38%, #b83f08 78%, #7d2603 100%);
+  box-shadow: inset -6px -8px 14px #00000055, 0 0 0 1px #3a170655;
+}
+.basketball-loading .loading-ball circle:first-child { fill: none; }
+.basketball-loading .loading-impact {
+  background: #000;
+  filter: blur(5px);
+  opacity: 0.55;
+}
+.basketball-loading .loading-title {
+  color: #fff;
+  text-shadow: 0 4px 22px #000000aa;
+}
+.basketball-loading p,
+.basketball-loading .loading-caption { color: #fff; text-shadow: 0 2px 12px #000000aa; }
+.basketball-loading .loading-caption { opacity: 0.85; }

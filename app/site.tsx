@@ -1466,6 +1466,58 @@ const KIND_LABELS: Record<string, string> = {
   stats: "إحصاءات اللاعبين",
   settings: "الإعدادات",
 };
+const AUDIT_ACTIONS: Record<string, string> = {
+  login: "تسجيل دخول",
+  logout: "تسجيل خروج",
+  save: "حفظ بيانات",
+  upload: "رفع صورة",
+  correct: "تصحيح إداري",
+  "fiba-update": "تحديث من FIBA",
+  "fiba-create": "إضافة من FIBA",
+  historical: "سجل قديم",
+};
+const AUDIT_KINDS: Record<string, string> = {
+  ...KIND_LABELS,
+  auth: "الدخول",
+  media: "الصور",
+};
+const AUDIT_ACTORS: Record<string, string> = {
+  admin: "المدير",
+  seed: "النظام (بيانات أولية)",
+  "fiba-sync": "مزامنة FIBA",
+};
+function auditText(value: unknown): string {
+  const text =
+    typeof value === "string" ? value : (JSON.stringify(value) ?? "—");
+  return text.length > 90 ? text.slice(0, 90) + "…" : text || "—";
+}
+/** Field-level before/after list for one audit row; unreadable rows just show no changes. */
+function auditChanges(a: Record<string, unknown>) {
+  try {
+    const before = a.old ? JSON.parse(String(a.old)) : null;
+    const after = a.new ? JSON.parse(String(a.new)) : null;
+    if (!after || typeof after !== "object" || Array.isArray(after)) return [];
+    const base =
+      before && typeof before === "object" && !Array.isArray(before)
+        ? (before as Record<string, unknown>)
+        : {};
+    const next = after as Record<string, unknown>;
+    return Object.keys(next)
+      .filter(
+        (key) =>
+          !["version", "updatedAt"].includes(key) &&
+          JSON.stringify(base[key]) !== JSON.stringify(next[key]),
+      )
+      .slice(0, 12)
+      .map((key) => ({
+        key,
+        from: key in base ? auditText(base[key]) : "—",
+        to: auditText(next[key]),
+      }));
+  } catch {
+    return [];
+  }
+}
 const CONTENT_TABS = [
   ["games", "المباريات"],
   ["teams", "الأندية"],
@@ -2254,11 +2306,6 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
               state: "NOT_CONFIGURED",
               note: tr("بانتظار صلاحية الوصول من الجهة المنظِّمة"),
             },
-            {
-              name: "API-Basketball",
-              state: "NOT_CONFIGURED",
-              note: tr("غير مفعّل · يتطلب مفتاحًا وتأكيد تغطية البطولة"),
-            },
           ].map(({ name, state, note }) => (
             <div className="health-row" key={name}>
               <b>{name}</b>
@@ -2270,7 +2317,9 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
           {data.teams
             .filter((t) => !t.verified)
             .map((t) => (
-              <p key={t.id}>UNCONFIRMED spelling · {t.name}</p>
+              <p key={t.id}>
+                {tr("كتابة الاسم غير مؤكَّدة")} · {t.name}
+              </p>
             ))}
           {data.games
             .filter((g) => stale(g))
@@ -2288,29 +2337,69 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
       )}
       {tab === "audit" && (
         <div className="audit">
-          {audit.map((a, i) => (
-            <details key={i}>
-              <summary>
-                {String(a.time)} · {String(a.actor)} · {String(a.kind)} ·{" "}
-                {String(a.action || "historical")} · {String(a.target)}
-              </summary>
-              {a.reason ? (
-                <p>
-                  {tr("سبب التصحيح")}: {String(a.reason)}
-                </p>
-              ) : null}
-              <pre dir="ltr">
-                {JSON.stringify(
-                  {
-                    old: a.old ? JSON.parse(String(a.old)) : null,
-                    new: a.new ? JSON.parse(String(a.new)) : null,
-                  },
-                  null,
-                  2,
+          {audit.map((a, i) => {
+            const action = String(a.action || "historical");
+            const changes = auditChanges(a);
+            const when = new Date(String(a.time));
+            return (
+              <details key={i} className={"audit-item audit-" + action}>
+                <summary>
+                  <span className="audit-badge">
+                    {tr(AUDIT_ACTIONS[action] || action)}
+                  </span>
+                  <b className="audit-kind">
+                    {tr(AUDIT_KINDS[String(a.kind)] || String(a.kind))}
+                  </b>
+                  <span className="audit-target" dir="ltr">
+                    {String(a.target)}
+                  </span>
+                  <span className="audit-meta">
+                    {tr(AUDIT_ACTORS[String(a.actor)] || String(a.actor))} ·{" "}
+                    {Number.isNaN(when.getTime())
+                      ? String(a.time)
+                      : when.toLocaleString(lang === "ar" ? "ar-LY" : "en-GB", {
+                          dateStyle: "medium",
+                          timeStyle: "short",
+                        })}
+                  </span>
+                </summary>
+                {a.reason ? (
+                  <p>
+                    {tr("سبب التصحيح")}: {String(a.reason)}
+                  </p>
+                ) : null}
+                {changes.length > 0 && (
+                  <ul className="audit-changes">
+                    {changes.map((c) => (
+                      <li key={c.key}>
+                        <b dir="ltr">{c.key}</b>
+                        <span className="audit-from" dir="auto">
+                          {c.from}
+                        </span>
+                        <span aria-hidden="true">←</span>
+                        <span className="audit-to" dir="auto">
+                          {c.to}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
                 )}
-              </pre>
-            </details>
-          ))}
+                <details className="audit-raw">
+                  <summary>{tr("التفاصيل التقنية")}</summary>
+                  <pre dir="ltr">
+                    {JSON.stringify(
+                      {
+                        old: a.old ? JSON.parse(String(a.old)) : null,
+                        new: a.new ? JSON.parse(String(a.new)) : null,
+                      },
+                      null,
+                      2,
+                    )}
+                  </pre>
+                </details>
+              </details>
+            );
+          })}
         </div>
       )}
     </div>
