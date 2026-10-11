@@ -8,10 +8,11 @@ const sponsors: {
   width: number;
   height: number;
   href?: string;
+  caption?: string;
 }[] = [
   { file: "Artboard 2-8.png", name: "FIBA Africa", width: 875, height: 1800, href: "https://www.fiba.basketball/en/africa" },
-  { file: "Artboard 3-8.png", name: "وزارة الرياضة", width: 1920, height: 1921, href: "https://mos.gov.ly" },
-  { file: "al-ittihad.svg", name: "نادي الاتحاد الليبي", width: 154, height: 213, href: "/teams/al-ittihad" },
+  { file: "Artboard 3-8.png", name: "وزارة الرياضة", width: 1920, height: 1921, href: "https://mos.gov.ly", caption: "برعاية" },
+  { file: "al-ittihad.svg", name: "نادي الاتحاد الليبي", width: 154, height: 213, href: "/teams/al-ittihad", caption: "باستضافة" },
 ];
 
 export function EventSponsors() {
@@ -21,6 +22,9 @@ export function EventSponsors() {
       <ul className="event-sponsors-logos">
         {sponsors.map((sponsor) => (
           <li key={sponsor.file}>
+            {sponsor.caption && (
+              <span className="sponsor-caption">{tr(sponsor.caption)}</span>
+            )}
             {(() => {
               const logo = (
                 <Image

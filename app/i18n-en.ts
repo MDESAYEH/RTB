@@ -125,6 +125,8 @@ export const en: Record<string, string> = {
   "نادي الاتحاد الليبي": "Al Ittihad (Libya)",
   "وزارة الرياضة": "Ministry of Sports",
   "رعاة الحدث": "Event sponsors",
+  "برعاية": "Under the patronage of",
+  "باستضافة": "Hosted by",
 
   // News / stats
   "أخبار البطولة، من المصدر.": "Tournament news, straight from the source.",

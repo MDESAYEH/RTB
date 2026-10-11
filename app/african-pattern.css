@@ -173,7 +173,9 @@ body { background: #091522; }
   gap: clamp(20px, 4vw, 60px);
   align-items: center;
 }
-.event-sponsors-logos li { display: flex; justify-content: center; align-items: center; min-width: 0; }
+.event-sponsors-logos li { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; min-width: 0; }
+.event-sponsors-logos { align-items: end; }
+.sponsor-caption { color: #ffce43; font-size: clamp(15px, 1.5vw, 19px); font-weight: 800; letter-spacing: .04em; }
 .event-sponsors-logos img { display: block; width: 180px; height: 160px; max-width: 100%; object-fit: contain; }
 @media (max-width: 600px) {
   .event-sponsors { padding-block: 32px; }
