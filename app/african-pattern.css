@@ -848,3 +848,96 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   .event-home .road-qualification-scene strong { font-size: 120px; }
   .event-home .road-qualification-scene > p { width: 58%; font-size: 22px; }
 }
+
+/* Admin room: calmer layout, grouped controls, readable upload and editor fields. */
+.operator-page .admin { max-width: 1100px; margin-inline: auto; }
+.operator-page .admin .tabs {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  margin: 0 0 24px;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #d5ddd6;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px #0b1a1214;
+  scrollbar-width: none;
+}
+.operator-page .admin .tabs::-webkit-scrollbar { display: none; }
+.operator-page .admin .tabs button {
+  flex: 0 0 auto;
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #33423a;
+  font-size: 15px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.operator-page .admin .tabs button:hover { background: #edf3eb; color: #07542d; }
+.operator-page .admin .tabs button.active { background: #07542d; color: #fff; }
+.operator-page .admin .tabs button:last-child { margin-inline-start: auto; color: #8a2a1f; }
+.operator-page .admin .tabs button:last-child:hover { background: #fbeceb; color: #8a2a1f; }
+.operator-page .admin > :is(label, p, .controls, .editor-fields, textarea, section, .audit, .health-row, .live-room, .empty) {
+  max-width: 100%;
+}
+.operator-page .admin-upload {
+  display: block;
+  margin-bottom: 20px;
+  padding: 18px;
+  background: #fff;
+  border: 2px dashed #9db3a3;
+  border-radius: 14px;
+  color: #33423a;
+  font-weight: 700;
+}
+.operator-page .admin-upload input[type="file"] {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px;
+  background: #f4f7f3;
+  border: 1px solid #d5ddd6;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.operator-page .admin > label { display: block; margin-bottom: 14px; font-weight: 700; color: #33423a; }
+.operator-page .admin > label select { display: block; width: 100%; margin-top: 8px; min-height: 48px; border-radius: 10px; }
+.operator-page .admin > p { margin: 0 0 18px; color: #4d5c54; line-height: 1.8; }
+.operator-page .controls { gap: 8px; margin: 14px 0 22px; }
+.operator-page .controls button { border-radius: 999px; padding: 8px 18px; font-weight: 700; }
+.operator-page .controls button:first-child { background: #07542d; color: #fff; border-color: #07542d; }
+.operator-page .editor-fields {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #d5ddd6;
+  border-radius: 14px;
+  gap: 16px;
+}
+.operator-page .editor-fields label { font-weight: 700; color: #33423a; }
+.operator-page .editor-fields :is(input, select, textarea) { margin-top: 6px; border-radius: 10px; }
+.operator-page .live-room { gap: 16px; }
+.operator-page .live-room > div { border: 1px solid #d5ddd6; border-radius: 14px; box-shadow: 0 6px 18px #0b1a120d; }
+.operator-page .health-row,
+.operator-page .audit details {
+  background: #fff;
+  border: 1px solid #d5ddd6;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  color: #101b22;
+}
+.operator-page .health-row span { color: #4d5c54; }
+.operator-page .admin-confirm { border-color: #07542d; border-radius: 16px; inset: 10% max(20px, calc(50% - 360px)); }
+@media (max-width: 600px) {
+  .operator-page .admin .tabs { top: 0; border-radius: 12px; margin-bottom: 18px; }
+  .operator-page .admin .tabs button { padding: 8px 14px; font-size: 14px; }
+  .operator-page .editor-fields { padding: 14px; }
+  .operator-page .admin-upload { padding: 14px; }
+}
