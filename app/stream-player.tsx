@@ -24,13 +24,6 @@ export function StreamPlayer({ url }: { url: string | undefined }) {
           />
         </div>
       ) : null}
-      {embed.label === "Facebook" && (
-        <p className="stream-mobile-note">
-          {tr(
-            "قد لا يعمل مشغل فيسبوك داخل متصفح الهاتف؛ افتح البث مباشرة على فيسبوك.",
-          )}
-        </p>
-      )}
       <a
         className="stream-open"
         href={embed.href}

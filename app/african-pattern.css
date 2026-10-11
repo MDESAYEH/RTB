@@ -704,21 +704,12 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   font-size: 14px;
 }
 .stream-open:hover { background: var(--pattern-yellow); color: #101b22; }
-.stream-mobile-note { display: none; }
 @media (max-width: 600px) {
-  .stream-player-facebook .stream-frame { display: none; }
-  .stream-player-facebook .stream-mobile-note {
-    display: block;
-    margin: 0 0 12px;
-    color: #475650;
-    font-size: 14px;
-    line-height: 1.7;
-  }
   .stream-player-facebook .stream-open {
     display: block;
     width: 100%;
     min-height: 52px;
-    margin-top: 0;
+    margin-top: 12px;
     padding: 14px 20px;
     text-align: center;
     font-size: 16px;
