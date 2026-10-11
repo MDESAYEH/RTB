@@ -6,9 +6,8 @@ test-results/
 playwright-report/
 coverage/
 
-# Temporary / E2E SQLite databases
-data/phase2-*/
-data/e2e-*/
+# Local SQLite database, media and backups (Vercel uses Turso + Blob; never upload local data)
+/data/
 
 # SQLite temporary files
 data/**/*.db-wal

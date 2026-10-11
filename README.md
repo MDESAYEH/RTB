@@ -1,6 +1,6 @@
 # THE ROAD — Tripoli 2027
 
-Arabic-first independent tournament platform. No production deployment has been performed. Public data is limited to the verified event announcement and teams; no fixtures, players, scores, statistics or venue are seeded.
+Arabic-first independent tournament platform. Production runs on a single VPS (nginx + pm2 + local SQLite, see [deploy/DEPLOY.md](deploy/DEPLOY.md)); a Vercel + Turso + Private Blob path is also supported (see PERSISTENCE.md). Public data is limited to the verified event announcement and teams; no fixtures, players, scores, statistics or venue are seeded.
 
 ## Run locally
 
@@ -25,7 +25,7 @@ Visit `/admin`. Provisioning rotates the password and invalidates sessions. Ther
 
 ## Architecture
 
-Next.js App Router, strict TypeScript, React, Zod, SQLite (Node 24 built-in `node:sqlite`). Server-rendered initial public data → internal JSON API → SSE revision notifications → refreshed normalized data. `ManualProvider` is the only enabled provider. No browser or server contacts private sports endpoints. Public pages do not inspect provider credentials. SQLite is a deliberate self-contained single-host baseline; A shared transactional database and durable media storage are required before multi-instance hosting; revision polling can use the shared database. The proposed Prisma/PostgreSQL stack was not used because no database service was available.
+Next.js App Router, strict TypeScript, React, Zod, SQLite (Node 24 built-in `node:sqlite`). Server-rendered initial public data → internal JSON API → SSE revision notifications → refreshed normalized data. Data is entered through the admin panel (`ManualProvider`) and, when `CRON_SECRET` is configured, synced from FIBA's public event pages (`lib/providers/fiba/*`, `/api/cron/fiba`, `npm run fiba:sync`; see DATA_SOURCES.md). Manual overrides are never overwritten by the sync. No browser or server contacts private sports endpoints. Public pages do not inspect provider credentials. SQLite is a deliberate self-contained single-host baseline; A shared transactional database and durable media storage are required before multi-instance hosting; revision polling can use the shared database. The proposed Prisma/PostgreSQL stack was not used because no database service was available.
 
 `lib/domain.ts`: boundary schemas, game state transitions, score and period updates, authoritative clock, standings, conservative qualification bounds, source precedence/conflict helper.
 `lib/store.ts`: migration, seed, persistent records, transactions, admin/session hashing, persistent rate buckets, provider.
@@ -78,14 +78,14 @@ Use a fresh test DB for predictable screenshots; game and news IDs are unique pe
 
 ## Deployment prerequisites
 
-No deployment authorized. Before an event release: verify competition rules and spellings, obtain approved schedule/venue, train operators, run venue connectivity drills, add trusted licensed imagery and logos, verify PWA installation on event devices, review real content accessibility, configure canonical SITE_URL and HTTPS, persistent volume + backups + restore drill, monitor SSE/memory under expected crowd load, secure administrator provision, verify proxy origin behavior, and test rollback/recovery. Do not horizontally scale this SQLite baseline. `DATA_SOURCES.md` documents capability evidence and unavailable integrations.
+Before an event release: verify competition rules and spellings, obtain approved schedule/venue, train operators, run venue connectivity drills, add trusted licensed imagery and logos, verify PWA installation on event devices, review real content accessibility, configure canonical SITE_URL and HTTPS, persistent volume + backups + restore drill, monitor SSE/memory under expected crowd load, secure administrator provision, verify proxy origin behavior, and test rollback/recovery. Do not horizontally scale this SQLite baseline. `DATA_SOURCES.md` documents capability evidence and unavailable integrations.
 
 See VERIFICATION.md for exact measured checks and known release limitations.
 
 
 ## Phase 2 operations and evidence
 
-The working SQLite/SSE/ManualProvider architecture is retained. The canonical journey route is /the-road; /road remains available. Road states derive from actual games and confirmed qualification, with later stages locked. Match center has a dedicated scoreboard; mobile standings hides auxiliary columns while keeping record/difference/points legible. Fonts are locally bundled Noto Sans Arabic and Bebas Neue (SIL OFL; see assets/ licenses). Court graphics are original CSS geometry; no unlicensed tournament imagery is shipped.
+The working SQLite/SSE/ManualProvider architecture is retained. The canonical journey route is /the-road; /road remains available. Road states derive from actual games and confirmed qualification, with later stages locked. Match center has a dedicated scoreboard; mobile standings hides auxiliary columns while keeping record/difference/points legible. Fonts are self-hosted via Fontsource (Cairo, Noto Kufi Arabic, Roboto Condensed; SIL OFL); `assets/Arabic-Bold.woff` (Noto Sans Arabic, see assets/ licenses) is used only for OG image text. Court graphics are original CSS geometry; no unlicensed tournament imagery is shipped.
 
 Live control uses optimistic versions, a busy lock and per-command UUID receipts retained for 24 hours. Replaying the same authenticated command does not score twice; competing different commands with the same version return 409 and trigger a fresh snapshot. Undo reverses the latest score/clock change within the current status; changing status clears undo. Finished games cannot be reopened by ordinary controls. Use the explicit documented correction dialog, edit the game snapshot, supply an 8–400 character reason and confirm. Team IDs/date/group remain immutable; period totals must equal the scoreboard, final games need Q4+, clock zero and a winner. Correction resets the undo stack, recomputes standings and emits a correction announcement; the audit retains before/after and reason.
 
@@ -114,3 +114,11 @@ Turso/libSQL and Private Vercel Blob implementations are present; cloud acceptan
 Production requires `TURSO_DATABASE_URL`, `TURSO_AUTH_TOKEN`, `BLOB_READ_WRITE_TOKEN` for a **Private** store, and exact HTTPS `SITE_URL`. Local development needs none of the cloud variables. There is no local replica, writable SQLite or `/tmp` persistence on Vercel. Public image URLs stay `/api/media/<SHA-256>.<extension>` with immutable caching. Raw uploads are private, owner-scoped and never served by that API.
 
 `npm run db:import -- --source "<backup>/road.db" --media "<backup>/media" --confirm-empty-destination --include-admins` imports both DB and media into the explicitly configured empty targets, preserves hashes/audit/revision and revokes sessions by default. `npm run db:verify -- --source "<backup>/road.db" --media "<backup>/media" --include-admins` checks row counts/checksums/integrity/revision/media before any target writes. Identical import retries are no-ops; changed source refuses overwrite. CLI requires the `db:backup` manifest. Never run these against Production without separate authorization.
+
+## Operations notes
+
+- `deploy/ecosystem.config.cjs`, `deploy/nginx-roadtobal27.conf` and `deploy/crontab.txt` must agree on the app port (3091).
+- Set `TRUST_PROXY_IP=1` behind nginx so login attempts are limited per client IP; without it (and outside Vercel) all clients share one login bucket. Only failed logins count.
+- `/api/cron/fiba` holds a 90 s lease so overlapping cron calls are skipped instead of stacking.
+- `npm run db:backup` keeps the newest `BACKUP_KEEP` (default 14) verified backups.
+- CI (`.github/workflows/ci.yml`) runs lint, typecheck, unit tests and a production build.
