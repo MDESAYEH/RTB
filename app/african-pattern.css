@@ -1038,3 +1038,21 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   .event-home > section.tripoli-poster .poster-date strong { font-size: clamp(48px, min(5.2vw, 9svh), 90px); }
   .event-home > section.tripoli-poster .poster-countdown strong { font-size: clamp(34px, min(3.4vw, 6.5svh), 48px); }
 }
+
+/* First screen = hero + stats ribbon exactly the viewport height, so the ribbon is never cut and never floats above a gap. */
+.tournament-shell { --topbar-h: 0px; --facts-h: clamp(108px, 6.6vw, 140px); }
+@media (min-width: 901px) {
+  .tournament-shell { --topbar-h: 30px; }
+  .topbar { height: var(--topbar-h); box-sizing: border-box; padding-block: 0; }
+}
+@media (min-width: 701px) {
+  .event-home > section.tripoli-poster {
+    min-height: clamp(calc(480px + var(--hh)), calc(100svh - var(--topbar-h) - var(--facts-h)), 1500px);
+  }
+  .event-home .poster-facts {
+    box-sizing: border-box;
+    min-height: var(--facts-h);
+    align-items: center;
+    padding-block: 14px;
+  }
+}
