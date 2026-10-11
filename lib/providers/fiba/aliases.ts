@@ -7,7 +7,7 @@ export const fibaTeamAliases: Record<string, string> = {
   // Reviewed 2026-10-08. Evidence: FIBA lists "Nadi Basket Staoueli" (code NBS) in Division West group A,
   // the group whose other four clubs are exactly the local group A; the local group A has no other
   // unmatched club; FIBA's own announcement names the Algerian club "Nadi Staouedi" (see DATA_SOURCES.md).
-  // The local record keeps verified=false until the club's preferred spelling is confirmed.
+  // Spelling decision (2026-10-11): the event-database name "Nadi Basket Staoueli" is adopted; see fibaConfirmedSpellings.
   "nadi-basket-staoueli": "nb-staoueli",
 };
 
@@ -16,3 +16,9 @@ export const fibaTeamAliases: Record<string, string> = {
  * local registry (e.g. a team FIBA assigns to a currently unassigned slot).
  */
 export const fibaApprovedNewTeams: string[] = [];
+
+/**
+ * Local team ids whose FIBA event-database spelling was reviewed and adopted. The sync marks these verified,
+ * so the data-health "spelling unconfirmed" warning no longer applies to them.
+ */
+export const fibaConfirmedSpellings: string[] = ["nb-staoueli"];

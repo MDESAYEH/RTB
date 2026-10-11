@@ -1,6 +1,6 @@
 import { gameSchema, teamSchema, type Game, type Settings, type Team } from "../../domain";
 import registry from "../../team-identity.json";
-import { fibaApprovedNewTeams, fibaTeamAliases } from "./aliases";
+import { fibaApprovedNewTeams, fibaConfirmedSpellings, fibaTeamAliases } from "./aliases";
 import type { FibaEventData, FibaGame, FibaStandingsData, FibaTeam } from "./parser";
 
 /** The stage whose group tables are this tournament's groups (Tripoli = Division West group phase). */
@@ -40,6 +40,7 @@ export type PlanState = {
 export type PlanOptions = {
   aliases?: Record<string, string>;
   approvedNewTeams?: string[];
+  confirmedSpellings?: string[];
   now?: string;
 };
 
@@ -64,6 +65,7 @@ export function buildPlan(
 ): SyncPlan {
   const aliases = options.aliases ?? fibaTeamAliases;
   const approvedNew = new Set(options.approvedNewTeams ?? fibaApprovedNewTeams);
+  const confirmed = new Set(options.confirmedSpellings ?? fibaConfirmedSpellings);
   const now = options.now ?? new Date().toISOString();
   const entries: PlanEntry[] = [];
   const notes: string[] = [];
@@ -135,14 +137,18 @@ export function buildPlan(
         name: fiba.officialName,
         country: existing?.country ?? "",
         group: group.groupName,
-        verified: existing ? existing.verified : true,
+        verified: existing ? existing.verified || confirmed.has(localId) : true,
         ...(existing?.logo ? { logo: existing.logo } : {}),
       });
       if (!existing) {
         entries.push({ kind: "teams", id: localId, action: "create", reason: "new team approved by review", value: proposed });
       } else if (state.overridden.has(`teams:${localId}`)) {
         entries.push({ kind: "teams", id: localId, action: "ignored", reason: "manual override" });
-      } else if (existing.name === proposed.name && existing.group === proposed.group) {
+      } else if (
+        existing.name === proposed.name &&
+        existing.group === proposed.group &&
+        existing.verified === proposed.verified
+      ) {
         entries.push({ kind: "teams", id: localId, action: "unchanged", reason: "matches FIBA" });
       } else {
         entries.push({
@@ -152,6 +158,7 @@ export function buildPlan(
           reason: [
             existing.name !== proposed.name ? `name "${existing.name}" → "${proposed.name}"` : "",
             existing.group !== proposed.group ? `group ${existing.group} → ${proposed.group}` : "",
+            existing.verified !== proposed.verified ? "spelling confirmed" : "",
           ]
             .filter(Boolean)
             .join("; "),

@@ -67,7 +67,7 @@ for (const [label, config] of backends) {
     const store = createTournamentStore(() => config(mkdtempSync(join(tmpdir(), "fiba-sync-"))));
     return store;
   };
-  const alias = { aliases: { "nadi-basket-staoueli": "nb-staoueli" } };
+  const alias = { aliases: { "nadi-basket-staoueli": "nb-staoueli" }, confirmedSpellings: [] as string[] };
 
   test(`${label}: teams and groups are imported from FIBA group tables; unreviewed teams are not merged`, async () => {
     const store = fresh();
@@ -99,7 +99,9 @@ for (const [label, config] of backends) {
     assert.equal(staoueli.name, "Nadi Basket Staoueli");
     assert.equal(staoueli.group, "A");
     assert.equal(staoueli.country, "الجزائر");
-    assert.equal(staoueli.verified, false, "spelling stays flagged until confirmed");
+    assert.equal(staoueli.verified, false, "spelling stays flagged unless it is in the confirmed list");
+    await runSync(store, { apply: true, fetchImpl: fetcher(), plan: { ...alias, confirmedSpellings: ["nb-staoueli"] } });
+    assert.equal((await store.get<Team>("teams", "nb-staoueli"))?.verified, true, "a confirmed spelling is marked verified by the next sync");
     // Group B's unassigned slot is never filled; an explicitly approved FIBA team is created.
     const approved = await runSync(store, {
       apply: true,
