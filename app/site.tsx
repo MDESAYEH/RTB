@@ -1565,7 +1565,13 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
   const [busy, setBusy] = useState(false),
     [danger, setDanger] = useState<Record<string, unknown> | null>(null),
     [correction, setCorrection] = useState(""),
-    [reason, setReason] = useState("");
+    [reason, setReason] = useState(""),
+    [toast, setToast] = useState("");
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => setToast(""), 4500);
+    return () => clearTimeout(timer);
+  }, [toast]);
   async function mutate(body: unknown) {
     if (saving.current) return;
     saving.current = true;
@@ -1607,6 +1613,11 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
         return;
       }
       await load();
+      const done = (body as { action: string }).action;
+      if (done !== "login")
+        setToast(
+          done === "save" ? tr("تم الحفظ بنجاح") : tr("تم تنفيذ الإجراء بنجاح"),
+        );
     } catch {
       setError(tr("تعذر الاتصال؛ تحقق من الشبكة قبل إعادة المحاولة."));
     } finally {
@@ -1832,9 +1843,14 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
         </dialog>
       )}
       {error && (
-        <p className="notice" role="alert">
+        <p className="notice admin-toast admin-toast-error" role="alert">
           {error}
         </p>
+      )}
+      {toast && !error && (
+        <div className="admin-toast" role="status">
+          <span aria-hidden="true">✓</span> {toast}
+        </div>
       )}
       {tab === "live" &&
         (g ? (
