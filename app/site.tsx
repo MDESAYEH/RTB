@@ -1429,18 +1429,6 @@ export default function Site({
             <p>{tr("منصة تصفيات Road to BAL 2027 في طرابلس.")}</p>
             <p>{tr("النتائج والبيانات تُنشر بعد اعتمادها.")}</p>
           </div>
-          <div className="ending-links">
-            <Link href="/teams">{tr("الأندية")}</Link>
-            <Link href="/matches">{tr("المباريات")}</Link>
-            <Link href="/admin">{tr("الإدارة")}</Link>
-            <a
-              href="https://www.fiba.basketball/en/news/introducing-the-road-to-bal-2027"
-              target="_blank"
-              rel="noreferrer"
-            >
-              FIBA ↗
-            </a>
-          </div>
         </div>
         <small dir="ltr">2027 TRIPOLI IS THE COURT. © ROAD TO BAL</small>
       </footer>
@@ -1467,6 +1455,17 @@ export default function Site({
     </div>
   );
 }
+const KIND_LABELS: Record<string, string> = {
+  events: "البطولة",
+  teamStats: "إحصاءات الفرق",
+  games: "المباريات",
+  teams: "الأندية",
+  players: "اللاعبون",
+  news: "الأخبار",
+  pulse: "نبض البطولة",
+  stats: "إحصاءات اللاعبين",
+  settings: "الإعدادات",
+};
 function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
   const { tr } = useLang();
   const [auth, setAuth] = useState(false),
@@ -1949,7 +1948,7 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
         ))}
       {tab === "editor" && (
         <>
-          <label>
+          <label className="admin-upload">
             {tr("رفع صورة معتمدة (PNG / JPEG / WebP، حتى 5 MB)")}
             <input
               type="file"
@@ -1987,7 +1986,9 @@ function Admin({ data, onData }: { data: Data; onData: (data: Data) => void }) {
               }}
             >
               {Object.keys(template).map((k) => (
-                <option key={k}>{k}</option>
+                <option key={k} value={k}>
+                  {tr(KIND_LABELS[k] || k)}
+                </option>
               ))}
             </select>
           </label>
