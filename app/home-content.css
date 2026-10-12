@@ -551,9 +551,6 @@ html[dir="ltr"] .rd-team > div {
 .rd-footer-brand .tournament-logo {
   width: 52px;
   height: 52px;
-  padding: 4px;
-  border-radius: 50%;
-  background: #fff;
   object-fit: contain;
 }
 .rd-footer-brand span {
