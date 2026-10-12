@@ -210,8 +210,15 @@ export function HomeContent({
                   <div>
                     <h3 dir="ltr">GROUP {group}</h3>
                     <small>
-                      {copy("المجموعة", "Group")} {group} ·{" "}
-                      {teams.filter((t) => t.group === group).length}{" "}
+                      {copy(
+                        group === "A"
+                          ? "المجموعة الأولى"
+                          : group === "B"
+                            ? "المجموعة الثانية"
+                            : `المجموعة ${group}`,
+                        `Group ${group}`,
+                      )}{" "}
+                      · {teams.filter((t) => t.group === group).length}{" "}
                       {tr("فرق")}
                     </small>
                   </div>
