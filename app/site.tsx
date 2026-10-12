@@ -18,7 +18,7 @@ import { StreamPlayer } from "./stream-player";
 import { TournamentLogo } from "./tournament-logo";
 import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
-import { CalendarDays, Trophy, ChevronLeft } from "lucide-react";
+import { Trophy, ChevronLeft } from "lucide-react";
 import {
   standings,
   qualification,
@@ -788,16 +788,7 @@ export default function Site({
   if (route === "home")
     content = (
       <HomeContent
-        hero={
-          <CampaignHero
-            count={count}
-            seconds={seconds}
-            ended={now > Date.parse(s.end)}
-            clubs={teams.length}
-            nations={new Set(teams.map((t) => t.country)).size}
-            groups={s.groups.length}
-          />
-        }
+        hero={<CampaignHero />}
         teams={teams}
         games={games}
         news={data.news}

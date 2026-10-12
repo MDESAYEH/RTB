@@ -14,9 +14,6 @@
   background-image: var(--rd-pattern);
   background-size: cover;
 }
-.rd-home-shell .event-home > .poster-facts {
-  display: none;
-}
 .rd-container {
   width: calc(100% - 96px);
   max-width: 1344px;
@@ -54,7 +51,7 @@
 }
 .rd-clock strong {
   font:
-    800 clamp(64px, 8.5vw, 118px)/1.1 Arial,
+    800 clamp(64px, 8.5vw, 118px) / 1.1 Arial,
     sans-serif;
   font-variant-numeric: tabular-nums;
 }

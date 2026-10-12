@@ -6,113 +6,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { TournamentLogo } from "./tournament-logo";
 import { LangToggle, useLang } from "./i18n";
-const factIcons = {
-  ball: (
-    <svg viewBox="0 0 64 64" aria-hidden="true">
-      <defs>
-        <radialGradient id="fi-ball" cx="35%" cy="30%" r="75%">
-          <stop offset="0" stopColor="#ff9a4d" />
-          <stop offset="1" stopColor="#e0460a" />
-        </radialGradient>
-      </defs>
-      <circle cx="32" cy="32" r="29" fill="url(#fi-ball)" />
-      <g fill="none" stroke="#2a1205" strokeWidth="2.2" strokeLinecap="round">
-        <circle cx="32" cy="32" r="29" />
-        <path d="M3 32h58M32 3v58M10 11c22 12 22 30 0 42M54 11c-22 12-22 30 0 42" />
-      </g>
-    </svg>
-  ),
-  globe: (
-    <svg viewBox="0 0 64 64" aria-hidden="true">
-      <defs>
-        <radialGradient id="fi-globe" cx="35%" cy="30%" r="75%">
-          <stop offset="0" stopColor="#5cc8ff" />
-          <stop offset="1" stopColor="#0a63c9" />
-        </radialGradient>
-      </defs>
-      <circle cx="32" cy="32" r="29" fill="url(#fi-globe)" />
-      <path
-        d="M20 12c6-2 11 1 12 6s-5 5-4 10-8 6-11 2-3-14 3-18zM38 30c5-3 12 0 13 6s-4 14-9 15-6-8-7-12 0-7 3-9z"
-        fill="#2fbf6c"
-      />
-      <g fill="none" stroke="#fff" strokeOpacity=".55" strokeWidth="1.6">
-        <circle cx="32" cy="32" r="29" />
-        <ellipse cx="32" cy="32" rx="12" ry="29" />
-        <path d="M5 24h54M5 40h54" />
-      </g>
-    </svg>
-  ),
-  group: (
-    <svg viewBox="0 0 64 64" aria-hidden="true">
-      <defs>
-        <linearGradient id="fi-ga" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#ff7a45" />
-          <stop offset="1" stopColor="#d62f45" />
-        </linearGradient>
-        <linearGradient id="fi-gb" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#2fd08a" />
-          <stop offset="1" stopColor="#0d7f55" />
-        </linearGradient>
-      </defs>
-      <circle
-        cx="22"
-        cy="32"
-        r="19"
-        fill="url(#fi-ga)"
-        stroke="#fff"
-        strokeWidth="2.5"
-      />
-      <circle
-        cx="42"
-        cy="32"
-        r="19"
-        fill="url(#fi-gb)"
-        stroke="#fff"
-        strokeWidth="2.5"
-      />
-      <text
-        x="15"
-        y="40"
-        fontSize="22"
-        fontWeight="800"
-        fill="#fff"
-        fontFamily="Arial, sans-serif"
-      >
-        A
-      </text>
-      <text
-        x="37"
-        y="40"
-        fontSize="22"
-        fontWeight="800"
-        fill="#fff"
-        fontFamily="Arial, sans-serif"
-      >
-        B
-      </text>
-    </svg>
-  ),
-  road: (
-    <svg viewBox="0 0 64 64" aria-hidden="true">
-      <defs>
-        <linearGradient id="fi-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ffb347" />
-          <stop offset="1" stopColor="#ff5e24" />
-        </linearGradient>
-      </defs>
-      <circle cx="32" cy="32" r="29" fill="url(#fi-sky)" />
-      <circle cx="42" cy="22" r="6" fill="#fff3b0" />
-      <path
-        d="M3.5 46 21 22l9 12 7-9 23.5 21A29 29 0 0 1 32 61 29 29 0 0 1 3.5 46z"
-        fill="#1d3b2f"
-      />
-      <path
-        d="M32 61c-2-6 1-9 0-13s-2-6 0-9h0c2 3 2 5 0 9s2 7 0 13z"
-        fill="#ffd34d"
-      />
-    </svg>
-  ),
-};
 const primarySections = [
   ["/", "الرئيسية"],
   ["/matches", "المباريات"],
@@ -320,21 +213,7 @@ export function TournamentHeader() {
     </>
   );
 }
-export function CampaignHero({
-  count,
-  seconds,
-  ended,
-  clubs,
-  nations,
-  groups,
-}: {
-  count: number[];
-  seconds: number;
-  ended: boolean;
-  clubs: number;
-  nations: number;
-  groups: number;
-}) {
+export function CampaignHero() {
   const { dir, tr } = useLang();
   return (
     <>
@@ -370,57 +249,6 @@ export function CampaignHero({
           </div>
         </div>
       </section>
-      {seconds > 0 ? (
-        <section
-          className="countdown-band"
-          aria-label={tr("العد التنازلي لبدء البطولة")}
-          dir="ltr"
-        >
-          <h2 dir={dir}>{tr("العد التنازلي لبدء البطولة")}</h2>
-          <div className="poster-countdown">
-            {count.map((n, i) => (
-              <div key={i}>
-                <strong suppressHydrationWarning>
-                  {String(n).padStart(2, "0")}
-                </strong>
-                <span>{["DAYS", "HOURS", "MINUTES", "SECONDS"][i]}</span>
-              </div>
-            ))}
-          </div>
-          <div className="poster-date">
-            <strong>21—25</strong>
-            <span>OCTOBER 2026</span>
-          </div>
-        </section>
-      ) : (
-        <section className="countdown-band" dir="ltr">
-          <div className="poster-date">
-            <strong>21—25</strong>
-            <span>OCTOBER 2026</span>
-          </div>
-          <Link className="poster-live" href="/matches">
-            {ended ? tr("النتائج النهائية") : tr("تابع المباريات")}
-          </Link>
-        </section>
-      )}
-      <div className="poster-facts" dir="ltr">
-        <div>
-          {factIcons.ball}
-          <strong>{clubs} CLUBS</strong>
-        </div>
-        <div>
-          {factIcons.globe}
-          <strong>{nations} NATIONS</strong>
-        </div>
-        <div>
-          {factIcons.group}
-          <strong>{groups} GROUPS</strong>
-        </div>
-        <div>
-          {factIcons.road}
-          <strong>ONE ROAD.</strong>
-        </div>
-      </div>
     </>
   );
 }
