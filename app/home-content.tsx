@@ -375,7 +375,7 @@ export function HomeContent({
   );
 }
 
-export function HomeFooter() {
+export function TournamentFooter() {
   const { lang, tr } = useLang();
   return (
     <footer className="rd-footer rd-pattern">
