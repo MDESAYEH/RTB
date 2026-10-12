@@ -4,6 +4,7 @@
   --rd-ink: #003c52;
   --rd-muted: #78919c;
   --rd-pattern: url("/patterns/contours.svg");
+  --rd-white-topo: url("/patterns/white-topo.svg");
 }
 .rd-home {
   background: #fff;
@@ -11,8 +12,9 @@
 }
 .rd-pattern {
   background-color: var(--rd-red);
-  background-image: var(--rd-pattern);
+  background-image: var(--rd-white-topo);
   background-size: cover;
+  background-position: center;
 }
 .rd-container {
   width: calc(100% - 96px);
