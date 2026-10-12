@@ -403,11 +403,6 @@ export function TournamentFooter() {
               "تستضيف العاصمة الليبية طرابلس التصفيات التمهيدية للدوري الإفريقي لكرة السلة BAL 2027، بمشاركة 10 فرق تمثل 10 دول إفريقية في منافسات حماسية تجمع نخبة من المواهب والطموحات، وتؤكد مكانة ليبيا كوجهة للرياضة الإفريقية.",
             )}
           </p>
-          <div className="rd-footer-social" aria-hidden="true">
-            <span>X</span>
-            <span>IN</span>
-            <span>FB</span>
-          </div>
         </div>
         <nav aria-label={tr("أقسام البطولة")}>
           {[
