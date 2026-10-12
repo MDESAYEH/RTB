@@ -66,28 +66,20 @@
     overflow: hidden;
   }
   .event-home > section.tripoli-poster:after { display: none; }
+  /* Feathered artwork: it fades into the topographic background, no hard edges. */
   .event-home > section.tripoli-poster .poster-background {
     position: absolute;
-    inset-block: clamp(24px, 3.4vw, 48px);
-    inset-inline-start: 4.7%;
-    inset-inline-end: auto;
-    left: 4.7%;
-    right: auto;
-    width: auto;
-    aspect-ratio: 1122 / 1402;
-    max-width: 40%;
+    inset: 0 auto 0 0;
+    width: 54%;
     z-index: 0;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 24px 56px #8f1d1b38;
-    -webkit-mask-image: none;
-    mask-image: none;
+    -webkit-mask-image: radial-gradient(ellipse 62% 74% at 52% 48%, #000 40%, #0000 76%);
+    mask-image: radial-gradient(ellipse 62% 74% at 52% 48%, #000 40%, #0000 76%);
   }
   .event-home > section.tripoli-poster .poster-background img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 50%;
+    object-position: 50% 78%;
   }
   .event-home > section.tripoli-poster .poster-copy,
   .event-home > section.tripoli-poster .poster-bottom {
@@ -340,19 +332,19 @@
   .event-home > section.tripoli-poster .poster-background {
     position: relative;
     inset: auto;
-    width: 100%;
-    margin-inline: 0;
-    height: auto;
-    aspect-ratio: 760 / 640;
+    width: calc(100% + 40px);
+    margin-inline: -20px;
+    height: 340px;
+    aspect-ratio: auto;
     order: 3;
-    margin-top: 18px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 18px 40px #8f1d1b33;
-    -webkit-mask-image: none;
-    mask-image: none;
+    margin-top: 8px;
+    margin-bottom: 0;
+    border-radius: 0;
+    -webkit-mask-image: radial-gradient(ellipse 78% 62% at 50% 52%, #000 42%, #0000 78%);
+    mask-image: radial-gradient(ellipse 78% 62% at 50% 52%, #000 42%, #0000 78%);
+    box-shadow: none;
   }
-  .event-home > section.tripoli-poster .poster-background img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+  .event-home > section.tripoli-poster .poster-background img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 80%; }
   .event-home > section.tripoli-poster .poster-copy,
   .event-home > section.tripoli-poster .poster-bottom {
     position: static;
