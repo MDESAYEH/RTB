@@ -123,12 +123,18 @@ export function MatchesContent({
           </div>
           <label className="match-day">
             <span>{copy("حدد التاريخ", "Select date")}</span>
-            <input
-              type="date"
+            <select
               aria-label={copy("حدد التاريخ", "Select date")}
               value={day}
               onChange={(e) => setDay(e.target.value)}
-            />
+            >
+              <option value="">{copy("كل أيام البطولة", "All tournament days")}</option>
+              {[21, 22, 23, 24, 25].map((d) => (
+                <option key={d} value={`2026-10-${d}`}>
+                  {d} {copy("أكتوبر", "October")}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
         <form
