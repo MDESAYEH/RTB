@@ -1,7 +1,8 @@
 "use client";
 import { uploadMedia } from "@/lib/media-client";
 import { useEffect, useState, useRef } from "react";
-import { Shield } from "lucide-react";
+import { CalendarDays, Newspaper, Shield, Users } from "lucide-react";
+import { TournamentLogo } from "./tournament-logo";
 import { useLang } from "./i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { transitions, remainingClock, stale } from "@/lib/public-domain";
@@ -280,8 +281,21 @@ export function Admin({
   if (!auth)
     return (
       <div className="login">
-        <Shield size={36} />
+        <div className="admin-login-brand">
+          <TournamentLogo />
+          <span>
+            ROAD TO BAL<small>TRIPOLI · LIBYA</small>
+          </span>
+        </div>
+        <span className="admin-login-mark">
+          <Shield size={24} aria-hidden="true" />
+        </span>
         <h2>{tr("دخول الإدارة")}</h2>
+        <p className="admin-login-intro">
+          {lang === "ar"
+            ? "من هنا تُدار البطولة. سجّل الدخول لمتابعة المباريات وتحديث أخبار الأندية."
+            : "Manage the tournament, follow matches and update club news from one place."}
+        </p>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -308,6 +322,48 @@ export function Admin({
     );
   return (
     <div className="admin" aria-busy={busy}>
+      <section
+        className="admin-overview"
+        aria-label={lang === "ar" ? "ملخص البطولة" : "Tournament overview"}
+      >
+        {[
+          {
+            id: "teams",
+            label: tr("الأندية"),
+            count: data.teams.length,
+            icon: Users,
+          },
+          {
+            id: "games",
+            label: tr("المباريات"),
+            count: data.games.length,
+            icon: CalendarDays,
+          },
+          {
+            id: "news",
+            label: tr("الأخبار"),
+            count: data.news.length,
+            icon: Newspaper,
+          },
+        ].map(({ id, label, count, icon: Icon }) => (
+          <button
+            type="button"
+            key={id}
+            onClick={() => {
+              setTab(id);
+              setKind(id);
+              setJson("");
+            }}
+          >
+            <span>
+              <Icon size={20} aria-hidden="true" />
+              {label}
+            </span>
+            <strong>{count}</strong>
+            <small>{lang === "ar" ? "عرض وإدارة" : "View and manage"} ↗</small>
+          </button>
+        ))}
+      </section>
       <div className="tabs">
         {[
           ["live", "التحكم المباشر"],
@@ -325,6 +381,7 @@ export function Admin({
               }
             }}
             className={tab === id ? "active" : ""}
+            aria-pressed={tab === id}
           >
             {tr(title)}
           </button>
