@@ -597,6 +597,9 @@ html[dir="ltr"] .rd-team > div {
   margin: 0;
   list-style: none;
 }
+.rd-footer .event-sponsors-logos li > a {
+  width: 100%;
+}
 .rd-footer .event-sponsors-logos img {
   height: 100px;
   width: 100%;

@@ -28,7 +28,8 @@ export function EventSponsors() {
             {(() => {
               const logo = (
                 <Image
-                  src={`/${encodeURIComponent(sponsor.file)}`}
+                  src={`/${encodeURIComponent(sponsor.file)}${sponsor.name === "FIBA Africa" ? "?v=horizontal-20261012" : ""}`}
+                  unoptimized={sponsor.name === "FIBA Africa"}
                   alt={tr(sponsor.name)}
                   width={sponsor.width}
                   height={sponsor.height}
