@@ -327,31 +327,6 @@ export function CampaignHero({
           </p>
         </div>
         <div className="poster-bottom">
-          <div className="poster-timing">
-            <div className="poster-date">
-              <strong>21—25</strong>
-              <span>OCTOBER 2026</span>
-            </div>
-            {seconds > 0 ? (
-              <div
-                className="poster-countdown"
-                aria-label={tr("العد التنازلي لبدء البطولة")}
-              >
-                {count.map((n, i) => (
-                  <div key={i}>
-                    <strong suppressHydrationWarning>
-                      {String(n).padStart(2, "0")}
-                    </strong>
-                    <span>{["DAYS", "HOURS", "MINUTES", "SECONDS"][i]}</span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <Link className="poster-live" href="/matches">
-                {ended ? tr("النتائج النهائية") : tr("تابع المباريات")}
-              </Link>
-            )}
-          </div>
           <div className="poster-road">
             <Link href="/the-road" dir={dir}>
               {tr("الطريق يبدأ هنا")} <ChevronLeft aria-hidden="true" />
@@ -359,6 +334,39 @@ export function CampaignHero({
           </div>
         </div>
       </section>
+      {seconds > 0 ? (
+        <section
+          className="countdown-band"
+          aria-label={tr("العد التنازلي لبدء البطولة")}
+          dir="ltr"
+        >
+          <h2 dir={dir}>{tr("العد التنازلي لبدء البطولة")}</h2>
+          <div className="poster-countdown">
+            {count.map((n, i) => (
+              <div key={i}>
+                <strong suppressHydrationWarning>
+                  {String(n).padStart(2, "0")}
+                </strong>
+                <span>{["DAYS", "HOURS", "MINUTES", "SECONDS"][i]}</span>
+              </div>
+            ))}
+          </div>
+          <div className="poster-date">
+            <strong>21—25</strong>
+            <span>OCTOBER 2026</span>
+          </div>
+        </section>
+      ) : (
+        <section className="countdown-band" dir="ltr">
+          <div className="poster-date">
+            <strong>21—25</strong>
+            <span>OCTOBER 2026</span>
+          </div>
+          <Link className="poster-live" href="/matches">
+            {ended ? tr("النتائج النهائية") : tr("تابع المباريات")}
+          </Link>
+        </section>
+      )}
       <div className="poster-facts" dir="ltr">
         <div>
           {factIcons.ball}

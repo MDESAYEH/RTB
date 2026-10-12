@@ -802,17 +802,6 @@ export default function Site({
           nations={new Set(teams.map((team) => team.country)).size}
           groups={s.groups.length}
         />
-        {data.news.length > 0 && (
-          <section>
-            <div className="section-title">
-              <h2>{tr("من قلب الحدث")}</h2>
-              <Link href="/news">
-                {tr("الأخبار")} <ChevronLeft size={18} />
-              </Link>
-            </div>
-            {NewsList()}
-          </section>
-        )}
         <section>
           <div className="section-title">
             <div>
@@ -902,6 +891,17 @@ export default function Site({
             ))}
           </div>
         </section>
+        {data.news.length > 0 && (
+          <section>
+            <div className="section-title">
+              <h2>{tr("من قلب الحدث")}</h2>
+              <Link href="/news">
+                {tr("الأخبار")} <ChevronLeft size={18} />
+              </Link>
+            </div>
+            {NewsList()}
+          </section>
+        )}
         {data.pulse.length > 0 && (
           <section className="pulse">
             <div>

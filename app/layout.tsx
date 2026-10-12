@@ -9,6 +9,7 @@ import "./sports-utility.css";
 import "./basketball-loading.css";
 import "./home-hero.css";
 import "./african-pattern.css";
+import "./home-redesign.css";
 import "@fontsource-variable/cairo/wght.css";
 import "@fontsource-variable/noto-kufi-arabic/wght.css";
 const displayFont = localFont({

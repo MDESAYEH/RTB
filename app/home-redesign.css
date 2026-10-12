@@ -1,0 +1,385 @@
+/*
+ * Home redesign (Figma "Desktop - 1"): light topographic hero, red countdown band, red stat cards,
+ * white group cards with coloured headers, red match section, red footer. Visual only.
+ * Loaded last so it wins over the earlier theme layers.
+ */
+:root {
+  --rd-red: #8f1d1b;
+  --rd-red-deep: #6f1412;
+  --rd-gold: #f7a401;
+  --rd-ink: #062836;
+  --rd-muted: #5b6b75;
+  --rd-pill: #fbf2f4;
+  --rd-line: #eadfdc;
+  --rd-topo: url("/patterns/hero-topo.svg");
+  --rd-topo-light: url("/patterns/hero-topo-light.svg");
+}
+
+/* ---------- Chrome: slim red bar + solid white header ---------- */
+.tournament-shell { --hh: 0px; }
+.topbar { background: var(--rd-red); color: #fff; }
+.topbar a { color: #fff; }
+.tournament-shell .tournament-header,
+.tournament-shell .tournament-header.is-home,
+.tournament-shell .tournament-header.is-home:not(.is-scrolled) {
+  background: #fff;
+  color: var(--rd-ink);
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--rd-line);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 1px 0 #0000;
+}
+.tournament-shell .tournament-header .tournament-brand,
+.tournament-shell .tournament-header .event-meta,
+.tournament-shell .tournament-header .menu-trigger,
+.tournament-shell .tournament-header .tournament-nav a { color: var(--rd-ink); }
+.tournament-shell .tournament-header .tournament-nav a { font-weight: 700; }
+.tournament-shell .tournament-header .tournament-nav a[aria-current="page"] {
+  color: var(--rd-red);
+  background: var(--rd-pill);
+  border-radius: 10px;
+  padding-inline: 14px;
+}
+.tournament-shell .tournament-header .tournament-nav a::after { background: var(--rd-red); }
+.tournament-shell .tournament-header .event-meta strong { color: var(--rd-ink); }
+.tournament-shell .tournament-header .header-lang,
+.tournament-shell .tournament-header .header-lang button {
+  color: var(--rd-ink);
+  border-color: var(--rd-line);
+  background: #fff;
+}
+
+/* ---------- Hero: light, topographic, player on the left ---------- */
+.event-home { background-color: #fff; color: var(--rd-ink); }
+@media (min-width: 701px) {
+  .event-home > section.tripoli-poster {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    height: auto;
+    min-height: clamp(540px, 48.6vw, 760px);
+    max-height: none;
+    padding: clamp(28px, 4vw, 56px) 4.7%;
+    background: #fff var(--rd-topo) center / cover no-repeat;
+    color: var(--rd-ink);
+    overflow: hidden;
+  }
+  .event-home > section.tripoli-poster:after { display: none; }
+  .event-home > section.tripoli-poster .poster-background {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 52%;
+    z-index: 0;
+    -webkit-mask-image: radial-gradient(ellipse 62% 74% at 52% 46%, #000 38%, #0000 74%);
+    mask-image: radial-gradient(ellipse 62% 74% at 52% 46%, #000 38%, #0000 74%);
+  }
+  .event-home > section.tripoli-poster .poster-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 72% 36%;
+  }
+  .event-home > section.tripoli-poster .poster-copy,
+  .event-home > section.tripoli-poster .poster-bottom {
+    position: relative;
+    inset: auto;
+    grid-column: 2;
+    width: 100%;
+    z-index: 1;
+    text-align: right;
+  }
+  .event-home > section.tripoli-poster .poster-bottom {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: clamp(20px, 3vw, 40px);
+  }
+  .event-home > section.tripoli-poster .poster-copy { align-self: end; }
+  .event-home > section.tripoli-poster .poster-bottom { align-self: start; }
+}
+.tripoli-poster :is(.poster-copy, .poster-timing, .poster-road) { text-shadow: none; }
+.tripoli-poster .poster-eyebrow {
+  color: var(--rd-muted);
+  font-size: 12px;
+  letter-spacing: .32em;
+  margin: 0 0 10px;
+}
+.tripoli-poster .poster-title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  margin: 0 0 6px;
+  color: var(--rd-red);
+  font: 800 clamp(16px, 1.6vw, 24px)/1.2 var(--font-display), sans-serif;
+  letter-spacing: .16em;
+}
+.tripoli-poster .poster-title span { color: var(--rd-red); }
+.tripoli-poster .poster-title::before,
+.tripoli-poster .poster-title::after {
+  content: "";
+  width: clamp(28px, 3vw, 48px);
+  height: 2px;
+  background: currentColor;
+}
+.tripoli-poster .poster-title::before { order: 0; }
+.tripoli-poster .poster-copy h1 {
+  color: var(--rd-red);
+  font-size: clamp(90px, 11.6vw, 200px);
+  line-height: .9;
+  margin: 0;
+}
+.tripoli-poster .poster-copy h1 span { background: var(--rd-gold); }
+.tripoli-poster .poster-arabic {
+  color: var(--rd-gold);
+  font-size: clamp(30px, 3.8vw, 62px);
+  font-weight: 900;
+  text-align: right;
+  margin: 10px 0 0;
+}
+.tripoli-poster .poster-road a {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--rd-red);
+  color: #fff;
+  border-radius: 999px;
+  padding: 18px 34px;
+  font-size: clamp(17px, 1.5vw, 22px);
+  font-weight: 800;
+  box-shadow: 0 14px 30px #8f1d1b40;
+}
+.tripoli-poster .poster-road a:hover { background: var(--rd-red-deep); color: #fff; transform: translateY(-2px); }
+.tripoli-poster .poster-road a svg { stroke: #fff; color: #fff; }
+
+/* ---------- Countdown band ---------- */
+.countdown-band {
+  display: grid;
+  justify-items: center;
+  gap: clamp(14px, 2vw, 24px);
+  padding: clamp(36px, 5vw, 68px) 4.7% clamp(40px, 5vw, 76px);
+  background: var(--rd-red) var(--rd-topo-light) center / cover no-repeat;
+  color: #fff;
+  text-align: center;
+}
+.countdown-band h2 { margin: 0; color: #fff; font-size: clamp(26px, 3.2vw, 46px); font-weight: 800; }
+.countdown-band .poster-countdown {
+  display: flex;
+  justify-content: center;
+  gap: clamp(18px, 4.5vw, 72px);
+  padding: 0;
+}
+.countdown-band .poster-countdown > div {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+  align-items: center;
+}
+.countdown-band .poster-countdown strong {
+  color: #fff;
+  font-size: clamp(60px, 9vw, 140px);
+  font-weight: 700;
+  line-height: 1;
+}
+.countdown-band .poster-countdown span { color: #ffffffd9; font-size: clamp(12px, 1.2vw, 18px); letter-spacing: .22em; margin-top: 6px; }
+.countdown-band .poster-date { display: flex; align-items: baseline; gap: 12px; color: #fff; }
+.countdown-band .poster-date strong { color: var(--rd-gold); font-size: clamp(28px, 3vw, 44px); }
+.countdown-band .poster-date span { color: #ffffffd9; font-size: clamp(14px, 1.4vw, 20px); letter-spacing: .1em; }
+.countdown-band .poster-live {
+  background: #fff;
+  color: var(--rd-red);
+  border-radius: 999px;
+  padding: 14px 30px;
+  font-weight: 800;
+}
+
+/* ---------- Stat cards ---------- */
+.event-home .poster-facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(14px, 2vw, 28px);
+  min-height: 0;
+  padding: clamp(36px, 5vw, 68px) 4.7% clamp(20px, 3vw, 36px);
+  background: #fff;
+  color: #fff;
+}
+.event-home .poster-facts > div {
+  flex: 1 1 210px;
+  max-width: 300px;
+  justify-content: center;
+  gap: 14px;
+  padding: clamp(18px, 2vw, 28px) 20px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--rd-red) var(--rd-topo-light) center / cover no-repeat;
+  box-shadow: 0 14px 28px #8f1d1b30;
+}
+.event-home .poster-facts > div:first-child { border: 0; }
+.event-home .poster-facts strong,
+.event-home .poster-facts > div:last-child strong { color: #fff; font-size: clamp(22px, 2.2vw, 32px); }
+.event-home .poster-facts svg { width: 44px; height: 44px; flex-shrink: 0; filter: none; }
+
+/* ---------- Section headings, link pills ---------- */
+.event-home .section-title h2,
+.event-home > section h2 { color: var(--rd-ink); }
+.event-home .section-title .eyebrow { color: var(--rd-red); background: var(--rd-pill); }
+.event-home .section-title > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1px solid #8f1d1b44;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--rd-red);
+  font-weight: 700;
+}
+.event-home .section-title > a:hover { background: var(--rd-pill); }
+
+/* ---------- Schedule banner ---------- */
+.event-home .schedule-note {
+  background: var(--rd-red) var(--rd-topo-light) center / cover no-repeat;
+  color: #fff;
+  border: 0;
+  border-radius: 16px;
+  box-shadow: 0 16px 32px #8f1d1b30;
+}
+.event-home .schedule-note :is(h3, p) { color: #fff; }
+.event-home .schedule-note p { color: #ffe9e3; }
+.event-home .schedule-note .schedule-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--rd-red);
+}
+.event-home .schedule-note .text-link {
+  border: 1px solid #ffffff88;
+  border-radius: 12px;
+  padding: 10px 20px;
+  color: #fff;
+}
+
+/* ---------- Groups: white cards, green / blue headers, circular badges ---------- */
+.event-home .group-preview { gap: clamp(18px, 2.4vw, 32px); }
+.event-home .group-preview > div {
+  background: #fff;
+  border: 1px solid var(--rd-line);
+  border-radius: 16px;
+  box-shadow: 0 14px 30px #06283614;
+  overflow: hidden;
+  padding: 0 0 6px;
+}
+.event-home .group-preview > div > h3 {
+  margin: 0 0 4px;
+  padding: 18px 24px;
+  color: #fff;
+  font-size: clamp(22px, 2.2vw, 30px);
+  letter-spacing: .06em;
+  background: var(--rd-red) var(--rd-topo-light) center / cover no-repeat;
+}
+.event-home .group-preview > div:nth-child(1) > h3 { background-color: #17782d; }
+.event-home .group-preview > div:nth-child(2) > h3 { background-color: #22398a; }
+.event-home .group-preview > div > a { border-color: #f1e7e4; color: var(--rd-ink); }
+.event-home .group-preview > div > a:hover { background: #fdf6f4; }
+.event-home .group-preview .team-logo,
+.event-home .group-preview .team-badge {
+  width: 44px;
+  height: 44px;
+  padding: 4px;
+  border: 1px solid var(--rd-line);
+  border-radius: 50%;
+  background: #fff;
+  clip-path: none;
+  object-fit: contain;
+}
+
+/* ---------- "Road" / matches band: red with light topography ---------- */
+.event-home > section.road-section {
+  background: var(--rd-red) var(--rd-topo-light) center / cover no-repeat;
+  color: #fff;
+}
+.event-home > section.road-section :is(h2, .eyebrow, p, .muted) { color: #fff; }
+.event-home > section.road-section .eyebrow { background: #ffffff1c; }
+
+/* ---------- News cards ---------- */
+.news-list > a { border-radius: 16px; box-shadow: 0 14px 30px #062836222; }
+
+/* ---------- Footer: red, light topography ---------- */
+.tournament-ending {
+  background: var(--rd-red) var(--rd-topo-light) center / cover no-repeat;
+  color: #fff;
+}
+.tournament-ending .ending-details { border-top-color: #ffffff40; }
+.tournament-ending .ending-details p { color: #ffeae4; }
+.tournament-ending > small { color: #ffffffb3; }
+.sponsor-caption { color: #fff; opacity: .95; }
+
+/* ---------- Phones: stack hero, keep the same colours ---------- */
+@media (max-width: 700px) {
+  .event-home > section.tripoli-poster {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+    padding: 0 20px 36px;
+    background: #fff var(--rd-topo) center / cover no-repeat;
+    color: var(--rd-ink);
+  }
+  .event-home > section.tripoli-poster:after { display: none; }
+  .event-home > section.tripoli-poster .poster-background {
+    position: relative;
+    inset: auto;
+    width: calc(100% + 40px);
+    margin-inline: -20px;
+    height: 300px;
+    order: 3;
+    margin-top: 16px;
+    -webkit-mask-image: linear-gradient(180deg, #0000, #000 22%, #000 78%, #0000);
+    mask-image: linear-gradient(180deg, #0000, #000 22%, #000 78%, #0000);
+  }
+  .event-home > section.tripoli-poster .poster-copy,
+  .event-home > section.tripoli-poster .poster-bottom {
+    position: static;
+    inset: auto;
+    width: 100%;
+    text-align: right;
+  }
+  .event-home > section.tripoli-poster .poster-copy { order: 1; padding-top: 28px; }
+  .event-home > section.tripoli-poster .poster-bottom { order: 2; display: flex; justify-content: flex-end; margin-top: 20px; }
+  .tripoli-poster .poster-copy h1 { font-size: clamp(76px, 22vw, 130px); }
+  .tripoli-poster .poster-arabic { font-size: clamp(26px, 7vw, 38px); }
+  .countdown-band .poster-countdown strong { font-size: clamp(44px, 14vw, 72px); }
+  .event-home .poster-facts > div { flex: 1 1 140px; padding: 16px 10px; gap: 10px; }
+  .event-home .poster-facts strong { font-size: 19px; }
+  .event-home .poster-facts svg { width: 36px; height: 36px; }
+}
+
+/* Headings on red bands stay white (the generic heading rule above is more specific). */
+.event-home > section.countdown-band h2,
+.event-home > section.road-section h2,
+.event-home > section.pulse h2 { color: #fff; }
+
+/* Groups read right-to-left like the design: A on the right, name + badge on the right of each row, country pill on the left. */
+.event-home .group-preview,
+.event-home .group-preview > div,
+.event-home .group-preview > div > a { direction: rtl; }
+.event-home .group-preview > div > a > span:last-child {
+  margin-inline-start: auto;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #f4f1f0;
+  color: var(--rd-muted);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+/* Kriol Star's crest is white: sit it on an ink circle instead of the black-silhouette hack. */
+.event-home .group-preview .team-logo:is([src*="kriol-star"], [alt="Kriol Star"]) {
+  filter: none;
+  background: var(--rd-ink);
+  padding: 3px;
+}
