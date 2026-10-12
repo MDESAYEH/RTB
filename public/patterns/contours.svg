@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 500" fill="none">
+  <g stroke="#e45c43" stroke-width="3" opacity=".15">
+    <path id="a" d="M-150 400C80 470 20 110 210 150S300 470 500 260 540-80 820 100 900 430 1140 350 1140 30 1510 70"/>
+    <use href="#a" transform="translate(0 -30)"/><use href="#a" transform="translate(0 -60)"/><use href="#a" transform="translate(0 -90)"/><use href="#a" transform="translate(0 -120)"/><use href="#a" transform="translate(0 -150)"/><use href="#a" transform="translate(0 -180)"/><use href="#a" transform="translate(0 30)"/><use href="#a" transform="translate(0 60)"/><use href="#a" transform="translate(0 90)"/><use href="#a" transform="translate(0 120)"/><use href="#a" transform="translate(0 150)"/><use href="#a" transform="translate(0 180)"/>
+  </g>
+</svg>

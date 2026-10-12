@@ -10,6 +10,7 @@ import "./basketball-loading.css";
 import "./home-hero.css";
 import "./african-pattern.css";
 import "./home-redesign.css";
+import "./home-content.css";
 import "@fontsource-variable/cairo/wght.css";
 import "@fontsource-variable/noto-kufi-arabic/wght.css";
 const displayFont = localFont({
@@ -54,7 +55,8 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const lang: Lang = (await cookies()).get("lang")?.value === "en" ? "en" : "ar";
+  const lang: Lang =
+    (await cookies()).get("lang")?.value === "en" ? "en" : "ar";
   return (
     <html
       lang={lang}

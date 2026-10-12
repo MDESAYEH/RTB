@@ -11,19 +11,14 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { CourtArc } from "./brand-primitives";
 import { EventSponsors } from "./event-sponsors";
+import { HomeContent, HomeFooter, HomeTopbar } from "./home-content";
 import { useLang } from "./i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { TournamentLogo } from "./tournament-logo";
 import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
-import {
-  CalendarDays,
-  Trophy,
-  Radio,
-  Activity,
-  ChevronLeft,
-} from "lucide-react";
+import { CalendarDays, Trophy, ChevronLeft } from "lucide-react";
 import {
   standings,
   qualification,
@@ -102,6 +97,7 @@ export default function Site({
     [previewStream, setPreviewStream] = useState("");
   const route = path[0] === "the-road" ? "road" : path[0] || "home";
   const [lastReceived, setLastReceived] = useState<number | null>(null);
+  const [newsSearch, setNewsSearch] = useState("");
   const acceptData = (next: Data) =>
     setData((previous) =>
       next.revision >= previous.revision ? next : previous,
@@ -686,23 +682,31 @@ export default function Site({
   function NewsList() {
     return data.news.length ? (
       <div className="news-list">
-        {data.news.map((n) => (
-          <Link href={"/news/" + n.slug} key={n.id}>
-            <span className="eyebrow">{date(n.publishedAt)}</span>
-            {n.cover && (
-              <Image
-                className="news-cover"
-                src={n.cover}
-                alt=""
-                width={1200}
-                height={640}
-                sizes="(max-width:600px) 90vw, 50vw"
-              />
-            )}
-            <h3>{lang === "en" && n.titleEn ? n.titleEn : n.title}</h3>
-            <p>{lang === "en" && n.excerptEn ? n.excerptEn : n.excerpt}</p>
-          </Link>
-        ))}
+        {data.news
+          .filter((n) =>
+            [n.title, n.titleEn, n.excerpt, n.excerptEn].some((value) =>
+              value
+                ?.toLocaleLowerCase()
+                .includes(newsSearch.trim().toLocaleLowerCase()),
+            ),
+          )
+          .map((n) => (
+            <Link href={"/news/" + n.slug} key={n.id}>
+              <span className="eyebrow">{date(n.publishedAt)}</span>
+              {n.cover && (
+                <Image
+                  className="news-cover"
+                  src={n.cover}
+                  alt=""
+                  width={1200}
+                  height={640}
+                  sizes="(max-width:600px) 90vw, 50vw"
+                />
+              )}
+              <h3>{lang === "en" && n.titleEn ? n.titleEn : n.title}</h3>
+              <p>{lang === "en" && n.excerptEn ? n.excerptEn : n.excerpt}</p>
+            </Link>
+          ))}
       </div>
     ) : (
       <Empty
@@ -783,218 +787,27 @@ export default function Site({
   let content: React.ReactNode;
   if (route === "home")
     content = (
-      <>
-        {live.length > 0 && (
-          <section className="live-strip">
-            <div className="section-title">
-              <h2>
-                <Radio size={22} /> {tr("مباشر من طرابلس")}
-              </h2>
-              <Link href="/matches">{tr("مركز المباريات")}</Link>
-            </div>
-            {live.map((g) => gameCard(g))}
-          </section>
-        )}
-        <CampaignHero
-          count={count}
-          seconds={seconds}
-          ended={now > Date.parse(s.end)}
-          clubs={teams.length}
-          nations={new Set(teams.map((team) => team.country)).size}
-          groups={s.groups.length}
-        />
-        <section>
-          <div className="section-title">
-            <div>
-              <span className="eyebrow">ON THE COURT</span>
-              <h2>
-                {live.length
-                  ? tr("مباشر الآن")
-                  : now > Date.parse(s.end)
-                    ? tr("نتائج البطولة")
-                    : tr("الموعد القادم")}
-              </h2>
-            </div>
-            <Link href="/matches">
-              {tr("كل المباريات")} <ChevronLeft size={18} />
-            </Link>
-          </div>
-          {(live.length
-            ? games.filter(
-                (g) =>
-                  dayKey(g.date) === today &&
-                  !["Live", "Halftime"].includes(g.status),
-              )
-            : games.filter((g) =>
-                now > Date.parse(s.end)
-                  ? g.status === "Ended"
-                  : Date.parse(g.date) > now,
-              )
-          ).length ? (
-            (live.length
-              ? games.filter(
-                  (g) =>
-                    dayKey(g.date) === today &&
-                    !["Live", "Halftime"].includes(g.status),
-                )
-              : games.filter((g) =>
-                  now > Date.parse(s.end)
-                    ? g.status === "Ended"
-                    : Date.parse(g.date) > now,
-                )
-            )
-              .slice(0, 2)
-              .map((g) => gameCard(g))
-          ) : (
-            <div className="schedule-note">
-              <span className="schedule-icon">
-                <CalendarDays size={28} />
-              </span>
-              <div>
-                <h3>{tr("العد التنازلي بدأ. الجدول قريبًا.")}</h3>
-                <p>
-                  {tr(
-                    "خمسة أيام من كرة السلة الأفريقية في قلب طرابلس. تابع هنا مواعيد المباريات عند اعتمادها.",
-                  )}
-                </p>
-              </div>
-              <Link href="/matches" className="text-link">
-                {tr("المباريات")} <ChevronLeft size={20} />
-              </Link>
-            </div>
-          )}
-        </section>
-        {Road({ preview: true })}
-        <section>
-          <div className="section-title">
-            <div>
-              <span className="eyebrow">TEN TEAMS. FOUR PLACES.</span>
-              <h2>{tr("أفريقيا تلتقي في طرابلس")}</h2>
-            </div>
-            <Link href="/teams">
-              {tr("كل الفرق")} <ChevronLeft size={18} />
-            </Link>
-          </div>
-          <div className="group-preview">
-            {s.groups.map((g) => (
-              <div key={g}>
-                <h3>GROUP {g}</h3>
-                {teams
-                  .filter((t) => t.group === g)
-                  .map((t) => (
-                    <Link key={t.id} href={"/teams/" + t.id}>
-                      <Badge team={t} />
-                      <b dir="auto">{t.name}</b>
-                      <span>{tr(t.country)}</span>
-                    </Link>
-                  ))}
-              </div>
-            ))}
-          </div>
-        </section>
-        {data.news.length > 0 && (
-          <section>
-            <div className="section-title">
-              <h2>{tr("من قلب الحدث")}</h2>
-              <Link href="/news">
-                {tr("الأخبار")} <ChevronLeft size={18} />
-              </Link>
-            </div>
-            {NewsList()}
-          </section>
-        )}
-        {data.pulse.length > 0 && (
-          <section className="pulse">
-            <div>
-              <span className="eyebrow">
-                <Activity size={16} /> TRIPOLI PULSE
-              </span>
-              <h2>{tr("نبض البطولة")}</h2>
-              <p>{tr("من صافرة البداية إلى آخر مقعد في Elite 16.")}</p>
-            </div>
-            <div>
-              {data.pulse.length ? (
-                data.pulse
-                  .slice()
-                  .sort((a, b) => b.date.localeCompare(a.date))
-                  .slice(0, 5)
-                  .map((p) => (
-                    <article
-                      key={p.id}
-                      className={
-                        "pulse-event " +
-                        (p.type || "announcement").toLowerCase()
-                      }
-                    >
-                      <time>{date(p.date)}</time>
-                      <span className="pulse-type">
-                        {p.type || "ANNOUNCEMENT"}
-                      </span>
-                      <p>{lang === "en" && p.textEn ? p.textEn : p.text}</p>
-                      {p.game && (
-                        <Link className="text-link" href={"/matches/" + p.game}>
-                          {tr("مركز المباراة")} <ChevronLeft size={14} />
-                        </Link>
-                      )}
-                    </article>
-                  ))
-              ) : (
-                <p className="muted">
-                  {tr("هنا تُكتب لحظات البطولة، فور حدوثها.")}
-                </p>
-              )}
-            </div>
-          </section>
-        )}
-        {s.featuredGameId && games.find((g) => g.id === s.featuredGameId) && (
-          <section>
-            <h2>{tr("مباراة اليوم")}</h2>
-            {gameCard(games.find((g) => g.id === s.featuredGameId)!)}
-          </section>
-        )}
-        {games.length > 0 && (
-          <section>
-            <div className="section-title">
-              <h2>{tr("أيام طرابلس")}</h2>
-              <span className="muted">21—25 OCTOBER</span>
-            </div>
-            <div className="timeline">
-              {days.map((d, i) => (
-                <button
-                  aria-pressed={(day || dayKey(days[0])) === dayKey(d)}
-                  className={
-                    (dayKey(d) === today ? "today " : "") +
-                    (dayKey(d) < today ? "past" : "future")
-                  }
-                  onClick={() => setDay(dayKey(d))}
-                  key={d}
-                >
-                  <span>DAY 0{i + 1}</span>
-                  <strong>
-                    {new Intl.DateTimeFormat("en", {
-                      timeZone: s.timezone,
-                      day: "numeric",
-                    }).format(new Date(d))}
-                  </strong>
-                  <small>OCT</small>
-                </button>
-              ))}
-            </div>
-            <div className="day-content">
-              {games.filter((g) => dayKey(g.date) === (day || dayKey(days[0])))
-                .length ? (
-                games
-                  .filter((g) => dayKey(g.date) === (day || dayKey(days[0])))
-                  .map((g) => gameCard(g))
-              ) : (
-                <p className="muted">
-                  {tr("لم يُعلن جدول مباريات هذا اليوم بعد.")}
-                </p>
-              )}
-            </div>
-          </section>
-        )}
-      </>
+      <HomeContent
+        hero={
+          <CampaignHero
+            count={count}
+            seconds={seconds}
+            ended={now > Date.parse(s.end)}
+            clubs={teams.length}
+            nations={new Set(teams.map((t) => t.country)).size}
+            groups={s.groups.length}
+          />
+        }
+        teams={teams}
+        games={games}
+        news={data.news}
+        settings={s}
+        count={count}
+        seconds={seconds}
+        now={now}
+        badge={(t) => <Badge team={t} />}
+        gameCard={gameCard}
+      />
     );
   else if (route === "matches" && path[1]) {
     const g = games.find((g) => g.id === path[1])!;
@@ -1320,23 +1133,43 @@ export default function Site({
         </div>
       </article>
     );
-  } else if (route === "news") content = NewsList();
+  } else if (route === "news")
+    content = (
+      <>
+        <label className="news-search" id="news-search">
+          {tr("بحث")}
+          <input
+            type="search"
+            value={newsSearch}
+            onChange={(event) => setNewsSearch(event.target.value)}
+            aria-label={tr("بحث")}
+          />
+        </label>
+        {NewsList()}
+      </>
+    );
   else content = <Admin data={data} onData={acceptData} />;
   return (
-    <div className="tournament-shell">
+    <div
+      className={`tournament-shell${route === "home" ? " rd-home-shell" : ""}`}
+    >
       <a className="skip" href="#main">
         {tr("انتقل للمحتوى")}
       </a>
-      <div className="topbar" dir="ltr">
-        <span>ROAD TO BAL 2027 · TRIPOLI · 21—25 OCT 2026</span>
-        <a
-          href="https://www.fiba.basketball/en/news/introducing-the-road-to-bal-2027"
-          target="_blank"
-          rel="noreferrer"
-        >
-          FIBA ↗
-        </a>
-      </div>
+      {route === "home" ? (
+        <HomeTopbar />
+      ) : (
+        <div className="topbar" dir="ltr">
+          <span>ROAD TO BAL 2027 · TRIPOLI · 21—25 OCT 2026</span>
+          <a
+            href="https://www.fiba.basketball/en/news/introducing-the-road-to-bal-2027"
+            target="_blank"
+            rel="noreferrer"
+          >
+            FIBA ↗
+          </a>
+        </div>
+      )}
       <TournamentHeader />
       {!connected && (
         <div className="notice" role="status">
@@ -1388,39 +1221,43 @@ export default function Site({
           )}
         {content}
       </main>
-      <footer className="tournament-ending">
-        <EventSponsors />
-        <nav className="ending-links" aria-label={tr("التنقل السريع")}>
-          {[
-            ["/", "الرئيسية"],
-            ["/matches", "المباريات"],
-            ["/news", "الأخبار"],
-            ["/standings", "الترتيب"],
-            ["/teams", "الفرق"],
-            ["/the-road", "THE ROAD"],
-            ["/stats", "الإحصائيات"],
-          ].map(([href, label]) => (
-            <Link key={href} href={href}>
-              {tr(label)}
-            </Link>
-          ))}
-        </nav>
-        <div className="ending-details">
-          <div className="ending-brand" dir="ltr">
-            <TournamentLogo />
-            <div>
-              <b>ROAD TO BAL</b>
-              <span>TRIPOLI — Libya</span>
+      {route === "home" ? (
+        <HomeFooter />
+      ) : (
+        <footer className="tournament-ending">
+          <EventSponsors />
+          <nav className="ending-links" aria-label={tr("التنقل السريع")}>
+            {[
+              ["/", "الرئيسية"],
+              ["/matches", "المباريات"],
+              ["/news", "الأخبار"],
+              ["/standings", "الترتيب"],
+              ["/teams", "الفرق"],
+              ["/the-road", "THE ROAD"],
+              ["/stats", "الإحصائيات"],
+            ].map(([href, label]) => (
+              <Link key={href} href={href}>
+                {tr(label)}
+              </Link>
+            ))}
+          </nav>
+          <div className="ending-details">
+            <div className="ending-brand" dir="ltr">
+              <TournamentLogo />
+              <div>
+                <b>ROAD TO BAL</b>
+                <span>TRIPOLI — Libya</span>
+              </div>
             </div>
+            <p dir={dir}>
+              {tr(
+                "تستضيف العاصمة الليبية طرابلس التصفيات التمهيدية للدوري الإفريقي لكرة السلة BAL 2027، بمشاركة 10 فرق تمثل 10 دول إفريقية في منافسات حماسية تجمع نخبة من المواهب والطموحات، وتؤكد مكانة ليبيا كوجهة للرياضة الإفريقية.",
+              )}
+            </p>
           </div>
-          <p dir={dir}>
-            {tr(
-              "تستضيف العاصمة الليبية طرابلس التصفيات التمهيدية للدوري الإفريقي لكرة السلة BAL 2027، بمشاركة 10 فرق تمثل 10 دول إفريقية في منافسات حماسية تجمع نخبة من المواهب والطموحات، وتؤكد مكانة ليبيا كوجهة للرياضة الإفريقية.",
-            )}
-          </p>
-        </div>
-        <small dir="ltr">2027 TRIPOLI IS THE COURT. © ROAD TO BAL</small>
-      </footer>
+          <small dir="ltr">2027 TRIPOLI IS THE COURT. © ROAD TO BAL</small>
+        </footer>
+      )}
       <nav className="bottom-nav" aria-label={tr("التنقل السريع")}>
         {[
           ["/", tr("الرئيسية")],

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import Image from "next/image";
+import { Search, ChevronLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { TournamentLogo } from "./tournament-logo";
@@ -133,7 +134,10 @@ function Brand() {
       aria-label={`ROAD TO BAL — ${tr("الرئيسية")}`}
     >
       <TournamentLogo />
-      <span className="tournament-brand-location">TRIPOLI / 2027</span>
+      <span className="tournament-brand-location">
+        <strong>ROAD TO BAL</strong>
+        <small>TRIPOLI · LIBYA</small>
+      </span>
     </Link>
   );
 }
@@ -142,25 +146,8 @@ export function TournamentHeader() {
   const pathname = usePathname(),
     dialog = useRef<HTMLDialogElement>(null),
     trigger = useRef<HTMLButtonElement>(null);
-  const more = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false),
-    [moreOpen, setMoreOpen] = useState<string | null>(null),
     [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    if (!moreOpen) return;
-    const away = (event: MouseEvent) => {
-      if (!more.current?.contains(event.target as Node)) setMoreOpen(null);
-    };
-    const esc = (event: globalThis.KeyboardEvent) => {
-      if (event.key === "Escape") setMoreOpen(null);
-    };
-    document.addEventListener("mousedown", away);
-    document.addEventListener("keydown", esc);
-    return () => {
-      document.removeEventListener("mousedown", away);
-      document.removeEventListener("keydown", esc);
-    };
-  }, [moreOpen]);
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 88);
     update();
@@ -218,30 +205,16 @@ export function TournamentHeader() {
     );
   }
   function links(mobile = false) {
-    if (mobile)
-      return sections.map(([url, label], i) => item(url, label, true, i));
-    const moreActive = secondarySections.some(([url]) => isActive(url));
-    return (
-      <>
-        {primarySections.map(([url, label]) => item(url, label))}
-        <div className="nav-more" ref={more}>
-          <button
-            type="button"
-            className={moreActive ? "is-current" : ""}
-            aria-haspopup="true"
-            aria-expanded={moreOpen === pathname}
-            onClick={() => setMoreOpen(moreOpen === pathname ? null : pathname)}
-          >
-            {tr("المزيد")} <i aria-hidden="true">▾</i>
-          </button>
-          {moreOpen === pathname && (
-            <div className="nav-more-list">
-              {secondarySections.map(([url, label]) => item(url, label))}
-            </div>
-          )}
-        </div>
-      </>
-    );
+    const ordered = [
+      sections[0],
+      sections[1],
+      secondarySections[1],
+      sections[2],
+      sections[3],
+      ["/the-road", "The Road"],
+      secondarySections[0],
+    ];
+    return ordered.map(([url, label], i) => item(url, label, mobile, i));
   }
   return (
     <>
@@ -252,7 +225,33 @@ export function TournamentHeader() {
           (scrolled ? "is-scrolled" : "")
         }
       >
-        <Brand />
+        <Link className="header-fiba" href="/" aria-label="FIBA Africa">
+          <span className="header-fiba-ball">
+            <Image
+              src="/Artboard%202-8.png"
+              alt=""
+              width={875}
+              height={1800}
+              sizes="42px"
+            />
+          </span>
+          <span className="header-fiba-wordmark">
+            <strong>FIBA</strong>
+            <b>AFRICA</b>
+            <small>We Are Basketball</small>
+          </span>
+        </Link>
+        <div className="header-tools">
+          <Link
+            className="header-search"
+            href="/news#news-search"
+            aria-label={tr("بحث")}
+          >
+            <Search size={15} />
+            <span>{tr("بحث")}</span>
+          </Link>
+          <LangToggle className="header-lang" />
+        </div>
         <nav
           className="tournament-nav"
           aria-label={tr("أقسام البطولة")}
@@ -260,11 +259,7 @@ export function TournamentHeader() {
         >
           {links()}
         </nav>
-        <div className="event-meta" dir="ltr">
-          <strong>21—25 OCT</strong>
-          <span>2026 / TRIPOLI, LIBYA</span>
-        </div>
-        <LangToggle className="header-lang" />
+        <Brand />
         <button
           ref={trigger}
           className="menu-trigger"
