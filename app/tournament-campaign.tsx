@@ -349,8 +349,14 @@ export function CampaignHero({
         dir="ltr"
       >
         <picture className="poster-background" aria-hidden="true">
-          <source media="(max-width: 700px)" srcSet="/hero-tall.webp" />
-          <img src="/hero-wide.webp" alt="" fetchPriority="high" />
+          <source media="(max-width: 700px)" srcSet="/hero-main-mobile.webp" />
+          <img
+            src="/hero-main.webp"
+            alt=""
+            width={1122}
+            height={1402}
+            fetchPriority="high"
+          />
         </picture>
         <div className="poster-copy">
           <p className="poster-title">
