@@ -119,20 +119,14 @@ export function TournamentHeader() {
         }
       >
         <Link className="header-fiba" href="/" aria-label="FIBA Africa">
-          <span className="header-fiba-ball">
-            <Image
-              src="/Artboard%202-8.png"
-              alt=""
-              width={875}
-              height={1800}
-              sizes="42px"
-            />
-          </span>
-          <span className="header-fiba-wordmark">
-            <strong>FIBA</strong>
-            <b>AFRICA</b>
-            <small>We Are Basketball</small>
-          </span>
+          <Image
+            src="/Artboard%202-8.png"
+            alt="FIBA Africa — We Are Basketball"
+            width={4500}
+            height={2387}
+            sizes="96px"
+            style={{ width: 96, height: "auto", display: "block" }}
+          />
         </Link>
         <div className="header-tools">
           <Link
