@@ -16,6 +16,7 @@ import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
+import { MatchesContent } from "./matches-content";
 import { Trophy, ChevronLeft } from "lucide-react";
 import {
   standings,
@@ -205,18 +206,6 @@ export default function Site({
       day: "2-digit",
     }).format(new Date(v));
   const today = dayKey(new Date(now).toISOString());
-  const days = Array.from(
-    {
-      length: Math.max(
-        1,
-        Math.min(
-          14,
-          Math.ceil((Date.parse(s.end) - Date.parse(s.start)) / 86400000),
-        ),
-      ),
-    },
-    (_, i) => new Date(Date.parse(s.start) + i * 86400000).toISOString(),
-  );
   const seconds = Math.max(0, Math.floor((Date.parse(s.start) - now) / 1000));
   const count = [
     Math.floor(seconds / 86400),
@@ -475,62 +464,7 @@ export default function Site({
       </section>
     );
   }
-  function ScheduleSoon() {
-    return (
-      <section className="schedule-soon">
-        <span className="eyebrow">{tr("الجدول قيد الاعتماد")}</span>
-        <h2>{tr("خمسة أيام. مواعيد المباريات قريبًا.")}</h2>
-        {seconds > 0 && (
-          <div
-            className="soon-count"
-            dir="ltr"
-            aria-label={tr("العد التنازلي لبدء البطولة")}
-          >
-            {count.map((n, i) => (
-              <div key={i}>
-                <strong suppressHydrationWarning>
-                  {String(n).padStart(2, "0")}
-                </strong>
-                <span>{["DAYS", "HOURS", "MINUTES", "SECONDS"][i]}</span>
-              </div>
-            ))}
-          </div>
-        )}
-        <div className="soon-days" dir="ltr">
-          {days.map((d, i) => (
-            <div key={d}>
-              <small>DAY {i + 1}</small>
-              <strong>
-                {new Intl.DateTimeFormat("en", {
-                  timeZone: s.timezone,
-                  day: "numeric",
-                }).format(new Date(d))}
-              </strong>
-              <span>OCT</span>
-              <em>{tr("سيُعلن الموعد")}</em>
-            </div>
-          ))}
-        </div>
-        <div className="empty-actions">
-          <Link href="/teams">{tr("تعرّف على الفرق")}</Link>
-          <Link href="/standings">{tr("شاهد المجموعات")}</Link>
-          <Link href="/the-road">{tr("اكتشف THE ROAD")}</Link>
-        </div>
-      </section>
-    );
-  }
   function Matches() {
-    const visible = games.filter(
-      (g) =>
-        (!day || dayKey(g.date) === day) &&
-        (filter === "all" ||
-          (filter === "today" && dayKey(g.date) === today) ||
-          (filter === "live" && ["Live", "Halftime"].includes(g.status)) ||
-          (filter === "finished" && g.status === "Ended") ||
-          (filter === "upcoming" &&
-            ["Scheduled", "Warmup"].includes(g.status))),
-    );
-    const liveTab = filter === "live";
     const broadcasts = [
       ...(streamEmbed(streamUrl)
         ? [{ key: "site", url: streamUrl, title: tr("البث المباشر") }]
@@ -550,25 +484,20 @@ export default function Site({
         })),
     ];
     return (
-      <>
-        <div className="tabs">
-          {[
-            ["all", "الكل"],
-            ["today", "اليوم"],
-            ["upcoming", "القادمة"],
-            ["finished", "المنتهية"],
-            ["live", "مباشر"],
-          ].map(([id, label]) => (
-            <button
-              key={id}
-              className={filter === id ? "active" : ""}
-              onClick={() => setFilter(id)}
-            >
-              {tr(label)}
-            </button>
-          ))}
-        </div>
-        {liveTab ? (
+      <MatchesContent
+        games={games}
+        teams={teams}
+        count={count}
+        seconds={seconds}
+        filter={filter}
+        setFilter={setFilter}
+        day={day}
+        setDay={setDay}
+        dayKey={dayKey}
+        today={today}
+        date={date}
+        badge={(t) => <Badge team={t} />}
+        liveContent={
           <section className="live-broadcasts">
             {broadcasts.length ? (
               broadcasts.map((b) => (
@@ -584,50 +513,8 @@ export default function Site({
               />
             )}
           </section>
-        ) : (
-          <>
-            <div className="days" dir="ltr">
-              <button
-                onClick={() => setDay("")}
-                className={!day ? "active" : ""}
-              >
-                ALL
-              </button>
-              {days.map((d, i) => (
-                <button
-                  key={d}
-                  className={day === dayKey(d) ? "active" : ""}
-                  onClick={() => setDay(dayKey(d))}
-                >
-                  <small>DAY {i + 1}</small>
-                  {new Intl.DateTimeFormat("en", {
-                    timeZone: s.timezone,
-                    day: "numeric",
-                  }).format(new Date(d))}{" "}
-                  OCT
-                </button>
-              ))}
-            </div>
-            {!games.length ? (
-              ScheduleSoon()
-            ) : visible.length ? (
-              visible.map((g) => gameCard(g))
-            ) : (
-              <Empty
-                title={tr("لم تُنشر مباريات هذا اليوم بعد.")}
-                detail={tr("ستظهر المواعيد هنا بعد اعتماد جدول المباريات.")}
-              />
-            )}
-            {!visible.length && (
-              <div className="empty-actions">
-                <Link href="/teams">{tr("تعرّف على الفرق")}</Link>
-                <Link href="/standings">{tr("شاهد المجموعات")}</Link>
-                <Link href="/the-road">{tr("اكتشف THE ROAD")}</Link>
-              </div>
-            )}
-          </>
-        )}
-      </>
+        }
+      />
     );
   }
   function TeamGrid() {
@@ -1140,12 +1027,12 @@ export default function Site({
   else content = <Admin data={data} onData={acceptData} />;
   return (
     <div
-      className={`tournament-shell${route === "home" ? " rd-home-shell" : ""}`}
+      className={`tournament-shell${route === "home" || (route === "matches" && !path[1]) ? " rd-home-shell" : ""}`}
     >
       <a className="skip" href="#main">
         {tr("انتقل للمحتوى")}
       </a>
-      {route === "home" ? (
+      {route === "home" || (route === "matches" && !path[1]) ? (
         <HomeTopbar />
       ) : (
         <div className="topbar" dir="ltr">
@@ -1177,7 +1064,7 @@ export default function Site({
           route === "home"
             ? "event-home"
             : ["matches", "standings", "stats"].includes(route)
-              ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : ""}`
+              ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : route === "matches" ? "matches-redesign" : ""}`
               : route !== "admin" && route !== "team"
                 ? `public-page public-${route}`
                 : route === "admin"
@@ -1187,6 +1074,7 @@ export default function Site({
       >
         {route !== "home" &&
           route !== "team" &&
+          !(route === "matches" && !path[1]) &&
           route !== "players" &&
           !(route === "news" && path[1]) && (
             <div className="page-heading">
