@@ -1,7 +1,7 @@
 "use client";
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
-import { ArrowLeft, CalendarDays, Clock, Search } from "lucide-react";
+import { ArrowLeft, CalendarDays, Search } from "lucide-react";
 import type { Game, Team } from "@/lib/public-domain";
 import { useLang } from "./i18n";
 import { statusLabel } from "./site-shared";
@@ -161,15 +161,6 @@ export function MatchesContent({
           </button>
           <button type="submit">{tr("بحث")}</button>
         </form>
-        {!games.length && (
-          <p className="match-notice">
-            <Clock size={18} />
-            {copy(
-              "لم تُنشر روزنامة رسمية حتى الآن. البطاقات أدناه حالات مؤقتة وليست مواعيد مباريات.",
-              "No official schedule has been published yet. The cards below are placeholders, not match appointments.",
-            )}
-          </p>
-        )}
         {filter === "live" && liveContent}
         <div className="match-cards">
           {(pending ? [null, null, null, null] : visible).map((g, i) => {
