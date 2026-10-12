@@ -14,6 +14,7 @@ import { EventSponsors } from "./event-sponsors";
 import { useLang } from "./i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
+import { TournamentLogo } from "./tournament-logo";
 import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
 import {
@@ -1389,11 +1390,34 @@ export default function Site({
       </main>
       <footer className="tournament-ending">
         <EventSponsors />
+        <nav className="ending-links" aria-label={tr("التنقل السريع")}>
+          {[
+            ["/", "الرئيسية"],
+            ["/matches", "المباريات"],
+            ["/news", "الأخبار"],
+            ["/standings", "الترتيب"],
+            ["/teams", "الفرق"],
+            ["/the-road", "THE ROAD"],
+            ["/stats", "الإحصائيات"],
+          ].map(([href, label]) => (
+            <Link key={href} href={href}>
+              {tr(label)}
+            </Link>
+          ))}
+        </nav>
         <div className="ending-details">
-          <div>
-            <p>{tr("منصة تصفيات Road to BAL 2027 في طرابلس.")}</p>
-            <p>{tr("النتائج والبيانات تُنشر بعد اعتمادها.")}</p>
+          <div className="ending-brand" dir="ltr">
+            <TournamentLogo />
+            <div>
+              <b>ROAD TO BAL</b>
+              <span>TRIPOLI — Libya</span>
+            </div>
           </div>
+          <p dir={dir}>
+            {tr(
+              "تستضيف العاصمة الليبية طرابلس التصفيات التمهيدية للدوري الإفريقي لكرة السلة BAL 2027، بمشاركة 10 فرق تمثل 10 دول إفريقية في منافسات حماسية تجمع نخبة من المواهب والطموحات، وتؤكد مكانة ليبيا كوجهة للرياضة الإفريقية.",
+            )}
+          </p>
         </div>
         <small dir="ltr">2027 TRIPOLI IS THE COURT. © ROAD TO BAL</small>
       </footer>

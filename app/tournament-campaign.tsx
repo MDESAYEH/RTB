@@ -30,7 +30,10 @@ const factIcons = {
         </radialGradient>
       </defs>
       <circle cx="32" cy="32" r="29" fill="url(#fi-globe)" />
-      <path d="M20 12c6-2 11 1 12 6s-5 5-4 10-8 6-11 2-3-14 3-18zM38 30c5-3 12 0 13 6s-4 14-9 15-6-8-7-12 0-7 3-9z" fill="#2fbf6c" />
+      <path
+        d="M20 12c6-2 11 1 12 6s-5 5-4 10-8 6-11 2-3-14 3-18zM38 30c5-3 12 0 13 6s-4 14-9 15-6-8-7-12 0-7 3-9z"
+        fill="#2fbf6c"
+      />
       <g fill="none" stroke="#fff" strokeOpacity=".55" strokeWidth="1.6">
         <circle cx="32" cy="32" r="29" />
         <ellipse cx="32" cy="32" rx="12" ry="29" />
@@ -50,10 +53,42 @@ const factIcons = {
           <stop offset="1" stopColor="#0d7f55" />
         </linearGradient>
       </defs>
-      <circle cx="22" cy="32" r="19" fill="url(#fi-ga)" stroke="#fff" strokeWidth="2.5" />
-      <circle cx="42" cy="32" r="19" fill="url(#fi-gb)" stroke="#fff" strokeWidth="2.5" />
-      <text x="15" y="40" fontSize="22" fontWeight="800" fill="#fff" fontFamily="Arial, sans-serif">A</text>
-      <text x="37" y="40" fontSize="22" fontWeight="800" fill="#fff" fontFamily="Arial, sans-serif">B</text>
+      <circle
+        cx="22"
+        cy="32"
+        r="19"
+        fill="url(#fi-ga)"
+        stroke="#fff"
+        strokeWidth="2.5"
+      />
+      <circle
+        cx="42"
+        cy="32"
+        r="19"
+        fill="url(#fi-gb)"
+        stroke="#fff"
+        strokeWidth="2.5"
+      />
+      <text
+        x="15"
+        y="40"
+        fontSize="22"
+        fontWeight="800"
+        fill="#fff"
+        fontFamily="Arial, sans-serif"
+      >
+        A
+      </text>
+      <text
+        x="37"
+        y="40"
+        fontSize="22"
+        fontWeight="800"
+        fill="#fff"
+        fontFamily="Arial, sans-serif"
+      >
+        B
+      </text>
     </svg>
   ),
   road: (
@@ -66,8 +101,14 @@ const factIcons = {
       </defs>
       <circle cx="32" cy="32" r="29" fill="url(#fi-sky)" />
       <circle cx="42" cy="22" r="6" fill="#fff3b0" />
-      <path d="M3.5 46 21 22l9 12 7-9 23.5 21A29 29 0 0 1 32 61 29 29 0 0 1 3.5 46z" fill="#1d3b2f" />
-      <path d="M32 61c-2-6 1-9 0-13s-2-6 0-9h0c2 3 2 5 0 9s2 7 0 13z" fill="#ffd34d" />
+      <path
+        d="M3.5 46 21 22l9 12 7-9 23.5 21A29 29 0 0 1 32 61 29 29 0 0 1 3.5 46z"
+        fill="#1d3b2f"
+      />
+      <path
+        d="M32 61c-2-6 1-9 0-13s-2-6 0-9h0c2 3 2 5 0 9s2 7 0 13z"
+        fill="#ffd34d"
+      />
     </svg>
   ),
 };
@@ -177,7 +218,8 @@ export function TournamentHeader() {
     );
   }
   function links(mobile = false) {
-    if (mobile) return sections.map(([url, label], i) => item(url, label, true, i));
+    if (mobile)
+      return sections.map(([url, label], i) => item(url, label, true, i));
     const moreActive = secondarySections.some(([url]) => isActive(url));
     return (
       <>
@@ -211,7 +253,11 @@ export function TournamentHeader() {
         }
       >
         <Brand />
-        <nav className="tournament-nav" aria-label={tr("أقسام البطولة")} dir={dir}>
+        <nav
+          className="tournament-nav"
+          aria-label={tr("أقسام البطولة")}
+          dir={dir}
+        >
           {links()}
         </nav>
         <div className="event-meta" dir="ltr">
@@ -303,28 +349,17 @@ export function CampaignHero({
         dir="ltr"
       >
         <picture className="poster-background" aria-hidden="true">
-          <source
-            media="(max-width: 700px)"
-            srcSet="/hero-tall.webp"
-          />
-          <img
-            src="/hero-wide.webp"
-            alt=""
-            fetchPriority="high"
-          />
+          <source media="(max-width: 700px)" srcSet="/hero-tall.webp" />
+          <img src="/hero-wide.webp" alt="" fetchPriority="high" />
         </picture>
         <div className="poster-copy">
-          <p className="poster-eyebrow">AFRICAN BASKETBALL. NEXT CHAPTER.</p>
           <p className="poster-title">
             ROAD TO BAL <span>/ 2027</span>
           </p>
-          <h1>
-            TRIPOLI
-            <span aria-hidden="true" />
+          <h1 dir={dir}>
+            <span className="hero-line-red">{tr("أفريقيا تجتمع معاً")}</span>
+            <span className="hero-line-gold">{tr("وطرابلس تتصدر المشهد")}</span>
           </h1>
-          <p className="poster-arabic" dir={dir}>
-            {tr("طرابلس تستضيف أفريقيا")}
-          </p>
         </div>
         <div className="poster-bottom">
           <div className="poster-road">
