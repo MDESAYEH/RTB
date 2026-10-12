@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import Image from "next/image";
+import { Search, ChevronLeft } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { TournamentLogo } from "./tournament-logo";
@@ -30,7 +31,10 @@ const factIcons = {
         </radialGradient>
       </defs>
       <circle cx="32" cy="32" r="29" fill="url(#fi-globe)" />
-      <path d="M20 12c6-2 11 1 12 6s-5 5-4 10-8 6-11 2-3-14 3-18zM38 30c5-3 12 0 13 6s-4 14-9 15-6-8-7-12 0-7 3-9z" fill="#2fbf6c" />
+      <path
+        d="M20 12c6-2 11 1 12 6s-5 5-4 10-8 6-11 2-3-14 3-18zM38 30c5-3 12 0 13 6s-4 14-9 15-6-8-7-12 0-7 3-9z"
+        fill="#2fbf6c"
+      />
       <g fill="none" stroke="#fff" strokeOpacity=".55" strokeWidth="1.6">
         <circle cx="32" cy="32" r="29" />
         <ellipse cx="32" cy="32" rx="12" ry="29" />
@@ -50,10 +54,42 @@ const factIcons = {
           <stop offset="1" stopColor="#0d7f55" />
         </linearGradient>
       </defs>
-      <circle cx="22" cy="32" r="19" fill="url(#fi-ga)" stroke="#fff" strokeWidth="2.5" />
-      <circle cx="42" cy="32" r="19" fill="url(#fi-gb)" stroke="#fff" strokeWidth="2.5" />
-      <text x="15" y="40" fontSize="22" fontWeight="800" fill="#fff" fontFamily="Arial, sans-serif">A</text>
-      <text x="37" y="40" fontSize="22" fontWeight="800" fill="#fff" fontFamily="Arial, sans-serif">B</text>
+      <circle
+        cx="22"
+        cy="32"
+        r="19"
+        fill="url(#fi-ga)"
+        stroke="#fff"
+        strokeWidth="2.5"
+      />
+      <circle
+        cx="42"
+        cy="32"
+        r="19"
+        fill="url(#fi-gb)"
+        stroke="#fff"
+        strokeWidth="2.5"
+      />
+      <text
+        x="15"
+        y="40"
+        fontSize="22"
+        fontWeight="800"
+        fill="#fff"
+        fontFamily="Arial, sans-serif"
+      >
+        A
+      </text>
+      <text
+        x="37"
+        y="40"
+        fontSize="22"
+        fontWeight="800"
+        fill="#fff"
+        fontFamily="Arial, sans-serif"
+      >
+        B
+      </text>
     </svg>
   ),
   road: (
@@ -66,8 +102,14 @@ const factIcons = {
       </defs>
       <circle cx="32" cy="32" r="29" fill="url(#fi-sky)" />
       <circle cx="42" cy="22" r="6" fill="#fff3b0" />
-      <path d="M3.5 46 21 22l9 12 7-9 23.5 21A29 29 0 0 1 32 61 29 29 0 0 1 3.5 46z" fill="#1d3b2f" />
-      <path d="M32 61c-2-6 1-9 0-13s-2-6 0-9h0c2 3 2 5 0 9s2 7 0 13z" fill="#ffd34d" />
+      <path
+        d="M3.5 46 21 22l9 12 7-9 23.5 21A29 29 0 0 1 32 61 29 29 0 0 1 3.5 46z"
+        fill="#1d3b2f"
+      />
+      <path
+        d="M32 61c-2-6 1-9 0-13s-2-6 0-9h0c2 3 2 5 0 9s2 7 0 13z"
+        fill="#ffd34d"
+      />
     </svg>
   ),
 };
@@ -92,7 +134,10 @@ function Brand() {
       aria-label={`ROAD TO BAL — ${tr("الرئيسية")}`}
     >
       <TournamentLogo />
-      <span className="tournament-brand-location">TRIPOLI / 2027</span>
+      <span className="tournament-brand-location">
+        <strong>ROAD TO BAL</strong>
+        <small>TRIPOLI · LIBYA</small>
+      </span>
     </Link>
   );
 }
@@ -101,25 +146,8 @@ export function TournamentHeader() {
   const pathname = usePathname(),
     dialog = useRef<HTMLDialogElement>(null),
     trigger = useRef<HTMLButtonElement>(null);
-  const more = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false),
-    [moreOpen, setMoreOpen] = useState<string | null>(null),
     [scrolled, setScrolled] = useState(false);
-  useEffect(() => {
-    if (!moreOpen) return;
-    const away = (event: MouseEvent) => {
-      if (!more.current?.contains(event.target as Node)) setMoreOpen(null);
-    };
-    const esc = (event: globalThis.KeyboardEvent) => {
-      if (event.key === "Escape") setMoreOpen(null);
-    };
-    document.addEventListener("mousedown", away);
-    document.addEventListener("keydown", esc);
-    return () => {
-      document.removeEventListener("mousedown", away);
-      document.removeEventListener("keydown", esc);
-    };
-  }, [moreOpen]);
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 88);
     update();
@@ -177,29 +205,16 @@ export function TournamentHeader() {
     );
   }
   function links(mobile = false) {
-    if (mobile) return sections.map(([url, label], i) => item(url, label, true, i));
-    const moreActive = secondarySections.some(([url]) => isActive(url));
-    return (
-      <>
-        {primarySections.map(([url, label]) => item(url, label))}
-        <div className="nav-more" ref={more}>
-          <button
-            type="button"
-            className={moreActive ? "is-current" : ""}
-            aria-haspopup="true"
-            aria-expanded={moreOpen === pathname}
-            onClick={() => setMoreOpen(moreOpen === pathname ? null : pathname)}
-          >
-            {tr("المزيد")} <i aria-hidden="true">▾</i>
-          </button>
-          {moreOpen === pathname && (
-            <div className="nav-more-list">
-              {secondarySections.map(([url, label]) => item(url, label))}
-            </div>
-          )}
-        </div>
-      </>
-    );
+    const ordered = [
+      sections[0],
+      sections[1],
+      secondarySections[1],
+      sections[2],
+      sections[3],
+      ["/the-road", "The Road"],
+      secondarySections[0],
+    ];
+    return ordered.map(([url, label], i) => item(url, label, mobile, i));
   }
   return (
     <>
@@ -210,15 +225,41 @@ export function TournamentHeader() {
           (scrolled ? "is-scrolled" : "")
         }
       >
-        <Brand />
-        <nav className="tournament-nav" aria-label={tr("أقسام البطولة")} dir={dir}>
+        <Link className="header-fiba" href="/" aria-label="FIBA Africa">
+          <span className="header-fiba-ball">
+            <Image
+              src="/Artboard%202-8.png"
+              alt=""
+              width={875}
+              height={1800}
+              sizes="42px"
+            />
+          </span>
+          <span className="header-fiba-wordmark">
+            <strong>FIBA</strong>
+            <b>AFRICA</b>
+            <small>We Are Basketball</small>
+          </span>
+        </Link>
+        <div className="header-tools">
+          <Link
+            className="header-search"
+            href="/news#news-search"
+            aria-label={tr("بحث")}
+          >
+            <Search size={15} />
+            <span>{tr("بحث")}</span>
+          </Link>
+          <LangToggle className="header-lang" />
+        </div>
+        <nav
+          className="tournament-nav"
+          aria-label={tr("أقسام البطولة")}
+          dir={dir}
+        >
           {links()}
         </nav>
-        <div className="event-meta" dir="ltr">
-          <strong>21—25 OCT</strong>
-          <span>2026 / TRIPOLI, LIBYA</span>
-        </div>
-        <LangToggle className="header-lang" />
+        <Brand />
         <button
           ref={trigger}
           className="menu-trigger"

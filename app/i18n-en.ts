@@ -1,5 +1,8 @@
 /** English strings keyed by their Arabic source text. Missing keys fall back to Arabic. */
 export const en: Record<string, string> = {
+  "العد التنازلي بدأ": "The countdown has begun",
+  فرق: "teams",
+  بحث: "Search",
   // Navigation
   الرئيسية: "Home",
   المباريات: "Matches",
@@ -64,7 +67,8 @@ export const en: Record<string, string> = {
   "نتائج البطولة": "Tournament results",
   "الموعد القادم": "Next up",
   "كل المباريات": "All matches",
-  "العد التنازلي بدأ. الجدول قريبًا.": "The countdown has begun. Schedule coming soon.",
+  "العد التنازلي بدأ. الجدول قريبًا.":
+    "The countdown has begun. Schedule coming soon.",
   "خمسة أيام من كرة السلة الأفريقية في قلب طرابلس. تابع هنا مواعيد المباريات عند اعتمادها.":
     "Five days of African basketball in the heart of Tripoli. Game times will appear here once confirmed.",
   "أفريقيا تلتقي في طرابلس": "Africa meets in Tripoli",
@@ -76,7 +80,8 @@ export const en: Record<string, string> = {
     "The tournament's moments are written here as they happen.",
   "مباراة اليوم": "Match of the day",
   "أيام طرابلس": "Tripoli days",
-  "لم يُعلن جدول مباريات هذا اليوم بعد.": "This day's schedule hasn't been announced yet.",
+  "لم يُعلن جدول مباريات هذا اليوم بعد.":
+    "This day's schedule hasn't been announced yet.",
   "من قلب الحدث": "From the heart of the event",
   "لم تُنشر مباريات هذا اليوم بعد.": "No matches published for this day yet.",
   "ستظهر المواعيد هنا بعد اعتماد جدول المباريات.":
@@ -180,7 +185,8 @@ export const en: Record<string, string> = {
   "فوز / خسارة": "Win / loss",
   "النقاط المسجلة": "Points scored",
   "النقاط المستقبلة": "Points conceded",
-  "تبدأ إحصائيات البطولة مع أول مباراة": "Tournament stats begin with the first game",
+  "تبدأ إحصائيات البطولة مع أول مباراة":
+    "Tournament stats begin with the first game",
   "الملعب هو البداية.": "The court is the start.",
   "والطريق يستمر.": "And the road goes on.",
   "إرث على أرض الملعب": "A legacy on the court",
@@ -194,7 +200,8 @@ export const en: Record<string, string> = {
   // Footer
   "منصة تصفيات Road to BAL 2027 في طرابلس.":
     "The Road to BAL 2027 qualifiers platform in Tripoli.",
-  "النتائج والبيانات تُنشر بعد اعتمادها.": "Results and data are published once confirmed.",
+  "النتائج والبيانات تُنشر بعد اعتمادها.":
+    "Results and data are published once confirmed.",
 
   // System pages
   "الصفحة غير موجودة": "Page not found",
@@ -207,7 +214,8 @@ export const en: Record<string, string> = {
   "جارٍ التحميل": "Loading",
 
   // Admin
-  "تعذر الاتصال؛ تحقق من الشبكة قبل إعادة المحاولة.": "Couldn't connect; check your network and try again.",
+  "تعذر الاتصال؛ تحقق من الشبكة قبل إعادة المحاولة.":
+    "Couldn't connect; check your network and try again.",
   "دخول الإدارة": "Admin sign-in",
   "كلمة المرور": "Password",
   "دخول آمن": "Secure sign-in",
@@ -234,8 +242,10 @@ export const en: Record<string, string> = {
   "الساعة (ثوانٍ)": "Clock (seconds)",
   ضبط: "Set",
   "الفترة التالية": "Next period",
-  "أنشئ مباراة معتمدة من محرر البيانات للبدء.": "Create a confirmed game in the data editor to begin.",
-  "رفع صورة معتمدة (PNG / JPEG / WebP، حتى 5 MB)": "Upload an approved image (PNG / JPEG / WebP, up to 5 MB)",
+  "أنشئ مباراة معتمدة من محرر البيانات للبدء.":
+    "Create a confirmed game in the data editor to begin.",
+  "رفع صورة معتمدة (PNG / JPEG / WebP، حتى 5 MB)":
+    "Upload an approved image (PNG / JPEG / WebP, up to 5 MB)",
   "تعذر رفع الصورة": "Couldn't upload the image",
   "محرر بيانات منظم. لا تنشر أي موعد أو قائمة أو نتيجة قبل التحقق منها.":
     "Structured data editor. Don't publish any time, roster or result before it is verified.",
@@ -248,7 +258,8 @@ export const en: Record<string, string> = {
     "Existing games are managed from the control room. Groups, qualification and content live in settings. stats holds confirmed data per player and game.",
   "مصادر البيانات": "Data sources",
   "المصدر الحالي": "current source",
-  "قاعدة البيانات المحلية · لا مزامنة خارجية": "Local database · no external sync",
+  "قاعدة البيانات المحلية · لا مزامنة خارجية":
+    "Local database · no external sync",
   "لم يُثبت تكامل API معتمد": "No approved API integration established",
   "جودة البيانات": "Data quality",
   "آخر تحديث": "last update",
@@ -294,5 +305,6 @@ export const en: Record<string, string> = {
     "Facebook's embedded player may not work in some mobile browsers. Open the stream directly on Facebook.",
   "رابط البث المباشر (HTTPS)": "Live stream link (HTTPS)",
   "لا يوجد بث مباشر الآن.": "No live broadcast right now.",
-  "ستظهر البثوث المباشرة هنا فور بدئها.": "Live broadcasts will appear here as soon as they start.",
+  "ستظهر البثوث المباشرة هنا فور بدئها.":
+    "Live broadcasts will appear here as soon as they start.",
 };
