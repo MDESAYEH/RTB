@@ -416,8 +416,10 @@
   .tournament-ending > .ending-links {
     grid-area: links;
     direction: rtl;
-    grid-template-columns: repeat(4, max-content);
-    gap: 20px clamp(18px, 2.4vw, 36px);
+    grid-auto-flow: column;
+    grid-template-rows: repeat(4, auto);
+    grid-template-columns: repeat(2, max-content);
+    gap: 16px clamp(28px, 4vw, 64px);
     justify-content: center;
     justify-items: start;
     align-content: start;
