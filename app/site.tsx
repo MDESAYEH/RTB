@@ -10,7 +10,7 @@ import { TournamentHeader, CampaignHero } from "./tournament-campaign";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { CourtArc } from "./brand-primitives";
-import { HomeContent, TournamentFooter, HomeTopbar } from "./home-content";
+import { HomeContent, TournamentFooter } from "./home-content";
 import { useLang } from "./i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
@@ -1008,20 +1008,6 @@ export default function Site({
       <a className="skip" href="#main">
         {tr("انتقل للمحتوى")}
       </a>
-      {route === "home" || (route === "matches" && !path[1]) ? (
-        <HomeTopbar />
-      ) : (
-        <div className="topbar" dir="ltr">
-          <span>ROAD TO BAL 2027 · TRIPOLI · 21—25 OCT 2026</span>
-          <a
-            href="https://www.fiba.basketball/en/news/introducing-the-road-to-bal-2027"
-            target="_blank"
-            rel="noreferrer"
-          >
-            FIBA ↗
-          </a>
-        </div>
-      )}
       <TournamentHeader />
       {!connected && (
         <div className="notice" role="status">
