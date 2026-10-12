@@ -16,6 +16,7 @@ import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
+import { LiveCenter } from "./live-center";
 import { MatchesContent } from "./matches-content";
 import { Trophy, ChevronLeft } from "lucide-react";
 import {
@@ -465,24 +466,6 @@ export default function Site({
     );
   }
   function Matches() {
-    const broadcasts = [
-      ...(streamEmbed(streamUrl)
-        ? [{ key: "site", url: streamUrl, title: tr("البث المباشر") }]
-        : []),
-      ...games
-        .filter(
-          (g) =>
-            g.streamUrl &&
-            g.streamUrl !== streamUrl &&
-            streamEmbed(g.streamUrl) &&
-            ["Warmup", "Live", "Halftime"].includes(g.status),
-        )
-        .map((g) => ({
-          key: g.id,
-          url: g.streamUrl as string,
-          title: `${team(g.home)?.name ?? ""} × ${team(g.away)?.name ?? ""}`,
-        })),
-    ];
     return (
       <MatchesContent
         games={games}
@@ -498,21 +481,14 @@ export default function Site({
         date={date}
         badge={(t) => <Badge team={t} />}
         liveContent={
-          <section className="live-broadcasts">
-            {broadcasts.length ? (
-              broadcasts.map((b) => (
-                <article key={b.key} className="live-broadcast-item">
-                  <h2 dir="auto">{b.title}</h2>
-                  <StreamPlayer url={b.url} />
-                </article>
-              ))
-            ) : (
-              <Empty
-                title={tr("لا يوجد بث مباشر الآن.")}
-                detail={tr("ستظهر البثوث المباشرة هنا فور بدئها.")}
-              />
-            )}
-          </section>
+          <LiveCenter
+            data={data}
+            now={now}
+            connected={connected}
+            clockNow={connected ? now : (lastReceived ?? serverNow)}
+            streamUrl={previewStream || s.streamUrl || ""}
+            badge={(t) => <Badge team={t} />}
+          />
         }
       />
     );

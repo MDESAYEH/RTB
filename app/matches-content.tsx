@@ -53,12 +53,14 @@ export function MatchesContent({
         teams.some(
           (t) =>
             [g.home, g.away].includes(t.id) &&
-            `${t.name} ${getTeamIdentity(t.id)?.arabicName ?? ""}`.toLowerCase().includes(query.toLowerCase()),
+            `${t.name} ${getTeamIdentity(t.id)?.arabicName ?? ""}`
+              .toLowerCase()
+              .includes(query.toLowerCase()),
         )),
   );
   const pending = !games.length && filter === "all" && !day && !query;
   return (
-    <div className="match-design">
+    <div className={`match-design${filter === "live" ? " viewing-live" : ""}`}>
       <header className="match-banner">
         <small>{copy("جدول البطولة", "Tournament schedule")}</small>
         <h1>{copy("المباريات والنتائج", "Matches & results")}</h1>
