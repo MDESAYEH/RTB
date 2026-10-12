@@ -16,6 +16,7 @@ import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
+import { NewsContent } from "./news-content";
 import { LiveCenter } from "./live-center";
 import { MatchesContent } from "./matches-content";
 import { Trophy, ChevronLeft } from "lucide-react";
@@ -97,7 +98,6 @@ export default function Site({
     [previewStream, setPreviewStream] = useState("");
   const route = path[0] === "the-road" ? "road" : path[0] || "home";
   const [lastReceived, setLastReceived] = useState<number | null>(null);
-  const [newsSearch, setNewsSearch] = useState("");
   const acceptData = (next: Data) =>
     setData((previous) =>
       next.revision >= previous.revision ? next : previous,
@@ -540,42 +540,6 @@ export default function Site({
       </div>
     );
   }
-  function NewsList() {
-    return data.news.length ? (
-      <div className="news-list">
-        {data.news
-          .filter((n) =>
-            [n.title, n.titleEn, n.excerpt, n.excerptEn].some((value) =>
-              value
-                ?.toLocaleLowerCase()
-                .includes(newsSearch.trim().toLocaleLowerCase()),
-            ),
-          )
-          .map((n) => (
-            <Link href={"/news/" + n.slug} key={n.id}>
-              <span className="eyebrow">{date(n.publishedAt)}</span>
-              {n.cover && (
-                <Image
-                  className="news-cover"
-                  src={n.cover}
-                  alt=""
-                  width={1200}
-                  height={640}
-                  sizes="(max-width:600px) 90vw, 50vw"
-                />
-              )}
-              <h3>{lang === "en" && n.titleEn ? n.titleEn : n.title}</h3>
-              <p>{lang === "en" && n.excerptEn ? n.excerptEn : n.excerpt}</p>
-            </Link>
-          ))}
-      </div>
-    ) : (
-      <Empty
-        title={tr("أخبار البطولة، من المصدر.")}
-        detail={tr("ستُنشر التحديثات المعتمدة هنا فور توفرها.")}
-      />
-    );
-  }
   function Statistics() {
     const stats = data.stats as Stat[],
       players = data.players as Player[];
@@ -986,20 +950,7 @@ export default function Site({
       </article>
     );
   } else if (route === "news")
-    content = (
-      <>
-        <label className="news-search" id="news-search">
-          {tr("بحث")}
-          <input
-            type="search"
-            value={newsSearch}
-            onChange={(event) => setNewsSearch(event.target.value)}
-            aria-label={tr("بحث")}
-          />
-        </label>
-        {NewsList()}
-      </>
-    );
+    content = <NewsContent news={data.news} date={date} />;
   else content = <Admin data={data} onData={acceptData} />;
   return (
     <div
@@ -1028,7 +979,7 @@ export default function Site({
             : ["matches", "standings", "stats"].includes(route)
               ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : route === "matches" ? "matches-redesign" : ""}`
               : route !== "admin" && route !== "team"
-                ? `public-page public-${route}`
+                ? `public-page public-${route}${route === "news" && !path[1] ? " news-redesign" : ""}`
                 : route === "admin"
                   ? "operator-page"
                   : "club-page"
@@ -1038,7 +989,7 @@ export default function Site({
           route !== "team" &&
           !(route === "matches" && !path[1]) &&
           route !== "players" &&
-          !(route === "news" && path[1]) && (
+          route !== "news" && (
             <div className="page-heading">
               <span className="eyebrow">ROAD TO BAL · TRIPOLI 2027</span>
               <h1>
