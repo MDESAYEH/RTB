@@ -386,7 +386,7 @@ export function HomeContent({
 }
 
 export function TournamentFooter() {
-  const { lang, tr } = useLang();
+  const { tr } = useLang();
   return (
     <footer className="rd-footer rd-pattern">
       <div className="rd-container rd-footer-grid">
@@ -395,14 +395,19 @@ export function TournamentFooter() {
             <TournamentLogo />
             <span>
               <strong>ROAD TO BAL</strong>
-              <small>TRIPOLI · LIBYA</small>
+              <small>TRIPOLI — Libya</small>
             </span>
           </Link>
           <p>
-            {lang === "ar"
-              ? "طرابلس تستضيف أفريقيا. منصة لمتابعة تصفيات Road to BAL 2027، وأخبار الأندية والمباريات والنتائج المعتمدة، من صافرة البداية إلى آخر مقعد في Elite 16."
-              : "Tripoli hosts Africa. Follow the Road to BAL 2027 qualifiers, club news, confirmed schedules and results, from tip-off to the final Elite 16 place."}
+            {tr(
+              "تستضيف العاصمة الليبية طرابلس التصفيات التمهيدية للدوري الإفريقي لكرة السلة BAL 2027، بمشاركة 10 فرق تمثل 10 دول إفريقية في منافسات حماسية تجمع نخبة من المواهب والطموحات، وتؤكد مكانة ليبيا كوجهة للرياضة الإفريقية.",
+            )}
           </p>
+          <div className="rd-footer-social" aria-hidden="true">
+            <span>X</span>
+            <span>IN</span>
+            <span>FB</span>
+          </div>
         </div>
         <nav aria-label={tr("أقسام البطولة")}>
           {[

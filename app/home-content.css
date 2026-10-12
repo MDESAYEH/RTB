@@ -551,6 +551,10 @@ html[dir="ltr"] .rd-team > div {
 .rd-footer-brand .tournament-logo {
   width: 52px;
   height: 52px;
+  padding: 4px;
+  border-radius: 50%;
+  background: #fff;
+  object-fit: contain;
 }
 .rd-footer-brand span {
   display: flex;
@@ -564,10 +568,26 @@ html[dir="ltr"] .rd-team > div {
   font-size: 9px;
 }
 .rd-footer-about p {
-  font-size: 12px;
-  color: #ffffffbb;
-  line-height: 2;
-  margin: 18px 0 0;
+  font-size: 14px;
+  color: #ffffffd9;
+  line-height: 2.1;
+  margin: 20px 0 0;
+}
+.rd-footer-social {
+  display: flex;
+  gap: 14px;
+  margin-top: 22px;
+}
+.rd-footer-social span {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  border: 1px solid #ffffff24;
+  background: #ffffff14;
+  color: #ffffff80;
+  font: 700 14px Arial, sans-serif;
 }
 .rd-footer nav {
   display: flex;
@@ -814,6 +834,9 @@ html[dir="ltr"] .rd-team > div {
     gap: 28px;
   }
   .rd-footer-brand {
+    justify-content: center;
+  }
+  .rd-footer-social {
     justify-content: center;
   }
   .rd-footer nav {
