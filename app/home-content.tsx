@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays, Globe2, Layers, Users } from "lucide-react";
 import type { Game, News, Settings, Team } from "@/lib/public-domain";
+import { getTeamIdentity } from "@/lib/team-identity";
 import { useLang } from "./i18n";
 import { EventSponsors } from "./event-sponsors";
 import { TournamentLogo } from "./tournament-logo";
@@ -227,7 +228,9 @@ export function HomeContent({
                       {badge(t)}
                       <div>
                         <strong dir="auto">{t.name}</strong>
-                        <small>{tr(t.country)}</small>
+                        <small dir="rtl">
+                          {getTeamIdentity(t.id)?.arabicName || t.name}
+                        </small>
                       </div>
                       <span>{tr(t.country)}</span>
                     </Link>

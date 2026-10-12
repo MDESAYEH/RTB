@@ -244,6 +244,10 @@
 .rd-team > div {
   flex: 1;
   min-width: 0;
+  text-align: right;
+}
+html[dir="ltr"] .rd-team > div {
+  text-align: left;
 }
 .rd-team strong {
   display: block;
