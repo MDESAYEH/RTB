@@ -85,8 +85,8 @@
   display: flex;
   border: 1px solid #dce1e5;
   border-radius: 40px;
-  padding: 10px;
-  gap: 12px;
+  padding: 5px;
+  gap: 4px;
 }
 .match-tabs button {
   background: transparent;
@@ -94,7 +94,9 @@
   border-radius: 30px;
   color: #003c52;
   font-weight: 800;
-  padding: 8px 24px;
+  padding: 7px 20px;
+  font-size: 14px;
+  min-height: 38px;
   cursor: pointer;
 }
 .match-tabs button.active {
@@ -108,6 +110,9 @@
   color: #7795a4;
 }
 .match-day input {
+  height: 44px;
+  margin: 0;
+  font-size: 13px;
   background: white;
   border: 1px solid #dce1e5;
   border-radius: 30px;
@@ -117,21 +122,31 @@
 }
 .match-search {
   display: flex;
-  gap: 15px;
-  align-items: stretch;
-  margin: 35px 0 60px;
+  gap: 10px;
+  align-items: center;
+  margin: 24px 0 38px;
 }
 .match-search label {
   display: flex;
+  flex-direction: row;
+  height: 46px;
+  min-height: 0;
+  margin: 0;
   align-items: center;
   gap: 12px;
   flex: 1;
   background: #f6f8fa;
   border: 1px solid #d6dfe5;
-  border-radius: 40px;
-  padding: 12px 18px;
+  border-radius: 12px;
+  padding: 0 14px;
 }
 .match-search input {
+  height: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  font-size: 14px;
   width: 100%;
   min-width: 0;
   background: transparent;
@@ -143,10 +158,16 @@
   color: #8ca5b2;
 }
 .match-search button {
+  height: 46px;
+  min-height: 0;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
   border: 1px solid #a2211d;
   background: #a2211d;
   color: white;
-  padding: 10px 25px;
+  padding: 0 20px;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -454,12 +475,11 @@
   border-radius: 15px;
 }
 .live-waiting .tournament-logo {
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
-  background: white;
-  border-radius: 12px;
-  padding: 8px;
+  background: transparent;
+  padding: 0;
 }
 .live-waiting-icon {
   margin-top: 25px;

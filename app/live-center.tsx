@@ -108,7 +108,7 @@ export function LiveCenter({
             </>
           ) : (
             <div className="live-waiting">
-              <TournamentLogo header />
+              <TournamentLogo />
               <span className="live-waiting-icon">
                 <Play size={28} />
               </span>
