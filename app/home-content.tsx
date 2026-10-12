@@ -426,7 +426,11 @@ export function TournamentFooter() {
       </div>
       <div className="rd-container rd-footer-bottom">
         <small dir="ltr">2027 TRIPOLI IS THE COURT. © ROAD TO BAL</small>
-        <span>{tr("النتائج والبيانات تُنشر بعد اعتمادها.")}</span>
+        <span className="rd-footer-legal">
+          <span>{tr("سياسة الخصوصية")}</span>
+          <span>{tr("الشروط والأحكام")}</span>
+          <span>{tr("إمكانية الوصول")}</span>
+        </span>
       </div>
     </footer>
   );

@@ -207,8 +207,9 @@ export const en: Record<string, string> = {
   "وطرابلس تتصدر المشهد": "and Tripoli takes centre stage",
   "تستضيف العاصمة الليبية طرابلس التصفيات التمهيدية للدوري الإفريقي لكرة السلة BAL 2027، بمشاركة 10 فرق تمثل 10 دول إفريقية في منافسات حماسية تجمع نخبة من المواهب والطموحات، وتؤكد مكانة ليبيا كوجهة للرياضة الإفريقية.":
     "Libya's capital, Tripoli, hosts the Basketball Africa League (BAL) 2027 qualifiers, with 10 teams from 10 African nations in thrilling competition that brings together top talent and ambition, and confirms Libya's standing as a leading destination for African sport.",
-  "النتائج والبيانات تُنشر بعد اعتمادها.":
-    "Results and data are published once confirmed.",
+  "سياسة الخصوصية": "Privacy policy",
+  "الشروط والأحكام": "Terms and conditions",
+  "إمكانية الوصول": "Accessibility",
 
   // System pages
   "الصفحة غير موجودة": "Page not found",

@@ -614,6 +614,11 @@ html[dir="ltr"] .rd-team > div {
   font-size: 10px;
   color: #ffffff99;
 }
+.rd-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+}
 .rd-home-shell .topbar {
   display: flex;
   min-height: 30px;
