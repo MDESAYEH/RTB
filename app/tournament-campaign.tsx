@@ -18,7 +18,7 @@ const secondarySections = [
   ["/news", "الأخبار"],
 ];
 const sections = [...primarySections, ...secondarySections];
-function Brand() {
+function Brand({ header = false }: { header?: boolean }) {
   const { tr } = useLang();
   return (
     <Link
@@ -26,7 +26,7 @@ function Brand() {
       href="/"
       aria-label={`ROAD TO BAL — ${tr("الرئيسية")}`}
     >
-      <TournamentLogo />
+      <TournamentLogo header={header} />
       <span className="tournament-brand-location">
         <strong>ROAD TO BAL</strong>
         <small>TRIPOLI · LIBYA</small>
@@ -152,7 +152,7 @@ export function TournamentHeader() {
         >
           {links()}
         </nav>
-        <Brand />
+        <Brand header />
         <button
           ref={trigger}
           className="menu-trigger"
