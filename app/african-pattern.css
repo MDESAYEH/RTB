@@ -1,6 +1,6 @@
 /* Original geometric artwork inspired by the supplied African basketball references. */
 :root {
-  --pattern-green: #07542d;
+  --pattern-green: #8a2118;
   --pattern-yellow: #ffdf42;
   --pattern-red: #6b1724;
   --pattern-rings: url('/patterns/african-rings.svg');
@@ -37,9 +37,9 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
 }
 .operator-page .page-heading h1 { font-size: clamp(28px, 4vw, 48px); }
 .operator-page .page-heading .eyebrow { color: #f1d9ad; }
-.operator-page :is(input, select, textarea) { background: #fff; color: #101b22; border-color: #81908e; }
-.operator-page button { background: #fff; color: #101b22; border-color: #81908e; min-height: 44px; }
-.operator-page :is(.primary, .tabs button.active) { background: #07542d; color: #fff; border-color: #07542d; }
+.operator-page :is(input, select, textarea) { background: #fff; color: #101b22; border-color: #9a8480; }
+.operator-page button { background: #fff; color: #101b22; border-color: #9a8480; min-height: 44px; }
+.operator-page :is(.primary, .tabs button.active) { background: #8a2118; color: #fff; border-color: #8a2118; }
 .operator-page .login { background: #fff; border-top: 4px solid #976532; border-radius: 8px; }
 .operator-page .login > svg { color: #825524; }
 .operator-page :is(.live-room > div, .admin-confirm) { background: #fff; color: #101b22; }
@@ -73,9 +73,9 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
 .club-podium :is(.podium-number strong, .club-number-times) { color: var(--pattern-yellow); }
 .club-podium > .club-court-geometry { opacity: .08; }
 .club-trophy-wall { background: #fff; }
-.club-group-scene { background: #edf3eb; }
+.club-group-scene { background: #f8ece8; }
 .stade-closing {
-  background: linear-gradient(90deg, #00351be8, #00351ba0), var(--pattern-rings) #07542d;
+  background: linear-gradient(90deg, #4a100ce8, #4a100ca0), var(--pattern-rings) #8a2118;
   color: #fff;
 }
 .stade-closing :is(h2, .club-next-stage, a) { color: var(--pattern-yellow); border-color: #ffdf4280; }
@@ -86,12 +86,12 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
   padding: 24px;
   margin-block: 24px;
 }
-.sports-page .days button.active { background: #07542d; color: #fff; }
-.sports-page .tabs button.active::after { background: #07542d; }
-.sports-page .standings-wrap .zone { background: #edf3eb; }
+.sports-page .days button.active { background: #8a2118; color: #fff; }
+.sports-page .tabs button.active::after { background: #8a2118; }
+.sports-page .standings-wrap .zone { background: #f8ece8; }
 .sports-match-page { background: #10151d; color: #fff; }
 .sports-match-page .match-scoreboard {
-  background: linear-gradient(90deg, #00351beb, #00351bc0), var(--pattern-rings) #07542d;
+  background: linear-gradient(90deg, #4a100ceb, #4a100cc0), var(--pattern-rings) #8a2118;
   border-radius: 8px;
   padding: clamp(20px, 4vw, 56px);
 }
@@ -99,20 +99,20 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
   background: linear-gradient(90deg, #420b16ee, #420b1699), var(--pattern-weave) #951b2a;
 }
 .public-road > .road-section {
-  background-color: #07542d;
-  background-image: linear-gradient(90deg, #00351b85, #00351bc9), var(--pattern-rings);
+  background-color: #8a2118;
+  background-image: linear-gradient(90deg, #4a100c85, #4a100cc9), var(--pattern-rings);
   background-size: auto, 360px 280px;
   color: #fff;
 }
-.public-road .road-section :is(.muted, .eyebrow, .section-title .eyebrow) { color: #e0edcd !important; }
+.public-road .road-section :is(.muted, .eyebrow, .section-title .eyebrow) { color: #f3dcd0 !important; }
 .public-road .road-section :is(.orange, .gold) { color: var(--pattern-yellow); }
 .public-road .road-section .road-step { border-bottom-color: #ffffff4d; }
 .public-road .road-section .road-step > span,
 .public-road .road-section .road-step p,
-.public-road .road-section .road-status { color: #e0edcd; }
+.public-road .road-section .road-status { color: #f3dcd0; }
 .public-road .road-section .road::before { background: linear-gradient(var(--pattern-yellow), #ffffff40); }
-.public-road .road-section .road-dot { background: #07542d; border-color: #e0edcd; }
-.public-road .road-section .road-step.current { background: #00351b99; border-color: #ffdf4280; }
+.public-road .road-section .road-dot { background: #8a2118; border-color: #f3dcd0; }
+.public-road .road-section .road-step.current { background: #4a100c99; border-color: #ffdf4280; }
 .public-road .road-section .road-step.current :is(h3, .road-status), .public-road .road-section .road-step.current > span { color: var(--pattern-yellow); }
 .public-road .road-section .road-step.current .road-dot { background: var(--pattern-yellow); border-color: var(--pattern-yellow); }
 .public-road .road-section .road-step:is(.completed, .qualified) h3 { color: var(--pattern-yellow); }
@@ -132,7 +132,7 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
   border-radius: 8px;
 }
 .public-players > h1 {
-  background: linear-gradient(90deg, #00351be8, #00351bb8), var(--pattern-rings) #07542d;
+  background: linear-gradient(90deg, #4a100ce8, #4a100cb8), var(--pattern-rings) #8a2118;
   color: #fff;
   padding: 24px;
   border-radius: 8px;
@@ -230,12 +230,12 @@ body { background: #091522; }
 :is(.public-page, .sports-page) .page-heading .eyebrow { color: #f1d9ad; }
 .sports-page .page-heading::after { display: none; }
 .event-home > section.road-section {
-  background-color: #07542d;
-  background-image: linear-gradient(90deg, #00351b85, #00351bc9), var(--pattern-rings);
+  background-color: #8a2118;
+  background-image: linear-gradient(90deg, #4a100c85, #4a100cc9), var(--pattern-rings);
   background-size: auto, 360px 280px;
   color: #fff;
 }
-.event-home .road-section :is(.muted, .eyebrow, .section-title .eyebrow) { color: #e0edcd; }
+.event-home .road-section :is(.muted, .eyebrow, .section-title .eyebrow) { color: #f3dcd0; }
 .event-home .road-section :is(.orange, .gold, .road-preview-link) { color: #ffdc45; }
 .event-home > section.pulse {
   background: linear-gradient(90deg, #420b16ed, #420b1680), var(--pattern-weave) #951b2a;
@@ -244,7 +244,7 @@ body { background: #091522; }
 .event-home .pulse :is(p, .eyebrow) { color: #fff1cf; }
 .event-home .group-preview > div {
   background: #fff;
-  border-top: 4px solid #17603a;
+  border-top: 4px solid #a02a20;
   padding: 24px;
 }
 .public-teams .team-group-letter { color: #976532; }
@@ -314,11 +314,11 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
   transition: background .2s, color .2s, box-shadow .2s;
 }
 .sports-page .tabs button::after { display: none; }
-.sports-page .tabs button:hover { background: #edf3eb; color: #07542d; }
+.sports-page .tabs button:hover { background: #f8ece8; color: #8a2118; }
 .sports-page .tabs button.active {
-  background: #07542d;
+  background: #8a2118;
   color: #fff;
-  box-shadow: 0 4px 12px #07542d55;
+  box-shadow: 0 4px 12px #8a211855;
 }
 .sports-page .tabs button.active::after { display: none; }
 @media (max-width: 600px) {
@@ -512,25 +512,25 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   border: 1px solid #192b3933;
   border-radius: 999px;
   background: #fff;
-  color: #07542d;
+  color: #8a2118;
   font-weight: 800;
   transition: background .2s, color .2s;
 }
-.empty-actions a:hover { background: #07542d; color: #fff; }
+.empty-actions a:hover { background: #8a2118; color: #fff; }
 /* One primary colour: green. Maroon is kept for special moments (honours podium, tournament pulse). */
 :is(.public-page, .sports-page) > .page-heading {
-  background-color: #07542d;
-  background-image: linear-gradient(90deg, #00351b66, #00351bd0), var(--pattern-rings);
+  background-color: #8a2118;
+  background-image: linear-gradient(90deg, #4a100c66, #4a100cd0), var(--pattern-rings);
 }
 :is(.public-page, .sports-page) .page-heading .eyebrow,
-.operator-page .page-heading .eyebrow { color: #e0edcd; }
-.operator-page > .page-heading { background: linear-gradient(90deg, #00351b99, #00351be8), var(--pattern-rings) #07542d; }
+.operator-page .page-heading .eyebrow { color: #f3dcd0; }
+.operator-page > .page-heading { background: linear-gradient(90deg, #4a100c99, #4a100ce8), var(--pattern-rings) #8a2118; }
 .system-message,
-.basketball-loading { background: linear-gradient(90deg, #00351be8, #00351be8), var(--pattern-rings) #07542d; }
-.editorial-club-opening { background: linear-gradient(90deg, #00351be8, #00351b8c), var(--pattern-rings) #07542d; }
-.public-news .article > h1 { background: linear-gradient(90deg, #00351bee, #00351bb0), var(--pattern-rings) #07542d; }
-.sports-match-page .broadcast-stage { background: linear-gradient(90deg, #00351bee, #00351b99), var(--pattern-rings) #07542d; }
-.tournament-ending { background: linear-gradient(90deg, #04150cf5 30%, #00351b99), var(--pattern-rings) #07542d; background-size: auto, 300px 230px; }
+.basketball-loading { background: linear-gradient(90deg, #4a100ce8, #4a100ce8), var(--pattern-rings) #8a2118; }
+.editorial-club-opening { background: linear-gradient(90deg, #4a100ce8, #4a100c8c), var(--pattern-rings) #8a2118; }
+.public-news .article > h1 { background: linear-gradient(90deg, #4a100cee, #4a100cb0), var(--pattern-rings) #8a2118; }
+.sports-match-page .broadcast-stage { background: linear-gradient(90deg, #4a100cee, #4a100c99), var(--pattern-rings) #8a2118; }
+.tournament-ending { background: linear-gradient(90deg, #8a2118f5 30%, #4a100c99), var(--pattern-rings) #8a2118; background-size: auto, 300px 230px; }
 .tournament-ending .ending-word { color: var(--pattern-yellow); }
 .public-news .empty::after { direction: ltr; unicode-bidi: isolate; }
 /* "More" menu for secondary sections. */
@@ -583,7 +583,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 .soon-count { display: flex; gap: 0; margin-bottom: 28px; max-width: 520px; }
 .soon-count > div { flex: 1; padding: 0 14px; border-inline-start: 1px solid #192b3933; }
 .soon-count > div:first-child { border-inline-start: 0; padding-inline-start: 0; }
-.soon-count strong { display: block; font: 52px/1 var(--font-display); color: #07542d; }
+.soon-count strong { display: block; font: 52px/1 var(--font-display); color: #8a2118; }
 .soon-count span { font: 11px Arial, sans-serif; letter-spacing: .12em; color: #526067; }
 .soon-days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 20px; }
 .soon-days > div {
@@ -592,7 +592,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   padding: 16px 14px;
   background: #fff;
   border: 1px solid #192b3918;
-  border-top: 4px solid #07542d;
+  border-top: 4px solid #8a2118;
   border-radius: 8px;
 }
 .soon-days small { font: 11px Arial, sans-serif; letter-spacing: .12em; color: #526067; }
@@ -654,7 +654,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   border-radius: 2px;
 }
 .event-home .schedule-note {
-  background: linear-gradient(90deg, #00351bd0, #00351b99), var(--pattern-rings) #07542d;
+  background: linear-gradient(90deg, #4a100cd0, #4a100c99), var(--pattern-rings) #8a2118;
   background-size: auto, 300px 230px;
   color: #fff;
   border: 0;
@@ -662,7 +662,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   padding: clamp(20px, 3vw, 36px);
 }
 .event-home .schedule-note :is(h3, p) { color: #fff; }
-.event-home .schedule-note p { color: #e0edcd; }
+.event-home .schedule-note p { color: #f3dcd0; }
 .event-home .schedule-note .schedule-icon { color: var(--pattern-yellow); }
 .event-home .schedule-note .text-link { color: var(--pattern-yellow); }
 .event-home .group-preview > div {
@@ -675,13 +675,13 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 .event-home .group-preview > div > h3 {
   margin: 0 0 6px;
   padding: 18px 24px;
-  background: linear-gradient(90deg, #00351bd0, #00351b99), var(--pattern-rings) #07542d;
+  background: linear-gradient(90deg, #4a100cd0, #4a100c99), var(--pattern-rings) #8a2118;
   background-size: auto, 260px 200px;
   color: #fff;
   letter-spacing: .06em;
 }
 .event-home .group-preview > div > a { padding-inline: 24px; }
-.event-home .group-preview > div > a:hover { background: #edf3eb; }
+.event-home .group-preview > div > a:hover { background: #f8ece8; }
 /* Live stream player. */
 .stream-player { margin-block: 24px; }
 .stream-frame {
@@ -689,7 +689,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   width: 100%;
   max-width: 960px;
   aspect-ratio: 16 / 9;
-  background: #04150c;
+  background: #8a2118;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 16px 40px #10151d33;
@@ -700,7 +700,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   margin-top: 12px;
   padding: 10px 20px;
   border-radius: 999px;
-  background: #07542d;
+  background: #8a2118;
   color: #fff;
   font-weight: 800;
   font-size: 14px;
@@ -756,12 +756,12 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   display: inline-block;
   padding: 5px 14px;
   border-radius: 999px;
-  background: #edf3eb;
-  color: #07542d;
+  background: #f8ece8;
+  color: #8a2118;
   font: 700 11px/1.6 Arial, sans-serif;
   letter-spacing: .14em;
 }
-.event-home .road-section .section-title .eyebrow { background: #ffffff1c; color: #e0edcd; }
+.event-home .road-section .section-title .eyebrow { background: #ffffff1c; color: #f3dcd0; }
 /* Stats ribbon: closer to the hero and bigger. */
 .poster-facts strong { font-size: clamp(26px, 2.8vw, 40px); }
 .poster-facts { padding-block: clamp(20px, 2.4vw, 34px); }
@@ -783,7 +783,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   isolation: isolate;
   border: 0;
   border-radius: 20px;
-  background: linear-gradient(160deg, #0a6a38, #00351b);
+  background: linear-gradient(160deg, #b3302a, #4a100c);
   color: #fff;
 }
 .news-list > a:first-child { grid-column: span 2; min-height: 360px; }
@@ -807,8 +807,8 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   justify-content: space-between;
   align-items: center;
   padding: 7px clamp(20px, 3.2vw, 56px);
-  background: #04150c;
-  color: #e0edcd;
+  background: #8a2118;
+  color: #f3dcd0;
   font: 600 11px/1.4 Arial, sans-serif;
   letter-spacing: .14em;
 }
@@ -817,7 +817,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
 
 /* ===== Phone pass: readable micro-labels, comfortable tap targets, contrast ===== */
 .event-home .schedule-note p, .event-home .schedule-note :is(h3) { color: #fff; }
-.event-home .schedule-note p { color: #e0edcd !important; }
+.event-home .schedule-note p { color: #f3dcd0 !important; }
 @media (max-width: 700px) {
   .tournament-brand-location, .event-meta span, .menu-context span, .menu-foot span,
   .poster-eyebrow, .tournament-ending > small, .page-heading .eyebrow, .eyebrow,
@@ -864,9 +864,9 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   margin: 0 0 24px;
   padding: 6px;
   background: #fff;
-  border: 1px solid #d5ddd6;
+  border: 1px solid #e8d6d0;
   border-radius: 14px;
-  box-shadow: 0 6px 18px #0b1a1214;
+  box-shadow: 0 6px 18px #1c0f0d14;
   scrollbar-width: none;
 }
 .operator-page .admin .tabs::-webkit-scrollbar { display: none; }
@@ -877,13 +877,13 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   border: 0;
   border-radius: 10px;
   background: transparent;
-  color: #33423a;
+  color: #4a3733;
   font-size: 15px;
   font-weight: 700;
   white-space: nowrap;
 }
-.operator-page .admin .tabs button:hover { background: #edf3eb; color: #07542d; }
-.operator-page .admin .tabs button.active { background: #07542d; color: #fff; }
+.operator-page .admin .tabs button:hover { background: #f8ece8; color: #8a2118; }
+.operator-page .admin .tabs button.active { background: #8a2118; color: #fff; }
 .operator-page .admin .tabs button:last-child { margin-inline-start: auto; color: #8a2a1f; }
 .operator-page .admin .tabs button:last-child:hover { background: #fbeceb; color: #8a2a1f; }
 .operator-page .admin > :is(label, p, .controls, .editor-fields, textarea, section, .audit, .health-row, .live-room, .empty) {
@@ -894,9 +894,9 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   margin-bottom: 20px;
   padding: 18px;
   background: #fff;
-  border: 2px dashed #9db3a3;
+  border: 2px dashed #cfa9a0;
   border-radius: 14px;
-  color: #33423a;
+  color: #4a3733;
   font-weight: 700;
 }
 .operator-page .admin-upload input[type="file"] {
@@ -904,39 +904,39 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   width: 100%;
   margin-top: 12px;
   padding: 10px;
-  background: #f4f7f3;
-  border: 1px solid #d5ddd6;
+  background: #fbf3f0;
+  border: 1px solid #e8d6d0;
   border-radius: 10px;
   font-weight: 500;
 }
-.operator-page .admin > label { display: block; margin-bottom: 14px; font-weight: 700; color: #33423a; }
+.operator-page .admin > label { display: block; margin-bottom: 14px; font-weight: 700; color: #4a3733; }
 .operator-page .admin > label select { display: block; width: 100%; margin-top: 8px; min-height: 48px; border-radius: 10px; }
-.operator-page .admin > p { margin: 0 0 18px; color: #4d5c54; line-height: 1.8; }
+.operator-page .admin > p { margin: 0 0 18px; color: #5c4742; line-height: 1.8; }
 .operator-page .controls { gap: 8px; margin: 14px 0 22px; }
 .operator-page .controls button { border-radius: 999px; padding: 8px 18px; font-weight: 700; }
-.operator-page .controls button:first-child { background: #07542d; color: #fff; border-color: #07542d; }
+.operator-page .controls button:first-child { background: #8a2118; color: #fff; border-color: #8a2118; }
 .operator-page .editor-fields {
   padding: 20px;
   background: #fff;
-  border: 1px solid #d5ddd6;
+  border: 1px solid #e8d6d0;
   border-radius: 14px;
   gap: 16px;
 }
-.operator-page .editor-fields label { font-weight: 700; color: #33423a; }
+.operator-page .editor-fields label { font-weight: 700; color: #4a3733; }
 .operator-page .editor-fields :is(input, select, textarea) { margin-top: 6px; border-radius: 10px; }
 .operator-page .live-room { gap: 16px; }
-.operator-page .live-room > div { border: 1px solid #d5ddd6; border-radius: 14px; box-shadow: 0 6px 18px #0b1a120d; }
+.operator-page .live-room > div { border: 1px solid #e8d6d0; border-radius: 14px; box-shadow: 0 6px 18px #1c0f0d0d; }
 .operator-page .health-row,
 .operator-page .audit details {
   background: #fff;
-  border: 1px solid #d5ddd6;
+  border: 1px solid #e8d6d0;
   border-radius: 12px;
   padding: 14px 16px;
   margin-bottom: 8px;
   color: #101b22;
 }
-.operator-page .health-row span { color: #4d5c54; }
-.operator-page .admin-confirm { border-color: #07542d; border-radius: 16px; inset: 10% max(20px, calc(50% - 360px)); }
+.operator-page .health-row span { color: #5c4742; }
+.operator-page .admin-confirm { border-color: #8a2118; border-radius: 16px; inset: 10% max(20px, calc(50% - 360px)); }
 @media (max-width: 600px) {
   .operator-page .admin .tabs { top: 0; border-radius: 12px; margin-bottom: 18px; }
   .operator-page .admin .tabs button { padding: 8px 14px; font-size: 14px; }
@@ -948,14 +948,14 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
 .operator-page .audit { display: grid; gap: 10px; }
 .operator-page .audit .audit-item {
   background: #fff;
-  border: 1px solid #d5ddd6;
-  border-inline-start: 5px solid #9db3a3;
+  border: 1px solid #e8d6d0;
+  border-inline-start: 5px solid #cfa9a0;
   border-radius: 12px;
   padding: 0;
   margin: 0;
   color: #101b22;
 }
-.operator-page .audit .audit-save { border-inline-start-color: #07542d; }
+.operator-page .audit .audit-save { border-inline-start-color: #8a2118; }
 .operator-page .audit .audit-fiba-update,
 .operator-page .audit .audit-fiba-create { border-inline-start-color: #1d6fb8; }
 .operator-page .audit .audit-correct { border-inline-start-color: #b4361f; }
@@ -974,8 +974,8 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
 .operator-page .audit .audit-badge {
   padding: 3px 12px;
   border-radius: 999px;
-  background: #edf3eb;
-  color: #07542d;
+  background: #f8ece8;
+  color: #8a2118;
   font-size: 13px;
   font-weight: 800;
   white-space: nowrap;
@@ -986,13 +986,13 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
 .operator-page .audit .audit-login .audit-badge,
 .operator-page .audit .audit-logout .audit-badge { background: #f4efe0; color: #6e5f32; }
 .operator-page .audit .audit-kind { font-size: 15px; }
-.operator-page .audit .audit-target { color: #4d5c54; font-size: 13px; overflow-wrap: anywhere; }
-.operator-page .audit .audit-meta { color: #4d5c54; font-size: 13px; text-align: end; }
+.operator-page .audit .audit-target { color: #5c4742; font-size: 13px; overflow-wrap: anywhere; }
+.operator-page .audit .audit-meta { color: #5c4742; font-size: 13px; text-align: end; }
 .operator-page .audit .audit-item > :not(summary) { margin: 0 16px 14px; }
 .operator-page .audit .audit-changes {
   list-style: none;
   padding: 10px 12px;
-  background: #f4f7f3;
+  background: #fbf3f0;
   border-radius: 10px;
   display: grid;
   gap: 6px;
@@ -1005,8 +1005,8 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   font-size: 14px;
 }
 .operator-page .audit .audit-from { color: #8a2a1f; opacity: 0.85; overflow-wrap: anywhere; }
-.operator-page .audit .audit-to { color: #07542d; font-weight: 700; overflow-wrap: anywhere; }
-.operator-page .audit .audit-raw { border: 0; padding: 0; font-size: 13px; color: #4d5c54; }
+.operator-page .audit .audit-to { color: #8a2118; font-weight: 700; overflow-wrap: anywhere; }
+.operator-page .audit .audit-raw { border: 0; padding: 0; font-size: 13px; color: #5c4742; }
 .operator-page .audit .audit-raw pre { background: #101b22; color: #d8ee55; padding: 12px; border-radius: 10px; }
 @media (max-width: 700px) {
   .operator-page .audit .audit-item > summary { grid-template-columns: auto 1fr; }
@@ -1070,12 +1070,12 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   margin: 0;
   padding: 14px 22px;
   border-radius: 14px;
-  background: #07542d;
+  background: #1f6f3a;
   color: #fff;
   border: 0;
   font-size: 17px;
   font-weight: 800;
-  box-shadow: 0 14px 34px #0b1a1255;
+  box-shadow: 0 14px 34px #1c0f0d55;
   animation: admin-toast-in 0.25s ease-out both;
 }
 .operator-page .admin-toast span { margin-inline-end: 6px; color: #d8ee55; }
