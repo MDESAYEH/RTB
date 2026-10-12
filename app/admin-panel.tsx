@@ -282,7 +282,7 @@ export function Admin({
     return (
       <div className="login">
         <div className="admin-login-brand">
-          <TournamentLogo />
+          <TournamentLogo header />
           <span>
             ROAD TO BAL<small>TRIPOLI · LIBYA</small>
           </span>
