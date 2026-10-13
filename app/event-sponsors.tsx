@@ -11,7 +11,7 @@ const sponsors: {
   caption?: string;
 }[] = [
   { file: "Artboard 3-8.png", name: "وزارة الرياضة", width: 1920, height: 1921, href: "https://mos.gov.ly", caption: "برعاية" },
-  { file: "al-ittihad.svg", name: "نادي الاتحاد الليبي", width: 154, height: 213, href: "/teams/al-ittihad", caption: "باستضافة" },
+  { file: "al-ittihad-light.svg", name: "نادي الاتحاد الليبي", width: 154, height: 213, href: "/teams/al-ittihad", caption: "باستضافة" },
   { file: "Frame 5071.svg", name: "FIBA Africa", width: 4500, height: 2387, href: "https://www.fiba.basketball/en/africa", caption: "باعتماد" },
 ];
 
