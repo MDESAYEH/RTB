@@ -67,8 +67,8 @@ export function NewsArticle({
         {news.sourceUrl && news.content !== news.excerpt && (
           <h3 className="news-details-label">
             {copy(
-              "تفاصيل الخبر · ملخص تحريري",
-              "Story details · Editorial summary",
+              "تفاصيل الخبر",
+              "Story details",
             )}
           </h3>
         )}
