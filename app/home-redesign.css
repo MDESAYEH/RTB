@@ -12,7 +12,7 @@
   --rd-pill: #fbf2f4;
   --rd-line: #eadfdc;
   --rd-topo: url("/patterns/hero-topo.svg");
-  --rd-topo-light: url("/patterns/hero-topo-light.svg");
+  --rd-topo-light: var(--tournament-pattern);
 }
 
 /* ---------- Chrome: slim red bar + solid white header ---------- */

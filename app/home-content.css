@@ -3,8 +3,8 @@
   --rd-red: #a2211d;
   --rd-ink: #003c52;
   --rd-muted: #78919c;
-  --rd-pattern: url("/patterns/contours.svg");
-  --rd-white-topo: url("/patterns/white-topo.svg");
+  --rd-pattern: var(--tournament-pattern);
+  --rd-white-topo: var(--tournament-pattern);
 }
 .rd-home {
   background: #fff;

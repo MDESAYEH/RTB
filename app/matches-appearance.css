@@ -16,7 +16,7 @@
 }
 .match-banner {
   padding: 40px max(24px, calc((100vw - 1280px) / 2));
-  background: #941f1a url("/patterns/contours.svg") center/cover;
+  background: #941f1a var(--tournament-pattern) center/cover;
   color: white;
 }
 .match-banner small {
@@ -471,7 +471,7 @@
   padding: 25px;
   background:
     radial-gradient(ellipse at center, #0e485a, transparent 70%),
-    url("/patterns/contours.svg") center/cover;
+    var(--tournament-pattern) center/cover;
   border-radius: 15px;
 }
 .live-waiting .tournament-logo {
@@ -955,7 +955,7 @@ main#main.news-redesign {
   inset: 0;
   height: 100%;
   aspect-ratio: auto;
-  background: #003c52 url("/patterns/contours.svg") center/cover;
+  background: #003c52 var(--tournament-pattern) center/cover;
   color: #ffffff50;
   z-index: -2;
 }

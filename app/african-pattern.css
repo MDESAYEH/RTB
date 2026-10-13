@@ -3,8 +3,8 @@
   --pattern-green: #8a2118;
   --pattern-yellow: #ffdf42;
   --pattern-red: #6b1724;
-  --pattern-rings: url('/patterns/african-rings.svg');
-  --pattern-weave: url('/patterns/african-weave.svg');
+  --pattern-rings: var(--tournament-pattern);
+  --pattern-weave: var(--tournament-pattern);
 }
 /* Shared chrome and feedback, including the operator workspace. */
 .tournament-menu {

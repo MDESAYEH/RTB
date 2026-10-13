@@ -4,7 +4,7 @@
   --admin-ink: #003c52;
   --admin-muted: #6c8491;
   --admin-line: #e3e9ed;
-  --admin-pattern: url("/patterns/contours.svg");
+  --admin-pattern: var(--tournament-pattern);
   --line: var(--admin-line);
   --muted: var(--admin-muted);
   background: #f7f9fb;

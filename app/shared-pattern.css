@@ -1,0 +1,18 @@
+/* One shared motif, matching the home page's red sections. */
+:root {
+  --tournament-pattern: url("/patterns/white-topo.svg");
+}
+/* Earlier pages tiled their previous motifs; use the home page's scale. */
+:is(.public-page, .sports-page, .operator-page) > .page-heading,
+.editorial-club-opening,
+.club-podium,
+.stade-closing,
+.public-road .road-section,
+.basketball-loading,
+.system-message,
+.sports-match-page .broadcast-stage,
+.tournament-ending {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
