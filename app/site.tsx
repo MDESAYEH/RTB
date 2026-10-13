@@ -50,7 +50,8 @@ type Stat = {
 };
 function Badge({ team }: { team: Team }) {
   const { tr } = useLang();
-  const logo = team.sourceLogo || team.logo || getTeamIdentity(team.id)?.logoAsset;
+  const logo =
+    team.sourceLogo || team.logo || getTeamIdentity(team.id)?.logoAsset;
   if (logo)
     return (
       <Image
@@ -289,14 +290,37 @@ export default function Site({
       ),
       played = rows.some((r) => r.p);
     return (
-      <div className="standings-wrap">
+      <div
+        className={`standings-wrap${route === "standings" ? ` standings-card group-color-${g.toLowerCase()}` : ""}`}
+      >
         <div className="group-heading">
-          <span>GROUP {g}</span>
-          <span className="muted">
-            {lang === "ar"
-              ? `أول ${s.qualificationSlots} إلى Elite 16`
-              : `Top ${s.qualificationSlots} advance to Elite 16`}
-          </span>
+          {route === "standings" ? (
+            <>
+              <div>
+                <h2 dir="ltr">GROUP {g}</h2>
+                <small>
+                  {lang === "ar"
+                    ? g === "A"
+                      ? "المجموعة الأولى"
+                      : g === "B"
+                        ? "المجموعة الثانية"
+                        : `المجموعة ${g}`
+                    : `Group ${g}`}{" "}
+                  · {rows.length} {tr("فرق")}
+                </small>
+              </div>
+              <b className="standings-letter">{g}</b>
+            </>
+          ) : (
+            <>
+              <span>GROUP {g}</span>
+              <span className="muted">
+                {lang === "ar"
+                  ? `أول ${s.qualificationSlots} إلى Elite 16`
+                  : `Top ${s.qualificationSlots} advance to Elite 16`}
+              </span>
+            </>
+          )}
         </div>
         {!played && (
           <p className="muted">
@@ -338,6 +362,7 @@ export default function Site({
                     <Badge team={r.team} />
                     <span dir="auto">
                       {r.team.name}
+                      {route === "standings" && lang === "ar" && <small className="standings-team-sub">{getTeamIdentity(r.team.id)?.arabicName || tr(r.team.country)}</small>}
                       <small className="mobile-aux">
                         {played
                           ? `P ${r.p} · PF ${r.pf} · PA ${r.pa}`
@@ -807,14 +832,52 @@ export default function Site({
   else if (route === "standings")
     content = (
       <>
+        <div className="standings-intro">
+          <div>
+            <small>
+              {lang === "ar" ? "الطريق إلى Elite 16" : "The road to Elite 16"}
+            </small>
+            <h2>
+              {lang === "ar"
+                ? "مجموعتان. طموح واحد."
+                : "Two groups. One ambition."}
+            </h2>
+            <p>
+              {lang === "ar"
+                ? `يتأهل أول ${s.qualificationSlots} من كل مجموعة إلى المرحلة التالية.`
+                : `The top ${s.qualificationSlots} teams in each group advance to the next stage.`}
+            </p>
+          </div>
+          <div className="standings-summary">
+            <span>
+              <b>{teams.length}</b>
+              {tr("الفرق")}
+            </span>
+            <span>
+              <b>{s.groups.length}</b>
+              {tr("المجموعات")}
+            </span>
+            <span>
+              <b>{games.filter((g) => g.status === "Ended").length}</b>
+              {lang === "ar" ? "مباريات مكتملة" : "Completed games"}
+            </span>
+          </div>
+        </div>
         <div className="tabs group-switch">
           {s.groups.map((g) => (
             <button
               key={g}
               className={group === g ? "active" : ""}
+              aria-pressed={group === g}
               onClick={() => setGroup(g)}
             >
-              GROUP {g}
+              {lang === "ar"
+                ? g === "A"
+                  ? "المجموعة الأولى"
+                  : g === "B"
+                    ? "المجموعة الثانية"
+                    : `المجموعة ${g}`
+                : `GROUP ${g}`}
             </button>
           ))}
         </div>
@@ -874,7 +937,15 @@ export default function Site({
         <div className="team-editorial-prototype">
           <ClubRoadLine />
           {historicalProfile && (
-            <EditorialClubProfile profile={{...historicalProfile,displayName:t.name,officialTournamentName:t.name,country:t.country}} sourceLogo={t.sourceLogo} />
+            <EditorialClubProfile
+              profile={{
+                ...historicalProfile,
+                displayName: t.name,
+                officialTournamentName: t.name,
+                country: t.country,
+              }}
+              sourceLogo={t.sourceLogo}
+            />
           )}
           <StadeTournamentHub
             team={t}

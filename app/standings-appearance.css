@@ -1,0 +1,252 @@
+/* Group standings share the home page's white cards, navy type and coloured group headers. */
+main.sports-standings {
+  background: white;
+  color: #003c52;
+  padding-bottom: 55px;
+  --utility-ink: #003c52;
+  --utility-soft: #78919c;
+  --utility-rule: #e5ecf0;
+}
+.sports-standings > .page-heading {
+  background-color: #a2211d;
+  color: white;
+  padding-block: 38px;
+  border: 0;
+  margin-bottom: 0;
+}
+.sports-standings > .page-heading h1 {
+  font-size: clamp(30px, 3.5vw, 44px);
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: white;
+}
+.sports-standings > .page-heading .eyebrow {
+  font-size: 11px;
+  color: #ffffffb3;
+  letter-spacing: 1.5px;
+}
+.sports-standings .standings-intro {
+  max-width: 1280px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  padding-block: 45px 30px;
+}
+.standings-intro > div > small {
+  font-size: 14px;
+  color: #a2211d;
+  font-weight: 700;
+}
+.standings-intro h2 {
+  font-size: clamp(22px, 2.5vw, 32px);
+  margin: 8px 0;
+  color: #003c52;
+}
+.standings-intro p {
+  font-size: 14px;
+  color: #78919c;
+  margin: 0;
+}
+.standings-summary {
+  display: flex;
+  gap: 30px;
+  flex-shrink: 0;
+}
+.standings-summary > span {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 11px;
+  color: #78919c;
+  gap: 5px;
+}
+.standings-summary b {
+  font-family: var(--font-display), sans-serif;
+  font-size: 32px;
+  color: #a2211d;
+}
+.sports-standings .standings-grid {
+  gap: 25px;
+  align-items: start;
+  margin-top: 0;
+}
+main.sports-standings .group-panel > .standings-wrap.standings-card {
+  padding: 0;
+  border: 1px solid #e1e8ed;
+  border-radius: 20px;
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 4px 12px #003c5208;
+}
+.sports-standings .standings-card .group-heading {
+  padding: 22px 25px;
+  margin: 0;
+  background: #00702d var(--tournament-pattern) center/cover;
+  border: 0;
+  color: white;
+  align-items: center;
+}
+.sports-standings .group-color-b .group-heading {
+  background-color: #2b4085;
+}
+.sports-standings .group-heading h2 {
+  font-family: inherit;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin: 0 0 6px;
+  color: white;
+  letter-spacing: 0.5px;
+}
+.sports-standings .group-heading small {
+  color: #ffffffbd;
+  font-size: 12px;
+}
+.sports-standings .standings-letter {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  background: white;
+  border-radius: 50%;
+  color: #003c52;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.sports-standings .standings-card > p {
+  padding: 14px 20px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.8;
+  background: #f8fafb;
+  color: #78919c;
+  max-width: none;
+  border-bottom: 1px solid #e5ecf0;
+}
+.sports-standings .standings-card table {
+  margin: 0;
+  width: 100%;
+  font-size: 13px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.sports-standings .standings-card th,
+.sports-standings .standings-card td {
+  padding: 18px 6px;
+  border-color: #edf1f4;
+}
+.sports-standings .standings-card thead th {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+  padding-block: 14px;
+  background: #f8fafb;
+  color: #78919c;
+}
+.sports-standings .standings-card td:first-child {
+  font-family: inherit;
+  font-size: 13px;
+  color: #78919c;
+}
+.sports-standings .standings-card td:last-child {
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 800;
+  color: #a2211d;
+}
+.sports-standings .standings-card th:nth-child(2),
+.sports-standings .standings-card td:nth-child(2) {
+  width: 40%;
+}
+.sports-standings .standings-card td:nth-child(2) a {
+  gap: 10px;
+  min-height: 42px;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: normal;
+}
+.sports-standings .standings-card td:nth-child(2) a > span {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.sports-standings .standings-card :is(.team-logo, .team-badge) {
+  width: 34px;
+  height: 34px;
+  flex-basis: 34px;
+  filter: none;
+}
+.sports-standings .standings-card .zone {
+  background: #f0f9f3;
+}
+.sports-standings .standings-card .zone td:first-child {
+  border-inline-start: 3px solid #00702d;
+  color: #00702d;
+}
+.sports-standings .standings-card tbody tr:last-child td {
+  border-bottom: 0;
+}
+.sports-standings .standings-team-sub {display:block;color:#78919c;font-size:10px;font-weight:400;margin-top:3px;}
+.sports-standings .group-switch {
+  border: 1px solid #e1e8ed;
+  border-radius: 30px;
+  padding: 5px;
+  max-width: max-content;
+  background: #f8fafb;
+  margin-bottom: 22px;
+}
+.sports-standings .group-switch button {
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-size: 13px;
+  color: #003c52;
+}
+.sports-standings .group-switch button.active {
+  background: #a2211d;
+  color: white;
+}
+@media (min-width: 901px) {
+  .sports-standings .group-switch {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .sports-standings .standings-intro {
+    align-items: flex-start;
+    flex-direction: column;
+    padding-block: 30px 20px;
+    gap: 20px;
+  }
+  .standings-summary {
+    gap: 35px;
+  }
+  .sports-standings .standings-grid {
+    grid-template-columns: 1fr;
+  }
+  .sports-standings .standings-card td:nth-child(2) a > span {
+    font-size: 13px;
+  }
+  .sports-standings .standings-card .group-heading {
+    padding: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .sports-standings .standings-card th,
+  .sports-standings .standings-card td {
+    padding-inline: 4px;
+  }
+  .sports-standings .standings-card th:nth-child(2),
+  .sports-standings .standings-card td:nth-child(2) {
+    width: 43%;
+  }
+  .sports-standings .standings-card td:nth-child(2) a {
+    gap: 7px;
+  }
+  .sports-standings .group-heading h2 {
+    font-size: 24px;
+  }
+  .sports-standings .standings-card > p {
+    font-size: 10px;
+    padding: 12px 15px;
+  }
+}

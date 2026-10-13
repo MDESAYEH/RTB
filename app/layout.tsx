@@ -14,6 +14,7 @@ import "./home-content.css";
 import "./admin-appearance.css";
 import "./matches-appearance.css";
 import "./shared-pattern.css";
+import "./standings-appearance.css";
 import "@fontsource-variable/cairo/wght.css";
 import "@fontsource-variable/noto-kufi-arabic/wght.css";
 const displayFont = localFont({
