@@ -77,6 +77,12 @@ main.sports-standings {
   line-height: 1;
   color: #a2211d;
 }
+/* Very light tints of the three colours on the page: red (heading), green (Group A), blue (Group B). */
+.standings-summary > span:nth-child(1) { background: #fdf5f4; border-color: #f3dedc; }
+.standings-summary > span:nth-child(2) { background: #f2f8f4; border-color: #d9eadf; }
+.standings-summary > span:nth-child(2) b { color: #00702d; }
+.standings-summary > span:nth-child(3) { background: #f3f5fb; border-color: #dde2f1; }
+.standings-summary > span:nth-child(3) b { color: #2b4085; }
 .sports-standings .standings-grid {
   gap: 25px;
   align-items: start;
