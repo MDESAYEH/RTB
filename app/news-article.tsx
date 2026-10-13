@@ -4,14 +4,16 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import type { News } from "@/lib/public-domain";
 import { useLang } from "./i18n";
+import { importedNewsDetails } from "@/lib/providers/fiba/news-details";
 
 export function NewsArticle({
-  news,
+  news: record,
   date,
 }: {
   news: News;
   date: (value: string) => string;
 }) {
+  const news = importedNewsDetails(record);
   const { lang } = useLang();
   const copy = (ar: string, en: string) => (lang === "ar" ? ar : en);
   const title = lang === "en" && news.titleEn ? news.titleEn : news.title;

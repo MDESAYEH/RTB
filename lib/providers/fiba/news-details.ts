@@ -30,3 +30,15 @@ export function reviewedNewsDetails(slug: string, body: unknown) {
     ? entry
     : undefined;
 }
+
+/** Backfill already imported official records while their next sync is pending. */
+export function importedNewsDetails(news: {sourceUrl?: string; content: string; excerpt: string; title: string; contentEn?: string}) {
+  if (!news.sourceUrl || news.content !== news.excerpt) return news;
+  let source: URL;
+  try { source = new URL(news.sourceUrl); } catch { return news; }
+  if (source.origin !== "https://www.fiba.basketball") return news;
+  const slug = source.pathname.split("/").pop() ?? "";
+  const entry = details[slug];
+  if (!entry) return news;
+  return {...news,content:entry.ar,contentEn:entry.en};
+}
