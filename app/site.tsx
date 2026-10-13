@@ -16,6 +16,7 @@ import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
+import { NewsArticle } from "./news-article";
 import { NewsContent } from "./news-content";
 import { LiveCenter } from "./live-center";
 import { MatchesContent } from "./matches-content";
@@ -925,30 +926,7 @@ export default function Site({
     );
   } else if (route === "news" && path[1]) {
     const n = data.news.find((n) => n.slug === path[1])!;
-    content = (
-      <article className="article">
-        <span className="eyebrow">
-          {date(n.publishedAt)} · {n.author}
-        </span>
-        <h1>{lang === "en" && n.titleEn ? n.titleEn : n.title}</h1>
-        {n.cover && (
-          <Image
-            className="news-cover"
-            src={n.cover}
-            alt=""
-            width={1200}
-            height={640}
-            sizes="(max-width:1200px) 90vw, 1100px"
-          />
-        )}
-        <p className="lead">
-          {lang === "en" && n.excerptEn ? n.excerptEn : n.excerpt}
-        </p>
-        <div className="article-body">
-          {lang === "en" && n.contentEn ? n.contentEn : n.content}
-        </div>
-      </article>
-    );
+    content = <NewsArticle news={n} date={date} />;
   } else if (route === "news")
     content = <NewsContent news={data.news} date={date} />;
   else content = <Admin data={data} onData={acceptData} />;
@@ -979,7 +957,7 @@ export default function Site({
             : ["matches", "standings", "stats"].includes(route)
               ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : route === "matches" ? "matches-redesign" : ""}`
               : route !== "admin" && route !== "team"
-                ? `public-page public-${route}${route === "news" && !path[1] ? " news-redesign" : ""}`
+                ? `public-page public-${route}${route === "news" ? " news-redesign" : ""}`
                 : route === "admin"
                   ? "operator-page"
                   : "club-page"
