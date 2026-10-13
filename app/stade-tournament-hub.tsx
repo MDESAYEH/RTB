@@ -63,7 +63,7 @@ export function ClubMatchLine({
               : "/teams"
         }
       >
-        <ClubRoadMark id={opponent?.id || ""} name={opponent?.name || ""} />
+        <ClubRoadMark id={opponent?.id || ""} name={opponent?.name || ""} sourceLogo={opponent?.sourceLogo} />
         <span>{opponent?.name}</span>
       </Link>
       <Link
@@ -154,7 +154,7 @@ export function StadeTournamentHub({
               }
             >
               <span className="hub-logo-frame">
-                <ClubRoadMark id={t.id} name={t.name} />
+                <ClubRoadMark id={t.id} name={t.name} sourceLogo={t.sourceLogo} />
               </span>
               <strong dir="ltr">{t.name}</strong>
               <small>

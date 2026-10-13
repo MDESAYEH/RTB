@@ -1,3 +1,11 @@
+## Current synchronization policy — 13 October 2026
+
+The user's official-source policy supersedes the historical precedence and coverage notes below. Production sync defaults to authoritative FIBA data for Tripoli groups A/B: official team names, countries, group membership and organisation logos; published fixture participants, dates, venue, status and scores; official news titles, summaries, dates, images and source links. Local admin edits to those fields are corrected on the next sync. Stable FIBA team identifiers preserve identity; an existing matching local fixture is updated rather than duplicated. Newly published in-scope clubs can be created automatically. The legacy non-authoritative option is retained only for explicit callers and regression coverage.
+
+Only facts FIBA actually publishes are applied. Arabic translations, club history, site branding/settings, broadcast links, clocks, periods, player statistics and play-by-play remain local where this integration has no verified public data shape. Missing fixtures/dates or unknown statuses are skipped; missing records are not automatically deleted. Public news uses the source abstract with a link to the complete original, not full article republication. Official images remain hosted by FIBA. Runs are validated before writing and recorded in the sync audit. GitHub's scheduled workflow runs every ten minutes when production secrets are configured.
+
+---
+
 # Data-source verification — 5 October 2026
 
 No private/reverse-engineered endpoint was contacted. Search results and official accessible pages were inspected using web tools. Accessibility of a public page does not establish a licensed API.

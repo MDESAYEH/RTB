@@ -7,7 +7,7 @@ import {
 } from "@/lib/club-presentation";
 import { ClubRoadMark, ClubCourt } from "./club-road-primitives";
 import { useLang } from "./i18n";
-export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
+export function EditorialClubProfile({ profile: p, sourceLogo }: { profile: ClubProfile; sourceLogo?: string }) {
   const { lang, dir, tr, td } = useLang();
   const f = clubFeature(p),
     mode = clubPresentation(p),
@@ -43,7 +43,7 @@ export function EditorialClubProfile({ profile: p }: { profile: ClubProfile }) {
           </h1>
         </div>
         <div className="club-crest-block">
-          <ClubRoadMark id={p.id} name={p.displayName} fallback={p.shortName} />
+          <ClubRoadMark id={p.id} name={p.displayName} fallback={p.shortName} sourceLogo={sourceLogo} />
           <div className="club-crest-coordinate" dir="ltr">
             <span>GROUP {p.group}</span>
             {p.foundedYear && <span>EST. {p.foundedYear}</span>}

@@ -50,12 +50,13 @@ type Stat = {
 };
 function Badge({ team }: { team: Team }) {
   const { tr } = useLang();
-  const logo = team.logo || getTeamIdentity(team.id)?.logoAsset;
+  const logo = team.sourceLogo || team.logo || getTeamIdentity(team.id)?.logoAsset;
   if (logo)
     return (
       <Image
         className="team-logo"
         src={logo}
+        unoptimized={!!team.sourceLogo}
         alt={team.name}
         width={42}
         height={42}
@@ -873,7 +874,7 @@ export default function Site({
         <div className="team-editorial-prototype">
           <ClubRoadLine />
           {historicalProfile && (
-            <EditorialClubProfile profile={historicalProfile} />
+            <EditorialClubProfile profile={{...historicalProfile,displayName:t.name,officialTournamentName:t.name,country:t.country}} sourceLogo={t.sourceLogo} />
           )}
           <StadeTournamentHub
             team={t}

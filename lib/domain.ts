@@ -1,11 +1,23 @@
 import { transitions } from "./public-domain";
-export { transitions, stale, remainingClock, standings, qualification } from "./public-domain";
+export {
+  transitions,
+  stale,
+  remainingClock,
+  standings,
+  qualification,
+} from "./public-domain";
 import { z } from "zod";
 export const mediaSchema = z
   .string()
   .regex(/^\/api\/media\/[a-f0-9]{64}\.(png|jpg|webp)$/)
   .optional();
 export const teamSchema = z.object({
+  fibaTeamId: z.number().int().positive().optional(),
+  sourceLogo: z
+    .string()
+    .url()
+    .refine((v) => v.startsWith("https://assets.fiba.basketball/"))
+    .optional(),
   id: z.string().min(1).max(80),
   name: z.string().min(2).max(100),
   country: z.string().max(80),
@@ -92,8 +104,18 @@ export const settingsSchema = z
     "Win points must exceed loss points",
   );
 export const newsSchema = z.object({
-  sourceUrl: z.string().url().refine(v => /^https:\/\/www\.fiba\.basketball\/en\/(?:news|events)\//.test(v)).optional(),
-  sourceCover: z.string().url().refine(v => v.startsWith("https://assets.fiba.basketball/")).optional(),
+  sourceUrl: z
+    .string()
+    .url()
+    .refine((v) =>
+      /^https:\/\/www\.fiba\.basketball\/en\/(?:news|events)\//.test(v),
+    )
+    .optional(),
+  sourceCover: z
+    .string()
+    .url()
+    .refine((v) => v.startsWith("https://assets.fiba.basketball/"))
+    .optional(),
   id: z.string().min(1),
   title: z.string().min(2).max(160),
   titleEn: z.string().max(160).optional(),
@@ -226,4 +248,3 @@ export function resolveSource(
           : "secondary",
   };
 }
-

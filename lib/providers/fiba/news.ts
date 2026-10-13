@@ -100,12 +100,13 @@ export function planNews(
   incoming: News[],
   existing: News[],
   overridden: Set<string>,
+  authoritative = false,
 ): PlanEntry[] {
   return incoming.map((n) => {
     const old = existing.find(
       (e) => e.id === n.id || e.slug === n.slug || e.sourceUrl === n.sourceUrl,
     );
-    if (old && overridden.has(`news:${old.id}`))
+    if (!authoritative && old && overridden.has(`news:${old.id}`))
       return {
         kind: "news",
         id: old.id,

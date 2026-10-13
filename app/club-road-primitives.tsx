@@ -6,20 +6,23 @@ export function ClubRoadMark({
   id,
   name,
   fallback,
+  sourceLogo,
 }: {
   id: string;
   name: string;
   fallback?: string;
+  sourceLogo?: string;
 }) {
   const { tr } = useLang();
   const identity = getTeamIdentity(id);
-  const asset = teamLogoAsset(id);
+  const asset = sourceLogo || teamLogoAsset(id);
   return asset ? (
     <Image
       className={
         id === "red-flames" ? "club-mark red-flames-mark" : "club-mark"
       }
       src={asset}
+      unoptimized={!!sourceLogo}
       alt={`${tr("شعار")} ${name}`}
       width={180}
       height={180}

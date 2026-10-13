@@ -15,6 +15,8 @@ export const fibaTeamSchema = z.object({
   slug: z.string().min(1),
   code: nullableString,
   officialName: z.string().min(1),
+  countryName: z.string().optional(),
+  sourceLogo: z.string().optional(),
 });
 const fibaGameTeamSchema = z.object({
   teamId: z.number().int(),
@@ -125,7 +127,7 @@ function sliceBalanced(text: string, from: number): string {
   throw new FibaParseError("Unterminated JSON structure in page data");
 }
 
-function jsonValuesFor(text: string, key: string, open: "[" | "{"): unknown[] {
+export function jsonValuesFor(text: string, key: string, open: "[" | "{"): unknown[] {
   const needle = `"${key}":${open}`;
   const found: unknown[] = [];
   let at = text.indexOf(needle);

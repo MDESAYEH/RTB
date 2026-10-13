@@ -1,7 +1,23 @@
-import { gameSchema, teamSchema, type Game, type Settings, type Team, type News } from "../../domain";
+import {
+  gameSchema,
+  teamSchema,
+  type Game,
+  type Settings,
+  type Team,
+  type News,
+} from "../../domain";
 import registry from "../../team-identity.json";
-import { fibaApprovedNewTeams, fibaConfirmedSpellings, fibaTeamAliases } from "./aliases";
-import type { FibaEventData, FibaGame, FibaStandingsData, FibaTeam } from "./parser";
+import {
+  fibaApprovedNewTeams,
+  fibaConfirmedSpellings,
+  fibaTeamAliases,
+} from "./aliases";
+import type {
+  FibaEventData,
+  FibaGame,
+  FibaStandingsData,
+  FibaTeam,
+} from "./parser";
 
 /** The stage whose group tables are this tournament's groups (Tripoli = Division West group phase). */
 export const FIBA_SCOPE_STAGE = "DW-GP";
@@ -16,7 +32,12 @@ export const SYSTEM_ACTORS = [
 /** Scripted source reviews are tooling, not a supervisor's decision (e.g. `source-review:FIBA-fr-2026-10-05`). */
 export const SYSTEM_ACTOR_PREFIXES = ["source-review:"] as const;
 
-export type PlanAction = "create" | "update" | "unchanged" | "ignored" | "skipped";
+export type PlanAction =
+  | "create"
+  | "update"
+  | "unchanged"
+  | "ignored"
+  | "skipped";
 export type PlanEntry = {
   kind: "teams" | "games" | "news";
   id: string;
@@ -38,6 +59,7 @@ export type PlanState = {
   overridden: Set<string>;
 };
 export type PlanOptions = {
+  authoritative?: boolean;
   aliases?: Record<string, string>;
   approvedNewTeams?: string[];
   confirmedSpellings?: string[];
@@ -65,31 +87,43 @@ export function buildPlan(
 ): SyncPlan {
   const aliases = options.aliases ?? fibaTeamAliases;
   const approvedNew = new Set(options.approvedNewTeams ?? fibaApprovedNewTeams);
-  const confirmed = new Set(options.confirmedSpellings ?? fibaConfirmedSpellings);
+  const confirmed = new Set(
+    options.confirmedSpellings ?? fibaConfirmedSpellings,
+  );
   const now = options.now ?? new Date().toISOString();
   const entries: PlanEntry[] = [];
   const notes: string[] = [];
 
-  const stage = standings.stages.find((candidate) => candidate.code === FIBA_SCOPE_STAGE);
+  const stage = standings.stages.find(
+    (candidate) => candidate.code === FIBA_SCOPE_STAGE,
+  );
   if (!stage) {
-    throw new Error(`FIBA standings no longer contain stage ${FIBA_SCOPE_STAGE}; refusing to sync`);
+    throw new Error(
+      `FIBA standings no longer contain stage ${FIBA_SCOPE_STAGE}; refusing to sync`,
+    );
   }
   const wanted = new Set(state.settings.groups);
   const groups = stage.groups.filter((group) => wanted.has(group.groupName));
   for (const letter of wanted) {
     if (!groups.some((group) => group.groupName === letter)) {
-      notes.push(`Group ${letter} is configured locally but not published by FIBA.`);
+      notes.push(
+        `Group ${letter} is configured locally but not published by FIBA.`,
+      );
     }
   }
   for (const group of stage.groups) {
     if (!wanted.has(group.groupName)) {
-      notes.push(`FIBA group ${group.groupName} is outside the local tournament groups and was not imported.`);
+      notes.push(
+        `FIBA group ${group.groupName} is outside the local tournament groups and was not imported.`,
+      );
     }
   }
 
   const fibaTeams = new Map(event.teams.map((team) => [team.teamId, team]));
   const localById = new Map(state.teams.map((team) => [team.id, team]));
   const resolveLocal = (team: FibaTeam): string | null => {
+    const linked = state.teams.find((t) => t.fibaTeamId === team.teamId);
+    if (linked) return linked.id;
     const alias = aliases[team.slug];
     if (alias) return localById.has(alias) ? alias : null;
     if (localById.has(team.slug)) return team.slug;
@@ -108,24 +142,29 @@ export function buildPlan(
   for (const group of groups) {
     for (const row of group.teamsStats) {
       if (typeof row.team !== "number") {
-        notes.push(`Group ${group.groupName} rank ${row.rank}: slot not assigned by FIBA yet.`);
+        notes.push(
+          `Group ${group.groupName} rank ${row.rank}: slot not assigned by FIBA yet.`,
+        );
         continue;
       }
       const fiba = fibaTeams.get(row.team);
       if (!fiba) {
-        notes.push(`Group ${group.groupName}: FIBA team ${row.team} is not on the team list; skipped.`);
+        notes.push(
+          `Group ${group.groupName}: FIBA team ${row.team} is not on the team list; skipped.`,
+        );
         continue;
       }
       let localId = resolveLocal(fiba);
       if (!localId) {
-        if (approvedNew.has(fiba.slug)) {
+        if (options.authoritative || approvedNew.has(fiba.slug)) {
           localId = fiba.slug;
         } else {
           entries.push({
             kind: "teams",
             id: fiba.slug,
             action: "skipped",
-            reason: "no reviewed match in the local registry; add an alias or approve as new team",
+            reason:
+              "no reviewed match in the local registry; add an alias or approve as new team",
           });
           continue;
         }
@@ -135,30 +174,67 @@ export function buildPlan(
       const proposed = teamSchema.parse({
         id: localId,
         name: fiba.officialName,
-        country: existing?.country ?? "",
+        country: fiba.countryName ?? existing?.country ?? "",
         group: group.groupName,
-        verified: existing ? existing.verified || confirmed.has(localId) : true,
+        verified:
+          options.authoritative ||
+          (existing ? existing.verified || confirmed.has(localId) : true),
+        ...(options.authoritative ? { fibaTeamId: fiba.teamId } : {}),
+        ...(fiba.sourceLogo
+          ? { sourceLogo: fiba.sourceLogo }
+          : existing?.sourceLogo
+            ? { sourceLogo: existing.sourceLogo }
+            : {}),
         ...(existing?.logo ? { logo: existing.logo } : {}),
       });
       if (!existing) {
-        entries.push({ kind: "teams", id: localId, action: "create", reason: "new team approved by review", value: proposed });
-      } else if (state.overridden.has(`teams:${localId}`)) {
-        entries.push({ kind: "teams", id: localId, action: "ignored", reason: "manual override" });
+        entries.push({
+          kind: "teams",
+          id: localId,
+          action: "create",
+          reason: "new team approved by review",
+          value: proposed,
+        });
+      } else if (
+        !options.authoritative &&
+        state.overridden.has(`teams:${localId}`)
+      ) {
+        entries.push({
+          kind: "teams",
+          id: localId,
+          action: "ignored",
+          reason: "manual override",
+        });
       } else if (
         existing.name === proposed.name &&
         existing.group === proposed.group &&
-        existing.verified === proposed.verified
+        existing.verified === proposed.verified &&
+        existing.country === proposed.country &&
+        existing.sourceLogo === proposed.sourceLogo &&
+        existing.fibaTeamId === proposed.fibaTeamId
       ) {
-        entries.push({ kind: "teams", id: localId, action: "unchanged", reason: "matches FIBA" });
+        entries.push({
+          kind: "teams",
+          id: localId,
+          action: "unchanged",
+          reason: "matches FIBA",
+        });
       } else {
         entries.push({
           kind: "teams",
           id: localId,
           action: "update",
           reason: [
-            existing.name !== proposed.name ? `name "${existing.name}" → "${proposed.name}"` : "",
-            existing.group !== proposed.group ? `group ${existing.group} → ${proposed.group}` : "",
+            existing.name !== proposed.name
+              ? `name "${existing.name}" → "${proposed.name}"`
+              : "",
+            existing.group !== proposed.group
+              ? `group ${existing.group} → ${proposed.group}`
+              : "",
             existing.verified !== proposed.verified ? "spelling confirmed" : "",
+            existing.country !== proposed.country ? "official country corrected" : "",
+            existing.sourceLogo !== proposed.sourceLogo ? "official logo corrected" : "",
+            existing.fibaTeamId !== proposed.fibaTeamId ? "linked to official FIBA identity" : "",
           ]
             .filter(Boolean)
             .join("; "),
@@ -176,7 +252,8 @@ export function buildPlan(
     seen.add(id);
     const home = scoped.get(fiba.teamA.teamId);
     const away = scoped.get(fiba.teamB.teamId);
-    const skip = (reason: string) => entries.push({ kind: "games", id, action: "skipped", reason });
+    const skip = (reason: string) =>
+      entries.push({ kind: "games", id, action: "skipped", reason });
     if (!home || !away) {
       skip("teams are not both in the imported groups");
       continue;
@@ -185,7 +262,10 @@ export function buildPlan(
       skip("teams belong to different groups");
       continue;
     }
-    if (!fiba.hasTimeGameDateTime || PLACEHOLDER_DATE.test(fiba.gameDateTimeUTC)) {
+    if (
+      !fiba.hasTimeGameDateTime ||
+      PLACEHOLDER_DATE.test(fiba.gameDateTimeUTC)
+    ) {
       skip("no date/time published yet");
       continue;
     }
@@ -194,10 +274,26 @@ export function buildPlan(
       skip(`unrecognised FIBA status "${fiba.statusCode}"; not guessed`);
       continue;
     }
-    const date = fiba.gameDateTimeUTC.endsWith("Z") ? fiba.gameDateTimeUTC : `${fiba.gameDateTimeUTC}Z`;
-    const existing = gamesById.get(id);
-    if (state.overridden.has(`games:${id}`)) {
-      entries.push({ kind: "games", id, action: "ignored", reason: "manual override" });
+    const date = fiba.gameDateTimeUTC.endsWith("Z")
+      ? fiba.gameDateTimeUTC
+      : `${fiba.gameDateTimeUTC}Z`;
+    const existing =
+      gamesById.get(id) ??
+      (options.authoritative
+        ? state.games.find(
+            (g) =>
+              !g.id.startsWith("fiba-") &&
+              ((g.home === home.localId && g.away === away.localId) ||
+                (g.home === away.localId && g.away === home.localId)),
+          )
+        : undefined);
+    if (!options.authoritative && state.overridden.has(`games:${id}`)) {
+      entries.push({
+        kind: "games",
+        id,
+        action: "ignored",
+        reason: "manual override",
+      });
       continue;
     }
     const published = {
@@ -218,12 +314,26 @@ export function buildPlan(
             (game.home === published.away && game.away === published.home)),
       );
       if (manual) {
-        skip(`same fixture already exists locally as ${manual.id}; the manual record takes priority`);
+        skip(
+          `same fixture already exists locally as ${manual.id}; the manual record takes priority`,
+        );
         continue;
       }
-      const parsed = gameSchema.safeParse({ id, ...published, venue: fiba.venueName ?? "" });
-      if (!parsed.success) skip(`failed schema validation: ${parsed.error.issues[0]?.message}`);
-      else entries.push({ kind: "games", id, action: "create", reason: "published by FIBA", value: parsed.data });
+      const parsed = gameSchema.safeParse({
+        id,
+        ...published,
+        venue: fiba.venueName ?? "",
+      });
+      if (!parsed.success)
+        skip(`failed schema validation: ${parsed.error.issues[0]?.message}`);
+      else
+        entries.push({
+          kind: "games",
+          id,
+          action: "create",
+          reason: "published by FIBA",
+          value: parsed.data,
+        });
       continue;
     }
     // Update only what FIBA publishes. Clock, period and running state stay under local control.
@@ -236,16 +346,35 @@ export function buildPlan(
       (key) => JSON.stringify(merged[key]) !== JSON.stringify(existing[key]),
     );
     if (changed.length === 0) {
-      entries.push({ kind: "games", id, action: "unchanged", reason: "matches FIBA" });
+      entries.push({
+        kind: "games",
+        id,
+        action: "unchanged",
+        reason: "matches FIBA",
+      });
       continue;
     }
-    const parsed = gameSchema.safeParse({ ...merged, version: existing.version + 1, updatedAt: now });
-    if (!parsed.success) skip(`failed schema validation: ${parsed.error.issues[0]?.message}`);
-    else entries.push({ kind: "games", id, action: "update", reason: `changed: ${changed.join(", ")}`, value: parsed.data });
+    const parsed = gameSchema.safeParse({
+      ...merged,
+      version: existing.version + 1,
+      updatedAt: now,
+    });
+    if (!parsed.success)
+      skip(`failed schema validation: ${parsed.error.issues[0]?.message}`);
+    else
+      entries.push({
+        kind: "games",
+        id: existing.id,
+        action: "update",
+        reason: `changed: ${changed.join(", ")}`,
+        value: parsed.data,
+      });
   }
   for (const game of state.games) {
     if (game.id.startsWith("fiba-") && !seen.has(game.id)) {
-      notes.push(`${game.id} is stored locally but no longer published by FIBA; left untouched.`);
+      notes.push(
+        `${game.id} is stored locally but no longer published by FIBA; left untouched.`,
+      );
     }
   }
   return { entries, notes };
