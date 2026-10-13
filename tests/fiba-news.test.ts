@@ -1,6 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { newsLinks, parseNews, planNews } from "../lib/providers/fiba/news";
+import { reviewedNewsDetails } from "../lib/providers/fiba/news-details";
+import { automaticNewsDetails } from "../lib/providers/fiba/automatic-news-details";
 const url =
   "https://www.fiba.basketball/en/events/fiba-africa-champions-clubs-road-to-bal-2027/news/official-story";
 const html = `<h1>Official story</h1><meta property="og:image" content="http://assets.fiba.basketball/story.jpg"><script type="application/ld+json">${JSON.stringify({ "@type": "Article", about: "Official story", abstract: "Official summary", datePublished: "2026-10-01T10:00:00Z" })}</script>`;
@@ -28,4 +30,37 @@ test("news sync is idempotent and preserves manual changes", () => {
       .action,
     "ignored",
   );
+});
+test("reviewed details require matching source facts and differ from the teaser", () => {
+  const details = reviewedNewsDetails(
+    "giants-win-back-to-back-south-african-titles",
+    "99-57 Whitbread Mahlong",
+  );
+  assert.ok(details?.ar.includes("99–57"));
+  assert.equal(
+    reviewedNewsDetails(
+      "giants-win-back-to-back-south-african-titles",
+      "unrelated changed story",
+    ),
+    undefined,
+  );
+  assert.equal(
+    reviewedNewsDetails("unseen-story", "99-57 Whitbread Mahlong"),
+    undefined,
+  );
+});
+test("unseen news automatically receives factual details without copying prose", () => {
+  const body =
+    "New Club beat Opponent 88-71 on 13 October. John Smith scored 25 points and made 4/6 attempts.";
+  const details = automaticNewsDetails(body)!;
+  assert.ok(details.ar.includes("88-71"));
+  assert.ok(details.en.includes("John Smith: 25 points"));
+  assert.ok(!details.en.includes("New Club beat Opponent"));
+  const item = parseNews(
+    `<script type="application/ld+json">${JSON.stringify({ "@type": "Article", about: "New official report", abstract: "Short teaser", articleBody: body, datePublished: "2026-10-13T00:00:00Z" })}</script>`,
+    "https://www.fiba.basketball/en/news/new-official-report",
+  );
+  assert.notEqual(item.content, item.excerpt);
+  assert.ok(item.content.includes("88-71"));
+  assert.equal(automaticNewsDetails(undefined), undefined);
 });

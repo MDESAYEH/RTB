@@ -3,6 +3,8 @@ import { newsSchema, type News } from "../../domain";
 import { fetchFibaPage, FIBA_EVENT_SLUG, type FetchLike } from "./client";
 import { boundedBody } from "../../request";
 import type { PlanEntry } from "./plan";
+import { reviewedNewsDetails } from "./news-details";
+import { automaticNewsDetails } from "./automatic-news-details";
 
 export function newsLinks(html: string): string[] {
   const $ = load(html);
@@ -49,6 +51,9 @@ export function parseNews(html: string, url: string): News {
   const rawCover = $('meta[property="og:image"]')
     .attr("content")
     ?.replace(/^http:/, "https:");
+  const details =
+    reviewedNewsDetails(slug, article.articleBody) ??
+    automaticNewsDetails(article.articleBody);
   return newsSchema.parse({
     id: `fiba-news-${slug}`,
     slug: `fiba-${slug}`,
@@ -56,8 +61,8 @@ export function parseNews(html: string, url: string): News {
     titleEn: title,
     excerpt,
     excerptEn: excerpt,
-    content: excerpt,
-    contentEn: excerpt,
+    content: details?.ar ?? excerpt,
+    contentEn: details?.en ?? excerpt,
     author: "FIBA",
     publishedAt: article.datePublished,
     status: "published",

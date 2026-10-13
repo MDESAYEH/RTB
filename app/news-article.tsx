@@ -62,9 +62,23 @@ export function NewsArticle({
         <p className="news-article-excerpt">
           {lang === "en" && news.excerptEn ? news.excerptEn : news.excerpt}
         </p>
-        <div className="news-article-text">
-          {lang === "en" && news.contentEn ? news.contentEn : news.content}
-        </div>
+        {news.sourceUrl && news.content !== news.excerpt && (
+          <h3 className="news-details-label">
+            {copy(
+              "تفاصيل الخبر · ملخص تحريري",
+              "Story details · Editorial summary",
+            )}
+          </h3>
+        )}
+        {(news.content !== news.excerpt ||
+          news.contentEn !== news.excerptEn) && (
+          <div
+            className="news-article-text"
+            dir={lang === "en" ? "ltr" : "rtl"}
+          >
+            {lang === "en" && news.contentEn ? news.contentEn : news.content}
+          </div>
+        )}
         {news.sourceUrl && (
           <p>
             <a
