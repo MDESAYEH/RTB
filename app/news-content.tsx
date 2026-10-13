@@ -93,7 +93,7 @@ export function NewsContent({
                     alt=""
                     width={1200}
                     height={640}
-                    sizes="(max-width:700px) 100vw, 33vw"
+                    sizes="(max-width:700px) 100vw, 50vw"
                   />
                 ) : (
                   <div className="news-cover-placeholder">
