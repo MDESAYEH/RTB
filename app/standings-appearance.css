@@ -26,7 +26,7 @@ main.sports-standings {
   letter-spacing: 1.5px;
 }
 .sports-standings .standings-intro {
-  max-width: 1280px;
+  max-width: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
