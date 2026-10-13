@@ -16,3 +16,19 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+/*
+ * Same recipe as the home page's red sections: brand red + the white topographic pattern (white-topo.svg, derived from
+ * the supplied "باترن -1-01.svg") shown directly, with no dark gradient laid over it.
+ */
+:is(.public-page, .sports-page, .operator-page) > .page-heading,
+.public-road .road-section,
+.editorial-club-opening,
+.club-podium,
+.stade-closing,
+.public-news .article > h1,
+.sports-match-page .broadcast-stage,
+.system-message,
+.tournament-menu {
+  background: #a2211d var(--tournament-pattern) center / cover no-repeat;
+}
