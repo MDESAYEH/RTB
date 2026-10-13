@@ -9,6 +9,7 @@ import { getTeamIdentity } from "@/lib/team-identity";
 import { useLang } from "./i18n";
 import { EventSponsors } from "./event-sponsors";
 import { TournamentLogo } from "./tournament-logo";
+import { importedNewsDetails } from "@/lib/providers/fiba/news-details";
 
 export function HomeTopbar() {
   const { lang, toggle } = useLang();
@@ -80,6 +81,7 @@ export function HomeContent({
           ended ? b.date.localeCompare(a.date) : a.date.localeCompare(b.date),
         );
   const articles = [...news]
+    .map(importedNewsDetails)
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
     .slice(0, 3);
   const datePart = (value: string, options: Intl.DateTimeFormatOptions) =>

@@ -33,12 +33,21 @@ export function reviewedNewsDetails(slug: string, body: unknown) {
 }
 
 /** Backfill already imported official records while their next sync is pending. */
+const arabicTitles: Record<string,string> = {
+  "giants-win-back-to-back-south-african-titles": "جوهانسبرغ جاينتس يتوّج ببطولة جنوب أفريقيا للمرة الثانية تواليًا",
+  "nairobi-city-thunder-win-three-peat-in-kenya": "نيروبي سيتي ثاندر يحقق لقب الدوري الكيني للمرة الثالثة تواليًا",
+  "introducing-the-road-to-bal-2027": "تعرّف على بطولة الطريق إلى BAL 2027",
+  "what-happened-on-the-road-to-bal-tournament-last-year": "ماذا حدث في بطولة الطريق إلى BAL العام الماضي؟",
+};
+export function arabicNewsTitle(slug:string, original:string) { return arabicTitles[slug] ?? original; }
 export function importedNewsDetails(news: News): News {
-  if (!news.sourceUrl || news.content !== news.excerpt) return news;
+  if (!news.sourceUrl) return news;
   let source: URL;
   try { source = new URL(news.sourceUrl); } catch { return news; }
   if (source.origin !== "https://www.fiba.basketball") return news;
   const slug = source.pathname.split("/").pop() ?? "";
+  news = {...news,title:arabicNewsTitle(slug,news.title),titleEn:news.titleEn || news.title};
+  if (news.content !== news.excerpt) return news;
   const entry = details[slug];
   if (!entry) return news;
   return {...news,content:entry.ar,contentEn:entry.en};

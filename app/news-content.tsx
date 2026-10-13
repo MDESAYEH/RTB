@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Newspaper, Search, ArrowLeft } from "lucide-react";
 import type { News } from "@/lib/public-domain";
 import { useLang } from "./i18n";
+import { importedNewsDetails } from "@/lib/providers/fiba/news-details";
 
 export function NewsContent({
   news,
@@ -18,6 +19,7 @@ export function NewsContent({
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("");
   const published = news
+    .map(importedNewsDetails)
     .filter((n) => n.status === "published")
     .sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
   const visible = published.filter((n) =>

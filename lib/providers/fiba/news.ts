@@ -3,7 +3,7 @@ import { newsSchema, type News } from "../../domain";
 import { fetchFibaPage, FIBA_EVENT_SLUG, type FetchLike } from "./client";
 import { boundedBody } from "../../request";
 import type { PlanEntry } from "./plan";
-import { reviewedNewsDetails } from "./news-details";
+import { reviewedNewsDetails, arabicNewsTitle } from "./news-details";
 import { automaticNewsDetails } from "./automatic-news-details";
 
 export function newsLinks(html: string): string[] {
@@ -57,7 +57,7 @@ export function parseNews(html: string, url: string): News {
   return newsSchema.parse({
     id: `fiba-news-${slug}`,
     slug: `fiba-${slug}`,
-    title,
+    title: arabicNewsTitle(slug,title),
     titleEn: title,
     excerpt,
     excerptEn: excerpt,
