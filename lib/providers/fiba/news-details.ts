@@ -1,3 +1,4 @@
+import type { News } from "../../domain";
 /** Reviewed paraphrases of current FIBA reports. Never republish their full article text. */
 const details: Record<string, { evidence: string[]; ar: string; en: string }> =
   {
@@ -32,7 +33,7 @@ export function reviewedNewsDetails(slug: string, body: unknown) {
 }
 
 /** Backfill already imported official records while their next sync is pending. */
-export function importedNewsDetails(news: {sourceUrl?: string; content: string; excerpt: string; title: string; contentEn?: string}) {
+export function importedNewsDetails(news: News): News {
   if (!news.sourceUrl || news.content !== news.excerpt) return news;
   let source: URL;
   try { source = new URL(news.sourceUrl); } catch { return news; }

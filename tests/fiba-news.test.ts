@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { newsLinks, parseNews, planNews } from "../lib/providers/fiba/news";
-import { reviewedNewsDetails } from "../lib/providers/fiba/news-details";
+import { reviewedNewsDetails, importedNewsDetails } from "../lib/providers/fiba/news-details";
 import { automaticNewsDetails } from "../lib/providers/fiba/automatic-news-details";
 const url =
   "https://www.fiba.basketball/en/events/fiba-africa-champions-clubs-road-to-bal-2027/news/official-story";
@@ -63,4 +63,10 @@ test("unseen news automatically receives factual details without copying prose",
   assert.notEqual(item.content, item.excerpt);
   assert.ok(item.content.includes("88-71"));
   assert.equal(automaticNewsDetails(undefined), undefined);
+});
+test("previously imported official stories display details without waiting for sync",()=>{
+ const n=parseNews(html,"https://www.fiba.basketball/en/news/introducing-the-road-to-bal-2027");
+ assert.notEqual(importedNewsDetails(n).content,n.excerpt);
+ assert.equal(importedNewsDetails({...n,content:"Custom detailed report"}).content,"Custom detailed report");
+ assert.equal(importedNewsDetails({...n,sourceUrl:undefined}).content,n.content);
 });
