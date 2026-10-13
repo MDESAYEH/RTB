@@ -10,6 +10,7 @@ export const FIBA_PAGES = {
   games: `/en/events/${FIBA_EVENT_SLUG}/games`,
   standings: `/en/events/${FIBA_EVENT_SLUG}/standings`,
   leaders: `/en/events/${FIBA_EVENT_SLUG}/leaders`,
+  news: `/en/events/${FIBA_EVENT_SLUG}/news`,
 } as const;
 export type FibaPage = keyof typeof FIBA_PAGES;
 

@@ -44,10 +44,11 @@ export function NewsArticle({
           <span>{copy("نحو بداية الرحلة", "The journey begins")}</span>
           <h1>{title}</h1>
         </header>
-        {news.cover && (
+        {(news.cover || news.sourceCover) && (
           <Image
             className="news-article-cover"
-            src={news.cover}
+            src={(news.cover || news.sourceCover)!}
+            unoptimized={!!news.sourceCover && !news.cover}
             alt={title}
             width={1440}
             height={640}
@@ -64,6 +65,22 @@ export function NewsArticle({
         <div className="news-article-text">
           {lang === "en" && news.contentEn ? news.contentEn : news.content}
         </div>
+        {news.sourceUrl && (
+          <p>
+            <a
+              className="news-source-link"
+              href={news.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy(
+                "اقرأ الخبر كاملًا على FIBA",
+                "Read the full article on FIBA",
+              )}{" "}
+              ↗
+            </a>
+          </p>
+        )}
       </article>
     </div>
   );

@@ -1,4 +1,4 @@
-import { gameSchema, teamSchema, type Game, type Settings, type Team } from "../../domain";
+import { gameSchema, teamSchema, type Game, type Settings, type Team, type News } from "../../domain";
 import registry from "../../team-identity.json";
 import { fibaApprovedNewTeams, fibaConfirmedSpellings, fibaTeamAliases } from "./aliases";
 import type { FibaEventData, FibaGame, FibaStandingsData, FibaTeam } from "./parser";
@@ -18,12 +18,12 @@ export const SYSTEM_ACTOR_PREFIXES = ["source-review:"] as const;
 
 export type PlanAction = "create" | "update" | "unchanged" | "ignored" | "skipped";
 export type PlanEntry = {
-  kind: "teams" | "games";
+  kind: "teams" | "games" | "news";
   id: string;
   action: PlanAction;
   reason: string;
   /** Present for create/update: the validated record to store. */
-  value?: Team | Game;
+  value?: Team | Game | News;
 };
 export type SyncPlan = {
   entries: PlanEntry[];

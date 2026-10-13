@@ -87,9 +87,10 @@ export function NewsContent({
                 href={`/news/${n.slug}`}
                 className="news-editorial-card"
               >
-                {n.cover ? (
+                {n.cover || n.sourceCover ? (
                   <Image
-                    src={n.cover}
+                    src={(n.cover || n.sourceCover)!}
+                    unoptimized={!!n.sourceCover && !n.cover}
                     alt=""
                     width={1200}
                     height={640}

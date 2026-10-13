@@ -1,4 +1,5 @@
-import type { Game, Team } from "../../domain";
+import type { Game, Team, News } from "../../domain";
+import { fetchNews, planNews } from "./news";
 import { gameSchema, settingsSchema, teamSchema } from "../../domain";
 import type { TournamentStore } from "../../store";
 import { fetchFibaPage, type FetchLike } from "./client";
@@ -84,6 +85,7 @@ export async function runSync(
     const eventPage = parseEventPage((await fetchFibaPage("games", options.fetchImpl)).html);
     const standings = parseStandingsPage((await fetchFibaPage("standings", options.fetchImpl)).html);
     const leaders = probeLeadersPage((await fetchFibaPage("leaders", options.fetchImpl)).html);
+    const news = await fetchNews(options.fetchImpl);
 
     const plan = await store.db.transaction(async () => {
       const state = {
@@ -93,6 +95,7 @@ export async function runSync(
         overridden: await manualOverrides(store),
       };
       const built = buildPlan(eventPage, standings, state, options.plan);
+      built.entries.push(...planNews(news, await store.list<News>("news"), state.overridden));
       if (!options.apply) return built;
       // Teams first: games reference them.
       const ordered = [...built.entries].sort((a, b) => (a.kind === b.kind ? 0 : a.kind === "teams" ? -1 : 1));

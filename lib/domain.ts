@@ -92,6 +92,8 @@ export const settingsSchema = z
     "Win points must exceed loss points",
   );
 export const newsSchema = z.object({
+  sourceUrl: z.string().url().refine(v => /^https:\/\/www\.fiba\.basketball\/en\/(?:news|events)\//.test(v)).optional(),
+  sourceCover: z.string().url().refine(v => v.startsWith("https://assets.fiba.basketball/")).optional(),
   id: z.string().min(1),
   title: z.string().min(2).max(160),
   titleEn: z.string().max(160).optional(),

@@ -351,13 +351,14 @@ export function HomeContent({
             <div className="rd-news-grid">
               {articles.map((n) => (
                 <Link
-                  className={`rd-story${n.cover ? "" : " rd-story-no-image"}`}
+                  className={`rd-story${n.cover || n.sourceCover ? "" : " rd-story-no-image"}`}
                   href={`/news/${n.slug}`}
                   key={n.id}
                 >
-                  {n.cover && (
+                  {(n.cover || n.sourceCover) && (
                     <Image
-                      src={n.cover}
+                      src={(n.cover || n.sourceCover)!}
+                      unoptimized={!!n.sourceCover && !n.cover}
                       alt=""
                       fill
                       sizes="(max-width: 700px) 90vw, 48vw"
