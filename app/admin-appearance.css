@@ -1,7 +1,7 @@
 /* Administration shares the home page palette and contours. */
 .operator-page {
-  --admin-red: #a2211d;
-  --admin-ink: #003c52;
+  --admin-red: #8f1e1a;
+  --admin-ink: #023047;
   --admin-muted: #6c8491;
   --admin-line: #e3e9ed;
   --admin-pattern: var(--tournament-pattern);
@@ -48,7 +48,7 @@
   border: 0;
   background: var(--admin-red) var(--admin-pattern) center / cover;
   color: #fff;
-  box-shadow: 0 4px 12px #a2211d15;
+  box-shadow: 0 4px 12px #8f1e1a15;
   text-align: start;
   transition:
     transform 0.2s,
@@ -56,7 +56,7 @@
 }
 .operator-page .admin-overview button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px #a2211d25;
+  box-shadow: 0 8px 20px #8f1e1a25;
 }
 .operator-page .admin-overview button > span {
   display: flex;
@@ -86,7 +86,7 @@
   background: #fff;
   border-color: var(--admin-line);
   border-radius: 16px;
-  box-shadow: 0 4px 16px #003c5208;
+  box-shadow: 0 4px 16px #02304708;
 }
 .operator-page .admin .tabs button {
   color: var(--admin-ink);
@@ -118,7 +118,7 @@
   line-height: 1.7;
 }
 .operator-page :is(input, select, textarea):focus-visible {
-  outline: 3px solid #a2211d30;
+  outline: 3px solid #8f1e1a30;
   outline-offset: 2px;
   border-color: var(--admin-red);
 }
@@ -139,7 +139,7 @@
     border-color 0.2s;
 }
 .operator-page button:focus-visible {
-  outline: 3px solid #f7a401;
+  outline: 3px solid #f3a300;
   outline-offset: 3px;
 }
 .operator-page button:disabled {
@@ -167,7 +167,7 @@
   gap: 22px;
   border: 1px solid var(--admin-line);
   border-radius: 18px;
-  box-shadow: 0 4px 18px #003c5205;
+  box-shadow: 0 4px 18px #02304705;
 }
 .operator-page .editor-fields label {
   color: var(--admin-ink);
@@ -216,7 +216,7 @@
   border: 1px solid var(--admin-line);
   background: #fff;
   padding: 0 24px 24px;
-  box-shadow: 0 4px 18px #003c5208;
+  box-shadow: 0 4px 18px #02304708;
 }
 .operator-page .live-room h3 {
   background: var(--admin-red) var(--admin-pattern) center / cover;
@@ -257,7 +257,7 @@
   padding: 22px;
   border-color: var(--admin-line);
   border-radius: 14px;
-  box-shadow: 0 2px 6px #003c5205;
+  box-shadow: 0 2px 6px #02304705;
   color: var(--admin-ink);
 }
 .operator-page .health-row b {
@@ -278,7 +278,7 @@
   border-color: var(--admin-line);
   border-inline-start-width: 4px;
   border-radius: 14px;
-  box-shadow: 0 2px 8px #003c5205;
+  box-shadow: 0 2px 8px #02304705;
 }
 .operator-page .audit .audit-item > summary {
   padding: 20px;
@@ -321,10 +321,10 @@
   padding: 30px;
   background: #fff;
   color: var(--admin-ink);
-  box-shadow: 0 20px 80px #003c522b;
+  box-shadow: 0 20px 80px #0230472b;
 }
 .operator-page .admin-confirm::backdrop {
-  background: #003c5266;
+  background: #02304766;
   backdrop-filter: blur(5px);
 }
 .operator-page .login {
@@ -335,7 +335,7 @@
   border: 1px solid var(--admin-line);
   border-top: 4px solid var(--admin-red);
   border-radius: 20px;
-  box-shadow: 0 12px 40px #003c520b;
+  box-shadow: 0 12px 40px #0230470b;
 }
 .admin-login-brand {
   display: flex;

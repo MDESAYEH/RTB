@@ -30,5 +30,31 @@
 .sports-match-page .broadcast-stage,
 .system-message,
 .tournament-menu {
-  background: #a2211d var(--tournament-pattern) center / cover no-repeat;
+  background: #8f1e1a var(--tournament-pattern) center / cover no-repeat;
+}
+
+/*
+ * Figma recipe: the white pattern sits at 5% (baked into white-topo.svg) and is blended with `overlay`
+ * over the colour beneath it.
+ */
+.rd-pattern,
+:is(.public-page, .sports-page, .operator-page) > .page-heading,
+.public-road .road-section,
+.editorial-club-opening,
+.club-podium,
+.stade-closing,
+.public-news .article > h1,
+.sports-match-page .broadcast-stage,
+.system-message,
+.tournament-menu {
+  background-blend-mode: overlay;
+}
+/* Footer: vertical linear gradient, #8F1E1A at the top to #290907 at the bottom, pattern overlaid. */
+.rd-footer.rd-pattern {
+  background-color: #290907;
+  background-image: var(--tournament-pattern), linear-gradient(180deg, #8f1e1a 0%, #290907 100%);
+  background-size: cover, 100% 100%;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  background-blend-mode: overlay, normal;
 }

@@ -15,6 +15,10 @@ import "./admin-appearance.css";
 import "./matches-appearance.css";
 import "./shared-pattern.css";
 import "./standings-appearance.css";
+import "@fontsource/almarai/300.css";
+import "@fontsource/almarai/400.css";
+import "@fontsource/almarai/700.css";
+import "@fontsource/almarai/800.css";
 import "@fontsource-variable/cairo/wght.css";
 import "@fontsource-variable/noto-kufi-arabic/wght.css";
 const displayFont = localFont({

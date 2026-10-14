@@ -4,10 +4,10 @@
  * Loaded last so it wins over the earlier theme layers.
  */
 :root {
-  --rd-red: #8f1d1b;
+  --rd-red: #8f1e1a;
   --rd-red-deep: #6f1412;
-  --rd-gold: #f7a401;
-  --rd-ink: #062836;
+  --rd-gold: #f3a300;
+  --rd-ink: #023047;
   --rd-muted: #5b6b75;
   --rd-pill: #fbf2f4;
   --rd-line: #eadfdc;
@@ -146,7 +146,7 @@
   padding: 18px 34px;
   font-size: clamp(17px, 1.5vw, 22px);
   font-weight: 800;
-  box-shadow: 0 14px 30px #8f1d1b40;
+  box-shadow: 0 14px 30px #8f1e1a40;
 }
 .tripoli-poster .poster-road a:hover { background: var(--rd-red-deep); color: #fff; transform: translateY(-2px); }
 .tripoli-poster .poster-road a svg { stroke: #fff; color: #fff; }
@@ -212,7 +212,7 @@
   border: 0;
   border-radius: 14px;
   background: var(--rd-red) var(--rd-topo-light) center / cover no-repeat;
-  box-shadow: 0 14px 28px #8f1d1b30;
+  box-shadow: 0 14px 28px #8f1e1a30;
 }
 .event-home .poster-facts > div:first-child { border: 0; }
 .event-home .poster-facts strong,
@@ -228,7 +228,7 @@
   align-items: center;
   gap: 8px;
   padding: 10px 20px;
-  border: 1px solid #8f1d1b44;
+  border: 1px solid #8f1e1a44;
   border-radius: 12px;
   background: #fff;
   color: var(--rd-red);
@@ -242,7 +242,7 @@
   color: #fff;
   border: 0;
   border-radius: 16px;
-  box-shadow: 0 16px 32px #8f1d1b30;
+  box-shadow: 0 16px 32px #8f1e1a30;
 }
 .event-home .schedule-note :is(h3, p) { color: #fff; }
 .event-home .schedule-note p { color: #ffe9e3; }
@@ -268,7 +268,7 @@
   background: #fff;
   border: 1px solid var(--rd-line);
   border-radius: 16px;
-  box-shadow: 0 14px 30px #06283614;
+  box-shadow: 0 14px 30px #02304714;
   overflow: hidden;
   padding: 0 0 6px;
 }
@@ -280,8 +280,8 @@
   letter-spacing: .06em;
   background: var(--rd-red) var(--rd-topo-light) center / cover no-repeat;
 }
-.event-home .group-preview > div:nth-child(1) > h3 { background-color: #17782d; }
-.event-home .group-preview > div:nth-child(2) > h3 { background-color: #22398a; }
+.event-home .group-preview > div:nth-child(1) > h3 { background-color: #03651e; }
+.event-home .group-preview > div:nth-child(2) > h3 { background-color: #233a7f; }
 .event-home .group-preview > div > a { border-color: #f1e7e4; color: var(--rd-ink); }
 .event-home .group-preview > div > a:hover { background: #fdf6f4; }
 .event-home .group-preview .team-logo,
@@ -305,7 +305,7 @@
 .event-home > section.road-section .eyebrow { background: #ffffff1c; }
 
 /* ---------- News cards ---------- */
-.news-list > a { border-radius: 16px; box-shadow: 0 14px 30px #062836222; }
+.news-list > a { border-radius: 16px; box-shadow: 0 14px 30px #023047222; }
 
 /* ---------- Footer: red, light topography ---------- */
 .tournament-ending {

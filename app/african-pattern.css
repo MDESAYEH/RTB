@@ -1,7 +1,7 @@
 /* Original geometric artwork inspired by the supplied African basketball references. */
 :root {
-  --pattern-green: #8a2118;
-  --pattern-yellow: #ffdf42;
+  --pattern-green: #8f1e1a;
+  --pattern-yellow: #f3a300;
   --pattern-red: #6b1724;
   --pattern-rings: var(--tournament-pattern);
   --pattern-weave: var(--tournament-pattern);
@@ -39,7 +39,7 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
 .operator-page .page-heading .eyebrow { color: #f1d9ad; }
 .operator-page :is(input, select, textarea) { background: #fff; color: #101b22; border-color: #9a8480; }
 .operator-page button { background: #fff; color: #101b22; border-color: #9a8480; min-height: 44px; }
-.operator-page :is(.primary, .tabs button.active) { background: #8a2118; color: #fff; border-color: #8a2118; }
+.operator-page :is(.primary, .tabs button.active) { background: #8f1e1a; color: #fff; border-color: #8f1e1a; }
 .operator-page .login { background: #fff; border-top: 4px solid #976532; border-radius: 8px; }
 .operator-page .login > svg { color: #825524; }
 .operator-page :is(.live-room > div, .admin-confirm) { background: #fff; color: #101b22; }
@@ -52,7 +52,7 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
 .system-message { min-height: 100svh; max-width: none; padding: clamp(32px, 8vw, 120px); }
 .system-message :is(a, button) { display: inline-block; padding: 12px 24px; background: var(--pattern-yellow); color: #101b22; border: 0; border-radius: 30px; }
 /* Club identity and history use the same two motifs as the event pages. */
-.team-editorial-prototype { --paper: #f4f5f2; --acid: #ffdf42; }
+.team-editorial-prototype { --paper: #f4f5f2; --acid: #f3a300; }
 .editorial-club-opening {
   background: linear-gradient(90deg, #35291fe8, #35291f8c), var(--pattern-rings) #35291f;
   color: #fff;
@@ -75,10 +75,10 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
 .club-trophy-wall { background: #fff; }
 .club-group-scene { background: #f8ece8; }
 .stade-closing {
-  background: linear-gradient(90deg, #4a100ce8, #4a100ca0), var(--pattern-rings) #8a2118;
+  background: linear-gradient(90deg, #4a100ce8, #4a100ca0), var(--pattern-rings) #8f1e1a;
   color: #fff;
 }
-.stade-closing :is(h2, .club-next-stage, a) { color: var(--pattern-yellow); border-color: #ffdf4280; }
+.stade-closing :is(h2, .club-next-stage, a) { color: var(--pattern-yellow); border-color: #f3a30080; }
 /* Information surfaces keep the patterned identity around clear reading areas. */
 .sports-page:not(.sports-match-page) :is(.standings-wrap, .leaderboards > section) {
   background: #fff;
@@ -86,12 +86,12 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
   padding: 24px;
   margin-block: 24px;
 }
-.sports-page .days button.active { background: #8a2118; color: #fff; }
-.sports-page .tabs button.active::after { background: #8a2118; }
+.sports-page .days button.active { background: #8f1e1a; color: #fff; }
+.sports-page .tabs button.active::after { background: #8f1e1a; }
 .sports-page .standings-wrap .zone { background: #f8ece8; }
 .sports-match-page { background: #10151d; color: #fff; }
 .sports-match-page .match-scoreboard {
-  background: linear-gradient(90deg, #4a100ceb, #4a100cc0), var(--pattern-rings) #8a2118;
+  background: linear-gradient(90deg, #4a100ceb, #4a100cc0), var(--pattern-rings) #8f1e1a;
   border-radius: 8px;
   padding: clamp(20px, 4vw, 56px);
 }
@@ -99,7 +99,7 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
   background: linear-gradient(90deg, #420b16ee, #420b1699), var(--pattern-weave) #951b2a;
 }
 .public-road > .road-section {
-  background-color: #8a2118;
+  background-color: #8f1e1a;
   background-image: linear-gradient(90deg, #4a100c85, #4a100cc9), var(--pattern-rings);
   background-size: auto, 360px 280px;
   color: #fff;
@@ -111,8 +111,8 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
 .public-road .road-section .road-step p,
 .public-road .road-section .road-status { color: #f3dcd0; }
 .public-road .road-section .road::before { background: linear-gradient(var(--pattern-yellow), #ffffff40); }
-.public-road .road-section .road-dot { background: #8a2118; border-color: #f3dcd0; }
-.public-road .road-section .road-step.current { background: #4a100c99; border-color: #ffdf4280; }
+.public-road .road-section .road-dot { background: #8f1e1a; border-color: #f3dcd0; }
+.public-road .road-section .road-step.current { background: #4a100c99; border-color: #f3a30080; }
 .public-road .road-section .road-step.current :is(h3, .road-status), .public-road .road-section .road-step.current > span { color: var(--pattern-yellow); }
 .public-road .road-section .road-step.current .road-dot { background: var(--pattern-yellow); border-color: var(--pattern-yellow); }
 .public-road .road-section .road-step:is(.completed, .qualified) h3 { color: var(--pattern-yellow); }
@@ -132,7 +132,7 @@ main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: 
   border-radius: 8px;
 }
 .public-players > h1 {
-  background: linear-gradient(90deg, #4a100ce8, #4a100cb8), var(--pattern-rings) #8a2118;
+  background: linear-gradient(90deg, #4a100ce8, #4a100cb8), var(--pattern-rings) #8f1e1a;
   color: #fff;
   padding: 24px;
   border-radius: 8px;
@@ -175,7 +175,7 @@ body { background: #091522; }
 }
 .event-sponsors-logos li { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; min-width: 0; }
 .event-sponsors-logos { align-items: end; }
-.sponsor-caption { color: #ffce43; font-size: clamp(15px, 1.5vw, 19px); font-weight: 800; letter-spacing: .04em; }
+.sponsor-caption { color: #f3a300; font-size: clamp(15px, 1.5vw, 19px); font-weight: 800; letter-spacing: .04em; }
 .event-sponsors-logos img { display: block; width: 180px; height: 160px; max-width: 100%; object-fit: contain; }
 @media (max-width: 600px) {
   .event-sponsors { padding-block: 32px; }
@@ -202,7 +202,7 @@ body { background: #091522; }
 .tournament-header .tournament-brand,
 .tournament-header .event-meta,
 .tournament-header .menu-trigger { color: #fff; }
-.tournament-header .tournament-nav a[aria-current="page"] { color: #ffce43; }
+.tournament-header .tournament-nav a[aria-current="page"] { color: #f3a300; }
 .event-home,
 .public-page,
 .sports-page {
@@ -230,7 +230,7 @@ body { background: #091522; }
 :is(.public-page, .sports-page) .page-heading .eyebrow { color: #f1d9ad; }
 .sports-page .page-heading::after { display: none; }
 .event-home > section.road-section {
-  background-color: #8a2118;
+  background-color: #8f1e1a;
   background-image: linear-gradient(90deg, #4a100c85, #4a100cc9), var(--pattern-rings);
   background-size: auto, 360px 280px;
   color: #fff;
@@ -267,7 +267,7 @@ body { background: #091522; }
   background-size: auto, 240px 240px;
   border-top: 0;
 }
-.tournament-ending .ending-word { color: #ffdf42; }
+.tournament-ending .ending-word { color: #f3a300; }
 @media (max-width: 600px) {
   :is(.public-page, .sports-page) > .page-heading { padding-block: 30px; background-size: auto, 270px 210px; }
   .public-teams .team-line { padding: 16px 12px; gap: 12px; }
@@ -314,11 +314,11 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
   transition: background .2s, color .2s, box-shadow .2s;
 }
 .sports-page .tabs button::after { display: none; }
-.sports-page .tabs button:hover { background: #f8ece8; color: #8a2118; }
+.sports-page .tabs button:hover { background: #f8ece8; color: #8f1e1a; }
 .sports-page .tabs button.active {
-  background: #8a2118;
+  background: #8f1e1a;
   color: #fff;
-  box-shadow: 0 4px 12px #8a211855;
+  box-shadow: 0 4px 12px #8f1e1a55;
 }
 .sports-page .tabs button.active::after { display: none; }
 @media (max-width: 600px) {
@@ -512,25 +512,25 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   border: 1px solid #192b3933;
   border-radius: 999px;
   background: #fff;
-  color: #8a2118;
+  color: #8f1e1a;
   font-weight: 800;
   transition: background .2s, color .2s;
 }
-.empty-actions a:hover { background: #8a2118; color: #fff; }
+.empty-actions a:hover { background: #8f1e1a; color: #fff; }
 /* One primary colour: green. Maroon is kept for special moments (honours podium, tournament pulse). */
 :is(.public-page, .sports-page) > .page-heading {
-  background-color: #8a2118;
+  background-color: #8f1e1a;
   background-image: linear-gradient(90deg, #4a100c66, #4a100cd0), var(--pattern-rings);
 }
 :is(.public-page, .sports-page) .page-heading .eyebrow,
 .operator-page .page-heading .eyebrow { color: #f3dcd0; }
-.operator-page > .page-heading { background: linear-gradient(90deg, #4a100c99, #4a100ce8), var(--pattern-rings) #8a2118; }
+.operator-page > .page-heading { background: linear-gradient(90deg, #4a100c99, #4a100ce8), var(--pattern-rings) #8f1e1a; }
 .system-message,
-.basketball-loading { background: linear-gradient(90deg, #4a100ce8, #4a100ce8), var(--pattern-rings) #8a2118; }
-.editorial-club-opening { background: linear-gradient(90deg, #4a100ce8, #4a100c8c), var(--pattern-rings) #8a2118; }
-.public-news .article > h1 { background: linear-gradient(90deg, #4a100cee, #4a100cb0), var(--pattern-rings) #8a2118; }
-.sports-match-page .broadcast-stage { background: linear-gradient(90deg, #4a100cee, #4a100c99), var(--pattern-rings) #8a2118; }
-.tournament-ending { background: linear-gradient(90deg, #8a2118f5 30%, #4a100c99), var(--pattern-rings) #8a2118; background-size: auto, 300px 230px; }
+.basketball-loading { background: linear-gradient(90deg, #4a100ce8, #4a100ce8), var(--pattern-rings) #8f1e1a; }
+.editorial-club-opening { background: linear-gradient(90deg, #4a100ce8, #4a100c8c), var(--pattern-rings) #8f1e1a; }
+.public-news .article > h1 { background: linear-gradient(90deg, #4a100cee, #4a100cb0), var(--pattern-rings) #8f1e1a; }
+.sports-match-page .broadcast-stage { background: linear-gradient(90deg, #4a100cee, #4a100c99), var(--pattern-rings) #8f1e1a; }
+.tournament-ending { background: linear-gradient(90deg, #8f1e1af5 30%, #4a100c99), var(--pattern-rings) #8f1e1a; background-size: auto, 300px 230px; }
 .tournament-ending .ending-word { color: var(--pattern-yellow); }
 .public-news .empty::after { direction: ltr; unicode-bidi: isolate; }
 /* "More" menu for secondary sections. */
@@ -583,7 +583,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 .soon-count { display: flex; gap: 0; margin-bottom: 28px; max-width: 520px; }
 .soon-count > div { flex: 1; padding: 0 14px; border-inline-start: 1px solid #192b3933; }
 .soon-count > div:first-child { border-inline-start: 0; padding-inline-start: 0; }
-.soon-count strong { display: block; font: 52px/1 var(--font-display); color: #8a2118; }
+.soon-count strong { display: block; font: 52px/1 var(--font-display); color: #8f1e1a; }
 .soon-count span { font: 11px Arial, sans-serif; letter-spacing: .12em; color: #526067; }
 .soon-days { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-bottom: 20px; }
 .soon-days > div {
@@ -592,7 +592,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   padding: 16px 14px;
   background: #fff;
   border: 1px solid #192b3918;
-  border-top: 4px solid #8a2118;
+  border-top: 4px solid #8f1e1a;
   border-radius: 8px;
 }
 .soon-days small { font: 11px Arial, sans-serif; letter-spacing: .12em; color: #526067; }
@@ -654,7 +654,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   border-radius: 2px;
 }
 .event-home .schedule-note {
-  background: linear-gradient(90deg, #4a100cd0, #4a100c99), var(--pattern-rings) #8a2118;
+  background: linear-gradient(90deg, #4a100cd0, #4a100c99), var(--pattern-rings) #8f1e1a;
   background-size: auto, 300px 230px;
   color: #fff;
   border: 0;
@@ -675,7 +675,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 .event-home .group-preview > div > h3 {
   margin: 0 0 6px;
   padding: 18px 24px;
-  background: linear-gradient(90deg, #4a100cd0, #4a100c99), var(--pattern-rings) #8a2118;
+  background: linear-gradient(90deg, #4a100cd0, #4a100c99), var(--pattern-rings) #8f1e1a;
   background-size: auto, 260px 200px;
   color: #fff;
   letter-spacing: .06em;
@@ -689,7 +689,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   width: 100%;
   max-width: 960px;
   aspect-ratio: 16 / 9;
-  background: #8a2118;
+  background: #8f1e1a;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 16px 40px #10151d33;
@@ -700,7 +700,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
   margin-top: 12px;
   padding: 10px 20px;
   border-radius: 999px;
-  background: #8a2118;
+  background: #8f1e1a;
   color: #fff;
   font-weight: 800;
   font-size: 14px;
@@ -727,7 +727,7 @@ html[dir="ltr"] .club-profile-content :is(p, small) { text-align: left; }
 }
 
 /* ===== Ittihad-inspired typography, order and rhythm (identity unchanged) ===== */
-:root { --font-heading-ar: "Noto Kufi Arabic Variable", "Noto Kufi Arabic", "Cairo Variable", Cairo, Arial, sans-serif; }
+:root { --font-heading-ar: "Almarai", "Cairo Variable", Cairo, Arial, sans-serif; }
 /* Arabic: a sturdier heading face with tight tracking; Latin display type stays for TRIPOLI / GROUP etc. */
 html[lang="ar"] :is(
   .page-heading h1, .section-title h2, .event-home h2:not(.team-group-title),
@@ -757,7 +757,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   padding: 5px 14px;
   border-radius: 999px;
   background: #f8ece8;
-  color: #8a2118;
+  color: #8f1e1a;
   font: 700 11px/1.6 Arial, sans-serif;
   letter-spacing: .14em;
 }
@@ -807,7 +807,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   justify-content: space-between;
   align-items: center;
   padding: 7px clamp(20px, 3.2vw, 56px);
-  background: #8a2118;
+  background: #8f1e1a;
   color: #f3dcd0;
   font: 600 11px/1.4 Arial, sans-serif;
   letter-spacing: .14em;
@@ -882,8 +882,8 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   font-weight: 700;
   white-space: nowrap;
 }
-.operator-page .admin .tabs button:hover { background: #f8ece8; color: #8a2118; }
-.operator-page .admin .tabs button.active { background: #8a2118; color: #fff; }
+.operator-page .admin .tabs button:hover { background: #f8ece8; color: #8f1e1a; }
+.operator-page .admin .tabs button.active { background: #8f1e1a; color: #fff; }
 .operator-page .admin .tabs button:last-child { margin-inline-start: auto; color: #8a2a1f; }
 .operator-page .admin .tabs button:last-child:hover { background: #fbeceb; color: #8a2a1f; }
 .operator-page .admin > :is(label, p, .controls, .editor-fields, textarea, section, .audit, .health-row, .live-room, .empty) {
@@ -914,7 +914,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
 .operator-page .admin > p { margin: 0 0 18px; color: #5c4742; line-height: 1.8; }
 .operator-page .controls { gap: 8px; margin: 14px 0 22px; }
 .operator-page .controls button { border-radius: 999px; padding: 8px 18px; font-weight: 700; }
-.operator-page .controls button:first-child { background: #8a2118; color: #fff; border-color: #8a2118; }
+.operator-page .controls button:first-child { background: #8f1e1a; color: #fff; border-color: #8f1e1a; }
 .operator-page .editor-fields {
   padding: 20px;
   background: #fff;
@@ -936,7 +936,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   color: #101b22;
 }
 .operator-page .health-row span { color: #5c4742; }
-.operator-page .admin-confirm { border-color: #8a2118; border-radius: 16px; inset: 10% max(20px, calc(50% - 360px)); }
+.operator-page .admin-confirm { border-color: #8f1e1a; border-radius: 16px; inset: 10% max(20px, calc(50% - 360px)); }
 @media (max-width: 600px) {
   .operator-page .admin .tabs { top: 0; border-radius: 12px; margin-bottom: 18px; }
   .operator-page .admin .tabs button { padding: 8px 14px; font-size: 14px; }
@@ -955,7 +955,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   margin: 0;
   color: #101b22;
 }
-.operator-page .audit .audit-save { border-inline-start-color: #8a2118; }
+.operator-page .audit .audit-save { border-inline-start-color: #8f1e1a; }
 .operator-page .audit .audit-fiba-update,
 .operator-page .audit .audit-fiba-create { border-inline-start-color: #1d6fb8; }
 .operator-page .audit .audit-correct { border-inline-start-color: #b4361f; }
@@ -975,7 +975,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   padding: 3px 12px;
   border-radius: 999px;
   background: #f8ece8;
-  color: #8a2118;
+  color: #8f1e1a;
   font-size: 13px;
   font-weight: 800;
   white-space: nowrap;
@@ -1005,7 +1005,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   font-size: 14px;
 }
 .operator-page .audit .audit-from { color: #8a2a1f; opacity: 0.85; overflow-wrap: anywhere; }
-.operator-page .audit .audit-to { color: #8a2118; font-weight: 700; overflow-wrap: anywhere; }
+.operator-page .audit .audit-to { color: #8f1e1a; font-weight: 700; overflow-wrap: anywhere; }
 .operator-page .audit .audit-raw { border: 0; padding: 0; font-size: 13px; color: #5c4742; }
 .operator-page .audit .audit-raw pre { background: #101b22; color: #d8ee55; padding: 12px; border-radius: 10px; }
 @media (max-width: 700px) {
@@ -1070,7 +1070,7 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
   margin: 0;
   padding: 14px 22px;
   border-radius: 14px;
-  background: #1f6f3a;
+  background: #03651e;
   color: #fff;
   border: 0;
   font-size: 17px;
