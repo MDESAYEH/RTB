@@ -14,3 +14,14 @@ img.club-mark.red-flames-mark {
   filter: url("/images/clubs/red-flames-background.svg#remove-white") !important;
   object-fit: contain;
 }
+.sports-standings .standings-card img.team-logo[alt="Kriol Star"] {
+  background: #003c52 !important;
+  border-radius: 50%;
+  padding: 3px !important;
+  filter: none !important;
+}
+.sports-standings .standings-card img.team-logo[alt="Red Flames"] {
+  padding: 0 !important;
+  background: transparent !important;
+  filter: url("/images/clubs/red-flames-background.svg#remove-white") !important;
+}
