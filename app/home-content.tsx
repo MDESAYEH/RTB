@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { Fragment, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays, Globe2, Layers, Users } from "lucide-react";
@@ -113,17 +113,24 @@ export function HomeContent({
           {seconds > 0 ? (
             <div className="rd-clock" dir="ltr">
               {count.map((n, i) => (
-                <div key={i}>
-                  <strong suppressHydrationWarning>
-                    {String(n).padStart(2, "0")}
-                  </strong>
-                  <span>
-                    {copy(
-                      ["يوم", "ساعة", "دقيقة", "ثانية"][i],
-                      ["Days", "Hours", "Minutes", "Seconds"][i],
-                    )}
-                  </span>
-                </div>
+                <Fragment key={i}>
+                  {i > 0 && (
+                    <i className="rd-clock-sep" aria-hidden="true">
+                      :
+                    </i>
+                  )}
+                  <div>
+                    <strong suppressHydrationWarning>
+                      {String(n).padStart(2, "0")}
+                    </strong>
+                    <span>
+                      {copy(
+                        ["أيام", "ساعات", "دقائق", "ثواني"][i],
+                        ["Days", "Hours", "Minutes", "Seconds"][i],
+                      )}
+                    </span>
+                  </div>
+                </Fragment>
               ))}
             </div>
           ) : (
