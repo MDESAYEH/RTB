@@ -8,6 +8,10 @@ import {
 } from "../../domain";
 import registry from "../../team-identity.json";
 import {
+  localGroups as defaultLocalGroups,
+  withdrawnTeams as defaultWithdrawn,
+} from "./groups";
+import {
   fibaApprovedNewTeams,
   fibaConfirmedSpellings,
   fibaTeamAliases,
@@ -37,6 +41,7 @@ export type PlanAction =
   | "update"
   | "unchanged"
   | "ignored"
+  | "remove"
   | "skipped";
 export type PlanEntry = {
   kind: "teams" | "games" | "news";
@@ -66,6 +71,10 @@ export type PlanOptions = {
    * FIBA_FOLLOW_GROUPS=1 or the caller passes false.
    */
   lockGroups?: boolean;
+  /** Team id to group letter. Defaults to the reviewed local draw in ./groups. */
+  groups?: Record<string, string>;
+  /** Local team ids that withdrew; their records are removed. Defaults to the reviewed list in ./groups. */
+  withdrawnTeams?: string[];
   aliases?: Record<string, string>;
   approvedNewTeams?: string[];
   confirmedSpellings?: string[];
@@ -110,9 +119,8 @@ export function buildPlan(
   }
   const lock =
     options.lockGroups ?? process.env.FIBA_FOLLOW_GROUPS !== "1";
-  const fixedGroup = new Map(
-    registry.teams.map((team) => [team.id, team.group] as const),
-  );
+  const fixedGroup = new Map(Object.entries(options.groups ?? defaultLocalGroups));
+  const withdrawn = new Set(options.withdrawnTeams ?? defaultWithdrawn);
   const wanted = new Set(state.settings.groups);
   const groups = stage.groups.filter((group) => wanted.has(group.groupName));
   if (lock) {
@@ -158,6 +166,8 @@ export function buildPlan(
   const scoped = new Map<number, { localId: string; group: string }>();
   const handleTeam = (fiba: FibaTeam, fibaGroup: string) => {
     let localId = resolveLocal(fiba);
+    // A reviewed withdrawal: never refreshed, never moved; it is removed below.
+    if (localId && withdrawn.has(localId)) return;
     if (!localId && lock) return;
     if (!localId) {
       if (options.authoritative || approvedNew.has(fiba.slug)) {
@@ -254,7 +264,10 @@ export function buildPlan(
     // Placement never depends on FIBA's group tables: every FIBA team that matches a local team is used.
     for (const fiba of event.teams) handleTeam(fiba, "");
     for (const local of state.teams) {
-      if (![...scoped.values()].some((v) => v.localId === local.id))
+      if (
+        !withdrawn.has(local.id) &&
+        ![...scoped.values()].some((v) => v.localId === local.id)
+      )
         notes.push(`Local team ${local.id} is not linked to a FIBA team yet.`);
     }
   } else {
@@ -276,6 +289,36 @@ export function buildPlan(
         handleTeam(fiba, group.groupName);
       }
     }
+  }
+
+  // Withdrawn clubs: their fixtures go first (only if nothing was played), then the team itself.
+  for (const game of state.games) {
+    if (!withdrawn.has(game.home) && !withdrawn.has(game.away)) continue;
+    const untouched =
+      game.status === "Scheduled" &&
+      game.homeScore === 0 &&
+      game.awayScore === 0 &&
+      game.periods.length === 0;
+    if (untouched)
+      entries.push({
+        kind: "games",
+        id: game.id,
+        action: "remove",
+        reason: "a participating club withdrew",
+      });
+    else
+      notes.push(
+        `${game.id} involves a withdrawn club but has already started; left for manual review.`,
+      );
+  }
+  for (const team of state.teams) {
+    if (withdrawn.has(team.id))
+      entries.push({
+        kind: "teams",
+        id: team.id,
+        action: "remove",
+        reason: "withdrew from the tournament (reviewed)",
+      });
   }
 
   // Games: only complete, published facts between two in-scope teams of the same group.

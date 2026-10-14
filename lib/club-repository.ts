@@ -1,4 +1,5 @@
 import { db } from "./store";
+import { withdrawnTeams } from "./providers/fiba/groups";
 import {
   clubProfiles,
   clubProfileSchema,
@@ -45,6 +46,8 @@ export class ManualClubDataProvider {
   }
   async getPublicProfile(idOrSlug: string) {
     const p = await this.getProfile(idOrSlug);
+    // A club that withdrew no longer has a public page.
+    if (p && withdrawnTeams.includes(p.id)) return undefined;
     return p ? publicClubProfile(p) : undefined;
   }
 }

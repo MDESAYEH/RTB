@@ -119,4 +119,8 @@ FIBA's Terms and Conditions (https://www.fiba.basketball/en/terms-and-conditions
 
 ## Group placement is fixed locally
 
-The Tripoli groups are the 5 / 5 draw stored in `lib/team-identity.json` (group A: Al Ittihad, Stade Malien, NB Staoueli, Nabaya Sofas, Kriol Star; group B: the other five). The FIBA sync keeps every team in that group: it still updates names, official logos, fixtures, results and news, but it never moves a team between groups and never creates teams. Fixtures whose opponent FIBA has not decided yet are skipped instead of failing the sync. Set `FIBA_FOLLOW_GROUPS=1` to make the sync copy FIBA group tables again.
+The Tripoli draw is kept in `lib/providers/fiba/groups.ts` (reviewed 2026-10-14 against FIBA's Division West tables): group A is Nadi Basket Staoueli, Kriol Star, Al Ittihad and Stade Malien; group B is Energie BBC, Nabaya Sofas, Spintex Knights and NPA Pythons. The FIBA sync keeps every team in that group. It still updates names, official logos, fixtures, results and news, but it never moves a team between groups and never creates teams.
+
+Clubs that withdrew (AS Douanes and Red Flames) are listed in the same file. The sync removes their records, and any not-yet-played fixture they had, with an audit entry (`fiba-remove`); a club that still has players or statistics is kept and reported until those are cleared. Fixtures whose opponent FIBA has not decided yet are skipped instead of failing the sync.
+
+When the organisers confirm a change (a withdrawal, a replacement, a regroup), edit `groups.ts` deliberately. Set `FIBA_FOLLOW_GROUPS=1` to make the sync copy FIBA's group tables again.

@@ -176,6 +176,23 @@ export async function runSync(
             );
           }
         }
+        // Withdrawn clubs: fixtures first, then teams. Anything still referenced is kept and reported.
+        for (const kind of ["games", "teams"] as const) {
+          for (const entry of built.entries) {
+            if (entry.action !== "remove" || entry.kind !== kind) continue;
+            const removed = await store.remove(
+              entry.kind,
+              entry.id,
+              SYNC_ACTOR,
+              "fiba-remove",
+            );
+            if (!removed) {
+              entry.action = "skipped";
+              entry.reason =
+                "still referenced by other records (players, fixtures or statistics); not removed";
+            }
+          }
+        }
         return built;
       },
       options.apply ? "write" : "read",
