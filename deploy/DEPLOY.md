@@ -18,8 +18,9 @@
    set -a; . ./.env.production; set +a
    npm run build
    ```
-4. المدير (مرة واحدة، كلمة السر في الطرفية فقط):
-   `ADMIN_PASSWORD='...' npm run admin:create`
+4. مالك النظام (مرة واحدة، كلمة السر في الطرفية فقط). الدخول بالبريد أو رقم الهاتف الدولي مع كلمة السر:
+   `ADMIN_IDENTIFIER='name@example.com' ADMIN_PASSWORD='...' npm run admin:create`
+   (أو `ADMIN_IDENTIFIER='+218...'`). بقية الحسابات تُنشأ من لوحة الإدارة ← «المستخدمون» بأدوار: owner / manager / editor / scorer.
 5. التشغيل: `pm2 start deploy/ecosystem.config.cjs && pm2 save && pm2 startup`
 6. nginx:
    ```

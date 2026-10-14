@@ -6,6 +6,19 @@ import { TournamentLogo } from "./tournament-logo";
 import { useLang } from "./i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { transitions, remainingClock, stale } from "@/lib/public-domain";
+import { roles, roleLabels, type Role, type Permission } from "@/lib/permissions";
+type Me = {
+  id: string;
+  identifier: string | null;
+  role: string;
+  permissions: Permission[];
+};
+type UserRow = {
+  id: string;
+  identifier: string | null;
+  role: string;
+  disabled: number;
+};
 const KIND_LABELS: Record<string, string> = {
   events: "البطولة",
   teamStats: "إحصاءات الفرق",
@@ -23,6 +36,12 @@ const AUDIT_ACTIONS: Record<string, string> = {
   save: "حفظ بيانات",
   upload: "رفع صورة",
   correct: "تصحيح إداري",
+  "user:create": "إنشاء حساب",
+  "user:role": "تغيير دور",
+  "user:password": "إعادة تعيين كلمة المرور",
+  "user:disable": "تعطيل حساب",
+  "user:enable": "تفعيل حساب",
+  "user:delete": "حذف حساب",
   "fiba-update": "تحديث من FIBA",
   "fiba-create": "إضافة من FIBA",
   historical: "سجل قديم",
@@ -30,6 +49,7 @@ const AUDIT_ACTIONS: Record<string, string> = {
 const AUDIT_KINDS: Record<string, string> = {
   ...KIND_LABELS,
   auth: "الدخول",
+  users: "الحسابات",
   media: "الصور",
 };
 const AUDIT_ACTORS: Record<string, string> = {
@@ -102,7 +122,22 @@ export function Admin({
     [kind, setKind] = useState("games"),
     [json, setJson] = useState(""),
     [selected, setSelected] = useState(""),
-    [clock, setClock] = useState(600);
+    [clock, setClock] = useState(600),
+    [identifier, setIdentifier] = useState(""),
+    [me, setMe] = useState<Me | null>(null),
+    [users, setUsers] = useState<UserRow[]>([]);
+  const has = (p: Permission) => !!me?.permissions.includes(p);
+  // Each tab needs the permission the server will also require for its commands.
+  const allowed = (id: string) =>
+    id === "live"
+      ? has("game:control")
+      : ["games", "teams", "more", "audit"].includes(id)
+        ? has("tournament:write")
+        : ["players", "news"].includes(id)
+          ? has("content:write")
+          : id === "users"
+            ? has("users:manage")
+            : true;
   async function load() {
     const r = await fetch("/api/admin");
     if (r.ok) {
@@ -111,11 +146,34 @@ export function Admin({
       setRecords(v.records);
       setAudit(v.audit);
       setFiba(v.fiba ?? null);
+      setMe(v.me ?? null);
+      setUsers(v.users ?? []);
     }
   }
   useEffect(() => {
     void load();
   }, []);
+  useEffect(() => {
+    if (!me || allowed(tab)) return;
+    const first = [
+      "live",
+      "games",
+      "teams",
+      "players",
+      "news",
+      "more",
+      "health",
+      "audit",
+      "users",
+    ].find(allowed);
+    if (!first) return;
+    setTab(first);
+    if (CONTENT_TABS.some(([t]) => t === first)) {
+      setKind(first === "more" ? MORE_KINDS[0] : first);
+      setJson("");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [me, tab]);
   const saving = useRef(false);
   const latest = useRef(data);
   latest.current = data;
@@ -299,9 +357,22 @@ export function Admin({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            void mutate({ action: "login", password });
+            void mutate({ action: "login", identifier, password });
           }}
         >
+          <label>
+            {lang === "ar" ? "البريد الإلكتروني أو رقم الهاتف" : "Email or phone"}
+            <input
+              type="text"
+              dir="ltr"
+              inputMode="email"
+              autoComplete="username"
+              placeholder="name@example.com / +218…"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
+              required
+            />
+          </label>
           <label>
             {tr("كلمة المرور")}
             <input
@@ -370,7 +441,10 @@ export function Admin({
           ...CONTENT_TABS,
           ["health", "صحة البيانات"],
           ["audit", "سجل التدقيق"],
-        ].map(([id, title]) => (
+          ["users", "المستخدمون"],
+        ]
+          .filter(([id]) => allowed(id))
+          .map(([id, title]) => (
           <button
             key={id}
             onClick={() => {
@@ -386,6 +460,13 @@ export function Admin({
             {tr(title)}
           </button>
         ))}
+        {me && (
+          <span className="admin-whoami" dir="ltr">
+            {me.identifier ?? me.id} ·{" "}
+            {roleLabels[me.role as Role]?.[lang === "ar" ? "ar" : "en"] ??
+              me.role}
+          </span>
+        )}
         <button onClick={() => void mutate({ action: "logout" })}>
           {tr("خروج")}
         </button>
@@ -907,6 +988,15 @@ export function Admin({
           </p>
         </>
       )}
+      {tab === "users" && me && has("users:manage") && (
+        <UsersPanel
+          users={users}
+          meId={me.id}
+          busy={busy}
+          lang={lang === "ar" ? "ar" : "en"}
+          onRun={(body) => void mutate(body)}
+        />
+      )}
       {tab === "health" && (
         <>
           <h2>{tr("مصادر البيانات")}</h2>
@@ -1032,5 +1122,162 @@ export function Admin({
         </div>
       )}
     </div>
+  );
+}
+
+function UsersPanel({
+  users,
+  meId,
+  busy,
+  lang,
+  onRun,
+}: {
+  users: UserRow[];
+  meId: string;
+  busy: boolean;
+  lang: "ar" | "en";
+  onRun: (body: Record<string, unknown>) => void;
+}) {
+  const t = (ar: string, en: string) => (lang === "ar" ? ar : en);
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState<Role>("editor");
+  const descriptions: Record<Role, [string, string]> = {
+    owner: [
+      "كل الصلاحيات، وإدارة الحسابات والأدوار.",
+      "Everything, including managing accounts and roles.",
+    ],
+    manager: [
+      "يدير البطولة كاملة (المباريات والأندية والإعدادات والمحتوى والتصحيحات) دون إدارة الحسابات.",
+      "Runs the whole tournament (matches, clubs, settings, content, corrections) without managing accounts.",
+    ],
+    editor: [
+      "الأخبار واللاعبون والإحصاءات ورفع الصور فقط.",
+      "News, players, stats and image uploads only.",
+    ],
+    scorer: [
+      "غرفة التحكم المباشر فقط: النتيجة والوقت وحالة المباراة.",
+      "Live control room only: score, clock and match status.",
+    ],
+  };
+  return (
+    <section className="admin-users">
+      <h2>{t("المستخدمون والصلاحيات", "Users and roles")}</h2>
+      <form
+        className="admin-user-form"
+        onSubmit={(e) => {
+          e.preventDefault();
+          onRun({ action: "user:create", identifier, password, role });
+          setPassword("");
+          setIdentifier("");
+        }}
+      >
+        <label>
+          {t("البريد الإلكتروني أو رقم الهاتف", "Email or phone")}
+          <input
+            dir="ltr"
+            autoComplete="off"
+            placeholder="name@example.com / +218…"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          {t("كلمة مرور مؤقتة (14 حرفاً على الأقل)", "Temporary password (14+ characters)")}
+          <input
+            type="password"
+            autoComplete="new-password"
+            minLength={14}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          {t("الدور", "Role")}
+          <select value={role} onChange={(e) => setRole(e.target.value as Role)}>
+            {roles.map((r) => (
+              <option key={r} value={r}>
+                {roleLabels[r][lang]}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button className="primary" disabled={busy}>
+          {t("إضافة مستخدم", "Add user")}
+        </button>
+      </form>
+      <ul className="admin-user-list">
+        {users.map((u) => (
+          <li key={u.id} className={u.disabled ? "is-disabled" : ""}>
+            <b dir="ltr">{u.identifier ?? u.id}</b>
+            {u.id === meId && <small>{t("أنت", "You")}</small>}
+            {u.disabled ? <small>{t("معطّل", "Disabled")}</small> : null}
+            <select
+              aria-label={t("الدور", "Role")}
+              value={u.role}
+              disabled={busy}
+              onChange={(e) =>
+                onRun({ action: "user:role", id: u.id, role: e.target.value })
+              }
+            >
+              {roles.map((r) => (
+                <option key={r} value={r}>
+                  {roleLabels[r][lang]}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() =>
+                onRun({ action: u.disabled ? "user:enable" : "user:disable", id: u.id })
+              }
+            >
+              {u.disabled ? t("تفعيل", "Enable") : t("تعطيل", "Disable")}
+            </button>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => {
+                const next = window.prompt(
+                  t(
+                    "كلمة المرور الجديدة (14 حرفاً على الأقل). سيُسجَّل خروج المستخدم من كل الجلسات.",
+                    "New password (14+ characters). The user will be signed out everywhere.",
+                  ),
+                );
+                if (next) onRun({ action: "user:password", id: u.id, password: next });
+              }}
+            >
+              {t("إعادة تعيين كلمة المرور", "Reset password")}
+            </button>
+            <button
+              type="button"
+              className="danger"
+              disabled={busy}
+              onClick={() => {
+                if (
+                  window.confirm(
+                    t("حذف هذا الحساب نهائياً؟", "Delete this account permanently?"),
+                  )
+                )
+                  onRun({ action: "user:delete", id: u.id });
+              }}
+            >
+              {t("حذف", "Delete")}
+            </button>
+          </li>
+        ))}
+      </ul>
+      <dl className="admin-role-help">
+        {roles.map((r) => (
+          <div key={r}>
+            <dt>{roleLabels[r][lang]}</dt>
+            <dd>{descriptions[r][lang === "ar" ? 0 : 1]}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
   );
 }

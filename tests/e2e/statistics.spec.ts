@@ -8,7 +8,7 @@ test("statistics enforce game membership, unique identity and render player rank
   const post = (data: object) =>
     context.request.post("/api/admin", { headers, data });
   expect(
-    (await post({ action: "login", password: process.env.E2E_PASSWORD })).ok(),
+    (await post({ action: "login", identifier: process.env.E2E_IDENTIFIER ?? "e2e-admin@example.test", password: process.env.E2E_PASSWORD })).ok(),
   ).toBe(true);
   const id = "stats-" + crypto.randomUUID(),
     player = "player-" + crypto.randomUUID(),

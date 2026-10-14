@@ -2,6 +2,8 @@ import { z } from "zod";
 export const adminCommandSchema = z.object({
   action: z.string(),
   password: z.string().max(256).optional(),
+  identifier: z.string().max(254).optional(),
+  role: z.string().max(20).optional(),
   kind: z.string().optional(),
   id: z.string().optional(),
   value: z.unknown().optional(),

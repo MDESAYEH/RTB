@@ -65,7 +65,11 @@ export async function restoreAudit({ snapshot, root, env, expected }) {
     const login = await fetch(origin + "/api/admin", {
       method: "POST",
       headers: { origin: publicOrigin, "content-type": "application/json" },
-      body: JSON.stringify({ action: "login", password: env.ADMIN_PASSWORD }),
+      body: JSON.stringify({
+        action: "login",
+        identifier: env.ADMIN_IDENTIFIER ?? "e2e-admin@example.test",
+        password: env.ADMIN_PASSWORD,
+      }),
     });
     const header = login.headers.get("set-cookie") || "";
     if (

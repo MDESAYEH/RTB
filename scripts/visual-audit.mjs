@@ -32,7 +32,7 @@ const data = await (await page.request.get(base + "/api/data")).json();
 if (stage.startsWith("fixture") && process.env.E2E_PASSWORD) {
   const login = await page.request.post(base + "/api/admin", {
     headers: { origin: base },
-    data: { action: "login", password: process.env.E2E_PASSWORD },
+    data: { action: "login", identifier: process.env.E2E_IDENTIFIER ?? "e2e-admin@example.test", password: process.env.E2E_PASSWORD },
   });
   if (!login.ok()) throw Error("QA admin login failed");
 }

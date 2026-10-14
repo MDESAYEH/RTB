@@ -8,6 +8,8 @@ const env = {
   DATABASE_PATH: resolve(output, "browser-test.db"),
   SITE_URL: "http://127.0.0.1:3001",
   ADMIN_PASSWORD: password,
+  ADMIN_IDENTIFIER: "e2e-admin@example.test",
+  E2E_IDENTIFIER: "e2e-admin@example.test",
   E2E_PASSWORD: password,
   E2E_BASE_URL: "http://127.0.0.1:3001",
 };

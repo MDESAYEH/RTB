@@ -32,6 +32,7 @@ test("authenticated staged upload retains canonical public media URL and immutab
         headers,
         data: {
           action: "login",
+          identifier: process.env.E2E_IDENTIFIER ?? "e2e-admin@example.test",
           password: process.env.E2E_PASSWORD,
         },
       })

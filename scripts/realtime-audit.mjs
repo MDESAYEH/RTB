@@ -4,7 +4,7 @@ export async function realtimeAudit({ origin, password, restart }) {
   const login = await fetch(origin + "/api/admin", {
     method: "POST",
     headers: { origin, "content-type": "application/json" },
-    body: JSON.stringify({ action: "login", password }),
+    body: JSON.stringify({ action: "login", identifier: "e2e-admin@example.test", password }),
   });
   const cookie = login.headers.get("set-cookie").split(";")[0];
   const data = async () => await (await fetch(origin + "/api/data")).json();

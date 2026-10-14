@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { authorize, rateLimit, db } from "@/lib/store";
+import { principal, rateLimit, db } from "@/lib/store";
+import { can } from "@/lib/permissions";
 import { privateBlobStorage, mediaStorage } from "@/lib/media-storage";
 import { mediaStaging, chunkSize } from "@/lib/media-staging";
 import { boundedBody, PayloadLimit, trustedOrigin } from "@/lib/request";
@@ -10,10 +11,15 @@ export const maxDuration = 60;
 async function actorFor(req: Request) {
   if (!trustedOrigin(req))
     return NextResponse.json({ error: "Origin rejected" }, { status: 403 });
-  const actor = await authorize((await cookies()).get("road-session")?.value);
-  if (!actor)
+  const me = await principal((await cookies()).get("road-session")?.value);
+  if (!me)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  return actor;
+  if (!can(me.role, "media:upload"))
+    return NextResponse.json(
+      { error: "ليست لديك صلاحية رفع الصور." },
+      { status: 403 },
+    );
+  return me.id;
 }
 export async function POST(req: NextRequest) {
   const actor = await actorFor(req);

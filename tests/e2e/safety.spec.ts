@@ -8,7 +8,7 @@ test("live commands: replay, concurrency, undo, invalid clock and audited correc
   const post = (data: object) =>
     context.request.post("/api/admin", { headers, data });
   expect(
-    (await post({ action: "login", password: process.env.E2E_PASSWORD })).ok(),
+    (await post({ action: "login", identifier: process.env.E2E_IDENTIFIER ?? "e2e-admin@example.test", password: process.env.E2E_PASSWORD })).ok(),
   ).toBe(true);
   const id = "safety-" + crypto.randomUUID();
   expect(
@@ -299,7 +299,7 @@ test("media rejects forged images and public news escapes executable HTML", asyn
     headers = { origin };
   await context.request.post("/api/admin", {
     headers,
-    data: { action: "login", password: process.env.E2E_PASSWORD },
+    data: { action: "login", identifier: process.env.E2E_IDENTIFIER ?? "e2e-admin@example.test", password: process.env.E2E_PASSWORD },
   });
   for (const file of [
     {

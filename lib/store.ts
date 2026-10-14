@@ -27,6 +27,8 @@ import {
   type News,
 } from "./domain";
 import { storageSchema, storageSchemaVersion } from "./storage-schema";
+import { isRole } from "./permissions";
+import { normalizeIdentifier } from "./identifier";
 export interface TournamentDataProvider {
   getTournament(): Promise<Settings>;
   getTeams(): Promise<Team[]>;
@@ -126,6 +128,25 @@ export function createTournamentStore(
 
         await db.exec("PRAGMA user_version=3");
       })();
+    }
+    // Additive: named accounts with roles. The legacy password-only row keeps working until a named owner exists.
+    {
+      const columns = (await db.prepare("PRAGMA table_info(admins)").all()) as {
+        name: string;
+      }[];
+      if (!columns.some((c) => c.name === "identifier"))
+        await db.exec("ALTER TABLE admins ADD COLUMN identifier TEXT");
+      if (!columns.some((c) => c.name === "role"))
+        await db.exec(
+          "ALTER TABLE admins ADD COLUMN role TEXT NOT NULL DEFAULT 'owner'",
+        );
+      if (!columns.some((c) => c.name === "disabled"))
+        await db.exec(
+          "ALTER TABLE admins ADD COLUMN disabled INTEGER NOT NULL DEFAULT 0",
+        );
+      await db.exec(
+        "CREATE UNIQUE INDEX IF NOT EXISTS admins_identifier ON admins(identifier) WHERE identifier IS NOT NULL",
+      );
     }
     await db.exec(storageSchema);
     await db.exec(`PRAGMA user_version=${storageSchemaVersion}`);
@@ -322,64 +343,199 @@ export function createTournamentStore(
     stats: statSchema,
     pulse: pulseSchema,
   };
-  async function provision(password: string) {
-    if (password.length < 14) throw Error("Use at least 14 characters");
+  const MIN_PASSWORD = 14;
+  // Unknown accounts still pay for one scrypt so response time does not reveal which identifiers exist.
+  const DUMMY_SALT = randomBytes(16).toString("hex");
+  const sha = (value: string) => createHash("sha256").update(value).digest("hex");
+  type AccountRow = {
+    id: string;
+    salt: string;
+    hash: string;
+    identifier: string | null;
+    role: string;
+    disabled: number;
+  };
+  async function provision(
+    password: string,
+    options: { identifier?: string; role?: string } = {},
+  ) {
+    if (password.length < MIN_PASSWORD) throw Error("Use at least 14 characters");
+    const role = options.role ?? "owner";
+    if (!isRole(role)) throw Error("Unknown role");
+    let identifier: string | null = null;
+    if (options.identifier !== undefined) {
+      const parsed = normalizeIdentifier(options.identifier);
+      if (!parsed)
+        throw Error(
+          "Use a valid email address or an international phone number (+218...)",
+        );
+      identifier = parsed.value;
+    }
+    const id = identifier ?? "admin";
     const salt = randomBytes(16).toString("hex");
     await db.transaction(async () => {
       await db
         .prepare(
-          "INSERT INTO admins VALUES(?,?,?) ON CONFLICT(id) DO UPDATE SET salt=excluded.salt,hash=excluded.hash",
+          "INSERT INTO admins(id,salt,hash,identifier,role,disabled) VALUES(?,?,?,?,?,0) ON CONFLICT(id) DO UPDATE SET salt=excluded.salt,hash=excluded.hash,identifier=excluded.identifier,role=excluded.role,disabled=0",
         )
-        .run("admin", salt, scryptSync(password, salt, 64).toString("hex"));
-      await db.prepare("DELETE FROM sessions").run();
+        .run(id, salt, scryptSync(password, salt, 64).toString("hex"), identifier, role);
+      if (identifier === null) await db.prepare("DELETE FROM sessions").run();
+      else {
+        await db.prepare("DELETE FROM sessions WHERE admin=?").run(id);
+        // The password-only account is retired once a named owner exists.
+        if (role === "owner") {
+          await db.prepare("DELETE FROM sessions WHERE admin='admin'").run();
+          await db
+            .prepare("DELETE FROM admins WHERE id='admin' AND identifier IS NULL")
+            .run();
+        }
+      }
     })();
+    return id;
   }
-  async function login(password: string) {
+  async function login(password: string, identifier?: string) {
     return db.transaction(async () => {
-      const row = (await db
-        .prepare("SELECT * FROM admins WHERE id=?")
-        .get("admin")) as
-        | {
-            salt: string;
-            hash: string;
-          }
-        | undefined;
+      const parsed =
+        identifier === undefined ? null : normalizeIdentifier(identifier);
+      const row = (
+        identifier === undefined
+          ? await db
+              .prepare("SELECT * FROM admins WHERE id='admin' AND identifier IS NULL")
+              .get()
+          : parsed
+            ? await db
+                .prepare("SELECT * FROM admins WHERE identifier=?")
+                .get(parsed.value)
+            : undefined
+      ) as AccountRow | undefined;
+      const given = scryptSync(password, row?.salt ?? DUMMY_SALT, 64);
       if (
         !row ||
-        !timingSafeEqual(
-          scryptSync(password, row.salt, 64),
-          Buffer.from(row.hash, "hex"),
-        )
+        row.disabled ||
+        !timingSafeEqual(given, Buffer.from(row.hash, "hex"))
       )
         return null;
       const token = randomBytes(32).toString("hex");
       await db.prepare("DELETE FROM sessions WHERE expires<?").run(Date.now());
       await db
         .prepare("INSERT INTO sessions VALUES(?,?,?)")
-        .run(
-          createHash("sha256").update(token).digest("hex"),
-          "admin",
-          Date.now() + 8 * 3600000,
-        );
+        .run(sha(token), row.id, Date.now() + 8 * 3600000);
       return token;
     })();
   }
-  async function authorize(token: string | undefined) {
+  /** The signed-in account behind a session cookie, or null. Disabled accounts lose access immediately. */
+  async function principal(token: string | undefined) {
     if (!token) return null;
     return (
-      (
-        (await db
-          .prepare("SELECT admin FROM sessions WHERE token=? AND expires>?")
-          .get(
-            createHash("sha256").update(token).digest("hex"),
-            Date.now(),
-          )) as
-          | {
-              admin: string;
-            }
-          | undefined
-      )?.admin || null
+      ((await db
+        .prepare(
+          "SELECT a.id AS id,a.identifier AS identifier,a.role AS role FROM sessions s JOIN admins a ON a.id=s.admin WHERE s.token=? AND s.expires>? AND a.disabled=0",
+        )
+        .get(sha(token), Date.now())) as
+        | { id: string; identifier: string | null; role: string }
+        | undefined) ?? null
     );
+  }
+  async function authorize(token: string | undefined) {
+    return (await principal(token))?.id ?? null;
+  }
+  async function listUsers() {
+    return (await db
+      .prepare(
+        "SELECT id,identifier,role,disabled FROM admins ORDER BY identifier",
+      )
+      .all()) as {
+      id: string;
+      identifier: string | null;
+      role: string;
+      disabled: number;
+    }[];
+  }
+  async function otherActiveOwners(id: string) {
+    return (
+      (await db
+        .prepare(
+          "SELECT COUNT(*) AS n FROM admins WHERE role='owner' AND disabled=0 AND id!=?",
+        )
+        .get(id)) as { n: number }
+    ).n;
+  }
+  async function account(id: string) {
+    const row = (await db
+      .prepare("SELECT id,role FROM admins WHERE id=?")
+      .get(id)) as { id: string; role: string } | undefined;
+    if (!row) throw Error("الحساب غير موجود");
+    return row;
+  }
+  async function createUser(identifier: string, password: string, role: string) {
+    if (!isRole(role)) throw Error("دور غير معروف");
+    const parsed = normalizeIdentifier(identifier);
+    if (!parsed)
+      throw Error("أدخل بريداً إلكترونياً صحيحاً أو رقم هاتف دولياً يبدأ بـ +");
+    if (password.length < MIN_PASSWORD)
+      throw Error("كلمة المرور يجب ألا تقل عن 14 حرفاً");
+    await db.transaction(async () => {
+      if (await db.prepare("SELECT id FROM admins WHERE id=?").get(parsed.value))
+        throw Error("هذا الحساب موجود مسبقاً");
+      const salt = randomBytes(16).toString("hex");
+      await db
+        .prepare(
+          "INSERT INTO admins(id,salt,hash,identifier,role,disabled) VALUES(?,?,?,?,?,0)",
+        )
+        .run(
+          parsed.value,
+          salt,
+          scryptSync(password, salt, 64).toString("hex"),
+          parsed.value,
+          role,
+        );
+    })();
+    return parsed.value;
+  }
+  async function setUserRole(id: string, role: string) {
+    if (!isRole(role)) throw Error("دور غير معروف");
+    await db.transaction(async () => {
+      const target = await account(id);
+      if (
+        target.role === "owner" &&
+        role !== "owner" &&
+        !(await otherActiveOwners(id))
+      )
+        throw Error("لا يمكن إزالة آخر مالك للنظام");
+      await db.prepare("UPDATE admins SET role=? WHERE id=?").run(role, id);
+    })();
+  }
+  async function setUserDisabled(id: string, disabled: boolean) {
+    await db.transaction(async () => {
+      const target = await account(id);
+      if (disabled && target.role === "owner" && !(await otherActiveOwners(id)))
+        throw Error("لا يمكن تعطيل آخر مالك للنظام");
+      await db
+        .prepare("UPDATE admins SET disabled=? WHERE id=?")
+        .run(disabled ? 1 : 0, id);
+      if (disabled) await db.prepare("DELETE FROM sessions WHERE admin=?").run(id);
+    })();
+  }
+  async function resetPassword(id: string, password: string) {
+    if (password.length < MIN_PASSWORD)
+      throw Error("كلمة المرور يجب ألا تقل عن 14 حرفاً");
+    await db.transaction(async () => {
+      await account(id);
+      const salt = randomBytes(16).toString("hex");
+      await db
+        .prepare("UPDATE admins SET salt=?,hash=? WHERE id=?")
+        .run(salt, scryptSync(password, salt, 64).toString("hex"), id);
+      await db.prepare("DELETE FROM sessions WHERE admin=?").run(id);
+    })();
+  }
+  async function deleteUser(id: string) {
+    await db.transaction(async () => {
+      const target = await account(id);
+      if (target.role === "owner" && !(await otherActiveOwners(id)))
+        throw Error("لا يمكن حذف آخر مالك للنظام");
+      await db.prepare("DELETE FROM sessions WHERE admin=?").run(id);
+      await db.prepare("DELETE FROM admins WHERE id=?").run(id);
+    })();
   }
   async function rateLimit(key: string, max: number, window = 60000) {
     return await db.transaction(async () => {
@@ -457,6 +613,13 @@ export function createTournamentStore(
     provision,
     login,
     authorize,
+    principal,
+    listUsers,
+    createUser,
+    setUserRole,
+    setUserDisabled,
+    resetPassword,
+    deleteUser,
     rateLimit,
     rateLimitReset,
     revoke,
@@ -476,6 +639,13 @@ export const {
   provision,
   login,
   authorize,
+  principal,
+  listUsers,
+  createUser,
+  setUserRole,
+  setUserDisabled,
+  resetPassword,
+  deleteUser,
   rateLimit,
   rateLimitReset,
   revoke,

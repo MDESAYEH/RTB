@@ -13,6 +13,8 @@ const env = {
   DATABASE_PATH: resolve(root, "road.db"),
   SITE_URL: origin,
   ADMIN_PASSWORD: password,
+  ADMIN_IDENTIFIER: "e2e-admin@example.test",
+  E2E_IDENTIFIER: "e2e-admin@example.test",
   E2E_PASSWORD: password,
   E2E_BASE_URL: origin,
 };
@@ -76,7 +78,7 @@ try {
   const login = await fetch(origin + "/api/admin", {
     method: "POST",
     headers: { origin, "content-type": "application/json" },
-    body: JSON.stringify({ action: "login", password }),
+    body: JSON.stringify({ action: "login", identifier: "e2e-admin@example.test", password }),
   });
   const cookie = login.headers.get("set-cookie").split(";")[0];
   const post = async (body) => {
@@ -223,6 +225,7 @@ try {
       headers: { origin, "content-type": "application/json" },
       body: JSON.stringify({
         action: "login",
+        identifier: "e2e-admin@example.test",
         password: "incorrect-test-password",
       }),
     });

@@ -91,6 +91,7 @@ test("login cookie flags", async ({ context }) => {
     headers: { origin },
     data: {
       action: "login",
+      identifier: process.env.E2E_IDENTIFIER ?? "e2e-admin@example.test",
       password: process.env.E2E_PASSWORD,
     },
   });

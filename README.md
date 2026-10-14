@@ -13,13 +13,16 @@ npm run dev
 
 Open http://127.0.0.1:3000. The SQLite database is created and migrated on first use, with WAL and a busy timeout. No external credentials are needed. `DATABASE_PATH` defaults to `data/road.db`; set it to persistent storage on a single host. Vercel local SQLite/media are explicitly rejected. See [PERSISTENCE.md](PERSISTENCE.md) for the audit, implemented safeguards, migration snapshot and implemented Turso/Private Blob adapters and safe cutover instructions. Never commit this file.
 
-Provision an administrator (minimum 14 characters), with a private environment variable:
+Provision the first administrator. Sign-in uses an email address or an international phone number plus a password (minimum 14 characters), passed through private environment variables:
 
 ```powershell
+$env:ADMIN_IDENTIFIER = 'name@example.com'   # or '+218912345678'
 $env:ADMIN_PASSWORD = '<your-private-strong-password>'
-npm run admin:create
+npm run admin:create          # optional: $env:ADMIN_ROLE = 'owner' (default) | manager | editor | scorer
 Remove-Item Env:ADMIN_PASSWORD
 ```
+
+Roles (enforced on the server for every admin command and upload): `owner` (everything, including managing accounts), `manager` (runs the tournament, no account management), `editor` (news, players, stats, image uploads), `scorer` (live control room only). The owner creates, re-roles, disables, resets and deletes accounts in the admin panel under "Users"; the last active owner cannot be removed. The password-only account from earlier versions is retired when the first named owner is created.
 
 Visit `/admin`. Provisioning rotates the password and invalidates sessions. There is no shipped default account. Copy `.env.example` to `.env.local` for Next configuration; the provisioning script reads process environment directly, not Next's env files.
 
@@ -66,6 +69,7 @@ E2E must use an isolated database and test-only admin account. Do not run mutati
 
 ```powershell
 $env:DATABASE_PATH = './data/e2e.db'
+$env:ADMIN_IDENTIFIER = 'e2e-admin@example.test'
 $env:ADMIN_PASSWORD = '<test-only-strong-password>'
 $env:E2E_PASSWORD = $env:ADMIN_PASSWORD
 npm run admin:create

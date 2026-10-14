@@ -45,4 +45,6 @@ curl -sI https://roadtobal27.ly | grep -iE "strict-transport|content-security|x-
 curl -s -o /dev/null -w "%{http_code}\n" https://roadtobal27.ly/api/cron/fiba   # المتوقع 404
 curl -s -o /dev/null -w "%{http_code}\n" http://roadtobal27.ly:3091             # المتوقع فشل الاتصال
 ```
-وغيّر كلمة سر الإدارة إلى كلمة فريدة طويلة (14+ حرفاً) لم تُستخدم في أي مكان آخر: `npm run admin:create` ثم `pm2 restart roadtobal`.
+وغيّر كلمة سر الإدارة إلى كلمة فريدة طويلة (14+ حرفاً) لم تُستخدم في أي مكان آخر: `ADMIN_IDENTIFIER='name@example.com' ADMIN_PASSWORD='...' npm run admin:create` ثم `pm2 restart roadtobal`.
+
+**مهم عند الترقية إلى نظام الحسابات والأدوار:** الحساب القديم (كلمة سر فقط) لن يستطيع الدخول من النموذج الجديد. نفّذ الأمر أعلاه **مباشرة بعد التحديث** لإنشاء حساب المالك بالبريد/الهاتف؛ ينشئ الأمر الحساب ويحذف الحساب القديم تلقائياً ويُلغي جلساته.

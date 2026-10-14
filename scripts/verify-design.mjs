@@ -8,6 +8,8 @@ const env = {
   DATABASE_PATH: resolve(output, "browser-" + Date.now() + ".db"),
   SITE_URL: "https://road-to-bal-preview-mahara-boot-camp.vercel.app",
   ADMIN_PASSWORD: password,
+  ADMIN_IDENTIFIER: "e2e-admin@example.test",
+  E2E_IDENTIFIER: "e2e-admin@example.test",
   E2E_PASSWORD: password,
   E2E_BASE_URL: "https://road-to-bal-preview-mahara-boot-camp.vercel.app",
 };
