@@ -1,0 +1,365 @@
+/* THE ROAD page: red banner, intro, dark radar panel with team tabs, and the qualified box. */
+.public-road.road-redesign,
+.sports-page.road-redesign {
+  padding: 0;
+  max-width: none;
+  background: #fff;
+}
+.road-redesign::before,
+.road-redesign::after {
+  display: none;
+}
+.road-design {
+  color: #023047;
+}
+.road-banner {
+  padding: 44px clamp(20px, 6vw, 50px) 52px;
+  background: #8f1e1a var(--tournament-pattern) center / cover no-repeat;
+  background-blend-mode: overlay;
+  color: #fff;
+}
+.road-banner small {
+  display: block;
+  font-size: 18px;
+  opacity: 0.85;
+}
+.road-banner h1 {
+  margin: 4px 0 6px;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: #fff;
+}
+.road-banner p {
+  margin: 0;
+  font-size: clamp(16px, 2vw, 26px);
+  opacity: 0.95;
+}
+.road-body {
+  padding: 70px clamp(20px, 6vw, 50px) 80px;
+}
+.road-intro small {
+  display: block;
+  font-size: 22px;
+  color: #8f1e1a;
+}
+.road-intro h2 {
+  margin: 14px 0 26px;
+  font-size: clamp(26px, 3.4vw, 44px);
+  line-height: 1.4;
+}
+.road-intro p {
+  margin: 0;
+  font-size: clamp(16px, 1.9vw, 26px);
+  line-height: 1.8;
+}
+
+/* radar */
+.road-radar {
+  margin-top: 56px;
+  padding: 22px;
+  border-radius: 36px;
+  background: #0a2430;
+  color: #fff;
+  box-shadow: 0 30px 60px #02304725;
+}
+.road-radar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 6px 16px;
+}
+.road-radar-top > b {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: #f3a300;
+}
+.road-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: #0f3a33;
+  color: #4ade80;
+  font-size: 13px;
+  font-weight: 700;
+}
+.road-radar-main {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 2fr);
+  gap: 18px;
+}
+.road-reading {
+  order: -1;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 26px;
+  border-radius: 22px;
+  background: #fff url("/patterns/hero-topo.svg") center / cover no-repeat;
+  color: #023047;
+  text-align: start;
+}
+.road-reading > small {
+  font-weight: 800;
+  color: #03651e;
+}
+.road-reading h3 {
+  margin: 16px 0 14px;
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1.3;
+  color: #8f1e1a;
+}
+.road-reading p {
+  margin: 0 0 22px;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.road-reading dt {
+  margin-top: 16px;
+  font-size: 12px;
+  color: #8f1e1a;
+}
+.road-reading dd {
+  margin: 6px 0 0;
+  font-size: 18px;
+  font-weight: 800;
+}
+.road-reading a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 28px;
+  font-size: 14px;
+  font-weight: 800;
+  color: #8f1e1a;
+}
+.road-radar-field {
+  position: relative;
+  min-height: 540px;
+  border: 1px solid #ffffff1f;
+  border-radius: 22px;
+  background:
+    linear-gradient(#ffffff14, #ffffff14) center / 1px 100% no-repeat,
+    linear-gradient(#ffffff14, #ffffff14) center / 100% 1px no-repeat,
+    #0b2a36;
+  overflow: hidden;
+}
+.road-rings i {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border: 1px solid #2f7a6f55;
+  border-radius: 50%;
+}
+.road-rings i:nth-child(1) { width: 38%; aspect-ratio: 1; }
+.road-rings i:nth-child(2) { width: 58%; aspect-ratio: 1; }
+.road-rings i:nth-child(3) { width: 78%; aspect-ratio: 1; }
+.road-rings i:nth-child(4) { width: 98%; aspect-ratio: 1; }
+.road-center {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 2px;
+  width: 150px;
+  height: 150px;
+  border: 2px solid #f3a300;
+  border-radius: 50%;
+  background: #0a2430;
+  box-shadow: 0 0 40px #f3a30033;
+  text-align: center;
+}
+.road-center-badge img,
+.road-center-badge .team-logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+.road-center b {
+  font-size: 12px;
+}
+.road-center small {
+  font-size: 9px;
+  color: #f3a300;
+}
+.road-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffffa6;
+}
+.road-node > span:last-child {
+  display: grid;
+  gap: 2px;
+}
+.road-node small {
+  font-size: 10px;
+  color: #f3a300;
+}
+.road-node b {
+  font-size: 13px;
+}
+.road-node-icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ffffff2e;
+  border-radius: 50%;
+  background: #ffffff0d;
+}
+.road-node.current,
+.road-node.completed,
+.road-node.qualified {
+  color: #fff;
+}
+.road-node.current .road-node-icon {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background: #f3a300;
+  color: #0a2430;
+  box-shadow: 0 0 0 8px #f3a30026;
+}
+.at-top { top: 8%; left: 36%; }
+.at-right { top: 36%; right: 6%; }
+.at-left { top: 36%; left: 6%; }
+.at-bottom-right { bottom: 10%; right: 8%; }
+.at-bottom-left { bottom: 10%; left: 8%; }
+.road-team-tabs {
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+.road-team-tabs button {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 12px 6px;
+  border: 1px solid #ffffff1f;
+  border-radius: 12px;
+  background: #ffffff0a;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+.road-team-tabs .team-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+.road-team-tabs b {
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: center;
+}
+.road-team-tabs small {
+  font-size: 9px;
+  opacity: 0.6;
+}
+.road-team-tabs button.is-active {
+  border: 2px solid #fff;
+  background: #fff1;
+}
+
+/* qualified */
+.road-qualified {
+  margin-top: 56px;
+  padding: 36px 32px 32px;
+  border: 1px solid #ece3e1;
+  border-radius: 30px;
+  background: #fff;
+}
+.road-qualified > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.road-qualified h2 {
+  margin: 0;
+  font-size: clamp(22px, 2.6vw, 34px);
+}
+.road-qualified > header b {
+  color: #8f1e1a;
+}
+.road-qualified-box {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+  margin-top: 28px;
+  padding: 56px 20px;
+  border: 1px dashed #d9c7c4;
+  border-radius: 18px;
+  color: #02304799;
+  text-align: center;
+}
+.road-qualified-box p {
+  margin: 0;
+  font-size: 14px;
+}
+.road-qualified-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.road-qualified-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #f2f8f4;
+  color: #03651e;
+  font-weight: 800;
+}
+.road-qualified-list .team-logo {
+  width: 26px;
+  height: 26px;
+}
+
+@media (max-width: 1000px) {
+  .road-radar-main {
+    grid-template-columns: 1fr;
+  }
+  .road-radar-field {
+    min-height: 460px;
+  }
+  .road-team-tabs {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .road-body {
+    padding-block: 44px 56px;
+  }
+  .road-radar {
+    padding: 14px;
+    border-radius: 24px;
+  }
+  .road-radar-field {
+    min-height: 420px;
+  }
+  .road-node b {
+    font-size: 11px;
+  }
+  .at-top { left: 22%; }
+  .at-right { right: 3%; top: 38%; }
+  .at-left { left: 3%; top: 38%; }
+  .at-bottom-right { right: 3%; }
+  .at-bottom-left { left: 3%; }
+  .road-team-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .road-qualified {
+    padding: 24px 16px;
+  }
+}

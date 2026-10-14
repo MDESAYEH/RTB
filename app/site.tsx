@@ -22,6 +22,7 @@ import { NewsContent } from "./news-content";
 import { LiveCenter } from "./live-center";
 import { MatchesContent } from "./matches-content";
 import { StatsContent } from "./stats-content";
+import { RoadContent } from "./road-content";
 import { Trophy } from "lucide-react";
 import {
   standings,
@@ -427,6 +428,16 @@ export default function Site({
       "LOCKED",
       "LOCKED",
     ];
+    if (route === "road" && !preview)
+      return (
+        <RoadContent
+          teams={teams}
+          states={states as ("COMPLETED" | "CURRENT" | "LOCKED" | "QUALIFIED")[]}
+          slots={s.qualificationSlots}
+          qualified={qualifiers.map((t) => t.id)}
+          badge={(t) => <Badge team={t} />}
+        />
+      );
     return (
       <section className="road-section">
         <div className="section-title">
@@ -525,53 +536,6 @@ export default function Site({
           />
         }
       />
-    );
-  }
-  function TeamGrid() {
-    return (
-      <div className="teams-field">
-        {s.groups.map((group) => (
-          <section
-            className="team-group"
-            key={group}
-            aria-label={"GROUP " + group}
-          >
-            <span className="team-group-letter" aria-hidden="true">
-              {group}
-            </span>
-            <h2 className="team-group-title">GROUP {group} / TRIPOLI 2027</h2>
-            {teams
-              .filter((t) => t.group === group)
-              .map((t, i) => (
-                <Link className="team-line" key={t.id} href={"/teams/" + t.id}>
-                  <span className="team-position">0{i + 1}</span>
-                  <Badge team={t} />
-                  <div>
-                    <h3 dir="auto">{t.name}</h3>
-                    <p>
-                      {lang === "ar"
-                        ? `${getTeamIdentity(t.id)?.arabicName} / `
-                        : ""}
-                      {tr(t.country)}
-                    </p>
-                  </div>
-                  <span className="team-status">
-                    {tr(
-                      {
-                        QUALIFIED: "تأهل ✓",
-                        ELIMINATED: "خرج من سباق التأهل",
-                        IN_CONTENTION: "في سباق التأهل",
-                      }[qualification(t, teams, games, s)],
-                    )}
-                  </span>
-                  <span className="team-arrow" aria-hidden="true">
-                    ↗
-                  </span>
-                </Link>
-              ))}
-          </section>
-        ))}
-      </div>
     );
   }
   let content: React.ReactNode;
@@ -841,10 +805,7 @@ export default function Site({
     );
   else if (route === "road")
     content = (
-      <>
-        {Road({})}
-        {TeamGrid()}
-      </>
+      Road({})
     );
   else if (route === "stats")
     content = (
@@ -944,7 +905,7 @@ export default function Site({
             : ["matches", "standings", "stats"].includes(route)
               ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : route === "matches" ? "matches-redesign" : route === "stats" ? "stats-redesign" : ""}`
               : route !== "admin" && route !== "team"
-                ? `public-page public-${route}${route === "news" ? " news-redesign" : route === "teams" ? " teams-redesign" : ""}`
+                ? `public-page public-${route}${route === "news" ? " news-redesign" : route === "teams" ? " teams-redesign" : route === "road" ? " road-redesign" : ""}`
                 : route === "admin"
                   ? "operator-page"
                   : "club-page passport-page"
@@ -954,6 +915,7 @@ export default function Site({
           route !== "team" &&
           !(route === "matches" && !path[1]) &&
           route !== "stats" &&
+          route !== "road" &&
           route !== "players" &&
           route !== "news" &&
           route !== "teams" && (
