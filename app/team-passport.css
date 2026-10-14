@@ -4,7 +4,7 @@ main#main.passport-page {
   max-width: none;
   margin: 0;
   background: white;
-  color: #003c52;
+  color: #023047;
 }
 html[dir="rtl"] .team-passport .match-banner h1 {text-align:right;}
 html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
@@ -29,7 +29,7 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
   margin-bottom: 25px;
 }
 .passport-profile-heading h2 {
-  color: #a2211d;
+  color: #8f1e1a;
   font-size: clamp(23px, 2.6vw, 32px);
   margin: 0 0 18px;
 }
@@ -60,7 +60,7 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
   margin: 14px 0;
 }
 .passport-profile > p b {
-  color: #003c52;
+  color: #023047;
 }
 .passport-journey {
   margin: 75px 0 50px;
@@ -68,13 +68,13 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
 .passport-journey > small {
   font-family: var(--font-display), sans-serif;
   letter-spacing: 2px;
-  color: #a2211d;
+  color: #8f1e1a;
   font-weight: 800;
 }
 .passport-journey > h2 {
   font-size: clamp(27px, 4vw, 48px);
   margin: 20px 0 10px;
-  color: #003c52;
+  color: #023047;
 }
 .passport-journey > p,
 .passport-muted {
@@ -118,13 +118,13 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
   margin-top: auto;
 }
 .passport-stages article.current {
-  background: #2b4085 var(--tournament-pattern) center/cover;
+  background: #233a7f var(--tournament-pattern) center/cover;
   color: white;
-  border-color: #2b4085;
+  border-color: #233a7f;
 }
 .passport-stages .current > small {
   background: white;
-  color: #003c52;
+  color: #023047;
   border-radius: 4px;
   padding: 3px 20px;
 }
@@ -135,7 +135,7 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
 .passport-stages article.completed {
   background: #f1faf5;
   border-color: #a8ceb5;
-  color: #00702d;
+  color: #03651e;
 }
 .passport-panels {
   display: grid;
@@ -152,7 +152,7 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
   display: flex;
   align-items: center;
   gap: 14px;
-  color: #a2211d;
+  color: #8f1e1a;
 }
 .passport-panel h3 {
   font-size: 19px;
@@ -195,7 +195,7 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
 .passport-metrics b {
   font-family: var(--font-display), sans-serif;
   font-size: 34px;
-  color: #a2211d;
+  color: #8f1e1a;
 }
 .passport-metrics small {
   font-size: 10px;
@@ -216,7 +216,7 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
   font-size: 13px;
 }
 .passport-roster b {
-  color: #a2211d;
+  color: #8f1e1a;
 }
 .passport-roster small {
   margin-inline-start: auto;
@@ -229,7 +229,7 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
   padding: 18px 0;
   border-color: #e1e8ec;
   background: white;
-  color: #003c52;
+  color: #023047;
 }
 .passport-fixtures .club-mark {
   width: 38px;
