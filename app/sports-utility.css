@@ -10,7 +10,7 @@
   max-width: none;
   min-height: 68svh;
   margin: 0;
-  padding: 0 clamp(20px, 6vw, 108px) 96px;
+  padding: 0 clamp(20px, 6vw, 50px) 96px;
   color: var(--utility-ink);
   background: var(--utility-paper);
   position: relative;
@@ -527,9 +527,9 @@
 .sports-match-page .standings-wrap {
   --utility-rule: #101b2230;
   --utility-soft: #526067;
-  margin-inline: calc(-1 * clamp(20px, 6vw, 108px));
+  margin-inline: calc(-1 * clamp(20px, 6vw, 50px));
   margin-block: 30px 50px;
-  padding: 30px clamp(20px, 6vw, 108px) 40px;
+  padding: 30px clamp(20px, 6vw, 50px) 40px;
   background: var(--brand-paper, #f0efe9);
   color: var(--brand-ink, #101b22);
 }

@@ -22,15 +22,15 @@
 .operator-page { max-width: none; margin-inline: auto; }
 main.club-page:has(.team-editorial-prototype) { max-width: none; margin-inline: auto; }
 .operator-page {
-  padding: 0 clamp(20px, 6vw, 108px) 60px;
+  padding: 0 clamp(20px, 6vw, 50px) 60px;
   background: #f4f5f2;
   color: #101b22;
   --line: #192b392b;
   --muted: #526067;
 }
 .operator-page > .page-heading {
-  margin: 0 calc(-1 * clamp(20px, 6vw, 108px)) 36px;
-  padding: 36px clamp(20px, 6vw, 108px);
+  margin: 0 calc(-1 * clamp(20px, 6vw, 50px)) 36px;
+  padding: 36px clamp(20px, 6vw, 50px);
   background: linear-gradient(90deg, #10151d99, #10151de8), var(--pattern-rings) #35291f;
   color: #fff;
   border: 0;
@@ -147,7 +147,7 @@ body { background: #091522; }
 .event-sponsors {
   max-width: none;
   margin-inline: auto;
-  padding: 44px clamp(20px, 6vw, 108px) 52px;
+  padding: 44px clamp(20px, 6vw, 50px) 52px;
   background: transparent;
   color: #fff;
   border-top: 1px solid #ffffff20;
@@ -216,12 +216,12 @@ body { background: #091522; }
   background-image: linear-gradient(90deg, transparent, #231e19c9), var(--pattern-rings);
   background-size: auto, 360px 280px;
   color: #fff;
-  margin-inline: calc(-1 * clamp(20px, 6vw, 108px));
-  padding: 42px clamp(20px, 6vw, 108px);
+  margin-inline: calc(-1 * clamp(20px, 6vw, 50px));
+  padding: 42px clamp(20px, 6vw, 50px);
   margin-bottom: 40px;
   border: 0;
 }
-.public-page { padding-inline: clamp(20px, 6vw, 108px); }
+.public-page { padding-inline: clamp(20px, 6vw, 50px); }
 :is(.public-page, .sports-page) .page-heading h1 {
   font-size: clamp(36px, 5vw, 68px);
   margin: 8px 0 0;
@@ -280,13 +280,13 @@ main#main { max-width: none; width: 100%; margin-inline: 0; }
 .public-page .article-body { max-width: min(100%, 980px); }
 .sports-page { margin-inline: 0; }
 .public-page.public-road { padding-inline: 0; }
-.public-road > .page-heading { margin-inline: 0; padding-inline: clamp(20px, 6vw, 108px); }
-.public-road > .road-section { padding-inline: clamp(20px, 6vw, 108px) !important; border-radius: 0; }
-.public-road .teams-field { padding-inline: clamp(20px, 6vw, 108px); }
+.public-road > .page-heading { margin-inline: 0; padding-inline: clamp(20px, 6vw, 50px); }
+.public-road > .road-section { padding-inline: clamp(20px, 6vw, 50px) !important; border-radius: 0; }
+.public-road .teams-field { padding-inline: clamp(20px, 6vw, 50px); }
 /* Sports pages: the heading band is full bleed; other blocks keep the side gutter. */
 .sports-page { padding-inline: 0; }
-.sports-page > :not(.page-heading) { margin-inline: clamp(20px, 6vw, 108px) !important; }
-.sports-page > .page-heading { margin-inline: 0; padding-inline: clamp(20px, 6vw, 108px); width: auto; }
+.sports-page > :not(.page-heading) { margin-inline: clamp(20px, 6vw, 50px) !important; }
+.sports-page > .page-heading { margin-inline: 0; padding-inline: clamp(20px, 6vw, 50px); width: auto; }
 /* Filter / group switchers: centred pill segmented control. */
 .sports-page .tabs {
   display: flex;
@@ -1093,7 +1093,6 @@ html[lang="ar"] .section-title h2 { font-size: clamp(26px, 3.4vw, 40px); }
 }
 
 /* Reference header: white bar with federation and tournament identities. */
-.tournament-shell .topbar { display: none; }
 .tournament-shell { --hh: 64px; }
 .tournament-shell .tournament-header,
 .tournament-shell .tournament-header.is-home,

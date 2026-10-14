@@ -10,7 +10,7 @@ import { TournamentHeader, CampaignHero } from "./tournament-campaign";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { CourtArc } from "./brand-primitives";
-import { HomeContent, TournamentFooter } from "./home-content";
+import { HomeContent, HomeTopbar, TournamentFooter } from "./home-content";
 import { useLang } from "./i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
@@ -1009,6 +1009,7 @@ export default function Site({
       <a className="skip" href="#main">
         {tr("انتقل للمحتوى")}
       </a>
+      <HomeTopbar />
       <TournamentHeader />
       {!connected && (
         <div className="notice" role="status">

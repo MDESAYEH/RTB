@@ -58,3 +58,18 @@
   background-repeat: no-repeat, no-repeat;
   background-blend-mode: overlay, normal;
 }
+
+/* ===== Designer spacing: 50px page gutters, nav items 10px apart, 60px between the FIBA logo and EN ===== */
+:root { --page-gutter: 50px; }
+@media (min-width: 901px) {
+  .tournament-shell .topbar { padding-inline: var(--page-gutter); }
+  .tournament-shell .tournament-header,
+  .tournament-shell .tournament-header.is-home,
+  .tournament-shell .tournament-header.is-scrolled { padding-inline: var(--page-gutter); }
+  .rd-container { width: calc(100% - 2 * var(--page-gutter)); max-width: none; }
+  .event-home > section.tripoli-poster { padding-inline: var(--page-gutter); }
+  /* header gap is 20px; the extra 40px on the logo gives 60px between the FIBA logo and the EN / search group */
+  .tournament-header .header-fiba { margin-inline-end: 40px; }
+  /* nav: items hug each other with a 10px gap (Figma auto-layout "Hug / 10") */
+  .tournament-header .tournament-nav { flex: 1; justify-content: center; gap: 10px; margin: 0 8px; }
+}
