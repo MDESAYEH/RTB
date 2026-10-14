@@ -96,7 +96,7 @@ export const en: Record<string, string> = {
   "كل مباراة خطوة. الوصول إلى BAL يُحسم في المرحلة التالية.":
     "Every game is a step. The road to BAL is decided in the next stage.",
   "اكتشف THE ROAD": "Discover THE ROAD",
-  "مجموعتان · عشرة فرق": "Two groups · ten teams",
+  "مجموعتان · ثمانية فرق": "Two groups · eight teams",
   "المرحلة التالية": "Next stage",
   الوجهة: "Destination",
   "أول فريقين من كل مجموعة في طرابلس يتأهلان إلى Elite 16. التأهل إلى BAL يُحسم في المرحلة التالية.":
@@ -123,7 +123,7 @@ export const en: Record<string, string> = {
   بنين: "Benin",
   ليبيريا: "Liberia",
   سيراليون: "Sierra Leone",
-  "عشرة أندية أفريقية.": "Ten African clubs.",
+  "ثمانية أندية أفريقية.": "Eight African clubs.",
   "هنا تبدأ حكايات المنافسة.": "The stories of the competition begin here.",
   "رمز نصي · ": "Text badge · ",
   شعار: "Logo",
@@ -205,8 +205,8 @@ export const en: Record<string, string> = {
     "The Road to BAL 2027 qualifiers platform in Tripoli.",
   "أفريقيا تجتمع معاً": "Africa comes together",
   "وطرابلس تتصدر المشهد": "and Tripoli takes centre stage",
-  "تستضيف العاصمة الليبية طرابلس التصفيات التمهيدية للدوري الإفريقي لكرة السلة BAL 2027، بمشاركة 10 فرق تمثل 10 دول إفريقية في منافسات حماسية تجمع نخبة من المواهب والطموحات، وتؤكد مكانة ليبيا كوجهة للرياضة الإفريقية.":
-    "Libya's capital, Tripoli, hosts the Basketball Africa League (BAL) 2027 qualifiers, with 10 teams from 10 African nations in thrilling competition that brings together top talent and ambition, and confirms Libya's standing as a leading destination for African sport.",
+  "تستضيف العاصمة الليبية طرابلس التصفيات التمهيدية للدوري الإفريقي لكرة السلة BAL 2027، بمشاركة 8 فرق تمثل 8 دول إفريقية في منافسات حماسية تجمع نخبة من المواهب والطموحات، وتؤكد مكانة ليبيا كوجهة للرياضة الإفريقية.":
+    "Libya's capital, Tripoli, hosts the Basketball Africa League (BAL) 2027 qualifiers, with 8 teams from 8 African nations in thrilling competition that brings together top talent and ambition, and confirms Libya's standing as a leading destination for African sport.",
   "سياسة الخصوصية": "Privacy policy",
   "الشروط والأحكام": "Terms and conditions",
   "إمكانية الوصول": "Accessibility",
