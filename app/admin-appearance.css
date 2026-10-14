@@ -479,123 +479,391 @@
   }
 }
 
-/* ===== Users and roles ===== */
-.admin-whoami {
-  align-self: center;
-  margin-inline-start: auto;
-  padding: 6px 12px;
+/* ===== Sign-in polish ===== */
+.operator-page .login {
+  max-width: 500px;
+  padding: 40px 38px 34px;
+  background: #fff url("/patterns/hero-topo.svg") center top / 140% auto no-repeat;
+  border-radius: 24px;
+  box-shadow: 0 24px 60px #0230470f;
+}
+.operator-page .login form {
+  display: grid;
+  gap: 18px;
+}
+.operator-page .login label {
+  display: grid;
+  gap: 8px;
+}
+.operator-page .login :is(input, select) {
+  min-height: 52px;
+  border-radius: 14px;
+  border-color: #d9e2e7;
+  background: #fbfcfd;
+}
+.operator-page .login .primary {
+  margin-top: 4px;
+  min-height: 52px;
+  border-radius: 14px;
+  font-size: 15px;
+  box-shadow: 0 10px 24px #8f1e1a33;
+}
+
+/* Identifier and code fields: Latin text typed left-to-right but sitting on the right, like the password. */
+html[dir="rtl"] .operator-page .admin-field-ltr {
+  text-align: right;
+}
+html[dir="ltr"] .operator-page .admin-field-ltr {
+  text-align: left;
+}
+
+/* Password field with show/hide eye */
+.password-field {
+  position: relative;
+  display: block;
+}
+.password-field > input {
+  width: 100%;
+  padding-inline-end: 52px;
+}
+.operator-page .password-toggle {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: 4px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-height: 0;
+  margin: auto 0;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--admin-muted);
+}
+.operator-page .password-toggle:hover {
+  background: #8f1e1a12;
+  color: var(--admin-red);
+}
+.operator-page .password-toggle[aria-pressed="true"] {
+  color: var(--admin-red);
+}
+
+/* Shared account-screen building blocks */
+.admin-card {
+  padding: 22px;
+  border: 1px solid var(--admin-line);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 6px 22px #0230470a;
+}
+.admin-section-head {
+  margin-bottom: 22px;
+}
+.admin-section-head h2 {
+  margin: 0 0 6px;
+  font-size: clamp(24px, 3vw, 32px);
+  color: var(--admin-ink);
+}
+.admin-section-head p {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--admin-muted);
+  line-height: 1.8;
+}
+.admin-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.admin-form-grid label,
+.admin-card label {
+  display: grid;
+  gap: 8px;
+  color: var(--admin-ink);
+  font-size: 13px;
+  font-weight: 750;
+}
+.admin-callout {
+  margin: 0 0 18px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid #f3a30066;
+  background: #fffaf0;
+  color: var(--admin-ink);
+  line-height: 1.8;
+}
+.admin-error {
+  margin: 0 0 18px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #fff0ef;
+  color: var(--admin-red);
+  line-height: 1.8;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 11px;
   border-radius: 999px;
-  background: #8f1e1a14;
-  color: #8f1e1a;
+  background: #eef2f5;
+  color: var(--admin-ink);
   font-size: 12px;
-  font-weight: 700;
+  font-style: normal;
+  font-weight: 800;
   white-space: nowrap;
 }
-.admin-users h2 {
-  margin: 0 0 18px;
+.pill.role-owner {
+  background: #8f1e1a;
+  color: #fff;
 }
-.admin-user-form {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-  gap: 14px;
-  align-items: end;
-  padding: 18px;
-  border: 1px solid #ece3e1;
-  border-radius: 16px;
-  background: #fbf6f5;
+.pill.role-manager {
+  background: #233a7f;
+  color: #fff;
+}
+.pill.role-editor {
+  background: #f3a30026;
+  color: #7a5200;
+}
+.pill.role-scorer {
+  background: #03651e1a;
+  color: #03651e;
+}
+.pill-you {
+  background: var(--admin-ink);
+  color: #fff;
+}
+.pill-ok {
+  background: #03651e1a;
+  color: #03651e;
+}
+.pill-warn {
+  background: #f3a30026;
+  color: #7a5200;
+}
+.pill-off {
+  background: #e3e9ed;
+  color: var(--admin-muted);
+}
+
+/* Users */
+.admin-user-form h3,
+.admin-subhead {
+  margin: 0 0 16px;
+  font-size: 18px;
+  color: var(--admin-ink);
 }
 .admin-user-list {
   display: grid;
-  gap: 10px;
-  margin: 20px 0;
+  gap: 12px;
+  margin: 24px 0 34px;
   padding: 0;
   list-style: none;
 }
-.admin-user-list li {
+.admin-user {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px 16px;
+}
+.admin-user.is-disabled {
+  opacity: 0.62;
+}
+.admin-avatar {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #8f1e1a14;
+  color: var(--admin-red);
+  font: 800 18px/1 Arial, sans-serif;
+}
+.admin-user-main {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.admin-user-main > b {
+  overflow-wrap: anywhere;
+  text-align: start;
+  font-size: 15px;
+}
+.admin-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.admin-user-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border: 1px solid #ece3e1;
-  border-radius: 14px;
-  background: #fff;
-}
-.admin-user-list li.is-disabled {
-  opacity: 0.6;
-}
-.admin-user-list li > b {
-  flex: 1 1 220px;
-  overflow-wrap: anywhere;
-}
-.admin-user-list small {
-  padding: 2px 10px;
-  border-radius: 999px;
-  background: #023047;
-  color: #fff;
-  font-size: 11px;
-}
-.admin-user-list button.danger {
-  color: #8f1e1a;
-}
-.admin-role-help {
-  display: grid;
+  justify-content: flex-end;
   gap: 8px;
-  margin: 0;
 }
-.admin-role-help div {
+.admin-user-actions :is(button, select) {
+  min-height: 38px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 12.5px;
+}
+.admin-user-actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.admin-user-actions button.danger {
+  padding-inline: 10px;
+  color: var(--admin-red);
+  border-color: #8f1e1a40;
+}
+.admin-user-actions button.danger:hover:not(:disabled) {
+  background: #fff0ef;
+}
+.admin-reset {
+  grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 14px;
+  align-items: flex-end;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--admin-line);
 }
-.admin-role-help dt {
-  min-width: 130px;
-  font-weight: 800;
+.admin-reset label {
+  flex: 1 1 280px;
 }
-.admin-role-help dd {
+.admin-role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px;
+}
+.admin-role-card {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding: 18px;
+}
+.admin-role-card p {
   margin: 0;
-  flex: 1 1 260px;
-  color: #02304799;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--admin-muted);
 }
 
-/* ===== Two-factor ===== */
-.admin-security h2 {
-  margin: 0 0 14px;
+/* Security */
+.admin-2fa-on,
+.admin-2fa-start {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
 }
-.admin-security > p {
-  max-width: 62ch;
-  line-height: 1.8;
+.admin-2fa-on {
+  border-color: #03651e55;
+  background: #f4faf6;
 }
-.admin-2fa-state {
+.admin-2fa-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: #8f1e1a14;
+  color: var(--admin-red);
+}
+.admin-2fa-on .admin-2fa-icon {
+  background: #03651e1a;
   color: #03651e;
-  font-weight: 800;
 }
-.admin-2fa-setup img {
+.admin-2fa-on h3,
+.admin-2fa-start h3,
+.admin-recovery h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.admin-2fa-on p,
+.admin-2fa-start p,
+.admin-recovery p {
+  margin: 0 0 12px;
+  line-height: 1.8;
+  color: var(--admin-muted);
+}
+.admin-2fa-off {
+  margin-top: 14px;
+}
+.admin-2fa-off summary {
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--admin-red);
+}
+.admin-2fa-off form {
+  display: grid;
+  gap: 4px;
+  margin-top: 18px;
+}
+.operator-page .danger-solid {
+  justify-self: start;
+  padding-inline: 22px;
+  border-color: var(--admin-red);
+  background: var(--admin-red);
+  color: #fff;
+}
+.admin-2fa-steps {
+  display: grid;
+  gap: 14px;
+  max-width: 640px;
+}
+.admin-step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+.admin-step h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+.admin-step p {
+  margin: 0 0 12px;
+  line-height: 1.8;
+  color: var(--admin-muted);
+}
+.admin-step-no {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--admin-red);
+  color: #fff;
+  font: 800 16px/1 Arial, sans-serif;
+}
+.admin-step img {
   display: block;
-  margin: 14px 0;
+  margin: 8px 0 12px;
   padding: 10px;
-  border: 1px solid #ece3e1;
-  border-radius: 14px;
+  border: 1px solid var(--admin-line);
+  border-radius: 16px;
   background: #fff;
 }
-.admin-2fa-setup code,
+.admin-step label + button {
+  margin-top: 14px;
+}
+.admin-manual-key code,
 .admin-recovery code {
-  padding: 3px 8px;
+  padding: 3px 9px;
   border-radius: 8px;
   background: #fbf6f5;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 0.04em;
   overflow-wrap: anywhere;
 }
 .admin-recovery {
-  margin: 0 0 20px;
-  padding: 18px;
+  margin-bottom: 18px;
   border: 2px solid #f3a300;
-  border-radius: 16px;
   background: #fffaf0;
-}
-.admin-recovery h3 {
-  margin: 0 0 8px;
 }
 .admin-recovery ul {
   display: grid;
@@ -604,4 +872,50 @@
   margin: 12px 0 0;
   padding: 0;
   list-style: none;
+}
+.admin-recovery li code {
+  display: block;
+  padding: 8px 10px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #f3a30055;
+}
+.admin-whoami {
+  align-self: center;
+  margin-inline-start: auto;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #8f1e1a14;
+  color: var(--admin-red);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .operator-page .login {
+    padding: 30px 20px 26px;
+  }
+  .admin-user {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .admin-user-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+  }
+  .admin-2fa-on,
+  .admin-2fa-start {
+    flex-direction: column;
+  }
+}
+
+/* Tabs wrap instead of scrolling so the account badge and sign-out stay visible. */
+.operator-page .admin .tabs {
+  flex-wrap: wrap;
+  overflow: visible;
+}
+.operator-page .admin .tabs .admin-whoami {
+  order: 98;
+}
+.operator-page .admin .tabs button:last-child {
+  order: 99;
 }
