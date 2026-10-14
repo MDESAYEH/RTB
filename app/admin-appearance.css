@@ -364,16 +364,6 @@
     sans-serif;
   letter-spacing: 0.08em;
 }
-.admin-login-mark {
-  display: grid;
-  place-items: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
-  margin-inline: auto;
-  background: #fbefee;
-  color: var(--admin-red);
-}
 .operator-page .login h2 {
   text-align: center;
   margin: 14px 0 8px;

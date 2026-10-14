@@ -1,7 +1,7 @@
 "use client";
 import { uploadMedia } from "@/lib/media-client";
 import { useEffect, useState, useRef } from "react";
-import { CalendarDays, Newspaper, Shield, Users } from "lucide-react";
+import { CalendarDays, Newspaper, Users } from "lucide-react";
 import { TournamentLogo } from "./tournament-logo";
 import { useLang } from "./i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
@@ -369,9 +369,6 @@ export function Admin({
             ROAD TO BAL<small>TRIPOLI · LIBYA</small>
           </span>
         </div>
-        <span className="admin-login-mark">
-          <Shield size={24} aria-hidden="true" />
-        </span>
         <h2>{tr("دخول الإدارة")}</h2>
         <p className="admin-login-intro">
           {lang === "ar"
