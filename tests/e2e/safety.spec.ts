@@ -195,7 +195,7 @@ test("live commands: replay, concurrency, undo, invalid clock and audited correc
   await expect(page.getByRole("status")).toContainText("أنت غير متصل");
   await context.setOffline(false);
   await expect(page.getByRole("status")).toHaveCount(0, { timeout: 15000 });
-  await page.goto("/admin");
+  await page.goto("/" + (process.env.ADMIN_PATH ?? "RTBadmin27"));
   await page.getByLabel("المباراة", { exact: true }).selectOption(id);
   await page
     .getByRole("button", { name: "إضافة 3 إلى Al Ittihad", exact: true })
@@ -228,7 +228,7 @@ test("live commands: replay, concurrency, undo, invalid clock and audited correc
   }
   const adminTab = await context.newPage();
   await adminTab.route("**/api/live", (route) => route.abort());
-  await adminTab.goto("/admin");
+  await adminTab.goto("/" + (process.env.ADMIN_PATH ?? "RTBadmin27"));
   await adminTab.getByLabel("المباراة", { exact: true }).selectOption(id);
   await expect(page.locator(".admin")).toHaveAttribute("aria-busy", "false");
   await page

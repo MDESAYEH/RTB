@@ -26,7 +26,7 @@ Roles (enforced on the server for every admin command and upload): `owner` (ever
 
 Two-factor authentication (authenticator app, TOTP / RFC 6238) is optional per account and can be required for everyone. Set `TWO_FACTOR_KEY` (32+ characters, e.g. `openssl rand -hex 32`; authenticator secrets are stored AES-256-GCM encrypted with it) and `REQUIRE_2FA=1` to force it. Each user turns it on under "Account security", scans the QR code and saves eight single-use recovery codes. Codes cannot be reused, and an owner can reset a colleague's authenticator after a lost phone. Without `TWO_FACTOR_KEY` the feature is unavailable and sign-in stays password-only.
 
-Visit `/admin`. Provisioning rotates the password and invalidates sessions. There is no shipped default account. Copy `.env.example` to `.env.local` for Next configuration; the provisioning script reads process environment directly, not Next's env files.
+Visit `/RTBadmin27` (the old `/admin` URL no longer exists; override the path with `ADMIN_PATH`). Provisioning rotates the password and invalidates sessions. There is no shipped default account. Copy `.env.example` to `.env.local` for Next configuration; the provisioning script reads process environment directly, not Next's env files.
 
 ## Architecture
 

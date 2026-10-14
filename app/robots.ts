@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/", disallow: ["/admin", "/api/"] },
+    rules: { userAgent: "*", allow: "/", // The admin path is deliberately not listed here: robots.txt is public. The admin page itself is noindex.
+    disallow: ["/api/"] },
     sitemap: new URL(
       "/sitemap.xml",
       process.env.SITE_URL || "http://localhost:3000",

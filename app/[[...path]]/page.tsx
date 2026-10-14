@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { en } from "@/app/i18n-dict";
 import { provider, snapshotData } from "@/lib/store";
 import Site from "@/app/site";
+import { ADMIN_PATH } from "@/lib/admin-path";
 export const dynamic = "force-dynamic";
 export async function generateMetadata({
   params,
@@ -12,7 +13,10 @@ export async function generateMetadata({
     path?: string[];
   }>;
 }) {
-  const { path = [] } = await params;
+  const { path: rawPath = [] } = await params;
+  const isAdmin = rawPath[0] === ADMIN_PATH;
+  // The real admin path never appears in generated metadata (OG image URLs, canonical).
+  const path = isAdmin ? ["admin"] : rawPath;
   const english = (await cookies()).get("lang")?.value === "en";
   const tr = (text: string) => (english ? (en[text] ?? text) : text);
   const game =
@@ -51,7 +55,8 @@ export async function generateMetadata({
             terms: tr("الشروط والأحكام"),
             accessibility: tr("إمكانية الوصول"),
           } as Record<string, string>
-        )[path[0]] ||
+          // A plain /admin is not a page any more, so it must not pick up the admin title.
+        )[rawPath[0] === "admin" ? "" : path[0]] ||
         tr("طرابلس تستضيف أفريقيا");
   const description =
     (profile?.bioShort && tr(profile.bioShort)) ||
@@ -74,7 +79,7 @@ export async function generateMetadata({
   return {
     description,
     alternates: { canonical },
-    robots: path[0] === "admin" ? { index: false, follow: false } : undefined,
+    robots: isAdmin ? { index: false, follow: false } : undefined,
     twitter: {
       card: "summary_large_image",
       title,
@@ -108,6 +113,7 @@ export default async function Page({
   }>;
 }) {
   const { path = [] } = await params;
+  const isAdmin = path[0] === ADMIN_PATH;
   const valid = [
     "matches",
     "standings",
@@ -118,12 +124,11 @@ export default async function Page({
     "news",
     "road",
     "the-road",
-    "admin",
     "privacy",
     "terms",
     "accessibility",
   ];
-  if (path.length && !valid.includes(path[0])) notFound();
+  if (path.length && !isAdmin && !valid.includes(path[0])) notFound();
   if (
     path.length > 2 ||
     (path.length > 1 &&
@@ -154,7 +159,9 @@ export default async function Page({
   if (path[0] === "teams" && path[1] && !profile && !plainTeam) notFound();
   if (path[0] === "team" && profile)
     permanentRedirect("/teams/" + encodeURIComponent(profile.slug));
-  const renderPath = profile
+  const renderPath = isAdmin
+    ? ["admin"]
+    : profile
     ? ["team", profile.id]
     : plainTeam
       ? ["team", plainTeam.id]

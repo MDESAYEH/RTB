@@ -1,6 +1,7 @@
 import { chromium } from "@playwright/test";
 import { mkdirSync, writeFileSync } from "node:fs";
 const stage = process.argv[2] || "baseline";
+const adminRoute = "/" + (process.env.ADMIN_PATH ?? "RTBadmin27");
 const base = process.env.E2E_BASE_URL || "http://127.0.0.1:3000";
 const root = `verification/phase2/${stage}`;
 mkdirSync(root, { recursive: true });
@@ -58,7 +59,7 @@ const routes = [
   "/the-road",
   "/road",
   "/team/al-ittihad",
-  "/admin",
+  adminRoute,
   ...data.games
     .filter((g) => g.id.startsWith("visual-"))
     .map((g) => "/matches/" + g.id),
@@ -85,7 +86,7 @@ for (const [width, height] of [
       .waitFor({ timeout: 10000 })
       .catch(() => {});
     await page.evaluate(() => document.fonts.ready);
-    if (route === "/admin" && stage.startsWith("fixture")) {
+    if (route === adminRoute && stage.startsWith("fixture")) {
       await page
         .getByLabel("المباراة", { exact: true })
         .selectOption("visual-live");

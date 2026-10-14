@@ -46,9 +46,14 @@ test("journey route, metadata, security headers and sustained quiet-connection w
   const sitemapText = await sitemap.text();
   expect(sitemapText).toContain("/the-road");
   expect(sitemapText).not.toContain("/admin");
+  expect(sitemapText).not.toContain(process.env.ADMIN_PATH ?? "RTBadmin27");
 
   const robots = await context.request.get("/robots.txt");
-  expect(await robots.text()).toContain("Disallow: /admin");
+  const robotsText = await robots.text();
+  expect(robotsText).toContain("Disallow: /api/");
+  // robots.txt is public, so it must not reveal the admin path.
+  expect(robotsText).not.toContain("admin");
+  expect(robotsText).not.toContain(process.env.ADMIN_PATH ?? "RTBadmin27");
 
   const response = await context.request.get("/");
 

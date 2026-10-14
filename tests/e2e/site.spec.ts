@@ -33,7 +33,7 @@ test("RTL public pages, navigation and responsive overflow", async ({
     "/stats",
     "/road",
     "/news",
-    "/admin",
+    "/" + (process.env.ADMIN_PATH ?? "RTBadmin27"),
     "/team/al-ittihad",
   ]) {
     await page.goto(route);

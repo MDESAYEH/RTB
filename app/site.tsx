@@ -81,7 +81,7 @@ function Badge({ team }: { team: Team }) {
     </span>
   );
 }
-// Admin UI (editors, audit log, uploads) loads only on /admin.
+// Admin UI (editors, audit log, uploads) loads only on the private admin path (lib/admin-path.ts).
 const Admin = dynamic(() => import("./admin-panel").then((m) => m.Admin));
 export default function Site({
   path,
