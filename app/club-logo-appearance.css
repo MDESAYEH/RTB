@@ -1,0 +1,16 @@
+/* Keep the original crests readable across directory, passport and compact badges. */
+img.team-logo[alt="Kriol Star"],
+img.club-mark[src*="kriol-star"],
+img.club-mark[alt$="Kriol Star"] {
+  background: #003c52 !important;
+  border-radius: 50%;
+  padding: 6px !important;
+  filter: none !important;
+  object-fit: contain;
+}
+img.team-logo[alt="Red Flames"],
+img.club-mark.red-flames-mark {
+  background: transparent !important;
+  filter: url("/images/clubs/red-flames-background.svg#remove-white") !important;
+  object-fit: contain;
+}
