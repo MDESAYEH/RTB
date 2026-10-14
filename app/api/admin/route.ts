@@ -7,7 +7,11 @@ import {
   db,
   revoke,
   principal,
-  login,
+  authenticate,
+  beginTwoFactor,
+  confirmTwoFactor,
+  disableTwoFactor,
+  resetTwoFactor,
   rateLimit,
   rateLimitReset,
   snapshotData,
@@ -20,9 +24,12 @@ import {
 } from "@/lib/store";
 import { can, permissionsOf, requiredPermission } from "@/lib/permissions";
 import { normalizeIdentifier } from "@/lib/identifier";
+import { twoFactorConfigured } from "@/lib/secret-box";
+import QRCode from "qrcode";
 import { boundedBody, PayloadLimit, trustedOrigin } from "@/lib/request";
 import { loginBucket } from "@/lib/login-limit";
 export const runtime = "nodejs";
+const requireTwoFactor = () => process.env.REQUIRE_2FA === "1";
 export async function POST(req: NextRequest) {
   if (!trustedOrigin(req))
     return NextResponse.json({ error: "Origin rejected" }, { status: 403 });
@@ -83,9 +90,13 @@ export async function POST(req: NextRequest) {
         { error: "محاولات كثيرة. حاول بعد 15 دقيقة." },
         { status: 429 },
       );
-    const token = await db.transaction(async () => {
-      const token = await login(b.password || "", ident?.value ?? "");
-      if (!token) return null;
+    const outcome = await db.transaction(async () => {
+      const result = await authenticate(
+        b.password || "",
+        ident?.value ?? "",
+        b.otp,
+      );
+      if (result.status !== "ok") return result;
       await db
         .prepare(
           "INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,'login')",
@@ -98,9 +109,15 @@ export async function POST(req: NextRequest) {
           JSON.stringify({ event: "login" }),
           new Date().toISOString(),
         );
-      return token;
+      return result;
     })();
-    if (!token)
+    // Password right, authenticator code still needed (or wrong): the attempt stays counted.
+    if (outcome.status === "otp")
+      return NextResponse.json(
+        { error: "أدخل رمز التحقق من تطبيق المصادقة.", needOtp: true },
+        { status: 401 },
+      );
+    if (outcome.status !== "ok")
       return NextResponse.json(
         {
           error:
@@ -108,6 +125,7 @@ export async function POST(req: NextRequest) {
         },
         { status: 401 },
       );
+    const token = outcome.token;
     // Only failed attempts count toward the limit.
     await rateLimitReset(bucket);
     await rateLimitReset(accountBucket);
@@ -145,6 +163,56 @@ export async function POST(req: NextRequest) {
     jar.delete("road-session");
     return NextResponse.json({ ok: true });
   }
+  // Optional policy: every account must have an authenticator before it can do anything else.
+  const mustEnrol = requireTwoFactor() && !me.twoFactor;
+  if (mustEnrol && !b.action.startsWith("2fa:"))
+    return NextResponse.json(
+      { error: "فعّل التحقق الثنائي أولاً.", code: "2fa-required" },
+      { status: 403 },
+    );
+  if (b.action.startsWith("2fa:")) {
+    if (!(await rateLimit("2fa:" + actor, 10, 15 * 60000)))
+      return NextResponse.json(
+        { error: "محاولات كثيرة. حاول بعد 15 دقيقة." },
+        { status: 429 },
+      );
+    try {
+      let extra: Record<string, unknown> = {};
+      if (b.action === "2fa:begin") {
+        const started = await beginTwoFactor(actor);
+        extra = {
+          secret: started.secret,
+          uri: started.uri,
+          qr: await QRCode.toDataURL(started.uri, { margin: 1, width: 240 }),
+        };
+      } else if (b.action === "2fa:confirm")
+        extra = { recoveryCodes: await confirmTwoFactor(actor, b.otp ?? "") };
+      else if (b.action === "2fa:disable")
+        await disableTwoFactor(actor, b.password ?? "", b.otp ?? "");
+      else
+        return NextResponse.json({ error: "Unknown action" }, { status: 400 });
+      await db
+        .prepare(
+          "INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,?)",
+        )
+        .run(
+          actor,
+          "auth",
+          actor,
+          null,
+          JSON.stringify({ event: b.action }),
+          new Date().toISOString(),
+          b.action,
+        );
+      await rateLimitReset("2fa:" + actor);
+      return NextResponse.json({ ok: true, ...extra });
+    } catch (e) {
+      return NextResponse.json(
+        { error: e instanceof Error ? e.message : "تعذر تنفيذ الإجراء" },
+        { status: 400 },
+      );
+    }
+  }
   // Role-based access control: every command needs a permission the role holds.
   if (!can(me.role, requiredPermission(b)))
     return NextResponse.json(
@@ -163,6 +231,7 @@ export async function POST(req: NextRequest) {
       else if (b.action === "user:disable") await setUserDisabled(target, true);
       else if (b.action === "user:enable") await setUserDisabled(target, false);
       else if (b.action === "user:delete") await deleteUser(target);
+      else if (b.action === "user:2fa-reset") await resetTwoFactor(target);
       else
         return NextResponse.json({ error: "Unknown action" }, { status: 400 });
       // Passwords are never written to the audit trail.
@@ -205,6 +274,23 @@ export async function GET() {
     kind: string;
     body: string;
   }[];
+  const twoFactorState = {
+    enabled: !!me.twoFactor,
+    required: requireTwoFactor(),
+    available: twoFactorConfigured(),
+  };
+  const meBody = {
+    id: me.id,
+    identifier: me.identifier,
+    role: me.role,
+    permissions: permissionsOf(me.role),
+    twoFactor: twoFactorState,
+  };
+  if (twoFactorState.required && !twoFactorState.enabled)
+    return NextResponse.json(
+      { me: meBody },
+      { headers: { "Cache-Control": "no-store" } },
+    );
   let fiba: unknown = null;
   try {
     fiba =
@@ -229,12 +315,7 @@ export async function GET() {
             .prepare("SELECT * FROM audit ORDER BY id DESC LIMIT 100")
             .all()
         : [],
-      me: {
-        id: me.id,
-        identifier: me.identifier,
-        role: me.role,
-        permissions: permissionsOf(me.role),
-      },
+      me: meBody,
       users: can(me.role, "users:manage") ? await listUsers() : undefined,
     },
     { headers: { "Cache-Control": "no-store" } },

@@ -24,6 +24,8 @@ Remove-Item Env:ADMIN_PASSWORD
 
 Roles (enforced on the server for every admin command and upload): `owner` (everything, including managing accounts), `manager` (runs the tournament, no account management), `editor` (news, players, stats, image uploads), `scorer` (live control room only). The owner creates, re-roles, disables, resets and deletes accounts in the admin panel under "Users"; the last active owner cannot be removed. The password-only account from earlier versions is retired when the first named owner is created.
 
+Two-factor authentication (authenticator app, TOTP / RFC 6238) is optional per account and can be required for everyone. Set `TWO_FACTOR_KEY` (32+ characters, e.g. `openssl rand -hex 32`; authenticator secrets are stored AES-256-GCM encrypted with it) and `REQUIRE_2FA=1` to force it. Each user turns it on under "Account security", scans the QR code and saves eight single-use recovery codes. Codes cannot be reused, and an owner can reset a colleague's authenticator after a lost phone. Without `TWO_FACTOR_KEY` the feature is unavailable and sign-in stays password-only.
+
 Visit `/admin`. Provisioning rotates the password and invalidates sessions. There is no shipped default account. Copy `.env.example` to `.env.local` for Next configuration; the provisioning script reads process environment directly, not Next's env files.
 
 ## Architecture

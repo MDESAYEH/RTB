@@ -4,6 +4,7 @@ export const adminCommandSchema = z.object({
   password: z.string().max(256).optional(),
   identifier: z.string().max(254).optional(),
   role: z.string().max(20).optional(),
+  otp: z.string().max(32).optional(),
   kind: z.string().optional(),
   id: z.string().optional(),
   value: z.unknown().optional(),

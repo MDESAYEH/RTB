@@ -12,12 +12,15 @@ type Me = {
   identifier: string | null;
   role: string;
   permissions: Permission[];
+  twoFactor: { enabled: boolean; required: boolean; available: boolean };
 };
+type Setup = { secret: string; qr: string };
 type UserRow = {
   id: string;
   identifier: string | null;
   role: string;
   disabled: number;
+  twoFactor: number;
 };
 const KIND_LABELS: Record<string, string> = {
   events: "البطولة",
@@ -125,7 +128,11 @@ export function Admin({
     [clock, setClock] = useState(600),
     [identifier, setIdentifier] = useState(""),
     [me, setMe] = useState<Me | null>(null),
-    [users, setUsers] = useState<UserRow[]>([]);
+    [users, setUsers] = useState<UserRow[]>([]),
+    [otp, setOtp] = useState(""),
+    [needOtp, setNeedOtp] = useState(false),
+    [setup, setSetup] = useState<Setup | null>(null),
+    [codes, setCodes] = useState<string[] | null>(null);
   const has = (p: Permission) => !!me?.permissions.includes(p);
   // Each tab needs the permission the server will also require for its commands.
   const allowed = (id: string) =>
@@ -209,6 +216,8 @@ export function Admin({
       const v = await r.json();
       if (!r.ok) {
         setError(v.error);
+        if (v.needOtp) setNeedOtp(true);
+        if (r.status === 403 && v.code === "2fa-required") void load();
         if (r.status === 409) {
           const snapshot = await (
             await fetch("/api/data", { cache: "no-store" })
@@ -223,6 +232,21 @@ export function Admin({
         latest.current = v.data;
       }
       setDanger(null);
+      const act = (body as { action: string }).action;
+      if (act === "2fa:begin") setSetup({ secret: v.secret, qr: v.qr });
+      if (act === "2fa:confirm") {
+        setCodes(v.recoveryCodes);
+        setSetup(null);
+        setTab("security");
+      }
+      if (act === "2fa:disable") {
+        setSetup(null);
+        setCodes(null);
+      }
+      if (act === "login") {
+        setOtp("");
+        setNeedOtp(false);
+      }
       if ((body as { action: string }).action === "logout") {
         setAuth(false);
         return;
@@ -357,7 +381,7 @@ export function Admin({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            void mutate({ action: "login", identifier, password });
+            void mutate({ action: "login", identifier, password, otp });
           }}
         >
           <label>
@@ -383,12 +407,48 @@ export function Admin({
               required
             />
           </label>
+          {needOtp && (
+            <label>
+              {lang === "ar"
+                ? "رمز التحقق من تطبيق المصادقة (أو رمز استرداد)"
+                : "Authenticator code (or a recovery code)"}
+              <input
+                type="text"
+                dir="ltr"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                maxLength={12}
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                autoFocus
+                required
+              />
+            </label>
+          )}
           <button className="primary">{tr("دخول آمن")}</button>
         </form>
         {error && <p role="alert">{error}</p>}
         <p className="muted">
           {tr("يلزم إنشاء حساب الإدارة من الخادم قبل تسجيل الدخول.")}
         </p>
+      </div>
+    );
+  if (me && me.twoFactor.required && !me.twoFactor.enabled)
+    return (
+      <div className="admin" aria-busy={busy}>
+        <SecurityPanel
+          me={me}
+          setup={setup}
+          codes={codes}
+          busy={busy}
+          lang={lang === "ar" ? "ar" : "en"}
+          forced
+          error={error}
+          onRun={(body) => void mutate(body)}
+        />
+        <button onClick={() => void mutate({ action: "logout" })}>
+          {tr("خروج")}
+        </button>
       </div>
     );
   return (
@@ -442,6 +502,7 @@ export function Admin({
           ["health", "صحة البيانات"],
           ["audit", "سجل التدقيق"],
           ["users", "المستخدمون"],
+          ["security", "حماية الحساب"],
         ]
           .filter(([id]) => allowed(id))
           .map(([id, title]) => (
@@ -988,6 +1049,17 @@ export function Admin({
           </p>
         </>
       )}
+      {tab === "security" && me && (
+        <SecurityPanel
+          me={me}
+          setup={setup}
+          codes={codes}
+          busy={busy}
+          lang={lang === "ar" ? "ar" : "en"}
+          error=""
+          onRun={(body) => void mutate(body)}
+        />
+      )}
       {tab === "users" && me && has("users:manage") && (
         <UsersPanel
           users={users}
@@ -1214,6 +1286,7 @@ function UsersPanel({
             <b dir="ltr">{u.identifier ?? u.id}</b>
             {u.id === meId && <small>{t("أنت", "You")}</small>}
             {u.disabled ? <small>{t("معطّل", "Disabled")}</small> : null}
+            {u.twoFactor ? <small>{t("تحقق ثنائي", "2FA")}</small> : null}
             <select
               aria-label={t("الدور", "Role")}
               value={u.role}
@@ -1252,6 +1325,25 @@ function UsersPanel({
             >
               {t("إعادة تعيين كلمة المرور", "Reset password")}
             </button>
+            {u.twoFactor ? (
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => {
+                  if (
+                    window.confirm(
+                      t(
+                        "إلغاء التحقق الثنائي لهذا الحساب؟ سيُسجَّل خروجه ويُطلب منه إعداده من جديد.",
+                        "Remove this account's authenticator? They will be signed out and must set it up again.",
+                      ),
+                    )
+                  )
+                    onRun({ action: "user:2fa-reset", id: u.id });
+                }}
+              >
+                {t("إعادة تعيين التحقق الثنائي", "Reset 2FA")}
+              </button>
+            ) : null}
             <button
               type="button"
               className="danger"
@@ -1278,6 +1370,171 @@ function UsersPanel({
           </div>
         ))}
       </dl>
+    </section>
+  );
+}
+
+function SecurityPanel({
+  me,
+  setup,
+  codes,
+  busy,
+  lang,
+  forced,
+  error,
+  onRun,
+}: {
+  me: Me;
+  setup: Setup | null;
+  codes: string[] | null;
+  busy: boolean;
+  lang: "ar" | "en";
+  forced?: boolean;
+  error: string;
+  onRun: (body: Record<string, unknown>) => void;
+}) {
+  const t = (ar: string, en: string) => (lang === "ar" ? ar : en);
+  const [code, setCode] = useState("");
+  const [password, setPassword] = useState("");
+  const enabled = me.twoFactor.enabled;
+  return (
+    <section className="admin-security">
+      <h2>{t("حماية الحساب", "Account security")}</h2>
+      {forced && (
+        <p className="notice" role="status">
+          {t(
+            "للمتابعة يلزم تفعيل التحقق الثنائي بتطبيق المصادقة. سيُطلب الرمز في كل مرة تسجّل فيها الدخول.",
+            "Two-factor authentication is required to continue. You will be asked for a code every time you sign in.",
+          )}
+        </p>
+      )}
+      {error && forced && <p role="alert">{error}</p>}
+      {codes && (
+        <div className="admin-recovery" role="status">
+          <h3>{t("رموز الاسترداد", "Recovery codes")}</h3>
+          <p>
+            {t(
+              "احفظها الآن في مكان آمن. كل رمز يعمل مرة واحدة إذا ضاع هاتفك، ولن تظهر مرة أخرى.",
+              "Save them now somewhere safe. Each works once if you lose your phone, and they will not be shown again.",
+            )}
+          </p>
+          <ul dir="ltr">
+            {codes.map((c) => (
+              <li key={c}>
+                <code>{c}</code>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {enabled ? (
+        <>
+          <p className="admin-2fa-state">
+            <span aria-hidden="true">✓</span>{" "}
+            {t("التحقق الثنائي مفعَّل على حسابك.", "Two-factor authentication is on for your account.")}
+          </p>
+          <form
+            className="admin-user-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              onRun({ action: "2fa:disable", password, otp: code });
+              setPassword("");
+              setCode("");
+            }}
+          >
+            <label>
+              {t("كلمة المرور", "Password")}
+              <input
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+            <label>
+              {t("رمز التحقق أو رمز استرداد", "Authenticator or recovery code")}
+              <input
+                dir="ltr"
+                autoComplete="one-time-code"
+                maxLength={12}
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                required
+              />
+            </label>
+            <button disabled={busy}>{t("إيقاف التحقق الثنائي", "Turn off two-factor")}</button>
+          </form>
+        </>
+      ) : !me.twoFactor.available ? (
+        <p className="notice" role="alert">
+          {t(
+            "التحقق الثنائي غير مهيّأ على الخادم بعد (يلزم ضبط TWO_FACTOR_KEY). تواصل مع مسؤول الخادم.",
+            "Two-factor is not configured on the server yet (TWO_FACTOR_KEY is missing). Ask the server administrator.",
+          )}
+        </p>
+      ) : setup ? (
+        <div className="admin-2fa-setup">
+          <ol>
+            <li>
+              {t(
+                "افتح تطبيق المصادقة (Google Authenticator أو Microsoft Authenticator أو Authy) وامسح الرمز:",
+                "Open your authenticator app (Google Authenticator, Microsoft Authenticator, Authy) and scan:",
+              )}
+            </li>
+          </ol>
+          <img
+            src={setup.qr}
+            width={240}
+            height={240}
+            alt={t("رمز QR لإعداد التحقق الثنائي", "QR code to set up two-factor")}
+          />
+          <p>
+            {t("أو أدخل المفتاح يدوياً:", "Or enter this key manually:")}{" "}
+            <code dir="ltr">{setup.secret}</code>
+          </p>
+          <form
+            className="admin-user-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              onRun({ action: "2fa:confirm", otp: code });
+              setCode("");
+            }}
+          >
+            <label>
+              {t("اكتب الرمز المكوّن من 6 أرقام الظاهر في التطبيق", "Enter the 6-digit code shown in the app")}
+              <input
+                dir="ltr"
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                maxLength={8}
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
+                required
+              />
+            </label>
+            <button className="primary" disabled={busy}>
+              {t("تأكيد وتفعيل", "Confirm and turn on")}
+            </button>
+          </form>
+        </div>
+      ) : (
+        <>
+          <p>
+            {t(
+              "أضف طبقة حماية ثانية: بعد كلمة المرور يُطلب رمز من تطبيق المصادقة في هاتفك عند كل دخول.",
+              "Add a second layer: after your password you enter a code from the authenticator app on your phone every time you sign in.",
+            )}
+          </p>
+          <button
+            className="primary"
+            disabled={busy}
+            onClick={() => onRun({ action: "2fa:begin" })}
+          >
+            {t("تفعيل التحقق الثنائي", "Turn on two-factor")}
+          </button>
+        </>
+      )}
     </section>
   );
 }

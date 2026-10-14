@@ -45,6 +45,15 @@ curl -sI https://roadtobal27.ly | grep -iE "strict-transport|content-security|x-
 curl -s -o /dev/null -w "%{http_code}\n" https://roadtobal27.ly/api/cron/fiba   # المتوقع 404
 curl -s -o /dev/null -w "%{http_code}\n" http://roadtobal27.ly:3091             # المتوقع فشل الاتصال
 ```
+## التحقق الثنائي (تطبيق المصادقة)
+```bash
+openssl rand -hex 32          # انسخ الناتج
+nano /var/www/roadtobal/.env.production   # ضع TWO_FACTOR_KEY=<الناتج> ثم احفظ
+chmod 600 /var/www/roadtobal/.env.production
+set -a; . ./.env.production; set +a; pm2 restart roadtobal --update-env
+```
+بعدها يدخل كل مستخدم إلى لوحة الإدارة ← «حماية الحساب» ← «تفعيل التحقق الثنائي»، يمسح رمز QR بتطبيق Google/Microsoft Authenticator أو Authy، ويحفظ رموز الاسترداد الثمانية. بعد أن يفعّل الجميع غيّر `REQUIRE_2FA=1` وأعد التشغيل لإلزام الدخول بالرمز في كل مرة. إن ضاع هاتف مستخدم: المالك يضغط «إعادة تعيين التحقق الثنائي» له من تبويب «المستخدمون».
+
 وغيّر كلمة سر الإدارة إلى كلمة فريدة طويلة (14+ حرفاً) لم تُستخدم في أي مكان آخر: `ADMIN_IDENTIFIER='name@example.com' ADMIN_PASSWORD='...' npm run admin:create` ثم `pm2 restart roadtobal`.
 
 **مهم عند الترقية إلى نظام الحسابات والأدوار:** الحساب القديم (كلمة سر فقط) لن يستطيع الدخول من النموذج الجديد. نفّذ الأمر أعلاه **مباشرة بعد التحديث** لإنشاء حساب المالك بالبريد/الهاتف؛ ينشئ الأمر الحساب ويحذف الحساب القديم تلقائياً ويُلغي جلساته.

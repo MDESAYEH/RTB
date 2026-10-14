@@ -66,6 +66,7 @@ export function requiredPermission(command: {
     case "user:disable":
     case "user:enable":
     case "user:delete":
+    case "user:2fa-reset":
       return "users:manage";
     default:
       return "users:manage";

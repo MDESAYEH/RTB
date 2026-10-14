@@ -29,6 +29,14 @@ import {
 import { storageSchema, storageSchemaVersion } from "./storage-schema";
 import { isRole } from "./permissions";
 import { normalizeIdentifier } from "./identifier";
+import {
+  generateRecoveryCodes,
+  generateSecret,
+  normalizeRecoveryCode,
+  otpauthUri,
+  verifyTotp,
+} from "./totp";
+import { open as openSecret, seal, twoFactorConfigured } from "./secret-box";
 export interface TournamentDataProvider {
   getTournament(): Promise<Settings>;
   getTeams(): Promise<Team[]>;
@@ -144,6 +152,18 @@ export function createTournamentStore(
         await db.exec(
           "ALTER TABLE admins ADD COLUMN disabled INTEGER NOT NULL DEFAULT 0",
         );
+      if (!columns.some((c) => c.name === "totp_secret"))
+        await db.exec("ALTER TABLE admins ADD COLUMN totp_secret TEXT");
+      if (!columns.some((c) => c.name === "totp_enabled"))
+        await db.exec(
+          "ALTER TABLE admins ADD COLUMN totp_enabled INTEGER NOT NULL DEFAULT 0",
+        );
+      if (!columns.some((c) => c.name === "totp_last"))
+        await db.exec(
+          "ALTER TABLE admins ADD COLUMN totp_last INTEGER NOT NULL DEFAULT 0",
+        );
+      if (!columns.some((c) => c.name === "recovery"))
+        await db.exec("ALTER TABLE admins ADD COLUMN recovery TEXT");
       await db.exec(
         "CREATE UNIQUE INDEX IF NOT EXISTS admins_identifier ON admins(identifier) WHERE identifier IS NOT NULL",
       );
@@ -354,6 +374,10 @@ export function createTournamentStore(
     identifier: string | null;
     role: string;
     disabled: number;
+    totp_secret: string | null;
+    totp_enabled: number;
+    totp_last: number;
+    recovery: string | null;
   };
   async function provision(
     password: string,
@@ -393,7 +417,20 @@ export function createTournamentStore(
     })();
     return id;
   }
-  async function login(password: string, identifier?: string) {
+  type AuthResult =
+    | { status: "ok"; token: string }
+    | { status: "otp" }
+    | { status: "fail" };
+  const recoveryHash = (code: string) => sha(normalizeRecoveryCode(code));
+  /**
+   * Password check, then the authenticator code when the account has one. A recovery code works once
+   * instead of the authenticator code. "otp" means the password was right and a code is still needed.
+   */
+  async function authenticate(
+    password: string,
+    identifier?: string,
+    otp?: string,
+  ): Promise<AuthResult> {
     return db.transaction(async () => {
       const parsed =
         identifier === undefined ? null : normalizeIdentifier(identifier);
@@ -414,13 +451,109 @@ export function createTournamentStore(
         row.disabled ||
         !timingSafeEqual(given, Buffer.from(row.hash, "hex"))
       )
-        return null;
+        return { status: "fail" } as const;
+      if (row.totp_enabled) {
+        if (!otp?.trim()) return { status: "otp" } as const;
+        if (!(await consumeSecondFactor(row, otp)))
+          return { status: "fail" } as const;
+      }
       const token = randomBytes(32).toString("hex");
       await db.prepare("DELETE FROM sessions WHERE expires<?").run(Date.now());
       await db
         .prepare("INSERT INTO sessions VALUES(?,?,?)")
         .run(sha(token), row.id, Date.now() + 8 * 3600000);
-      return token;
+      return { status: "ok", token } as const;
+    })();
+  }
+  /** Token or null; accounts with an authenticator need the code, so this is for password-only accounts. */
+  async function login(password: string, identifier?: string, otp?: string) {
+    const result = await authenticate(password, identifier, otp);
+    return result.status === "ok" ? result.token : null;
+  }
+  /** Accepts a current authenticator code (never the same time step twice) or an unused recovery code. */
+  async function consumeSecondFactor(row: AccountRow, code: string) {
+    if (!row.totp_secret) return false;
+    let secret: string;
+    try {
+      secret = openSecret(row.totp_secret);
+    } catch {
+      return false;
+    }
+    const step = verifyTotp(secret, code, row.totp_last);
+    if (step !== null) {
+      await db.prepare("UPDATE admins SET totp_last=? WHERE id=?").run(step, row.id);
+      return true;
+    }
+    if (/^[a-z0-9]{4}-[a-z0-9]{4}$/.test(normalizeRecoveryCode(code))) {
+      const hashes: string[] = row.recovery ? JSON.parse(row.recovery) : [];
+      const hash = recoveryHash(code);
+      if (hashes.includes(hash)) {
+        await db
+          .prepare("UPDATE admins SET recovery=? WHERE id=?")
+          .run(JSON.stringify(hashes.filter((h) => h !== hash)), row.id);
+        return true;
+      }
+    }
+    return false;
+  }
+  async function rowFor(id: string) {
+    const row = (await db
+      .prepare("SELECT * FROM admins WHERE id=?")
+      .get(id)) as AccountRow | undefined;
+    if (!row) throw Error("الحساب غير موجود");
+    return row;
+  }
+  /** Step 1 of enrolment: a pending secret the user adds to their authenticator app. */
+  async function beginTwoFactor(id: string) {
+    if (!twoFactorConfigured())
+      throw Error("التحقق الثنائي غير مُفعَّل على الخادم (TWO_FACTOR_KEY غير مضبوط).");
+    const row = await rowFor(id);
+    if (row.totp_enabled) throw Error("التحقق الثنائي مفعَّل مسبقاً");
+    const secret = generateSecret();
+    await db
+      .prepare("UPDATE admins SET totp_secret=?,totp_enabled=0,totp_last=0,recovery=NULL WHERE id=?")
+      .run(seal(secret), id);
+    return { secret, uri: otpauthUri(secret, row.identifier ?? row.id) };
+  }
+  /** Step 2: the first valid code turns it on and returns single-use recovery codes (shown once). */
+  async function confirmTwoFactor(id: string, code: string) {
+    return db.transaction(async () => {
+      const row = await rowFor(id);
+      if (row.totp_enabled) throw Error("التحقق الثنائي مفعَّل مسبقاً");
+      if (!row.totp_secret) throw Error("ابدأ الإعداد أولاً");
+      const step = verifyTotp(openSecret(row.totp_secret), code, 0);
+      if (step === null) throw Error("الرمز غير صحيح. تأكد من الوقت في هاتفك وحاول مجدداً.");
+      const codes = generateRecoveryCodes();
+      await db
+        .prepare("UPDATE admins SET totp_enabled=1,totp_last=?,recovery=? WHERE id=?")
+        .run(step, JSON.stringify(codes.map(recoveryHash)), id);
+      return codes;
+    })();
+  }
+  /** Turning it off needs the password and a current code (or recovery code). */
+  async function disableTwoFactor(id: string, password: string, otp: string) {
+    await db.transaction(async () => {
+      const row = await rowFor(id);
+      const ok =
+        timingSafeEqual(
+          scryptSync(password, row.salt, 64),
+          Buffer.from(row.hash, "hex"),
+        ) &&
+        (!row.totp_enabled || (await consumeSecondFactor(row, otp)));
+      if (!ok) throw Error("كلمة المرور أو الرمز غير صحيح");
+      await db
+        .prepare("UPDATE admins SET totp_secret=NULL,totp_enabled=0,totp_last=0,recovery=NULL WHERE id=?")
+        .run(id);
+    })();
+  }
+  /** An owner clears a colleague's authenticator (lost phone); their sessions end and they re-enrol. */
+  async function resetTwoFactor(id: string) {
+    await db.transaction(async () => {
+      await rowFor(id);
+      await db
+        .prepare("UPDATE admins SET totp_secret=NULL,totp_enabled=0,totp_last=0,recovery=NULL WHERE id=?")
+        .run(id);
+      await db.prepare("DELETE FROM sessions WHERE admin=?").run(id);
     })();
   }
   /** The signed-in account behind a session cookie, or null. Disabled accounts lose access immediately. */
@@ -429,10 +562,15 @@ export function createTournamentStore(
     return (
       ((await db
         .prepare(
-          "SELECT a.id AS id,a.identifier AS identifier,a.role AS role FROM sessions s JOIN admins a ON a.id=s.admin WHERE s.token=? AND s.expires>? AND a.disabled=0",
+          "SELECT a.id AS id,a.identifier AS identifier,a.role AS role,a.totp_enabled AS twoFactor FROM sessions s JOIN admins a ON a.id=s.admin WHERE s.token=? AND s.expires>? AND a.disabled=0",
         )
         .get(sha(token), Date.now())) as
-        | { id: string; identifier: string | null; role: string }
+        | {
+            id: string;
+            identifier: string | null;
+            role: string;
+            twoFactor: number;
+          }
         | undefined) ?? null
     );
   }
@@ -442,13 +580,14 @@ export function createTournamentStore(
   async function listUsers() {
     return (await db
       .prepare(
-        "SELECT id,identifier,role,disabled FROM admins ORDER BY identifier",
+        "SELECT id,identifier,role,disabled,totp_enabled AS twoFactor FROM admins ORDER BY identifier",
       )
       .all()) as {
       id: string;
       identifier: string | null;
       role: string;
       disabled: number;
+      twoFactor: number;
     }[];
   }
   async function otherActiveOwners(id: string) {
@@ -612,6 +751,11 @@ export function createTournamentStore(
     schemas,
     provision,
     login,
+    authenticate,
+    beginTwoFactor,
+    confirmTwoFactor,
+    disableTwoFactor,
+    resetTwoFactor,
     authorize,
     principal,
     listUsers,
@@ -638,6 +782,11 @@ export const {
   schemas,
   provision,
   login,
+  authenticate,
+  beginTwoFactor,
+  confirmTwoFactor,
+  disableTwoFactor,
+  resetTwoFactor,
   authorize,
   principal,
   listUsers,

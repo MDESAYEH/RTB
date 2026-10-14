@@ -567,3 +567,51 @@
   flex: 1 1 260px;
   color: #02304799;
 }
+
+/* ===== Two-factor ===== */
+.admin-security h2 {
+  margin: 0 0 14px;
+}
+.admin-security > p {
+  max-width: 62ch;
+  line-height: 1.8;
+}
+.admin-2fa-state {
+  color: #03651e;
+  font-weight: 800;
+}
+.admin-2fa-setup img {
+  display: block;
+  margin: 14px 0;
+  padding: 10px;
+  border: 1px solid #ece3e1;
+  border-radius: 14px;
+  background: #fff;
+}
+.admin-2fa-setup code,
+.admin-recovery code {
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: #fbf6f5;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+.admin-recovery {
+  margin: 0 0 20px;
+  padding: 18px;
+  border: 2px solid #f3a300;
+  border-radius: 16px;
+  background: #fffaf0;
+}
+.admin-recovery h3 {
+  margin: 0 0 8px;
+}
+.admin-recovery ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
