@@ -16,6 +16,7 @@ import "./matches-appearance.css";
 import "./shared-pattern.css";
 import "./standings-appearance.css";
 import "./teams-appearance.css";
+import "./team-passport.css";
 import "@fontsource/almarai/300.css";
 import "@fontsource/almarai/400.css";
 import "@fontsource/almarai/700.css";
