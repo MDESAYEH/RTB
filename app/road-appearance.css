@@ -59,12 +59,10 @@
   margin-top: 56px;
   padding: 22px;
   border-radius: 36px;
-  background:
-    var(--tournament-pattern) center / cover no-repeat,
-    linear-gradient(160deg, #8f1e1a, #290907);
-  background-blend-mode: overlay, normal;
+  background: #233a7f var(--tournament-pattern) center / cover no-repeat;
+  background-blend-mode: overlay;
   color: #fff;
-  box-shadow: 0 24px 48px #8f1e1a2e;
+  box-shadow: 0 24px 48px #233a7f33;
 }
 .road-radar-top {
   display: flex;
@@ -173,7 +171,7 @@
   height: 150px;
   border: 2px solid #f3a300;
   border-radius: 50%;
-  background: #290907;
+  background: #172756;
   box-shadow: 0 0 40px #f3a30040;
   text-align: center;
 }
@@ -227,7 +225,7 @@
   height: 48px;
   border: 0;
   background: #f3a300;
-  color: #290907;
+  color: #172756;
   box-shadow: 0 0 0 8px #f3a30033;
 }
 .at-top { top: 8%; left: 36%; }
