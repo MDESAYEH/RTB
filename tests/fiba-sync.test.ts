@@ -88,12 +88,14 @@ for (const [label, config] of backends) {
   const alias = {
     aliases: { "nadi-basket-staoueli": "nb-staoueli" },
     confirmedSpellings: [] as string[],
+    // These tests cover following FIBA's group tables; locked placement has its own tests below.
+    lockGroups: false,
   };
 
   test(`${label}: teams and groups are imported from FIBA group tables; unreviewed teams are not merged`, async () => {
     const store = fresh();
     await store.provider.getTeams();
-    const unreviewed = { aliases: {} };
+    const unreviewed = { aliases: {}, lockGroups: false };
     const result = await runSync(store, {
       apply: true,
       fetchImpl: fetcher(),
@@ -158,13 +160,57 @@ for (const [label, config] of backends) {
     const approved = await runSync(store, {
       apply: true,
       fetchImpl: fetcher(),
-      plan: { aliases: {}, approvedNewTeams: ["nadi-basket-staoueli"] },
+      plan: { aliases: {}, approvedNewTeams: ["nadi-basket-staoueli"], lockGroups: false },
     });
     assert.equal(
       (await store.get<Team>("teams", "nadi-basket-staoueli"))?.country,
       "",
     );
     assert.equal(approved.counts["teams.create"], 1);
+    await store.db.close();
+  });
+
+  test(`${label}: locked groups keep the 5 / 5 draw while FIBA still refreshes team details`, async () => {
+    const store = fresh();
+    await store.provider.getTeams();
+    // Drift that FIBA's tables would otherwise copy: a team moved to the wrong group locally.
+    const kriol = (await store.get<Team>("teams", "kriol-star"))!;
+    await store.write("teams", "kriol-star", { ...kriol, group: "B" }, "seed");
+    const result = await runSync(store, {
+      apply: true,
+      fetchImpl: fetcher(),
+      plan: { aliases: {}, lockGroups: true },
+    });
+    const teams = await store.provider.getTeams();
+    assert.equal(teams.length, 10, "FIBA never adds teams while locked");
+    assert.equal(teams.filter((t) => t.group === "A").length, 5);
+    assert.equal(teams.filter((t) => t.group === "B").length, 5);
+    assert.equal((await store.get<Team>("teams", "kriol-star"))?.group, "A");
+    // Other details still come from FIBA.
+    assert.equal((await store.get<Team>("teams", "energie-bc"))?.name, "Energie BBC");
+    assert.ok(result.plan.notes.some((n) => /fixed locally/.test(n)));
+    assert.ok(!result.plan.notes.some((n) => /outside the local tournament groups/.test(n)));
+    assert.ok(!result.plan.entries.some((e) => e.kind === "teams" && e.action === "create"));
+    await store.db.close();
+  });
+
+  test(`${label}: a fixture with an undecided opponent is skipped instead of breaking the sync`, async () => {
+    const store = fresh();
+    await store.provider.getTeams();
+    const page = rewrap(baseGames, (data) => {
+      const games = data.games as Row[];
+      games[0] = { ...games[0], teamB: null };
+    });
+    const result = await runSync(store, {
+      apply: true,
+      fetchImpl: fetcher({ games: page }),
+      plan: { aliases: {}, lockGroups: true },
+    });
+    assert.ok(
+      result.plan.entries.some(
+        (e) => e.kind === "games" && /opponent not decided/.test(e.reason),
+      ),
+    );
     await store.db.close();
   });
 

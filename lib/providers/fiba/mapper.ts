@@ -63,8 +63,8 @@ export function mapGames(games: FibaGame[], teams: TeamMatch[]): GameOutcome[] {
   const byFibaId = new Map(teams.map((match) => [match.fiba.teamId, match]));
   return games.map((fiba): GameOutcome => {
     const reject = (reason: string): GameOutcome => ({ fiba, game: null, reason });
-    const home = byFibaId.get(fiba.teamA.teamId)?.mapped;
-    const away = byFibaId.get(fiba.teamB.teamId)?.mapped;
+    const home = fiba.teamA ? byFibaId.get(fiba.teamA.teamId)?.mapped : undefined;
+    const away = fiba.teamB ? byFibaId.get(fiba.teamB.teamId)?.mapped : undefined;
     if (!home || !away) return reject("teams are not in the local registry");
     if (!fiba.hasTimeGameDateTime || PLACEHOLDER_DATE.test(fiba.gameDateTimeUTC)) {
       return reject("no date/time published yet");
