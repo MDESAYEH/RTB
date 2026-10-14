@@ -4,7 +4,7 @@ main#main.teams-redesign {
   width: 100%;
   max-width: none;
   background: white;
-  color: #003c52;
+  color: #023047;
 }
 .public-teams > .teams-design {
   margin: 0 !important;
@@ -16,7 +16,7 @@ main#main.teams-redesign {
 }
 .teams-directory-intro > small {
   font-size: 20px;
-  color: #a2211d;
+  color: #8f1e1a;
 }
 .teams-directory-intro h2 {
   font-size: clamp(22px, 2.5vw, 32px);
@@ -24,7 +24,7 @@ main#main.teams-redesign {
   margin: 20px 0 70px;
 }
 .teams-directory-group {
-  --directory-colour: #00702d;
+  --directory-colour: #03651e;
   --directory-tint: #f3fcf6;
   --directory-border: #aad2b6;
   margin-bottom: 65px;
@@ -33,7 +33,7 @@ main#main.teams-redesign {
   margin-bottom: 0;
 }
 .directory-group-b {
-  --directory-colour: #2b4085;
+  --directory-colour: #233a7f;
   --directory-tint: #eef0f8;
   --directory-border: #b6c0e1;
 }
@@ -65,7 +65,7 @@ main#main.teams-redesign {
   height: 40px;
   border-radius: 50%;
   background: white;
-  color: #003c52;
+  color: #023047;
   font-size: 25px;
 }
 .teams-directory-grid {
@@ -81,14 +81,14 @@ main#main.teams-redesign {
   border-radius: 20px;
   overflow: hidden;
   background: white;
-  color: #003c52;
+  color: #023047;
   transition:
     transform 0.2s,
     box-shadow 0.2s;
 }
 .directory-club:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 24px #003c5210;
+  box-shadow: 0 10px 24px #02304710;
 }
 .directory-club-logo {
   display: grid;
@@ -133,7 +133,7 @@ main#main.teams-redesign {
   font-weight: 700;
   line-height: 1.5;
   margin: 0 0 10px;
-  color: #003c52;
+  color: #023047;
   overflow-wrap: anywhere;
 }
 .directory-club-info p {
@@ -147,7 +147,7 @@ main#main.teams-redesign {
   align-items: center;
   gap: 8px;
   margin-top: auto;
-  color: #a2211d;
+  color: #8f1e1a;
   font-size: 12px;
   font-weight: 800;
 }
@@ -157,7 +157,7 @@ main#main.teams-redesign {
   color: #78919c;
 }
 .directory-club:focus-visible {
-  outline: 2px solid #a2211d;
+  outline: 2px solid #8f1e1a;
   outline-offset: 4px;
 }
 @media (max-width: 1050px) {
