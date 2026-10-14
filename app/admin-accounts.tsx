@@ -141,7 +141,6 @@ export function UsersPanel({
               className="admin-field-ltr"
               dir="ltr"
               autoComplete="off"
-              placeholder="name@example.com / +218…"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
               required

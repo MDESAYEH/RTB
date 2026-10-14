@@ -382,7 +382,6 @@ export function Admin({
               dir="ltr"
               inputMode="email"
               autoComplete="username"
-              placeholder="name@example.com / +218…"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
               required
