@@ -16,6 +16,7 @@ import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
+import { TeamsContent } from "./teams-content";
 import { NewsArticle } from "./news-article";
 import { NewsContent } from "./news-content";
 import { LiveCenter } from "./live-center";
@@ -362,7 +363,12 @@ export default function Site({
                     <Badge team={r.team} />
                     <span dir="auto">
                       {r.team.name}
-                      {route === "standings" && lang === "ar" && <small className="standings-team-sub">{getTeamIdentity(r.team.id)?.arabicName || tr(r.team.country)}</small>}
+                      {route === "standings" && lang === "ar" && (
+                        <small className="standings-team-sub">
+                          {getTeamIdentity(r.team.id)?.arabicName ||
+                            tr(r.team.country)}
+                        </small>
+                      )}
                       <small className="mobile-aux">
                         {played
                           ? `P ${r.p} · PF ${r.pf} · PA ${r.pa}`
@@ -895,21 +901,11 @@ export default function Site({
     );
   else if (route === "teams")
     content = (
-      <>
-        <div className="team-field-intro">
-          <strong dir="ltr">
-            10 CLUBS. 10 NATIONS.
-            <br />
-            ONE ROAD.
-          </strong>
-          <p>
-            {tr("عشرة أندية أفريقية.")}
-            <br />
-            {tr("هنا تبدأ حكايات المنافسة.")}
-          </p>
-        </div>
-        {TeamGrid()}
-      </>
+      <TeamsContent
+        teams={teams}
+        groups={s.groups}
+        badge={(t) => <Badge team={t} />}
+      />
     );
   else if (route === "road")
     content = (
@@ -1029,7 +1025,7 @@ export default function Site({
             : ["matches", "standings", "stats"].includes(route)
               ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : route === "matches" ? "matches-redesign" : ""}`
               : route !== "admin" && route !== "team"
-                ? `public-page public-${route}${route === "news" ? " news-redesign" : ""}`
+                ? `public-page public-${route}${route === "news" ? " news-redesign" : route === "teams" ? " teams-redesign" : ""}`
                 : route === "admin"
                   ? "operator-page"
                   : "club-page"
@@ -1039,7 +1035,8 @@ export default function Site({
           route !== "team" &&
           !(route === "matches" && !path[1]) &&
           route !== "players" &&
-          route !== "news" && (
+          route !== "news" &&
+          route !== "teams" && (
             <div className="page-heading">
               <span className="eyebrow">ROAD TO BAL · TRIPOLI 2027</span>
               <h1>
