@@ -85,7 +85,7 @@ export function TeamPassport({
         <small dir="ltr">GROUP {team.group} · TEAM PASSPORT</small>
         <h1 dir="auto">{team.name}</h1>
         <p>
-          {arabic ? `${arabic} · ` : ""}
+          {arabic ? `${arabic}${copy("، ", ", ")}` : ""}
           {country}
         </p>
       </header>
@@ -106,7 +106,7 @@ export function TeamPassport({
                 {team.name}
               </h2>
               <p>
-                {profile?.city ? `${profile.city === "Tripoli" ? copy("طرابلس", "Tripoli") : profile.city} · ` : ""}
+                {profile?.city ? `${profile.city === "Tripoli" ? copy("طرابلس", "Tripoli") : profile.city}${copy("، ", ", ")}` : ""}
                 {country}
               </p>
             </div>
@@ -115,7 +115,7 @@ export function TeamPassport({
           {profile?.foundedYear && (
             <p>
               <b>{copy("سنة التأسيس:", "Founded:")}</b> {profile.foundedYear}
-              {profile.foundedScope ? ` · ${profile.foundedScope}` : ""}
+              {profile.foundedScope ? `${copy("، ", ", ")}${profile.foundedScope}` : ""}
             </p>
           )}
           {profile?.bioShort && <p>{profile.bioShort}</p>}

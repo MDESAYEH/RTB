@@ -226,8 +226,7 @@ export function HomeContent({
                             ? "المجموعة الثانية"
                             : `المجموعة ${group}`,
                         `Group ${group}`,
-                      )}{" "}
-                      · {teams.filter((t) => t.group === group).length}{" "}
+                      )}{lang === "ar" ? "،" : ","} {teams.filter((t) => t.group === group).length}{" "}
                       {tr("فرق")}
                     </small>
                   </div>

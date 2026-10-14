@@ -96,7 +96,7 @@ export const en: Record<string, string> = {
   "كل مباراة خطوة. الوصول إلى BAL يُحسم في المرحلة التالية.":
     "Every game is a step. The road to BAL is decided in the next stage.",
   "اكتشف THE ROAD": "Discover THE ROAD",
-  "مجموعتان · ثمانية فرق": "Two groups · eight teams",
+  "مجموعتان، ثمانية فرق": "Two groups, eight teams",
   "المرحلة التالية": "Next stage",
   الوجهة: "Destination",
   "أول فريقين من كل مجموعة في طرابلس يتأهلان إلى Elite 16. التأهل إلى BAL يُحسم في المرحلة التالية.":

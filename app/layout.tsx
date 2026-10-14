@@ -57,8 +57,8 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "TRIPOLI IS THE COURT · ROAD TO BAL 2027",
       description: english
-        ? "21–25 October 2026 · Tripoli, Libya"
-        : "21–25 أكتوبر 2026 · طرابلس، ليبيا",
+        ? "21–25 October 2026, Tripoli, Libya"
+        : "21–25 أكتوبر 2026، طرابلس، ليبيا",
       locale: english ? "en_GB" : "ar_LY",
       type: "website",
     },

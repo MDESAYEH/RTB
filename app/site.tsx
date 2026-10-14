@@ -310,8 +310,7 @@ export default function Site({
                       : g === "B"
                         ? "المجموعة الثانية"
                         : `المجموعة ${g}`
-                    : `Group ${g}`}{" "}
-                  · {rows.length} {tr("فرق")}
+                    : `Group ${g}`}{lang === "ar" ? "،" : ","} {rows.length} {tr("فرق")}
                 </small>
               </div>
               <b className="standings-letter">{g}</b>
@@ -478,7 +477,7 @@ export default function Site({
           <div className="road" dir="ltr">
             {[
               ["01", "TRIPOLI", "21–25 OCT 2026"],
-              ["02", "GROUP STAGE", tr("مجموعتان · ثمانية فرق")],
+              ["02", "GROUP STAGE", tr("مجموعتان، ثمانية فرق")],
               ["03", "TOP " + s.qualificationSlots, tr("من كل مجموعة")],
               ["04", "ELITE 16", tr("المرحلة التالية")],
               ["05", "BAL 2027", tr("الوجهة")],

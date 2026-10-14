@@ -75,8 +75,8 @@ export function LiveCenter({
           <Radio size={17} />
           {!connected
             ? copy(
-                "الاتصال منقطع · آخر بيانات مستلمة",
-                "Offline · last received data",
+                "الاتصال منقطع، آخر بيانات مستلمة",
+                "Offline, last received data",
               )
             : playing
               ? tr(statusLabel[game.status])
@@ -207,7 +207,7 @@ export function LiveCenter({
             </Link>
           )}
           <p>
-            {copy("التوقيت المحلي لطرابلس", "Tripoli local time")} ·{" "}
+            {copy("التوقيت المحلي لطرابلس", "Tripoli local time")}{copy("،", ",")}{" "}
             {data.settings.timezone}
           </p>
         </aside>

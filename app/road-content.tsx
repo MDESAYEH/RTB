@@ -99,7 +99,7 @@ export function RoadContent({
                   </span>
                   <span dir="auto">
                     <small>
-                      {stateLabel(i)} · {node.n}
+                      {stateLabel(i)}{lang === "ar" ? "،" : ","} {node.n}
                     </small>
                     <b>{node.title}</b>
                   </span>

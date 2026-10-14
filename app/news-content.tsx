@@ -31,7 +31,7 @@ export function NewsContent({
     <div className="news-design">
       <header className="match-banner">
         <small>
-          {copy("أخبار · تقارير · مقابلات", "News · Reports · Interviews")}
+          {copy("أخبار، تقارير، مقابلات", "News, Reports, Interviews")}
         </small>
         <h1>{copy("الأخبار والإعلام", "News & media")}</h1>
         <p>

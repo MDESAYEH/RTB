@@ -30,7 +30,7 @@ export function TeamsContent({
     <div className="teams-design">
       <header className="match-banner">
         <small>
-          {teams.length} {copy("أندية", "clubs")} · {groups.length}{" "}
+          {teams.length} {copy("أندية", "clubs")}{lang === "ar" ? "،" : ","} {groups.length}{" "}
           {copy("مجموعات", "groups")}
         </small>
         <h1>{copy("الفرق والمجموعات", "Teams & groups")}</h1>
@@ -63,7 +63,7 @@ export function TeamsContent({
                 <div>
                   <h2 dir="ltr">GROUP {g}</h2>
                   <small>
-                    {groupName(g)} · {clubs.length} {copy("فرق", "teams")}
+                    {groupName(g)}{lang === "ar" ? "،" : ","} {clubs.length} {copy("فرق", "teams")}
                   </small>
                 </div>
                 <b>{g}</b>
@@ -80,7 +80,7 @@ export function TeamsContent({
                       <h3 dir="auto">{t.name}</h3>
                       <p>
                         {lang === "ar" && getTeamIdentity(t.id)?.arabicName
-                          ? `${getTeamIdentity(t.id)!.arabicName} · `
+                          ? `${getTeamIdentity(t.id)!.arabicName}، `
                           : ""}
                         {lang === "ar" && getTeamIdentity(t.id)?.countryCode
                           ? new Intl.DisplayNames(["ar"], {type: "region"}).of(getTeamIdentity(t.id)!.countryCode)
