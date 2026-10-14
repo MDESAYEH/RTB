@@ -84,3 +84,12 @@
   color: #fff;
   text-decoration: underline;
 }
+
+.legal-no {
+  display: inline-block;
+  min-width: 2.2ch;
+  margin-inline-end: 12px;
+  color: #d9b8b5;
+  font: 800 0.85em/1 Arial, sans-serif;
+  letter-spacing: 0.04em;
+}

@@ -3,144 +3,265 @@ import { useLang } from "./i18n";
 
 export type LegalPage = "privacy" | "terms" | "accessibility";
 type Bi = [string, string];
-type Section = { h: Bi; p?: Bi; items?: Bi[] };
+type Section = { h: Bi; p?: Bi[]; items?: Bi[] };
 type Doc = { eyebrow: Bi; title: Bi; lead: Bi; sections: Section[] };
 
 const UPDATED: Bi = ["آخر تحديث: 14 أكتوبر 2026", "Last updated: 14 October 2026"];
 
 const docs: Record<LegalPage, Doc> = {
   privacy: {
-    eyebrow: ["بياناتك", "Your data"],
+    eyebrow: ["خصوصيتك تهمنا", "Your privacy matters"],
     title: ["سياسة الخصوصية", "Privacy policy"],
     lead: [
-      "نوضح هنا ما الذي يُخزَّن عند زيارتك لموقع Road to BAL – طرابلس 2027، ولماذا، وما الذي لا نفعله.",
-      "This page explains what is stored when you visit the Road to BAL – Tripoli 2027 website, why, and what we do not do.",
+      "توضح هذه السياسة كيف نتعامل مع المعلومات المرتبطة باستخدامك لهذا الموقع، وما الخيارات المتاحة لك.",
+      "This policy explains how we handle information connected to your use of this website, and the choices available to you.",
     ],
     sections: [
       {
-        h: ["الموقع وغرضه", "About this website"],
+        h: ["نطاق السياسة", "Scope of this policy"],
         p: [
-          "هذا الموقع مخصص لعرض معلومات التصفيات التمهيدية للدوري الإفريقي لكرة السلة BAL 2027 في طرابلس (21–25 أكتوبر 2026): المباريات والنتائج والترتيب والفرق والأخبار والإحصائيات.",
-          "This website presents information about the BAL 2027 qualifiers in Tripoli (21–25 October 2026): fixtures, results, standings, teams, news and statistics.",
+          [
+            "تنطبق هذه السياسة على هذا الموقع وعلى الخدمات والمحتوى المتاح من خلاله. باستخدامك الموقع فإنك تقرّ بأنك اطلعت على هذه السياسة وفهمتها.",
+            "This policy applies to this website and to the services and content offered through it. By using the website you acknowledge that you have read and understood it.",
+          ],
         ],
       },
       {
-        h: ["ما الذي نجمعه", "What we collect"],
+        h: ["المعلومات التي نجمعها", "Information we collect"],
         p: [
-          "لا نطلب من الزوار إنشاء حساب ولا نجمع بيانات شخصية عبر نماذج. ما يتم تخزينه تلقائياً هو التالي فقط:",
-          "Visitors do not need an account and we do not collect personal data through forms. Only the following is stored automatically:",
+          [
+            "نحرص على جمع أقل قدر ممكن من المعلومات اللازمة لتشغيل الموقع وحمايته وتحسينه. وقد يشمل ذلك:",
+            "We aim to collect only the information needed to operate, protect and improve the website. This may include:",
+          ],
         ],
         items: [
           [
-            "ملف تعريف ارتباط (cookie) باسم lang لتذكّر لغة العرض (العربية أو الإنجليزية)، ويبقى لمدة سنة.",
-            "A cookie named lang that remembers your display language (Arabic or English) for one year.",
+            "معلومات تقنية تُرسَل تلقائياً عند الزيارة، مثل عنوان IP ونوع المتصفح والجهاز ولغة العرض والصفحات المطلوبة ووقت الطلب.",
+            "Technical information sent automatically when you visit, such as IP address, browser and device type, display language, requested pages and request time.",
           ],
           [
-            "سجلات الخادم التقنية (عنوان IP ونوع المتصفح والصفحة المطلوبة ووقت الطلب) لحماية الموقع من الإساءة وضمان استقراره.",
-            "Standard server logs (IP address, browser type, requested page and time) used to protect the site from abuse and keep it stable.",
+            "تفضيلات العرض التي تختارها، مثل اللغة، لتسهيل زياراتك اللاحقة.",
+            "Display preferences you choose, such as language, to make later visits easier.",
           ],
           [
-            "ملف جلسة خاص بفريق التنظيم المصرّح له فقط عند تسجيل دخوله إلى لوحة الإدارة. لا يُنشأ للزوار.",
-            "A session cookie for authorised organisers signing in to the admin area only. It is never created for visitors.",
+            "المعلومات التي تقدمها لنا طوعاً عند التواصل معنا.",
+            "Information you choose to provide when you contact us.",
           ],
         ],
       },
       {
-        h: ["ما الذي لا نفعله", "What we do not do"],
-        p: [
-          "لا نستخدم أدوات تحليلات أو إعلانات أو تتبّع عبر المواقع، ولا نبيع بياناتك ولا نشاركها لأغراض تسويقية.",
-          "We do not use analytics, advertising or cross-site tracking tools, and we do not sell or share your data for marketing.",
+        h: ["كيف نستخدم المعلومات", "How we use information"],
+        items: [
+          [
+            "تشغيل الموقع وتقديم محتواه وخدماته بشكل سليم.",
+            "To operate the website and deliver its content and services properly.",
+          ],
+          [
+            "حماية الموقع ومستخدميه من إساءة الاستخدام والاختراق ومحاولات التلاعب.",
+            "To protect the website and its users from misuse, intrusion and manipulation.",
+          ],
+          [
+            "فهم أداء الموقع وتحسين تجربة الاستخدام وإصلاح الأعطال.",
+            "To understand site performance, improve the experience and fix faults.",
+          ],
+          [
+            "الرد على استفساراتك والوفاء بالتزاماتنا النظامية عند الاقتضاء.",
+            "To respond to your enquiries and meet our legal obligations where required.",
+          ],
         ],
       },
       {
-        h: ["محتوى من أطراف خارجية", "Third-party content"],
+        h: ["ملفات تعريف الارتباط والتقنيات المشابهة", "Cookies and similar technologies"],
         p: [
-          "قد تعرض بعض الصفحات بثاً مباشراً من YouTube (عبر نطاق youtube-nocookie) أو محتوى مضمّناً من Facebook، وتُحمَّل شعارات وصور من مواقع FIBA. عند عرض هذا المحتوى تتلقى تلك الجهات عنوان IP الخاص بك وتخضع لسياسات الخصوصية الخاصة بها.",
-          "Some pages may show a live stream from YouTube (via the youtube-nocookie domain) or embedded Facebook content, and load logos and images from FIBA sites. When this content is displayed those providers receive your IP address and are governed by their own privacy policies.",
+          [
+            "قد يستخدم الموقع ملفات تعريف الارتباط (Cookies) وتقنيات مشابهة لتذكّر تفضيلاتك ولأغراض الأمان وتشغيل الموقع. يمكنك التحكم في هذه الملفات أو حذفها من إعدادات المتصفح، وقد تتأثر بعض الميزات إذا عطّلتها.",
+            "The website may use cookies and similar technologies to remember your preferences and for security and operational purposes. You can control or delete them in your browser settings, although some features may be affected if you disable them.",
+          ],
+        ],
+      },
+      {
+        h: ["خدمات ومحتوى من أطراف ثالثة", "Third-party services and content"],
+        p: [
+          [
+            "قد يعرض الموقع محتوى أو يعتمد على خدمات من جهات أخرى، مثل مقاطع الفيديو والبث والمنصات الاجتماعية والصور والخطوط. عند تحميل هذا المحتوى قد تتلقى تلك الجهات معلومات تقنية عنك، مثل عنوان IP، وتخضع لسياسات الخصوصية الخاصة بها، ونوصيك بالاطلاع عليها.",
+            "The website may display content or rely on services from other parties, such as video and live streams, social platforms, images and fonts. When this content loads, those parties may receive technical information about you, such as your IP address, and are governed by their own privacy policies, which we encourage you to review.",
+          ],
+        ],
+      },
+      {
+        h: ["مشاركة المعلومات", "Sharing of information"],
+        p: [
+          [
+            "لا نبيع معلوماتك الشخصية ولا نؤجّرها. وقد نشاركها فقط مع مزوّدي الخدمات الذين يساعدوننا في تشغيل الموقع وفق التزامات سرية مناسبة، أو عندما يوجب ذلك القانون أو أمر جهة مختصة، أو لحماية حقوقنا وأمن الموقع ومستخدميه.",
+            "We do not sell or rent your personal information. We may share it only with service providers who help us run the website under appropriate confidentiality obligations, where required by law or by a competent authority, or to protect our rights and the security of the website and its users.",
+          ],
+        ],
+      },
+      {
+        h: ["أمن المعلومات", "Information security"],
+        p: [
+          [
+            "نطبّق إجراءات تقنية وتنظيمية معقولة لحماية المعلومات من الوصول غير المصرّح به أو الفقدان أو التعديل، ونقصر الوصول على من يحتاجه فعلاً. ومع ذلك لا توجد وسيلة نقل أو تخزين إلكتروني آمنة بالكامل، لذلك لا يمكننا ضمان أمان مطلق.",
+            "We apply reasonable technical and organisational measures to protect information against unauthorised access, loss or alteration, and we limit access to those who need it. However, no method of electronic transmission or storage is completely secure, so we cannot guarantee absolute security.",
+          ],
         ],
       },
       {
         h: ["مدة الاحتفاظ", "Retention"],
         p: [
-          "تُحفظ سجلات الخادم لمدة محدودة بحسب إعدادات الخادم، ويُحذف ملف اللغة تلقائياً بعد سنة أو عند مسحه من متصفحك.",
-          "Server logs are kept for a limited period according to the server configuration; the language cookie expires after a year or when you clear it from your browser.",
+          [
+            "نحتفظ بالمعلومات للمدة اللازمة لتحقيق الأغراض الموضحة في هذه السياسة أو بحسب ما يقتضيه القانون، ثم نحذفها أو نجعلها مجهولة الهوية.",
+            "We keep information for as long as needed for the purposes described in this policy or as required by law, and then delete or anonymise it.",
+          ],
         ],
       },
       {
-        h: ["حقوقك والتواصل", "Your rights and contact"],
+        h: ["خياراتك وحقوقك", "Your choices and rights"],
         p: [
-          "يمكنك في أي وقت حذف ملفات الارتباط من إعدادات متصفحك. لأي استفسار يتعلق بالخصوصية يرجى التواصل مع اللجنة المنظمة عبر قنوات التواصل الرسمية للبطولة.",
-          "You can delete cookies at any time in your browser settings. For privacy questions please contact the organising committee through the tournament's official channels.",
+          [
+            "يمكنك في أي وقت إدارة ملفات تعريف الارتباط من متصفحك، وطلب الاطلاع على المعلومات التي نحتفظ بها عنك أو تصحيحها أو حذفها، وذلك وفق الأنظمة المعمول بها.",
+            "You may at any time manage cookies from your browser and ask to access, correct or delete the information we hold about you, in line with applicable law.",
+          ],
         ],
       },
       {
-        h: ["تحديث هذه السياسة", "Changes to this policy"],
+        h: ["خصوصية الأطفال", "Children's privacy"],
         p: [
-          "قد نحدّث هذه الصفحة عند تغيّر طريقة عمل الموقع، ويظهر تاريخ آخر تحديث في أعلى الصفحة.",
-          "We may update this page when the way the site works changes; the date of the latest update is shown at the top.",
+          [
+            "الموقع غير موجّه للأطفال، ولا نجمع عمداً معلومات شخصية منهم. وإذا علمت أن طفلاً زوّدنا بمعلومات، فيرجى إبلاغنا لنتخذ ما يلزم.",
+            "The website is not directed at children and we do not knowingly collect personal information from them. If you believe a child has provided us with information, please let us know so we can take appropriate action.",
+          ],
+        ],
+      },
+      {
+        h: ["التحديثات والتواصل", "Updates and contact"],
+        p: [
+          [
+            "قد نحدّث هذه السياسة من وقت لآخر، ويظهر تاريخ آخر تحديث في أعلى الصفحة، ويعد استمرارك في استخدام الموقع قبولاً للنسخة المحدّثة. لأي استفسار يتعلق بالخصوصية يرجى التواصل معنا عبر قنوات التواصل الرسمية المنشورة على الموقع.",
+            "We may update this policy from time to time, with the date of the latest update shown at the top, and continued use of the website means you accept the updated version. For any privacy question please contact us through the official contact channels published on the website.",
+          ],
         ],
       },
     ],
   },
   terms: {
-    eyebrow: ["قواعد الاستخدام", "Rules of use"],
+    eyebrow: ["قواعد الاستخدام", "Terms of use"],
     title: ["الشروط والأحكام", "Terms and conditions"],
     lead: [
-      "باستخدامك هذا الموقع فإنك توافق على الشروط التالية.",
-      "By using this website you agree to the following terms.",
+      "تنظّم هذه الشروط استخدامك للموقع. يرجى قراءتها بعناية، فاستخدامك للموقع يعني موافقتك عليها.",
+      "These terms govern your use of the website. Please read them carefully: using the website means you agree to them.",
     ],
     sections: [
       {
-        h: ["طبيعة المعلومات", "Nature of the information"],
+        h: ["قبول الشروط", "Acceptance of the terms"],
         p: [
-          "نعرض المباريات والنتائج والترتيب والأخبار بغرض الإعلام. يتم تحديث جزء من البيانات تلقائياً من الصفحات العامة للاتحاد الدولي لكرة السلة (FIBA) ومن إدخال اللجنة المنظمة، وقد يحدث تأخير أو خطأ. المرجع الرسمي هو ما يعلنه FIBA واللجنة المنظمة.",
-          "We show fixtures, results, standings and news for information only. Part of the data is updated automatically from FIBA's public pages and entered by the organising committee, so delays or errors may occur. The official reference is what FIBA and the organising committee announce.",
+          [
+            "بدخولك إلى الموقع أو استخدامه فإنك توافق على الالتزام بهذه الشروط وبالأنظمة المعمول بها. وإذا لم توافق عليها فيرجى التوقف عن استخدام الموقع.",
+            "By accessing or using the website you agree to be bound by these terms and by applicable law. If you do not agree, please stop using the website.",
+          ],
+        ],
+      },
+      {
+        h: ["استخدام الموقع", "Use of the website"],
+        p: [
+          [
+            "يُتاح الموقع لاستخدامك الشخصي وغير التجاري للاطلاع على المعلومات والمحتوى المنشور فيه، ما لم يُسمح بغير ذلك كتابةً.",
+            "The website is made available for your personal, non-commercial use to view the information and content published on it, unless otherwise permitted in writing.",
+          ],
         ],
       },
       {
         h: ["الملكية الفكرية", "Intellectual property"],
         p: [
-          "الشعارات والأسماء التجارية، ومنها FIBA وFIBA Africa وBAL وشعارات الأندية والجهات الراعية، ملك لأصحابها وتُعرض للتعريف بالحدث فقط. لا يجوز إعادة استخدامها دون إذن من أصحابها.",
-          "Logos and trademarks, including FIBA, FIBA Africa, BAL and the clubs' and sponsors' marks, belong to their respective owners and are shown only to identify the event. They may not be reused without their owners' permission.",
+          [
+            "المحتوى المنشور، بما في ذلك النصوص والتصاميم والصور والشعارات والعلامات التجارية، محمي بموجب أنظمة الملكية الفكرية وهو ملك لأصحابه أو مرخّص لنا باستخدامه. ولا يجوز نسخه أو إعادة نشره أو توزيعه أو استغلاله تجارياً دون إذن مسبق من صاحب الحق. وتبقى العلامات التجارية للجهات الأخرى ملكاً لأصحابها وتُعرض للتعريف فقط.",
+            "Published content, including text, designs, images, logos and trademarks, is protected by intellectual property laws and belongs to its owners or is used under licence. It may not be copied, republished, distributed or exploited commercially without the owner's prior permission. Third-party trademarks remain the property of their owners and are shown for identification only.",
+          ],
         ],
       },
       {
-        h: ["الاستخدام المقبول", "Acceptable use"],
-        p: ["يُمنع:", "You must not:"],
+        h: ["قواعد الاستخدام المقبول", "Acceptable use"],
+        p: [["يلتزم المستخدم بعدم:", "You agree not to:"]],
         items: [
           [
-            "محاولة الدخول إلى لوحة الإدارة أو إلى بيانات غير متاحة للعموم.",
-            "attempt to access the admin area or non-public data;",
+            "استخدام الموقع لأي غرض مخالف للأنظمة أو للآداب العامة.",
+            "use the website for any unlawful purpose or in a way that breaches public decency;",
           ],
           [
-            "تعطيل الموقع أو إغراقه بالطلبات أو استخدام أدوات آلية بشكل يضر بأدائه.",
-            "disrupt the site, flood it with requests or use automated tools in a way that harms its performance;",
+            "محاولة الوصول غير المصرّح به إلى الأنظمة أو الحسابات أو البيانات، أو تجاوز إجراءات الحماية.",
+            "attempt unauthorised access to systems, accounts or data, or bypass security measures;",
           ],
           [
-            "استخدام محتوى الموقع بصورة مضللة أو نسبته لجهة غير مصدره.",
-            "use the site's content in a misleading way or attribute it to someone other than its source.",
+            "تعطيل الموقع أو إثقاله، أو استخدام أدوات آلية بطريقة تضر بأدائه أو بتجربة الآخرين.",
+            "disrupt or overload the website, or use automated tools in a way that harms its performance or other users' experience;",
+          ],
+          [
+            "نشر أو إرسال برمجيات ضارة أو محتوى مضلل أو منتحل لصفة غيرك.",
+            "upload or transmit malicious software or misleading content, or impersonate others.",
           ],
         ],
       },
       {
-        h: ["الروابط والمحتوى الخارجي", "Links and external content"],
+        h: ["دقة المعلومات", "Accuracy of information"],
         p: [
-          "قد يحتوي الموقع على روابط أو محتوى مضمّن من مواقع أخرى (مثل FIBA وYouTube وFacebook). لسنا مسؤولين عن محتواها أو سياساتها.",
-          "The site may contain links or embedded content from other sites (such as FIBA, YouTube and Facebook). We are not responsible for their content or policies.",
+          [
+            "نبذل جهداً معقولاً لتقديم معلومات دقيقة ومحدّثة، لكننا لا نضمن اكتمالها أو خلوّها من الأخطاء أو التأخير. وقد تعتمد بعض المعلومات على مصادر خارجية. ويُرجع في الأمور الرسمية إلى الجهات المختصة.",
+            "We make reasonable efforts to provide accurate and up-to-date information, but we do not guarantee that it is complete, error-free or timely. Some information may rely on external sources. For official matters, please refer to the competent bodies.",
+          ],
+        ],
+      },
+      {
+        h: ["روابط ومحتوى الأطراف الثالثة", "Third-party links and content"],
+        p: [
+          [
+            "قد يتضمن الموقع روابط أو محتوى مضمّناً من مواقع وخدمات أخرى لا نملكها ولا نتحكم فيها، ولا نتحمل مسؤولية محتواها أو سياساتها أو ممارساتها. ووجود الرابط لا يعني تأييدنا له.",
+            "The website may contain links to, or embedded content from, other websites and services that we do not own or control, and we are not responsible for their content, policies or practices. A link does not imply endorsement.",
+          ],
         ],
       },
       {
         h: ["إخلاء المسؤولية", "Disclaimer"],
         p: [
-          "يُقدَّم الموقع كما هو دون ضمانات بالتوفر المستمر أو خلوّه التام من الأخطاء، ولا تتحمل اللجنة المنظمة مسؤولية قرارات تُتخذ بالاعتماد على معلومات الموقع وحدها.",
-          "The site is provided as is, without guarantees of uninterrupted availability or of being error-free, and the organising committee is not liable for decisions made relying on the site alone.",
+          [
+            "يُقدَّم الموقع ومحتواه «كما هو» و«بحسب توفره» دون ضمانات من أي نوع، صريحة كانت أو ضمنية، بما في ذلك الضمانات المتعلقة بالاستمرارية أو الملاءمة لغرض معين أو الخلو من الأخطاء أو الفيروسات.",
+            "The website and its content are provided \"as is\" and \"as available\" without warranties of any kind, express or implied, including warranties of continuity, fitness for a particular purpose, or freedom from errors or viruses.",
+          ],
         ],
       },
       {
-        h: ["التعديل والقانون المطبّق", "Changes and governing law"],
+        h: ["حدود المسؤولية", "Limitation of liability"],
         p: [
-          "يجوز تعديل هذه الشروط في أي وقت، ويعد استمرارك في استخدام الموقع موافقة على النسخة المحدّثة. تخضع هذه الشروط للقوانين المعمول بها في دولة ليبيا.",
-          "These terms may be changed at any time, and continued use of the site means you accept the updated version. These terms are governed by the laws in force in Libya.",
+          [
+            "إلى أقصى حد يسمح به القانون، لا نتحمل المسؤولية عن أي أضرار مباشرة أو غير مباشرة أو تبعية أو خسائر ناتجة عن استخدامك الموقع أو عدم قدرتك على استخدامه أو اعتمادك على محتواه.",
+            "To the fullest extent permitted by law, we are not liable for any direct, indirect or consequential damages or losses arising from your use of, or inability to use, the website or your reliance on its content.",
+          ],
+        ],
+      },
+      {
+        h: ["التوفر والتعديل", "Availability and changes"],
+        p: [
+          [
+            "قد نعدّل الموقع أو نوقفه أو نقيّد الوصول إليه كلياً أو جزئياً في أي وقت ودون إشعار مسبق، لأغراض الصيانة أو التطوير أو الأمان. ويجوز لنا تعديل هذه الشروط في أي وقت، ويسري التعديل من تاريخ نشره، ويُعد استمرارك في الاستخدام قبولاً له.",
+            "We may modify, suspend or restrict access to the website in whole or in part at any time without notice, for maintenance, development or security reasons. We may also amend these terms at any time; changes take effect when published, and continued use means you accept them.",
+          ],
+        ],
+      },
+      {
+        h: ["القانون المطبّق", "Governing law"],
+        p: [
+          [
+            "تخضع هذه الشروط وتُفسَّر وفقاً للقوانين المعمول بها في دولة ليبيا، وتختص محاكمها بالنظر في أي نزاع ينشأ عنها، ما لم يقضِ النظام بغير ذلك.",
+            "These terms are governed by and construed in accordance with the laws in force in Libya, and its courts have jurisdiction over any dispute arising from them, unless the law provides otherwise.",
+          ],
+        ],
+      },
+      {
+        h: ["التواصل", "Contact"],
+        p: [
+          [
+            "لأي استفسار حول هذه الشروط يرجى التواصل معنا عبر قنوات التواصل الرسمية المنشورة على الموقع.",
+            "For any question about these terms, please contact us through the official contact channels published on the website.",
+          ],
         ],
       },
     ],
@@ -149,56 +270,105 @@ const docs: Record<LegalPage, Doc> = {
     eyebrow: ["للجميع", "For everyone"],
     title: ["إمكانية الوصول", "Accessibility"],
     lead: [
-      "نريد أن يتمكن كل المشجعين من متابعة البطولة بسهولة، ونعمل على تحسين الموقع باستمرار.",
-      "We want every fan to be able to follow the tournament easily, and we keep improving the site.",
+      "نؤمن بحق الجميع في الوصول إلى المعلومات، ونعمل على أن يكون موقعنا سهل الاستخدام لأكبر عدد ممكن من الناس.",
+      "We believe everyone has the right to access information, and we work to make our website usable by as many people as possible.",
     ],
     sections: [
       {
-        h: ["ما نعتمده في التصميم", "What the design provides"],
+        h: ["التزامنا", "Our commitment"],
+        p: [
+          [
+            "نسعى إلى توفير تجربة شاملة للمستخدمين من ذوي الإعاقات البصرية والسمعية والحركية والذهنية، وإلى تطبيق ممارسات إمكانية الوصول المعتمدة دولياً، ومنها إرشادات الوصول إلى محتوى الويب (WCAG)، بقدر ما تسمح به إمكاناتنا.",
+            "We aim to provide an inclusive experience for users with visual, hearing, motor and cognitive disabilities, and to apply internationally recognised accessibility practices, including the Web Content Accessibility Guidelines (WCAG), as far as our resources allow.",
+          ],
+        ],
+      },
+      {
+        h: ["ما نعمل عليه", "What we work on"],
         items: [
           [
-            "واجهة بلغتين: العربية (من اليمين إلى اليسار) والإنجليزية (من اليسار إلى اليمين).",
-            "Two languages: Arabic (right-to-left) and English (left-to-right).",
+            "هيكل واضح للصفحات بعناوين مرتبة وتسلسل منطقي للمحتوى.",
+            "A clear page structure with ordered headings and a logical content sequence.",
           ],
           [
-            "تصميم متجاوب يعمل على الهاتف والجهاز اللوحي والحاسوب.",
-            "A responsive layout for phones, tablets and desktops.",
+            "إمكانية التنقل باستخدام لوحة المفاتيح، مع إبراز العنصر النشط بوضوح.",
+            "Keyboard navigation, with a clearly visible focus indicator.",
           ],
           [
-            "هيكل صفحات واضح بعناوين، وعناصر قابلة للتنقل بلوحة المفاتيح.",
-            "A clear page structure with headings, and keyboard-navigable controls.",
+            "نصوص بديلة للصور والشعارات، وتسميات واضحة للأزرار والحقول.",
+            "Text alternatives for images and logos, and clear labels for buttons and form fields.",
           ],
           [
-            "نصوص بديلة للصور والشعارات، وألوان بتباين مناسب للنصوص الأساسية.",
-            "Text alternatives for images and logos, and sufficient colour contrast for the main text.",
+            "تباين لوني مناسب وأحجام خطوط مقروءة تتحمل التكبير دون تعطّل التصميم.",
+            "Sufficient colour contrast and readable font sizes that scale without breaking the layout.",
+          ],
+          [
+            "تصميم متجاوب يعمل على الهواتف والأجهزة اللوحية وأجهزة الحاسوب.",
+            "A responsive design that works on phones, tablets and computers.",
+          ],
+          [
+            "دعم اللغتين العربية والإنجليزية بما يناسب اتجاه الكتابة لكل منهما.",
+            "Support for Arabic and English, with the reading direction appropriate to each.",
+          ],
+        ],
+      },
+      {
+        h: ["التوافق مع التقنيات المساعدة", "Compatibility with assistive technologies"],
+        p: [
+          [
+            "نعمل على أن يكون الموقع متوافقاً مع المتصفحات الحديثة وقارئات الشاشة وأدوات التكبير وأدوات التحكم الصوتي الشائعة. وقد تختلف التجربة بحسب المتصفح والجهاز والتقنية المستخدمة.",
+            "We work to keep the website compatible with modern browsers, screen readers, magnification tools and common voice-control tools. The experience may vary depending on the browser, device and technology you use.",
           ],
         ],
       },
       {
         h: ["قيود معروفة", "Known limitations"],
+        p: [
+          [
+            "رغم جهودنا قد تتوفر بعض المحتويات بدرجة أقل من الإتاحة، ومنها:",
+            "Despite our efforts, some content may be less accessible, including:",
+          ],
+        ],
         items: [
           [
-            "البث المباشر والمحتوى المضمّن من أطراف خارجية (YouTube وFacebook) تتحكم بإتاحته تلك الجهات.",
-            "The live stream and embedded third-party content (YouTube, Facebook) are accessible only to the extent those providers allow.",
+            "المحتوى المضمّن من أطراف ثالثة، مثل مقاطع الفيديو والبث والمنصات الاجتماعية، إذ تتحكم تلك الجهات في إتاحته.",
+            "Embedded third-party content, such as video, live streams and social platforms, whose accessibility is controlled by those providers.",
           ],
           [
-            "رادار THE ROAD عنصر بصري بالأساس؛ تتوفر المعلومات نفسها كنص في البطاقة المجاورة وفي قائمة المحطات.",
-            "The THE ROAD radar is mainly visual; the same information is available as text in the adjacent card and in the stage list.",
+            "بعض العناصر البصرية أو التفاعلية التي قد لا تتوفر لها بدائل نصية كاملة بعد.",
+            "Some visual or interactive elements that may not yet have complete text alternatives.",
+          ],
+          [
+            "المستندات والملفات المرفقة التي قد لا تكون مهيأة لقارئات الشاشة.",
+            "Attached documents and files that may not be prepared for screen readers.",
           ],
         ],
       },
       {
-        h: ["نصائح للقراءة", "Reading tips"],
+        h: ["نصائح لتحسين تجربتك", "Tips to improve your experience"],
         p: [
-          "يمكنك تكبير النص عبر إعدادات المتصفح (Ctrl و+) دون أن يتعطل التصميم، وتبديل اللغة من الزر في أعلى الصفحة.",
-          "You can enlarge text with your browser's zoom (Ctrl and +) without breaking the layout, and switch language from the button at the top of the page.",
+          [
+            "يمكنك تكبير النص من إعدادات المتصفح (Ctrl و+)، أو تفعيل وضع القراءة، أو استخدام قارئ الشاشة المدمج في جهازك، أو تبديل لغة الموقع من الزر في أعلى الصفحة.",
+            "You can enlarge text with your browser's zoom (Ctrl and +), use reader mode, use the screen reader built into your device, or switch the site language from the button at the top of the page.",
+          ],
         ],
       },
       {
-        h: ["ملاحظاتك", "Feedback"],
+        h: ["ملاحظاتك واقتراحاتك", "Feedback"],
         p: [
-          "إذا واجهت صعوبة في الوصول إلى أي جزء من الموقع، يرجى إبلاغ اللجنة المنظمة عبر قنوات التواصل الرسمية للبطولة مع ذكر الصفحة والمشكلة، وسنسعى لمعالجتها.",
-          "If you have trouble using any part of the site, please tell the organising committee through the tournament's official channels, naming the page and the problem, and we will work to fix it.",
+          [
+            "نرحب بملاحظاتك. إذا واجهت صعوبة في الوصول إلى أي جزء من الموقع أو لديك اقتراح لتحسينه، فيرجى التواصل معنا عبر قنوات التواصل الرسمية المنشورة على الموقع مع ذكر الصفحة والمشكلة ونوع الجهاز أو التقنية المستخدمة، وسنسعى إلى الرد ومعالجة المشكلة في أقرب وقت ممكن.",
+            "We welcome your feedback. If you have difficulty accessing any part of the website or have a suggestion to improve it, please contact us through the official contact channels published on the website, naming the page, the problem and the device or technology you use, and we will do our best to respond and fix the issue as soon as possible.",
+          ],
+        ],
+      },
+      {
+        h: ["التحسين المستمر", "Continuous improvement"],
+        p: [
+          [
+            "إمكانية الوصول عملية مستمرة، ونراجع الموقع بانتظام ونطوّره كلما أضفنا محتوى أو ميزات جديدة.",
+            "Accessibility is an ongoing effort. We review the website regularly and improve it whenever we add new content or features.",
+          ],
         ],
       },
     ],
@@ -218,10 +388,17 @@ export function LegalContent({ page }: { page: LegalPage }) {
       </header>
       <div className="legal-body">
         <p className="legal-updated">{UPDATED[i]}</p>
-        {doc.sections.map((s) => (
+        {doc.sections.map((s, n) => (
           <section className="legal-section" key={s.h[0]}>
-            <h2>{s.h[i]}</h2>
-            {s.p && <p>{s.p[i]}</p>}
+            <h2>
+              <span className="legal-no" aria-hidden="true">
+                {String(n + 1).padStart(2, "0")}
+              </span>
+              {s.h[i]}
+            </h2>
+            {s.p?.map((para) => (
+              <p key={para[0]}>{para[i]}</p>
+            ))}
             {s.items && (
               <ul>
                 {s.items.map((it) => (
