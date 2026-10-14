@@ -98,7 +98,9 @@
   flex-direction: column;
   padding: 28px 26px;
   border-radius: 22px;
-  background: #fff url("/patterns/hero-topo.svg") center / cover no-repeat;
+  background:
+    linear-gradient(#ffffffb8, #ffffffb8),
+    url("/patterns/hero-topo.svg") center / cover no-repeat;
   color: #023047;
   text-align: start;
 }
