@@ -1077,3 +1077,38 @@ main#main.news-redesign {
     margin-bottom: 25px;
   }
 }
+
+/* Phones: the three shortcuts become equal, full-width rows instead of mismatched pills. */
+@media (max-width: 700px) {
+  .match-links {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid #ece3e1;
+  }
+  .match-links a {
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 16px;
+    border: 1px solid #ece3e1;
+    border-radius: 16px;
+    background: #fff;
+    color: #023047;
+    font-size: 15px;
+    box-shadow: 0 6px 18px #0230470a;
+  }
+  .match-links a svg {
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
+    padding: 8px;
+    border-radius: 50%;
+    background: #8f1e1a;
+    color: #fff;
+  }
+  html[dir="ltr"] .match-links a svg {
+    transform: scaleX(-1);
+  }
+}
