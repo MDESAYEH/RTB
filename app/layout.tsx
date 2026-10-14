@@ -16,6 +16,7 @@ import "./matches-appearance.css";
 import "./shared-pattern.css";
 import "./standings-appearance.css";
 import "./teams-appearance.css";
+import "./team-passport.css";
 import "@fontsource-variable/cairo/wght.css";
 import "@fontsource-variable/noto-kufi-arabic/wght.css";
 const displayFont = localFont({

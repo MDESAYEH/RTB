@@ -4,7 +4,6 @@ import Link from "next/link";
 import type { ClubProfile } from "@/lib/club-profile";
 
 import { EditorialClubProfile } from "./editorial-club-profile";
-import { StadeTournamentHub } from "./stade-tournament-hub";
 import { ClubRoadLine } from "./club-road-primitives";
 import { TournamentHeader, CampaignHero } from "./tournament-campaign";
 import Image from "next/image";
@@ -16,6 +15,7 @@ import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
+import { TeamPassport } from "./team-passport";
 import { TeamsContent } from "./teams-content";
 import { NewsArticle } from "./news-article";
 import { NewsContent } from "./news-content";
@@ -927,36 +927,16 @@ export default function Site({
       ) : (
         <Empty title={tr("لم يُنشر هذا الفريق بعد.")} />
       );
-    else {
-      const roster = (data.players as Player[]).filter((p) => p.team === t.id);
+    else
       content = (
-        <div className="team-editorial-prototype">
-          <ClubRoadLine />
-          {historicalProfile && (
-            <EditorialClubProfile
-              profile={{
-                ...historicalProfile,
-                displayName: t.name,
-                officialTournamentName: t.name,
-                country: t.country,
-              }}
-              sourceLogo={t.sourceLogo}
-            />
-          )}
-          <StadeTournamentHub
-            team={t}
-            opponents={teams.filter(
-              (other) => other.group === t.group && other.id !== t.id,
-            )}
-            matches={games.filter((g) => g.home === t.id || g.away === t.id)}
-            roster={roster}
-            record={standings(teams, games, s).find((r) => r.team.id === t.id)!}
-            status={qualification(t, teams, games, s)}
-            now={connected ? now : (lastReceived ?? now)}
-          />
-        </div>
+        <TeamPassport
+          team={t}
+          profile={historicalProfile}
+          data={data}
+          now={connected ? now : (lastReceived ?? now)}
+          badge={(t) => <Badge team={t} />}
+        />
       );
-    }
   } else if (route === "players") {
     const p = (data.players as Player[]).find((p) => p.id === path[1]);
     content = p ? (
@@ -1028,7 +1008,7 @@ export default function Site({
                 ? `public-page public-${route}${route === "news" ? " news-redesign" : route === "teams" ? " teams-redesign" : ""}`
                 : route === "admin"
                   ? "operator-page"
-                  : "club-page"
+                  : "club-page passport-page"
         }
       >
         {route !== "home" &&
