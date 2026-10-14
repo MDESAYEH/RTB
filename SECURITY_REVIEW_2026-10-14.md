@@ -1,5 +1,15 @@
 # Security review — 14 October 2026
 
+## Remediation applied
+
+The subsequent authorized hardening change introduces per-request script nonces through Next.js Proxy, removes script unsafe-inline, blocks object embedding, adds HSTS (one year, without includeSubDomains/preload), and disables unused camera/microphone/geolocation/payment features. Inline styles remain allowed for existing React style attributes; scripts require the nonce. Responses carrying a nonce are private/no-store.
+
+Public data requests are limited to 180/minute per trusted client and live connection attempts to 60/minute. Shared-database leases cap live streams at eight per trusted client and 250 globally; leases expire automatically after 255 seconds and are released on cancellation/close. Without trusted proxy configuration the fallback is a shared 1,200 requests/minute bucket. Client IPs are hashed for these limiter keys. These bounds do not replace edge/WAF or network-level DDoS protection, whose production account settings remain unverified.
+
+Remediation validation: 89 tests passed; production build passed; isolated production-server checks verified nonce/header matching, nonce uniqueness, HSTS, login/logout revocation, Origin rejection, data delivery and SSE. Browser checks verified hydration, live-tab interaction and client navigation without console errors. Authentication tests used a separate temporary database and generated test credentials, not production accounts.
+
+The findings below describe the pre-remediation assessment.
+
 Scope: application source at `59d8dab`, dependencies, unit/integration tests and a small number of unauthenticated, read-only requests to https://roadtobal27.ly. No production login attempts, uploads, record edits, load tests or exploit payloads were sent. Application behavior was not changed during this review.
 
 No high/critical vulnerability was demonstrated within this scope. This is a focused review, not a penetration-test certification. Authenticated production sessions, infrastructure configuration, WAF settings, account security, backups and repository history were not comprehensively audited.

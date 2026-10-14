@@ -1,21 +1,32 @@
 import { revision as readRevision } from "@/lib/store";
 import { sharedRevision } from "@/lib/revision-cache";
+import { publicApiLimit, reserveLive } from "@/lib/public-api-limit";
 const revision = sharedRevision(readRevision);
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 export const maxDuration = 300;
 export async function GET(req: Request) {
+  const limited = await publicApiLimit(req, "live");
+  if (limited) return limited;
   // Fail before streaming, so unavailable storage is not mistaken for a healthy feed.
   await readRevision();
+  const release = await reserveLive(req);
+  if (!release)
+    return new Response(null, {
+      status: 429,
+      headers: { "Retry-After": "15", "Cache-Control": "no-store" },
+    });
   const encoder = new TextEncoder();
   let timer: ReturnType<typeof setTimeout> | undefined;
   let stopped = false;
   let closeStream: (() => void) | undefined;
   const stop = () => {
+    if (stopped) return;
     stopped = true;
     clearTimeout(timer);
     req.signal.removeEventListener("abort", stop);
     closeStream?.();
+    void release().catch(() => undefined);
   };
   const stream = new ReadableStream({
     start(controller) {
