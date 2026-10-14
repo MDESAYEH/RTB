@@ -145,7 +145,7 @@
   background:
     linear-gradient(#ffffff1f, #ffffff1f) center / 1px 100% no-repeat,
     linear-gradient(#ffffff1f, #ffffff1f) center / 100% 1px no-repeat,
-    #00000038;
+    #233a7f;
   overflow: hidden;
 }
 .road-rings i {
@@ -171,7 +171,7 @@
   height: 150px;
   border: 2px solid #f3a300;
   border-radius: 50%;
-  background: #172756;
+  background: #233a7f;
   box-shadow: 0 0 40px #f3a30040;
   text-align: center;
 }
@@ -225,7 +225,7 @@
   height: 48px;
   border: 0;
   background: #f3a300;
-  color: #172756;
+  color: #233a7f;
   box-shadow: 0 0 0 8px #f3a30033;
 }
 .at-top { top: 8%; left: 36%; }
@@ -352,7 +352,7 @@
     gap: 0;
     min-height: 0;
     padding: 20px 16px;
-    background: #00000038;
+    background: #233a7f;
   }
   html[dir="rtl"] .road-radar-field {
     direction: rtl;
