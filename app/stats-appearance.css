@@ -1,0 +1,164 @@
+/* Statistics page: red banner, intro, and one card per leader category (pending until stats are approved). */
+.sports-page.stats-redesign {
+  padding: 0;
+  max-width: none;
+  background: #fff;
+  min-height: 70vh;
+}
+.stats-redesign::before,
+.stats-redesign::after {
+  display: none;
+}
+.sports-page.stats-redesign > .stats-design {
+  margin-inline: 0 !important;
+  color: #023047;
+}
+.stats-banner {
+  padding: 44px clamp(20px, 6vw, 50px) 52px;
+  background: #8f1e1a var(--tournament-pattern) center / cover no-repeat;
+  background-blend-mode: overlay;
+  color: #fff;
+}
+.stats-banner small {
+  display: block;
+  font-size: 18px;
+  opacity: 0.85;
+}
+.stats-banner h1 {
+  margin: 4px 0 6px;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: #fff;
+}
+.stats-banner p {
+  margin: 0;
+  font-size: clamp(16px, 2vw, 26px);
+  opacity: 0.95;
+}
+.stats-body {
+  padding: 70px clamp(20px, 6vw, 50px) 80px;
+}
+.stats-intro small {
+  display: block;
+  font-size: 22px;
+  color: #8f1e1a;
+}
+.stats-intro h2 {
+  margin: 14px 0 26px;
+  font-size: clamp(28px, 3.4vw, 44px);
+  line-height: 1.4;
+  color: #023047;
+}
+.stats-intro p {
+  margin: 0;
+  max-width: none;
+  font-size: clamp(16px, 1.9vw, 26px);
+  line-height: 1.8;
+  color: #023047;
+}
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 64px;
+}
+.stat-cards > .stat-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+.stat-card {
+  padding: 26px 28px 28px;
+  background: #fff url("/patterns/hero-topo.svg") center / cover no-repeat;
+  border: 1px solid #ece3e1;
+  border-radius: 28px;
+  box-shadow: 0 14px 34px #0230470d;
+}
+.stat-card header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.stat-card header b {
+  font: 800 22px/1.2 var(--font-display), sans-serif;
+  letter-spacing: 0.02em;
+  color: #023047;
+}
+.stat-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #8f1e1a;
+  color: #fff;
+}
+.stat-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 14px;
+}
+.stat-card-text {
+  flex: 1;
+  min-width: 0;
+}
+.stat-card-text h3 {
+  margin: 0 0 14px;
+  font-size: clamp(22px, 2.3vw, 32px);
+  line-height: 1.3;
+  color: #8f1e1a;
+}
+.stat-card-text h3 a {
+  color: inherit;
+}
+.stat-card-text p {
+  margin: 0;
+  font-size: clamp(15px, 1.5vw, 20px);
+  color: #023047;
+}
+.stat-photo {
+  position: relative;
+  flex: 0 0 clamp(120px, 14vw, 200px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid #ece3e1;
+  border-radius: 14px;
+  background: #fbf6f5;
+}
+.stat-photo img {
+  object-fit: cover;
+}
+.stat-photo > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 44px;
+  color: #d9c7c4;
+}
+.stat-card.is-pending .stat-card-text h3 {
+  color: #8f1e1a;
+}
+@media (max-width: 900px) {
+  .stat-cards {
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+  }
+  .stats-body {
+    padding-block: 44px 56px;
+  }
+}
+@media (max-width: 600px) {
+  .stat-card {
+    padding: 20px 18px 22px;
+    border-radius: 22px;
+  }
+  .stat-photo {
+    flex-basis: 96px;
+  }
+  .stat-card-body {
+    gap: 14px;
+  }
+}

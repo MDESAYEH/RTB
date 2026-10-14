@@ -21,7 +21,8 @@ import { NewsArticle } from "./news-article";
 import { NewsContent } from "./news-content";
 import { LiveCenter } from "./live-center";
 import { MatchesContent } from "./matches-content";
-import { Trophy, ChevronLeft } from "lucide-react";
+import { StatsContent } from "./stats-content";
+import { Trophy } from "lucide-react";
 import {
   standings,
   qualification,
@@ -573,75 +574,6 @@ export default function Site({
       </div>
     );
   }
-  function Statistics() {
-    const stats = data.stats as Stat[],
-      players = data.players as Player[];
-    return stats.length ? (
-      <div className="leaderboards">
-        {(
-          [
-            "points",
-            "rebounds",
-            "assists",
-            "steals",
-            "blocks",
-            "efficiency",
-          ] as const
-        ).map((key, i) => (
-          <section key={key}>
-            <h3>
-              {tr(
-                [
-                  "النقاط",
-                  "المتابعات",
-                  "التمريرات",
-                  "السرقات",
-                  "الصدات",
-                  "الكفاءة",
-                ][i],
-              )}
-            </h3>
-            {players
-              .map((p) => ({ p, rows: stats.filter((s) => s.player === p.id) }))
-              .filter((v) => v.rows.length)
-              .map((v) => ({
-                ...v,
-                average: v.rows.reduce((n, r) => n + r[key], 0) / v.rows.length,
-              }))
-              .sort((a, b) => b.average - a.average)
-              .slice(0, 5)
-              .map((v) => (
-                <Link
-                  className="stat-row"
-                  href={"/players/" + v.p.id}
-                  key={v.p.id}
-                >
-                  <span>{v.p.name}</span>
-                  <b>{v.average.toFixed(1)}</b>
-                </Link>
-              ))}
-          </section>
-        ))}
-      </div>
-    ) : (
-      <section className="stats-preview">
-        <span className="eyebrow">THE NUMBERS WILL TELL THE STORY</span>
-        <h2>{tr("كل نقطة. كل متابعة. كل خطوة.")}</h2>
-        <Empty
-          title={tr("ستظهر إحصائيات اللاعبين بعد انطلاق البطولة.")}
-          detail={tr(
-            "تبدأ المنافسة في الملعب؛ ثم نقرأ قصتها بالأرقام المعتمدة.",
-          )}
-        />
-        <div className="stat-categories" dir="ltr">
-          PTS <span>REB</span> AST <span>STL</span> BLK
-        </div>
-        <Link className="text-link" href="/matches">
-          {tr("تابع بداية المنافسة")} <ChevronLeft size={18} />
-        </Link>
-      </section>
-    );
-  }
   let content: React.ReactNode;
   if (route === "home")
     content = (
@@ -914,7 +846,13 @@ export default function Site({
         {TeamGrid()}
       </>
     );
-  else if (route === "stats") content = Statistics();
+  else if (route === "stats")
+    content = (
+      <StatsContent
+        stats={data.stats as Stat[]}
+        players={data.players as Player[]}
+      />
+    );
   else if (route === "team") {
     const t = team(path[1]);
     // A club profile can exist before its team is in the live data.
@@ -1004,7 +942,7 @@ export default function Site({
           route === "home"
             ? "event-home"
             : ["matches", "standings", "stats"].includes(route)
-              ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : route === "matches" ? "matches-redesign" : ""}`
+              ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : route === "matches" ? "matches-redesign" : route === "stats" ? "stats-redesign" : ""}`
               : route !== "admin" && route !== "team"
                 ? `public-page public-${route}${route === "news" ? " news-redesign" : route === "teams" ? " teams-redesign" : ""}`
                 : route === "admin"
@@ -1015,6 +953,7 @@ export default function Site({
         {route !== "home" &&
           route !== "team" &&
           !(route === "matches" && !path[1]) &&
+          route !== "stats" &&
           route !== "players" &&
           route !== "news" &&
           route !== "teams" && (
