@@ -23,6 +23,7 @@ import { LiveCenter } from "./live-center";
 import { MatchesContent } from "./matches-content";
 import { StatsContent } from "./stats-content";
 import { RoadContent } from "./road-content";
+import { LegalContent, type LegalPage } from "./legal-content";
 import { Trophy } from "lucide-react";
 import {
   standings,
@@ -103,6 +104,7 @@ export default function Site({
     [group, setGroup] = useState("A"),
     [previewStream, setPreviewStream] = useState("");
   const route = path[0] === "the-road" ? "road" : path[0] || "home";
+  const legalPages: string[] = ["privacy", "terms", "accessibility"];
   const [lastReceived, setLastReceived] = useState<number | null>(null);
   const acceptData = (next: Data) =>
     setData((previous) =>
@@ -807,6 +809,8 @@ export default function Site({
     content = (
       Road({})
     );
+  else if (legalPages.includes(route))
+    content = <LegalContent page={route as LegalPage} />;
   else if (route === "stats")
     content = (
       <StatsContent
@@ -905,7 +909,7 @@ export default function Site({
             : ["matches", "standings", "stats"].includes(route)
               ? `sports-page sports-${route} ${route === "matches" && path[1] ? "sports-match-page" : route === "matches" ? "matches-redesign" : route === "stats" ? "stats-redesign" : ""}`
               : route !== "admin" && route !== "team"
-                ? `public-page public-${route}${route === "news" ? " news-redesign" : route === "teams" ? " teams-redesign" : route === "road" ? " road-redesign" : ""}`
+                ? `public-page public-${route}${route === "news" ? " news-redesign" : route === "teams" ? " teams-redesign" : route === "road" ? " road-redesign" : legalPages.includes(route) ? " legal-redesign" : ""}`
                 : route === "admin"
                   ? "operator-page"
                   : "club-page passport-page"
@@ -916,6 +920,7 @@ export default function Site({
           !(route === "matches" && !path[1]) &&
           route !== "stats" &&
           route !== "road" &&
+          !legalPages.includes(route) &&
           route !== "players" &&
           route !== "news" &&
           route !== "teams" && (

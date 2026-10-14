@@ -47,6 +47,9 @@ export async function generateMetadata({
             road: "THE ROAD",
             "the-road": "THE ROAD",
             admin: tr("الإدارة"),
+            privacy: tr("سياسة الخصوصية"),
+            terms: tr("الشروط والأحكام"),
+            accessibility: tr("إمكانية الوصول"),
           } as Record<string, string>
         )[path[0]] ||
         tr("طرابلس تستضيف أفريقيا");
@@ -116,6 +119,9 @@ export default async function Page({
     "road",
     "the-road",
     "admin",
+    "privacy",
+    "terms",
+    "accessibility",
   ];
   if (path.length && !valid.includes(path[0])) notFound();
   if (

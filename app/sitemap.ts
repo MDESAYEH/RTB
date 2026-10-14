@@ -11,6 +11,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/stats",
     "/news",
     "/the-road",
+    "/privacy",
+    "/terms",
+    "/accessibility",
     // Team pages are canonical at the club profile slug when one exists.
     ...(await Promise.all(
       (await provider.getTeams()).map(
