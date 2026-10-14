@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpFromLine, Hand, HandHelping, Shield, Target } from "lucide-react";
+import { ArrowUpFromLine, Hand, HandHelping, Shield, Target, Trophy } from "lucide-react";
 import { useLang } from "./i18n";
 
 type Player = {
@@ -26,6 +26,7 @@ type Stat = {
 
 const categories = [
   { key: "points", code: "PTS", icon: Target, ar: "النقاط", en: "Points" },
+  { key: "scorer", code: "TOP", icon: Trophy, ar: "الهداف", en: "Top scorer" },
   { key: "rebounds", code: "REB", icon: ArrowUpFromLine, ar: "المتابعات", en: "Rebounds" },
   { key: "assists", code: "AST", icon: HandHelping, ar: "التمريرات", en: "Assists" },
   { key: "steals", code: "STL", icon: Hand, ar: "السرقات", en: "Steals" },
@@ -34,13 +35,17 @@ const categories = [
 
 /** Season-average leader for one category, or null while nothing is approved. */
 function leader(stats: Stat[], players: Player[], key: (typeof categories)[number]["key"]) {
+  const scorer = key === "scorer";
+  const field = scorer ? "points" : key;
   const ranked = players
     .map((p) => ({ p, rows: stats.filter((s) => s.player === p.id) }))
     .filter((v) => v.rows.length)
-    .map((v) => ({ ...v, average: v.rows.reduce((n, r) => n + r[key], 0) / v.rows.length }))
+    .map((v) => ({ ...v, average: v.rows.reduce((n, r) => n + r[field], 0) / (scorer ? 1 : v.rows.length) }))
     .sort((a, b) => b.average - a.average);
   return ranked[0] ?? null;
 }
+
+const scorer = (key: string) => key === "scorer";
 
 export function StatsContent({ stats, players }: { stats: Stat[]; players: Player[] }) {
   const { lang, tr } = useLang();
@@ -88,7 +93,7 @@ export function StatsContent({ stats, players }: { stats: Stat[]; players: Playe
                           <Link href={"/players/" + top.p.id}>{top.p.name}</Link>
                         </h3>
                         <p>
-                          {top.average.toFixed(1)} {label}
+                          {scorer(key) ? top.average : top.average.toFixed(1)} {scorer(key) ? copy("نقطة", "points") : label}
                         </p>
                       </>
                     ) : (
