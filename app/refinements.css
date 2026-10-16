@@ -41,6 +41,22 @@ html[dir="rtl"] .rd-schedule-date strong {
   display: block;
   font: 800 17px / 1.4 Arial, sans-serif;
   color: #023047;
+  white-space: nowrap;
+}
+.sports-standings .standings-team {
+  gap: 10px;
+}
+.sports-standings .standings-card th:nth-child(2),
+.sports-standings .standings-card td:nth-child(2) {
+  width: 56%;
+}
+@media (max-width: 1500px) {
+  .sports-standings .standings-team-text > strong {
+    font-size: 15px;
+  }
+  .sports-standings .standings-team-country {
+    padding: 2px 8px;
+  }
 }
 html[dir="rtl"] .sports-standings .standings-team-text,
 html[dir="rtl"] .sports-standings .standings-team-text > strong {
