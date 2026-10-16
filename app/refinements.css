@@ -317,7 +317,8 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
 @media (max-width: 700px) {
   .event-home > section.tripoli-poster {
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: column;
     min-height: calc(100svh - 130px);
     padding: 0;
     overflow: hidden;
@@ -343,7 +344,10 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
   .event-home > section.tripoli-poster .poster-copy {
     position: relative;
     z-index: 1;
-    padding: 26px 20px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 54px 20px 34px;
     background: none;
     text-shadow: 0 2px 14px #0a2a5c99;
   }
@@ -357,5 +361,11 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
   }
   .event-home > section.tripoli-poster .poster-copy h1 .hero-line-gold {
     color: #ffc94d;
+  }
+}
+@media (max-width: 700px) {
+  .event-home > section.tripoli-poster .poster-copy .poster-bottom {
+    margin-top: auto;
+    padding-top: 24px;
   }
 }
