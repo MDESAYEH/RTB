@@ -70,7 +70,8 @@ main#main.teams-redesign {
 }
 .teams-directory-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  /* Fills the whole row whatever the number of clubs in the group (4 or 5), instead of leaving an empty slot. */
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 14px;
 }
 .directory-club {
@@ -163,6 +164,10 @@ main#main.teams-redesign {
 @media (max-width: 1050px) {
   .teams-directory-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  /* Exactly four clubs: two by two rather than three plus a lone card. */
+  .teams-directory-grid:has(> :nth-child(4):last-child) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .teams-directory {
     padding-inline: 24px;
