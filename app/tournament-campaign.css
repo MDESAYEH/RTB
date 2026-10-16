@@ -2193,3 +2193,9 @@ html {
     animation: score-impact 0.25s ease-out;
   }
 }
+
+/* Broadcast placeholder: a compact panel, not a full 16:9 screen, so the pattern stays fine and the page is not dominated by an empty box. */
+.sports-match-page .broadcast-stage {
+  aspect-ratio: auto;
+  min-height: clamp(300px, 32vw, 440px);
+}
