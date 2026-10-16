@@ -223,12 +223,12 @@ export function CampaignHero() {
         dir="ltr"
       >
         <picture className="poster-background" aria-hidden="true">
-          <source media="(max-width: 700px)" srcSet="/hero-main-mobile.webp" />
+          <source media="(max-width: 700px)" srcSet="/hero-road-mobile.webp" />
           <img
-            src="/hero-main.webp"
+            src="/hero-road.webp"
             alt=""
-            width={1122}
-            height={1402}
+            width={2000}
+            height={1126}
             fetchPriority="high"
           />
         </picture>
@@ -240,12 +240,12 @@ export function CampaignHero() {
             <span className="hero-line-red">{tr("أفريقيا تجتمع معاً")}</span>
             <span className="hero-line-gold">{tr("وطرابلس تتصدر المشهد")}</span>
           </h1>
-        </div>
-        <div className="poster-bottom">
-          <div className="poster-road">
-            <Link href="/the-road" dir={dir}>
-              {tr("الطريق يبدأ هنا")} <ChevronLeft aria-hidden="true" />
-            </Link>
+          <div className="poster-bottom">
+            <div className="poster-road">
+              <Link href="/the-road" dir={dir}>
+                {tr("الطريق يبدأ هنا")} <ChevronLeft aria-hidden="true" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

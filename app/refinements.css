@@ -33,3 +33,103 @@ html[dir="rtl"] .rd-schedule-date strong {
     font-weight: 700;
   }
 }
+
+/* ===== Home hero: the full-bleed "Road to BAL 2027" artwork with the copy over the sky ===== */
+@media (min-width: 701px) {
+  .event-home > section.tripoli-poster {
+    display: block;
+    position: relative;
+    min-height: clamp(560px, 46vw, 800px);
+    padding: 0;
+    background: #f1dcc0;
+    overflow: hidden;
+  }
+  .event-home > section.tripoli-poster .poster-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .event-home > section.tripoli-poster .poster-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 22% 62%;
+  }
+  .event-home > section.tripoli-poster .poster-copy {
+    position: absolute;
+    inset-inline-end: 4.7%;
+    top: 50%;
+    transform: translateY(-50%);
+    grid-column: auto;
+    width: min(48%, 700px);
+    text-align: right;
+  }
+  .event-home > section.tripoli-poster .poster-copy .poster-bottom {
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: clamp(20px, 2.6vw, 38px);
+    grid-column: auto;
+  }
+  html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy {
+    text-align: left;
+  }
+  html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy .poster-bottom {
+    justify-content: flex-start;
+  }
+  html[dir="ltr"] .event-home > section.tripoli-poster .poster-title {
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 700px) {
+  .event-home > section.tripoli-poster .poster-background {
+    -webkit-mask-image: none;
+    mask-image: none;
+    height: auto;
+    aspect-ratio: 1000 / 806;
+  }
+  .event-home > section.tripoli-poster .poster-background img {
+    object-position: center;
+  }
+  .event-home > section.tripoli-poster .poster-copy .poster-bottom {
+    position: static;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy .poster-bottom {
+    justify-content: flex-start;
+  }
+}
+
+/* English keeps the artwork exactly as in Arabic (never mirrored) and the copy in the same place; only the writing runs left to right. */
+@media (min-width: 701px) {
+  html[dir="ltr"] .event-home > section.tripoli-poster .poster-background {
+    inset: 0;
+    width: 100%;
+  }
+  html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy h1 {
+    text-align: left;
+  }
+}
+
+/* The English headline is longer: it sits higher, in the clear sky above the players, in a slightly smaller size. */
+@media (min-width: 701px) {
+  html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy {
+    width: min(46%, 660px);
+    top: 7%;
+    transform: none;
+  }
+  html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy h1 {
+    font-size: clamp(30px, 3vw, 54px);
+    line-height: 1.12;
+  }
+  html[dir="ltr"] .event-home > section.tripoli-poster .poster-title {
+    white-space: nowrap;
+    letter-spacing: 0.1em;
+  }
+}
