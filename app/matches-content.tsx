@@ -129,7 +129,7 @@ export function MatchesContent({
               onChange={(e) => setDay(e.target.value)}
             >
               <option value="">{copy("كل أيام البطولة", "All tournament days")}</option>
-              {[21, 22, 23, 24, 25].map((d) => (
+              {[21, 22, 23].map((d) => (
                 <option key={d} value={`2026-10-${d}`}>
                   {d} {copy("أكتوبر", "October")}
                 </option>
