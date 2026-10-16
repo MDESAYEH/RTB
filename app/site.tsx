@@ -13,7 +13,7 @@ import { HomeContent, HomeTopbar, TournamentFooter } from "./home-content";
 import { useLang } from "./i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
-import { DEFAULT_STREAM_URL, streamEmbed } from "@/lib/stream";
+import { broadcastPlaceholder, matchStream } from "@/lib/stream";
 import { getTeamIdentity } from "@/lib/team-identity";
 import { TeamPassport } from "./team-passport";
 import { TeamsContent } from "./teams-content";
@@ -192,7 +192,6 @@ export default function Site({
     };
   }, []);
   const s = data.settings,
-    streamUrl = previewStream || s.streamUrl || DEFAULT_STREAM_URL,
     teams = data.teams,
     games = data.games;
   const team = (id: string) => teams.find((t) => t.id === id);
@@ -532,7 +531,6 @@ export default function Site({
             now={now}
             connected={connected}
             clockNow={connected ? now : (lastReceived ?? serverNow)}
-            streamUrl={previewStream || s.streamUrl || ""}
             badge={(t) => <Badge team={t} />}
           />
         }
@@ -557,6 +555,11 @@ export default function Site({
     );
   else if (route === "matches" && path[1]) {
     const g = games.find((g) => g.id === path[1])!;
+    // Each match has its own broadcast link; a `?stream=` link only previews the player.
+    const matchBroadcast = previewStream
+      ? ({ state: "show", url: previewStream } as const)
+      : matchStream(g);
+    const placeholder = broadcastPlaceholder(matchBroadcast.state, lang === "ar" ? "ar" : "en");
     const clock = remainingClock(g, connected ? now : (lastReceived ?? now));
     content = (
       <>
@@ -634,8 +637,8 @@ export default function Site({
         <p>
           {g.venue || tr("سيُعلن مكان المباراة لاحقًا")} · GROUP {g.group}
         </p>
-        {streamEmbed(previewStream || g.streamUrl || streamUrl) ? (
-          <StreamPlayer url={previewStream || g.streamUrl || streamUrl} />
+        {matchBroadcast.state === "show" ? (
+          <StreamPlayer url={matchBroadcast.url} />
         ) : (
           <section className="broadcast-stage" aria-label={tr("البث المباشر")}>
             <CourtArc />
@@ -645,8 +648,8 @@ export default function Site({
             <span className="broadcast-label" dir="ltr">
               LIVE BROADCAST
             </span>
-            <h2>{tr("سيتم عرض البث المباشر للمباراة هنا")}</h2>
-            <p>{tr("البث الرسمي سيكون متاحًا عند بدء المباراة.")}</p>
+            <h2>{placeholder.title}</h2>
+            <p>{placeholder.body}</p>
             <span className="broadcast-opponents" dir="ltr">
               {team(g.home)?.name} × {team(g.away)?.name}
             </span>

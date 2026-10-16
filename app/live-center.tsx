@@ -3,7 +3,7 @@ import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { Radio, Play, CalendarDays, ArrowLeft } from "lucide-react";
 import { remainingClock, type Team } from "@/lib/public-domain";
-import { streamEmbed } from "@/lib/stream";
+import { broadcastPlaceholder, matchStream } from "@/lib/stream";
 import { useLang } from "./i18n";
 import { StreamPlayer } from "./stream-player";
 import { TournamentLogo } from "./tournament-logo";
@@ -14,14 +14,12 @@ export function LiveCenter({
   now,
   connected,
   clockNow,
-  streamUrl,
   badge,
 }: {
   data: Data;
   now: number;
   connected: boolean;
   clockNow: number;
-  streamUrl: string;
   badge: (team: Team) => ReactNode;
 }) {
   const { lang, tr } = useLang();
@@ -36,8 +34,9 @@ export function LiveCenter({
     .sort((a, b) => Date.parse(a.date) - Date.parse(b.date))[0];
   const game = active.find((g) => g.id === selected) ?? active[0] ?? next;
   const playing = game && ["Live", "Halftime"].includes(game.status);
-  const url = game?.streamUrl || streamUrl;
-  const broadcast = streamEmbed(url);
+  // Per-match broadcast: a link entered ahead of time appears once the match is live.
+  const broadcast = game ? matchStream(game) : { state: "not-started" as const };
+  const waiting = broadcastPlaceholder(broadcast.state, lang === "ar" ? "ar" : "en");
   const team = (id?: string) => data.teams.find((t) => t.id === id);
   const events = data.events.filter((e) => e.game === game?.id);
   const stats = data.teamStats.filter((s) => s.game === game?.id);
@@ -98,13 +97,13 @@ export function LiveCenter({
       )}
       <div className="live-stage">
         <div className="live-screen">
-          {broadcast ? (
+          {broadcast.state === "show" ? (
             <>
               <div className="live-screen-label">
                 <Play size={15} />
                 {copy("بث البطولة", "Tournament broadcast")}
               </div>
-              <StreamPlayer url={url} />
+              <StreamPlayer url={broadcast.url} />
             </>
           ) : (
             <div className="live-waiting">
@@ -112,15 +111,8 @@ export function LiveCenter({
               <span className="live-waiting-icon">
                 <Play size={28} />
               </span>
-              <h3>
-                {copy("الملعب ينتظر صافرة البداية", "The court awaits tip-off")}
-              </h3>
-              <p>
-                {copy(
-                  "سيظهر البث هنا فور نشر رابط المشاهدة من إدارة البطولة.",
-                  "The broadcast will appear here once the tournament publishes its viewing link.",
-                )}
-              </p>
+              <h3>{waiting.title}</h3>
+              <p>{waiting.body}</p>
               {seconds > 0 && (
                 <div className="live-wait-clock" dir="ltr">
                   {[

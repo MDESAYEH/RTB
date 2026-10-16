@@ -51,6 +51,80 @@ export function streamEmbed(raw: string | undefined | null): StreamEmbed | null 
   return null;
 }
 
-/** Used until an admin sets `streamUrl` in settings. Clear the value to show the "coming soon" placeholder again. */
-export const DEFAULT_STREAM_URL =
-  "https://www.facebook.com/Ittihadscofficial/videos/2356351284771130/";
+export type BroadcastState =
+  | "show" // the match has its own link and is on (or finished): embed it
+  | "not-started" // scheduled or warming up: placeholder until it goes live
+  | "no-link" // live, but the organisers have not published a link
+  | "ended" // finished with no recording link
+  | "postponed"
+  | "cancelled";
+
+/**
+ * What a match page should show. Every match has its own `streamUrl`; there is no shared stream.
+ * A link entered ahead of time stays hidden until the match is live, then appears on its own.
+ */
+export function matchStream(game: {
+  status: string;
+  streamUrl?: string | null;
+}): { state: BroadcastState; url?: string } {
+  const hasLink = !!streamEmbed(game.streamUrl);
+  switch (game.status) {
+    case "Live":
+    case "Halftime":
+      return hasLink
+        ? { state: "show", url: game.streamUrl ?? undefined }
+        : { state: "no-link" };
+    case "Ended":
+      return hasLink
+        ? { state: "show", url: game.streamUrl ?? undefined }
+        : { state: "ended" };
+    case "Postponed":
+      return { state: "postponed" };
+    case "Cancelled":
+      return { state: "cancelled" };
+    default:
+      return { state: "not-started" };
+  }
+}
+
+/** Placeholder text shown where the player would be. */
+export function broadcastPlaceholder(
+  state: BroadcastState,
+  lang: "ar" | "en",
+): { title: string; body: string } {
+  const text: Record<Exclude<BroadcastState, "show">, [string, string, string, string]> = {
+    "not-started": [
+      "لم تبدأ المباراة بعد",
+      "The match has not started yet",
+      "سيظهر البث هنا فور انطلاق المباراة.",
+      "The broadcast will appear here as soon as the match starts.",
+    ],
+    "no-link": [
+      "البث غير متاح لهذه المباراة",
+      "No broadcast for this match",
+      "لم تنشر الإدارة رابط بث لهذه المباراة بعد.",
+      "The organisers have not published a broadcast link for this match yet.",
+    ],
+    ended: [
+      "انتهت المباراة",
+      "The match has ended",
+      "لا يتوفر تسجيل لهذه المباراة حالياً.",
+      "No recording is available for this match at the moment.",
+    ],
+    postponed: [
+      "تأجلت المباراة",
+      "The match was postponed",
+      "سيُعلن الموعد الجديد فور اعتماده.",
+      "The new date will be announced once confirmed.",
+    ],
+    cancelled: [
+      "أُلغيت المباراة",
+      "The match was cancelled",
+      "لن يُنقل بث لهذه المباراة.",
+      "There will be no broadcast for this match.",
+    ],
+  };
+  if (state === "show") return { title: "", body: "" };
+  const row = text[state];
+  return lang === "ar" ? { title: row[0], body: row[2] } : { title: row[1], body: row[3] };
+}

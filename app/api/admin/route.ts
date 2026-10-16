@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: parsed.error.message }, { status: 400 });
   const b = parsed.data;
   if (
-    ["score", "clock", "status", "undo", "correct"].includes(b.action) &&
+    ["score", "clock", "status", "undo", "correct", "stream"].includes(b.action) &&
     (!b.id ||
       !Number.isInteger(b.version) ||
       (b.version ?? -1) < 0 ||

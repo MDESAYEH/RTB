@@ -919,3 +919,29 @@ html[dir="ltr"] .operator-page .admin-field-ltr {
 .operator-page .admin .tabs button:last-child {
   order: 99;
 }
+
+/* Per-match broadcast link */
+.stream-link {
+  display: grid;
+  gap: 12px;
+  margin: 18px 0;
+}
+.stream-link h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 17px;
+  color: var(--admin-ink);
+}
+.stream-link-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.stream-link-hint {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--admin-muted);
+}

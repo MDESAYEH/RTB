@@ -7,6 +7,7 @@ import { useLang } from "./i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { transitions, remainingClock, stale } from "@/lib/public-domain";
 import { roleLabels, type Role, type Permission } from "@/lib/permissions";
+import { StreamLink } from "./admin-stream";
 import {
   PasswordField,
   SecurityPanel,
@@ -32,6 +33,7 @@ const AUDIT_ACTIONS: Record<string, string> = {
   save: "حفظ بيانات",
   upload: "رفع صورة",
   correct: "تصحيح إداري",
+  stream: "رابط بث المباراة",
   "user:create": "إنشاء حساب",
   "user:role": "تغيير دور",
   "user:password": "إعادة تعيين كلمة المرور",
@@ -615,6 +617,15 @@ export function Admin({
                 ))}
               </select>
             </label>
+            <StreamLink
+              key={g.id}
+              game={g}
+              busy={busy}
+              lang={lang === "ar" ? "ar" : "en"}
+              onSave={(link) =>
+                void mutate({ action: "stream", id: g.id, value: link })
+              }
+            />
             <div className="live-room" dir="ltr">
               {(["home", "away"] as const).map((side) => (
                 <div key={side}>
