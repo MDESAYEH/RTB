@@ -20,6 +20,7 @@ import "./team-passport.css";
 import "./stats-appearance.css";
 import "./road-appearance.css";
 import "./legal-appearance.css";
+import "./refinements.css";
 import "./club-logo-appearance.css";
 import "@fontsource/almarai/300.css";
 import "@fontsource/almarai/400.css";

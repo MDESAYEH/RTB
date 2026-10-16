@@ -1,0 +1,35 @@
+/* Loaded last: small refinements that must win over the page-specific files. */
+
+/* Pattern: every banner, strip and frame uses the same overlay blend as the home countdown band,
+   so the white pattern reads as fine, soft lines instead of heavy pale ones. */
+.match-banner,
+.sports-standings .standings-card .group-heading,
+.teams-directory-group > header,
+.stat-cards,
+.road-radar-frame,
+.passport-stages article.current {
+  background-blend-mode: overlay;
+}
+
+/* Date range: 21 comes first (on the right in Arabic), then 23. */
+html[dir="rtl"] .rd-schedule-date strong {
+  direction: rtl;
+  unicode-bidi: isolate;
+}
+
+/* Standings: the Latin name and the Arabic name share one line. */
+.sports-standings .standings-team-sub {
+  display: inline;
+  margin: 0;
+  margin-inline-start: 10px;
+  font-size: 13px;
+}
+
+/* Main menu: 16px on desktop. */
+@media (min-width: 901px) {
+  .tournament-header .tournament-nav a,
+  .tournament-header .tournament-nav .nav-more > button {
+    font-size: 16px;
+    font-weight: 700;
+  }
+}
