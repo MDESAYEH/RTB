@@ -361,14 +361,20 @@ export default function Site({
               >
                 <td>{played ? (r.tied ? "=" : i + 1) : "—"}</td>
                 <td>
-                  <Link href={"/teams/" + r.team.id}>
+                  <Link
+                    className={route === "standings" ? "standings-team" : undefined}
+                    href={"/teams/" + r.team.id}
+                  >
                     <Badge team={r.team} />
-                    <span dir="auto">
-                      {r.team.name}
-                      {route === "standings" && lang === "ar" && (
-                        <small className="standings-team-sub">
-                          {getTeamIdentity(r.team.id)?.arabicName ||
-                            tr(r.team.country)}
+                    <span dir="auto" className="standings-team-text">
+                      {route === "standings" ? (
+                        <strong dir="auto">{r.team.name}</strong>
+                      ) : (
+                        r.team.name
+                      )}
+                      {route === "standings" && (
+                        <small className="standings-team-sub" dir="rtl">
+                          {getTeamIdentity(r.team.id)?.arabicName || r.team.name}
                         </small>
                       )}
                       <small className="mobile-aux">
@@ -377,6 +383,11 @@ export default function Site({
                           : tr("لم يلعب بعد")}
                       </small>
                     </span>
+                    {route === "standings" && (
+                      <em className="standings-team-country">
+                        {tr(r.team.country)}
+                      </em>
+                    )}
                   </Link>
                 </td>
                 {["p", "w", "l", "pf", "pa", "diff", "pts"].map((k) => (
