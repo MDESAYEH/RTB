@@ -88,12 +88,15 @@ for (const [label, config] of backends) {
   const alias = {
     aliases: { "nadi-basket-staoueli": "nb-staoueli" },
     confirmedSpellings: [] as string[],
+    // These tests cover following FIBA's group tables; locked placement and withdrawals have their own tests below.
+    lockGroups: false,
+    withdrawnTeams: [] as string[],
   };
 
   test(`${label}: teams and groups are imported from FIBA group tables; unreviewed teams are not merged`, async () => {
     const store = fresh();
     await store.provider.getTeams();
-    const unreviewed = { aliases: {} };
+    const unreviewed = { aliases: {}, lockGroups: false, withdrawnTeams: [] as string[] };
     const result = await runSync(store, {
       apply: true,
       fetchImpl: fetcher(),
@@ -158,13 +161,91 @@ for (const [label, config] of backends) {
     const approved = await runSync(store, {
       apply: true,
       fetchImpl: fetcher(),
-      plan: { aliases: {}, approvedNewTeams: ["nadi-basket-staoueli"] },
+      plan: { aliases: {}, approvedNewTeams: ["nadi-basket-staoueli"], lockGroups: false, withdrawnTeams: [] as string[] },
     });
     assert.equal(
       (await store.get<Team>("teams", "nadi-basket-staoueli"))?.country,
       "",
     );
     assert.equal(approved.counts["teams.create"], 1);
+    await store.db.close();
+  });
+
+  test(`${label}: the local 4 / 4 draw is kept and withdrawn clubs are removed, not moved`, async () => {
+    const store = fresh();
+    await store.provider.getTeams();
+    // Drift that FIBA's tables would otherwise copy: a team moved to the wrong group locally.
+    const kriol = (await store.get<Team>("teams", "kriol-star"))!;
+    await store.write("teams", "kriol-star", { ...kriol, group: "B" }, "seed");
+    const result = await runSync(store, {
+      apply: true,
+      fetchImpl: fetcher(),
+      plan: { aliases: {}, lockGroups: true },
+    });
+    const teams = await store.provider.getTeams();
+    const ids = (group: string) =>
+      teams.filter((t) => t.group === group).map((t) => t.id).sort();
+    assert.deepEqual(ids("A"), ["al-ittihad", "kriol-star", "nb-staoueli", "stade-malien"]);
+    assert.deepEqual(ids("B"), ["energie-bc", "nabaya-sofas", "npa-pythons", "spintex-knights"]);
+    assert.equal(teams.length, 8, "the two clubs that withdrew are gone and nobody is added");
+    assert.equal(await store.get("teams", "as-douanes"), undefined);
+    assert.equal(await store.get("teams", "red-flames"), undefined);
+    assert.equal(result.counts["teams.remove"], 2);
+    // Other details still come from FIBA.
+    assert.equal((await store.get<Team>("teams", "energie-bc"))?.name, "Energie BBC");
+    assert.ok(result.plan.notes.some((n) => /fixed locally/.test(n)));
+    assert.ok(!result.plan.entries.some((e) => e.kind === "teams" && e.action === "create"));
+    // The removal is audited and a second run changes nothing more.
+    const audit = (await store.db
+      .prepare("SELECT COUNT(*) AS n FROM audit WHERE action='fiba-remove'")
+      .get()) as { n: number };
+    assert.equal(audit.n, 2);
+    const again = await runSync(store, { apply: true, fetchImpl: fetcher(), plan: { aliases: {}, lockGroups: true } });
+    assert.equal(again.counts["teams.remove"] ?? 0, 0);
+    await store.db.close();
+  });
+
+  test(`${label}: a withdrawn club that still has players is kept and reported instead of breaking references`, async () => {
+    const store = fresh();
+    await store.provider.getTeams();
+    await store.write(
+      "players",
+      "p-douanes",
+      { id: "p-douanes", name: "Test Player", team: "as-douanes", number: 7, position: "G" },
+      "admin",
+    );
+    const result = await runSync(store, {
+      apply: true,
+      fetchImpl: fetcher(),
+      plan: { aliases: {}, lockGroups: true },
+    });
+    assert.ok(await store.get("teams", "as-douanes"), "still referenced, so not removed");
+    assert.equal(await store.get("teams", "red-flames"), undefined, "unreferenced one is removed");
+    assert.ok(
+      result.plan.entries.some(
+        (e) => e.id === "as-douanes" && e.action === "skipped" && /still referenced/.test(e.reason),
+      ),
+    );
+    await store.db.close();
+  });
+
+  test(`${label}: a fixture with an undecided opponent is skipped instead of breaking the sync`, async () => {
+    const store = fresh();
+    await store.provider.getTeams();
+    const page = rewrap(baseGames, (data) => {
+      const games = data.games as Row[];
+      games[0] = { ...games[0], teamB: null };
+    });
+    const result = await runSync(store, {
+      apply: true,
+      fetchImpl: fetcher({ games: page }),
+      plan: { aliases: {}, lockGroups: true },
+    });
+    assert.ok(
+      result.plan.entries.some(
+        (e) => e.kind === "games" && /opponent not decided/.test(e.reason),
+      ),
+    );
     await store.db.close();
   });
 

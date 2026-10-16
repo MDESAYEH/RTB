@@ -295,6 +295,50 @@ export function createTournamentStore(
     });
     await db.batch(statements);
   }
+  /**
+   * Deletes a record and writes the audit trail. Returns false (and changes nothing) while other records
+   * still reference it, e.g. a team that still has players.
+   */
+  async function remove(
+    kind: string,
+    id: string,
+    actor: string,
+    action = "remove",
+  ): Promise<boolean> {
+    if (!db.inTransaction)
+      return await db.transaction(
+        async () => await remove(kind, id, actor, action),
+      )();
+    const old = await get(kind, id);
+    if (!old) return true;
+    const used = await db
+      .prepare(
+        "SELECT 1 AS used FROM entity_refs WHERE target_kind=? AND target_id=? LIMIT 1",
+      )
+      .get(kind, id);
+    if (used) return false;
+    await db.batch([
+      {
+        sql: "DELETE FROM entity_refs WHERE owner_kind=? AND owner_id=?",
+        args: [kind, id],
+      },
+      { sql: "DELETE FROM records WHERE kind=? AND id=?", args: [kind, id] },
+      {
+        sql: "INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,?)",
+        args: [
+          actor,
+          kind,
+          id,
+          JSON.stringify(old),
+          null,
+          new Date().toISOString(),
+          action,
+        ],
+      },
+      { sql: "UPDATE revision SET value=value+1 WHERE id=1", args: [] },
+    ]);
+    return true;
+  }
   const revision = async () =>
     (
       (await db.prepare("SELECT value FROM revision WHERE id=1").get()) as {
@@ -745,6 +789,7 @@ export function createTournamentStore(
     list,
     get,
     write,
+    remove,
     revision,
     settings,
     provider,
@@ -776,6 +821,7 @@ export const {
   list,
   get,
   write,
+  remove,
   revision,
   settings,
   provider,

@@ -27,8 +27,9 @@ export const fibaGameSchema = z.object({
   gameId: z.number().int(),
   gameName: z.string(),
   statusCode: z.string().min(1),
-  teamA: fibaGameTeamSchema,
-  teamB: fibaGameTeamSchema,
+  // A fixture whose opponent is not decided yet (e.g. a later round) has no team object.
+  teamA: fibaGameTeamSchema.nullable(),
+  teamB: fibaGameTeamSchema.nullable(),
   teamAScore: z.number().int(),
   teamBScore: z.number().int(),
   isLive: z.boolean(),

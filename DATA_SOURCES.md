@@ -116,3 +116,11 @@ Fail closed: every page is fetched and validated (Zod) before any write; a struc
 
 ### Legal and usage position (not legal advice)
 FIBA's Terms and Conditions (https://www.fiba.basketball/en/terms-and-conditions, read 8 October 2026) contain no explicit prohibition of automated access, and `robots.txt` disallows only login/registration paths. However: 4.2 says content (pictures, graphics, logos, texts, …) "may not be reproduced or modified in any way without prior permission", 4.3 grants no licence, 2.1 forbids undermining the site's functioning and data integrity, and 6.6 requires written approval to link to the site. Team names, fixtures and scores are facts, but databases of them can carry separate rights depending on jurisdiction, and the terms are silent on reuse. This repository therefore imports facts only (no FIBA images, logos, texts or videos) and makes at most three requests per run. **Before relying on it in production, obtain FIBA's (or the event organiser's) written permission or an agreed data feed.** Credentials alone would not establish permission; see the Sofascore and 365Scores sections above.
+
+## Group placement is fixed locally
+
+The Tripoli draw is kept in `lib/providers/fiba/groups.ts` (reviewed 2026-10-14 against FIBA's Division West tables): group A is Nadi Basket Staoueli, Kriol Star, Al Ittihad and Stade Malien; group B is Energie BBC, Nabaya Sofas, Spintex Knights and NPA Pythons. The FIBA sync keeps every team in that group. It still updates names, official logos, fixtures, results and news, but it never moves a team between groups and never creates teams.
+
+Clubs that withdrew (AS Douanes and Red Flames) are listed in the same file. The sync removes their records, and any not-yet-played fixture they had, with an audit entry (`fiba-remove`); a club that still has players or statistics is kept and reported until those are cleared. Fixtures whose opponent FIBA has not decided yet are skipped instead of failing the sync.
+
+When the organisers confirm a change (a withdrawal, a replacement, a regroup), edit `groups.ts` deliberately. Set `FIBA_FOLLOW_GROUPS=1` to make the sync copy FIBA's group tables again.
