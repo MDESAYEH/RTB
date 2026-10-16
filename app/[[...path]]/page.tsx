@@ -63,7 +63,7 @@ export async function generateMetadata({
     (english && news?.excerptEn ? news.excerptEn : news?.excerpt) ||
     (game
       ? tr("مركز المباراة") + " · " + game.date + " · GROUP " + game.group
-      : "ROAD TO BAL 2027 · TRIPOLI · 21–25 OCTOBER 2026");
+      : "ROAD TO BAL 2027 · TRIPOLI · 21–23 OCTOBER 2026");
   const canonical = profile
     ? "/teams/" + encodeURIComponent(profile.slug)
     : "/" +

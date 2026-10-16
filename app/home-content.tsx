@@ -15,7 +15,7 @@ export function HomeTopbar() {
   const { lang, toggle } = useLang();
   return (
     <div className="topbar rd-topbar" dir="ltr">
-      <span>ROAD TO BAL 2027 · TRIPOLI · 21—25 OCT 2026</span>
+      <span>ROAD TO BAL 2027 · TRIPOLI · 21—23 OCT 2026</span>
       <div>
         <button
           type="button"
@@ -186,13 +186,13 @@ export function HomeContent({
             <div className="rd-schedule-copy">
               <h3>
                 {copy(
-                  "جدول المباريات، خمسة أيام من الإثارة الأفريقية",
-                  "Five days of African basketball",
+                  "جدول المباريات، ثلاثة أيام من الإثارة الأفريقية",
+                  "Three days of African basketball",
                 )}
               </h3>
               <p>
                 {tr(
-                  "خمسة أيام من كرة السلة الأفريقية في قلب طرابلس. تابع هنا مواعيد المباريات عند اعتمادها.",
+                  "ثلاثة أيام من كرة السلة الأفريقية في قلب طرابلس. تابع هنا مواعيد المباريات عند اعتمادها.",
                 )}
               </p>
             </div>
@@ -226,8 +226,7 @@ export function HomeContent({
                             ? "المجموعة الثانية"
                             : `المجموعة ${group}`,
                         `Group ${group}`,
-                      )}{" "}
-                      · {teams.filter((t) => t.group === group).length}{" "}
+                      )}{lang === "ar" ? "،" : ","} {teams.filter((t) => t.group === group).length}{" "}
                       {tr("فرق")}
                     </small>
                   </div>

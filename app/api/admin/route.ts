@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: parsed.error.message }, { status: 400 });
   const b = parsed.data;
   if (
-    ["score", "clock", "status", "undo", "correct"].includes(b.action) &&
+    ["score", "clock", "status", "undo", "correct", "stream"].includes(b.action) &&
     (!b.id ||
       !Number.isInteger(b.version) ||
       (b.version ?? -1) < 0 ||
@@ -90,27 +90,30 @@ export async function POST(req: NextRequest) {
         { error: "محاولات كثيرة. حاول بعد 15 دقيقة." },
         { status: 429 },
       );
-    const outcome = await db.transaction(async () => {
-      const result = await authenticate(
-        b.password || "",
-        ident?.value ?? "",
-        b.otp,
-      );
-      if (result.status !== "ok") return result;
-      await db
-        .prepare(
-          "INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,'login')",
-        )
-        .run(
-          ident!.value,
-          "auth",
-          ident!.value,
-          null,
-          JSON.stringify({ event: "login" }),
-          new Date().toISOString(),
-        );
-      return result;
-    })();
+    // Password hashing is slow by design, so it runs outside any database transaction.
+    const result = await authenticate(
+      b.password || "",
+      ident?.value ?? "",
+      b.otp,
+    );
+    const outcome =
+      result.status === "ok"
+        ? await db.transaction(async () => {
+            await db
+              .prepare(
+                "INSERT INTO audit(actor,kind,target,old,new,time,action) VALUES(?,?,?,?,?,?,'login')",
+              )
+              .run(
+                ident!.value,
+                "auth",
+                ident!.value,
+                null,
+                JSON.stringify({ event: "login" }),
+                new Date().toISOString(),
+              );
+            return result;
+          })()
+        : result;
     // Password right, authenticator code still needed (or wrong): the attempt stays counted.
     if (outcome.status === "otp")
       return NextResponse.json(

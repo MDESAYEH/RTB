@@ -4,12 +4,8 @@ import {
   databaseConfig,
   type DatabaseConfig,
 } from "./sql-database";
-import {
-  randomBytes,
-  scryptSync,
-  timingSafeEqual,
-  createHash,
-} from "node:crypto";
+import { randomBytes, createHash } from "node:crypto";
+import { dummyVerify, hashPassword, verifyPassword } from "./password";
 import {
   eventSchema,
   teamStatSchema,
@@ -170,17 +166,42 @@ export function createTournamentStore(
     }
     await db.exec(storageSchema);
     await db.exec(`PRAGMA user_version=${storageSchemaVersion}`);
+    // One-time correction: the event runs three days (21–23 October). Only untouched old defaults are changed;
+    // anything an organiser edited stays as they set it.
+    {
+      const OLD_END = "2026-10-26T00:00:00+02:00";
+      const OLD_ANNOUNCEMENT = "21–25 أكتوبر 2026 · المجموعتان A وB";
+      const current = await get<Settings>("settings", "tournament");
+      if (
+        current &&
+        (current.end === OLD_END || current.announcement === OLD_ANNOUNCEMENT)
+      )
+        await write(
+          "settings",
+          "tournament",
+          {
+            ...current,
+            end: current.end === OLD_END ? "2026-10-24T00:00:00+02:00" : current.end,
+            announcement:
+              current.announcement === OLD_ANNOUNCEMENT
+                ? "21–23 أكتوبر 2026، المجموعتان A وB"
+                : current.announcement,
+          },
+          "system",
+          "migrate",
+        );
+    }
     const defaults: Settings = {
       name: "FIBA Africa Champions Clubs – Road to BAL 2027",
       shortName: "ROAD TO BAL 2027",
       start: "2026-10-21T00:00:00+02:00",
 
-      end: "2026-10-26T00:00:00+02:00",
+      end: "2026-10-24T00:00:00+02:00",
       timezone: "Africa/Tripoli",
       city: "طرابلس، ليبيا",
       venue: "",
       hero: "طرابلس تستضيف أفريقيا",
-      announcement: "21–25 أكتوبر 2026 · المجموعتان A وB",
+      announcement: "21–23 أكتوبر 2026، المجموعتان A وB",
       groups: ["A", "B"],
       qualificationSlots: 2,
       winPoints: 2,
@@ -408,8 +429,6 @@ export function createTournamentStore(
     pulse: pulseSchema,
   };
   const MIN_PASSWORD = 14;
-  // Unknown accounts still pay for one scrypt so response time does not reveal which identifiers exist.
-  const DUMMY_SALT = randomBytes(16).toString("hex");
   const sha = (value: string) => createHash("sha256").update(value).digest("hex");
   type AccountRow = {
     id: string;
@@ -440,13 +459,14 @@ export function createTournamentStore(
       identifier = parsed.value;
     }
     const id = identifier ?? "admin";
-    const salt = randomBytes(16).toString("hex");
+    // The slow hashing happens before the write transaction opens.
+    const secret = await hashPassword(password);
     await db.transaction(async () => {
       await db
         .prepare(
           "INSERT INTO admins(id,salt,hash,identifier,role,disabled) VALUES(?,?,?,?,?,0) ON CONFLICT(id) DO UPDATE SET salt=excluded.salt,hash=excluded.hash,identifier=excluded.identifier,role=excluded.role,disabled=0",
         )
-        .run(id, salt, scryptSync(password, salt, 64).toString("hex"), identifier, role);
+        .run(id, secret.salt, secret.hash, identifier, role);
       if (identifier === null) await db.prepare("DELETE FROM sessions").run();
       else {
         await db.prepare("DELETE FROM sessions WHERE admin=?").run(id);
@@ -475,32 +495,37 @@ export function createTournamentStore(
     identifier?: string,
     otp?: string,
   ): Promise<AuthResult> {
-    return db.transaction(async () => {
-      const parsed =
-        identifier === undefined ? null : normalizeIdentifier(identifier);
-      const row = (
-        identifier === undefined
+    const parsed =
+      identifier === undefined ? null : normalizeIdentifier(identifier);
+    const row = (
+      identifier === undefined
+        ? await db
+            .prepare("SELECT * FROM admins WHERE id='admin' AND identifier IS NULL")
+            .get()
+        : parsed
           ? await db
-              .prepare("SELECT * FROM admins WHERE id='admin' AND identifier IS NULL")
-              .get()
-          : parsed
-            ? await db
-                .prepare("SELECT * FROM admins WHERE identifier=?")
-                .get(parsed.value)
-            : undefined
-      ) as AccountRow | undefined;
-      const given = scryptSync(password, row?.salt ?? DUMMY_SALT, 64);
-      if (
-        !row ||
-        row.disabled ||
-        !timingSafeEqual(given, Buffer.from(row.hash, "hex"))
-      )
-        return { status: "fail" } as const;
+              .prepare("SELECT * FROM admins WHERE identifier=?")
+              .get(parsed.value)
+          : undefined
+    ) as AccountRow | undefined;
+    // Argon2id is deliberately slow and memory-hard, so it runs outside the database transaction.
+    // An unknown account pays the same cost, so response time does not reveal which identifiers exist.
+    let verdict = { ok: false, needsRehash: false };
+    if (row) verdict = await verifyPassword(password, row);
+    else await dummyVerify(password);
+    if (!row || row.disabled || !verdict.ok) return { status: "fail" } as const;
+    // Older (scrypt or weaker) hashes are upgraded after a fully successful sign-in.
+    const upgraded = verdict.needsRehash ? await hashPassword(password) : null;
+    return db.transaction(async () => {
       if (row.totp_enabled) {
         if (!otp?.trim()) return { status: "otp" } as const;
         if (!(await consumeSecondFactor(row, otp)))
           return { status: "fail" } as const;
       }
+      if (upgraded)
+        await db
+          .prepare("UPDATE admins SET salt=?,hash=? WHERE id=?")
+          .run(upgraded.salt, upgraded.hash, row.id);
       const token = randomBytes(32).toString("hex");
       await db.prepare("DELETE FROM sessions WHERE expires<?").run(Date.now());
       await db
@@ -576,13 +601,11 @@ export function createTournamentStore(
   }
   /** Turning it off needs the password and a current code (or recovery code). */
   async function disableTwoFactor(id: string, password: string, otp: string) {
+    const passwordOk = (await verifyPassword(password, await rowFor(id))).ok;
     await db.transaction(async () => {
       const row = await rowFor(id);
       const ok =
-        timingSafeEqual(
-          scryptSync(password, row.salt, 64),
-          Buffer.from(row.hash, "hex"),
-        ) &&
+        passwordOk &&
         (!row.totp_enabled || (await consumeSecondFactor(row, otp)));
       if (!ok) throw Error("كلمة المرور أو الرمز غير صحيح");
       await db
@@ -657,18 +680,18 @@ export function createTournamentStore(
       throw Error("أدخل بريداً إلكترونياً صحيحاً أو رقم هاتف دولياً يبدأ بـ +");
     if (password.length < MIN_PASSWORD)
       throw Error("كلمة المرور يجب ألا تقل عن 14 حرفاً");
+    const secret = await hashPassword(password);
     await db.transaction(async () => {
       if (await db.prepare("SELECT id FROM admins WHERE id=?").get(parsed.value))
         throw Error("هذا الحساب موجود مسبقاً");
-      const salt = randomBytes(16).toString("hex");
       await db
         .prepare(
           "INSERT INTO admins(id,salt,hash,identifier,role,disabled) VALUES(?,?,?,?,?,0)",
         )
         .run(
           parsed.value,
-          salt,
-          scryptSync(password, salt, 64).toString("hex"),
+          secret.salt,
+          secret.hash,
           parsed.value,
           role,
         );
@@ -702,12 +725,12 @@ export function createTournamentStore(
   async function resetPassword(id: string, password: string) {
     if (password.length < MIN_PASSWORD)
       throw Error("كلمة المرور يجب ألا تقل عن 14 حرفاً");
+    const secret = await hashPassword(password);
     await db.transaction(async () => {
       await account(id);
-      const salt = randomBytes(16).toString("hex");
       await db
         .prepare("UPDATE admins SET salt=?,hash=? WHERE id=?")
-        .run(salt, scryptSync(password, salt, 64).toString("hex"), id);
+        .run(secret.salt, secret.hash, id);
       await db.prepare("DELETE FROM sessions WHERE admin=?").run(id);
     })();
   }

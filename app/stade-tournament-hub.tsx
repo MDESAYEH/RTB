@@ -169,7 +169,7 @@ export function StadeTournamentHub({
           ))}
         </div>
         <span className="club-group-signature" dir="ltr">
-          TRIPOLI · 21—25 OCTOBER 2026
+          TRIPOLI · 21—23 OCTOBER 2026
         </span>
       </div>
       <div className="hub-body">

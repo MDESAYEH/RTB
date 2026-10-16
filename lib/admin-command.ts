@@ -9,6 +9,7 @@ import {
   type Game,
 } from "./domain";
 import type { AdminCommand } from "./admin-command-schema";
+import { streamEmbed } from "./stream";
 export class ConflictError extends Error {}
 export async function applyCommand(
   b: AdminCommand,
@@ -174,6 +175,25 @@ export async function applyCommand(
     if (!g) throw Error("المباراة غير موجودة");
     if (b.version !== g.version)
       throw new ConflictError("تم تحديث المباراة من محرر آخر. حدّث الصفحة.");
+    if (b.action === "stream") {
+      // Any status: the link is set ahead of the match and shown by the site once it goes live.
+      const link = (typeof b.value === "string" ? b.value : "").trim();
+      if (link && !streamEmbed(link))
+        throw Error("رابط غير مدعوم. استخدم رابط YouTube أو Facebook (HTTPS).");
+      await write(
+        "games",
+        g.id,
+        gameSchema.parse({
+          ...g,
+          streamUrl: link,
+          version: g.version + 1,
+          updatedAt: new Date().toISOString(),
+        }),
+        actor,
+        "stream",
+      );
+      return;
+    }
     let next = { ...g, clock: remainingClock(g) };
     if (b.action === "score") next = score(next, b.side!, b.points!);
     else if (b.action === "status") next = transition(next, b.status!);

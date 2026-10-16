@@ -55,6 +55,16 @@
 }
 
 /* radar */
+/* The pattern frames the radar instead of sitting inside the cards. */
+.road-radar-frame {
+  margin-top: 56px;
+  padding: clamp(12px, 2vw, 28px);
+  border-radius: 48px;
+  background: #fbf6f5 url("/patterns/hero-topo-strong.svg") center / cover no-repeat;
+}
+.road-radar-frame > .road-radar {
+  margin-top: 0;
+}
 .road-radar {
   margin-top: 56px;
   padding: 22px;
@@ -98,7 +108,7 @@
   flex-direction: column;
   padding: 28px 26px;
   border-radius: 22px;
-  background: #fff url("/patterns/hero-topo.svg") center / cover no-repeat;
+  background: #fff;
   color: #023047;
   text-align: start;
 }

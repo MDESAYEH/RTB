@@ -31,7 +31,7 @@ export function NewsContent({
     <div className="news-design">
       <header className="match-banner">
         <small>
-          {copy("أخبار · تقارير · مقابلات", "News · Reports · Interviews")}
+          {copy("أخبار، تقارير، مقابلات", "News, Reports, Interviews")}
         </small>
         <h1>{copy("الأخبار والإعلام", "News & media")}</h1>
         <p>
@@ -46,8 +46,8 @@ export function NewsContent({
           <small>{copy("نحو بداية الرحلة", "The journey begins")}</small>
           <h2>
             {copy(
-              "خمسة أيام من المنافسة والحماس.. جدول المباريات يُعلن قريبًا!",
-              "Five days of competition and excitement. The schedule is coming soon!",
+              "ثلاثة أيام من المنافسة والحماس، جدول المباريات يُعلن قريبًا!",
+              "Three days of competition and excitement. The schedule is coming soon!",
             )}
           </h2>
         </section>

@@ -69,8 +69,8 @@ export const en: Record<string, string> = {
   "كل المباريات": "All matches",
   "العد التنازلي بدأ. الجدول قريبًا.":
     "The countdown has begun. Schedule coming soon.",
-  "خمسة أيام من كرة السلة الأفريقية في قلب طرابلس. تابع هنا مواعيد المباريات عند اعتمادها.":
-    "Five days of African basketball in the heart of Tripoli. Game times will appear here once confirmed.",
+  "ثلاثة أيام من كرة السلة الأفريقية في قلب طرابلس. تابع هنا مواعيد المباريات عند اعتمادها.":
+    "Three days of African basketball in the heart of Tripoli. Game times will appear here once confirmed.",
   "أفريقيا تلتقي في طرابلس": "Africa meets in Tripoli",
   "كل الفرق": "All teams",
   "نبض البطولة": "Tournament pulse",
@@ -96,7 +96,7 @@ export const en: Record<string, string> = {
   "كل مباراة خطوة. الوصول إلى BAL يُحسم في المرحلة التالية.":
     "Every game is a step. The road to BAL is decided in the next stage.",
   "اكتشف THE ROAD": "Discover THE ROAD",
-  "مجموعتان · ثمانية فرق": "Two groups · eight teams",
+  "مجموعتان، ثمانية فرق": "Two groups, eight teams",
   "المرحلة التالية": "Next stage",
   الوجهة: "Destination",
   "أول فريقين من كل مجموعة في طرابلس يتأهلان إلى Elite 16. التأهل إلى BAL يُحسم في المرحلة التالية.":
@@ -305,7 +305,7 @@ export const en: Record<string, string> = {
   "معرّف المباراة المميزة": "Featured game ID",
   المجموعة: "Group",
   "الجدول قيد الاعتماد": "Schedule pending confirmation",
-  "خمسة أيام. مواعيد المباريات قريبًا.": "Five days. Game times coming soon.",
+  "ثلاثة أيام. مواعيد المباريات قريبًا.": "Three days. Game times coming soon.",
   "سيُعلن الموعد": "Time to be announced",
   "افتح البث في": "Open the stream on",
   "شاهد البث على": "Watch the stream on",

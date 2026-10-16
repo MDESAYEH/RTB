@@ -44,8 +44,8 @@ export async function generateMetadata(): Promise<Metadata> {
       template: "%s | THE ROAD",
     },
     description: english
-      ? "Tripoli hosts Africa. An independent platform for the Road to BAL 2027 qualifiers, 21–25 October 2026."
-      : "طرابلس تستضيف أفريقيا. منصة مستقلة لتصفيات Road to BAL 2027، 21–25 أكتوبر 2026.",
+      ? "Tripoli hosts Africa. An independent platform for the Road to BAL 2027 qualifiers, 21–23 October 2026."
+      : "طرابلس تستضيف أفريقيا. منصة مستقلة لتصفيات Road to BAL 2027، 21–23 أكتوبر 2026.",
     manifest: "/manifest.webmanifest",
     icons: {
       icon: [
@@ -57,8 +57,8 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: "TRIPOLI IS THE COURT · ROAD TO BAL 2027",
       description: english
-        ? "21–25 October 2026 · Tripoli, Libya"
-        : "21–25 أكتوبر 2026 · طرابلس، ليبيا",
+        ? "21–23 October 2026, Tripoli, Libya"
+        : "21–23 أكتوبر 2026، طرابلس، ليبيا",
       locale: english ? "en_GB" : "ar_LY",
       type: "website",
     },

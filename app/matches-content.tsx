@@ -77,8 +77,8 @@ export function MatchesContent({
             <small>{copy("نحو بداية الرحلة", "The journey begins soon")}</small>
             <h2>
               {copy(
-                "خمسة أيام من المنافسة والحماس.. جدول المباريات يُعلن قريبًا!",
-                "Five days of competition and excitement. The schedule is coming soon!",
+                "ثلاثة أيام من المنافسة والحماس، جدول المباريات يُعلن قريبًا!",
+                "Three days of competition and excitement. The schedule is coming soon!",
               )}
             </h2>
             {seconds > 0 && (
@@ -129,7 +129,7 @@ export function MatchesContent({
               onChange={(e) => setDay(e.target.value)}
             >
               <option value="">{copy("كل أيام البطولة", "All tournament days")}</option>
-              {[21, 22, 23, 24, 25].map((d) => (
+              {[21, 22, 23].map((d) => (
                 <option key={d} value={`2026-10-${d}`}>
                   {d} {copy("أكتوبر", "October")}
                 </option>

@@ -69,6 +69,7 @@ export function RoadContent({
           </p>
         </div>
 
+        <div className="road-radar-frame">
         <section className="road-radar" dir="ltr">
           <div className="road-radar-top">
             <span className="road-live">
@@ -98,7 +99,7 @@ export function RoadContent({
                   </span>
                   <span dir="auto">
                     <small>
-                      {stateLabel(i)} · {node.n}
+                      {stateLabel(i)}{lang === "ar" ? "،" : ","} {node.n}
                     </small>
                     <b>{node.title}</b>
                   </span>
@@ -156,6 +157,7 @@ export function RoadContent({
             ))}
           </div>
         </section>
+        </div>
 
         <section className="road-qualified">
           <header>
