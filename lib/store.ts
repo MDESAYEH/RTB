@@ -166,17 +166,42 @@ export function createTournamentStore(
     }
     await db.exec(storageSchema);
     await db.exec(`PRAGMA user_version=${storageSchemaVersion}`);
+    // One-time correction: the event runs three days (21–23 October). Only untouched old defaults are changed;
+    // anything an organiser edited stays as they set it.
+    {
+      const OLD_END = "2026-10-26T00:00:00+02:00";
+      const OLD_ANNOUNCEMENT = "21–25 أكتوبر 2026 · المجموعتان A وB";
+      const current = await get<Settings>("settings", "tournament");
+      if (
+        current &&
+        (current.end === OLD_END || current.announcement === OLD_ANNOUNCEMENT)
+      )
+        await write(
+          "settings",
+          "tournament",
+          {
+            ...current,
+            end: current.end === OLD_END ? "2026-10-24T00:00:00+02:00" : current.end,
+            announcement:
+              current.announcement === OLD_ANNOUNCEMENT
+                ? "21–23 أكتوبر 2026، المجموعتان A وB"
+                : current.announcement,
+          },
+          "system",
+          "migrate",
+        );
+    }
     const defaults: Settings = {
       name: "FIBA Africa Champions Clubs – Road to BAL 2027",
       shortName: "ROAD TO BAL 2027",
       start: "2026-10-21T00:00:00+02:00",
 
-      end: "2026-10-26T00:00:00+02:00",
+      end: "2026-10-24T00:00:00+02:00",
       timezone: "Africa/Tripoli",
       city: "طرابلس، ليبيا",
       venue: "",
       hero: "طرابلس تستضيف أفريقيا",
-      announcement: "21–25 أكتوبر 2026 · المجموعتان A وB",
+      announcement: "21–23 أكتوبر 2026، المجموعتان A وB",
       groups: ["A", "B"],
       qualificationSlots: 2,
       winPoints: 2,

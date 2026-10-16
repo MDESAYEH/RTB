@@ -206,7 +206,7 @@ export function TournamentHeader() {
         </nav>
         <LangToggle className="menu-lang" />
         <div className="menu-foot">
-          <span>21—25 OCT 2026</span>
+          <span>21—23 OCT 2026</span>
           <span>TRIPOLI, LIBYA</span>
         </div>
       </dialog>

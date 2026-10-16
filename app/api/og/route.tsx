@@ -107,7 +107,7 @@ export async function GET(req: Request) {
         >
           <div>ROAD TO BAL 2027</div>
           <div style={{ display: "flex", color: "#a7b5c5" }}>
-            21–25 OCTOBER 2026 · TRIPOLI, LIBYA
+            21–23 OCTOBER 2026 · TRIPOLI, LIBYA
           </div>
         </div>
       </div>

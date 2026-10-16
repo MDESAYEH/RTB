@@ -77,8 +77,8 @@ export function MatchesContent({
             <small>{copy("نحو بداية الرحلة", "The journey begins soon")}</small>
             <h2>
               {copy(
-                "خمسة أيام من المنافسة والحماس.. جدول المباريات يُعلن قريبًا!",
-                "Five days of competition and excitement. The schedule is coming soon!",
+                "ثلاثة أيام من المنافسة والحماس، جدول المباريات يُعلن قريبًا!",
+                "Three days of competition and excitement. The schedule is coming soon!",
               )}
             </h2>
             {seconds > 0 && (

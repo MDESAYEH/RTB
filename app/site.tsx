@@ -476,7 +476,7 @@ export default function Site({
         ) : (
           <div className="road" dir="ltr">
             {[
-              ["01", "TRIPOLI", "21–25 OCT 2026"],
+              ["01", "TRIPOLI", "21–23 OCT 2026"],
               ["02", "GROUP STAGE", tr("مجموعتان، ثمانية فرق")],
               ["03", "TOP " + s.qualificationSlots, tr("من كل مجموعة")],
               ["04", "ELITE 16", tr("المرحلة التالية")],
