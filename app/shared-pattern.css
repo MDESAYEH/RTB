@@ -34,7 +34,7 @@
 }
 
 /*
- * Figma recipe: the white pattern sits at 30% (baked into white-topo.svg; raised from 17% so it reads clearly) and is blended with `overlay`
+ * Figma recipe: the white pattern sits at 22% (baked into white-topo.svg; between the Figma 5% and a clearly readable 30%) and is blended with `overlay`
  * over the colour beneath it.
  */
 .rd-pattern,
