@@ -60,7 +60,7 @@
   margin-top: 56px;
   padding: clamp(12px, 2vw, 28px);
   border-radius: 48px;
-  background: #fbf6f5 url("/patterns/hero-topo.svg") center / cover no-repeat;
+  background: #fbf6f5 url("/patterns/hero-topo-strong.svg") center / cover no-repeat;
 }
 .road-radar-frame > .road-radar {
   margin-top: 0;
