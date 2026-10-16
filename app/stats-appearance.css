@@ -65,7 +65,7 @@
   margin-top: 64px;
   padding: clamp(16px, 2.4vw, 34px);
   border-radius: 36px;
-  background: #fbf6f5 url("/patterns/hero-topo-strong.svg") center / cover no-repeat;
+  background: #8f1e1a var(--tournament-pattern) center / cover no-repeat;
 }
 .stat-card {
   padding: 22px 22px 24px;
