@@ -597,11 +597,7 @@ export default function Site({
             >
               {["Live", "Halftime", "Ended"].includes(g.status)
                 ? g.homeScore + " : " + g.awayScore
-                : new Intl.DateTimeFormat("en-GB", {
-                    timeZone: s.timezone,
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  }).format(new Date(g.date))}
+                : "VS"}
             </strong>
             <Link
               href={"/teams/" + g.away}
@@ -620,7 +616,8 @@ export default function Site({
             </Link>
           </div>
           <p>
-            {date(g.date)} · GROUP {g.group}
+            {date(g.date)}
+            {lang === "ar" ? "،" : ","} GROUP {g.group}
           </p>
         </section>
         {["Live", "Halftime"].includes(g.status) && (
