@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import type { News } from "@/lib/public-domain";
-import { streamEmbed } from "@/lib/stream";
+import { directVideo, streamEmbed } from "@/lib/stream";
 import { useLang } from "./i18n";
 import { importedNewsDetails } from "@/lib/providers/fiba/news-details";
 
@@ -19,6 +19,7 @@ export function NewsArticle({
   const copy = (ar: string, en: string) => (lang === "ar" ? ar : en);
   const title = lang === "en" && news.titleEn ? news.titleEn : news.title;
   const embed = streamEmbed(news.video);
+  const file = directVideo(news.video);
   const excerpt = lang === "en" && news.excerptEn ? news.excerptEn : news.excerpt;
   const body = lang === "en" && news.contentEn ? news.contentEn : news.content;
   // Imported posts open with their own summary: do not print it twice.
@@ -52,7 +53,16 @@ export function NewsArticle({
           <span>{copy("نحو بداية الرحلة", "The journey begins")}</span>
           <h1>{title}</h1>
         </header>
-        {embed?.kind === "iframe" ? (
+        {file ? (
+          <video
+            className="news-article-video-file"
+            src={file}
+            controls
+            playsInline
+            preload="metadata"
+            aria-label={title}
+          />
+        ) : embed?.kind === "iframe" ? (
           <div className="stream-player news-article-video">
             <div className="stream-frame">
               <iframe

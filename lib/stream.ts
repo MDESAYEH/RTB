@@ -51,6 +51,18 @@ export function streamEmbed(raw: string | undefined | null): StreamEmbed | null 
   return null;
 }
 
+/** An HTTPS link straight to a video file (MP4 / WebM), played by the browser itself. */
+export function directVideo(raw: string | undefined | null): string | null {
+  try {
+    const url = new URL((raw || "").trim());
+    return url.protocol === "https:" && /.(mp4|webm|mov|m4v)$/i.test(url.pathname)
+      ? url.toString()
+      : null;
+  } catch {
+    return null;
+  }
+}
+
 export type BroadcastState =
   | "show" // the match has its own link and is on (or finished): embed it
   | "not-started" // scheduled or warming up: placeholder until it goes live

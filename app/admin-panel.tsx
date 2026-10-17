@@ -889,7 +889,7 @@ export function Admin({
                           excerpt: "المقدمة",
                           content: "المحتوى",
                           streamUrl: "رابط البث المباشر (HTTPS)",
-                          video: "رابط فيديو الخبر بدل الصورة (YouTube / Facebook، HTTPS)",
+                          video: "رابط فيديو الخبر بدل الصورة (YouTube / Facebook أو ملف MP4 / WebM، HTTPS)",
                           titleEn: "العنوان (English)",
                           excerptEn: "المقدمة (English)",
                           contentEn: "المحتوى (English)",

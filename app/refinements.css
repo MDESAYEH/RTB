@@ -543,3 +543,19 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
   object-fit: contain;
   margin-inline: auto;
 }
+
+/* News video file: fills the column with the same rounded corners as the picture. */
+.news-article-video-file {
+  display: block;
+  width: 100%;
+  max-height: min(86vh, 920px);
+  margin: 0 auto 40px;
+  border-radius: 28px;
+  background: #061f2b;
+}
+@media (max-width: 700px) {
+  .news-article-video-file {
+    border-radius: 18px;
+    margin-bottom: 25px;
+  }
+}
