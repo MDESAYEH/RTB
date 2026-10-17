@@ -1,5 +1,4 @@
-import type { Game, Team, News } from "../../domain";
-import { fetchNews, planNews } from "./news";
+import type { Game, Team } from "../../domain";
 import { enrichOfficialTeams } from "./team-details";
 import { gameSchema, settingsSchema, teamSchema } from "../../domain";
 import type { TournamentStore } from "../../store";
@@ -112,7 +111,6 @@ export async function runSync(
     const leaders = probeLeadersPage(
       (await fetchFibaPage("leaders", options.fetchImpl)).html,
     );
-    const news = await fetchNews(options.fetchImpl);
     const authoritative = options.plan?.authoritative ?? true;
     if (authoritative) {
       const settings = settingsSchema.parse(
@@ -149,14 +147,6 @@ export async function runSync(
           ...options.plan,
           authoritative,
         });
-        built.entries.push(
-          ...planNews(
-            news,
-            await store.list<News>("news"),
-            state.overridden,
-            authoritative,
-          ),
-        );
         if (!options.apply) return built;
         // Teams first: games reference them.
         const ordered = [...built.entries].sort((a, b) =>
