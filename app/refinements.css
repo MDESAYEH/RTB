@@ -186,7 +186,8 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
 /* The English headline is longer: it sits higher, in the clear sky above the players, in a slightly smaller size. */
 @media (min-width: 701px) {
   html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy {
-    width: min(40%, 580px);
+    /* As wide as the longest headline line (about 8.9em), so the button ends exactly where the words end. */
+    width: max(380px, calc(clamp(32px, 4.2vw, 60px) * 8.95));
     top: 7%;
     transform: none;
   }
