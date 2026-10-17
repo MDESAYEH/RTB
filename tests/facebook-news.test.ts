@@ -26,3 +26,12 @@ test("every imported Facebook post is valid, translated and has a cover", async 
     assert.match(record.cover ?? "", /^\/api\/media\/[a-f0-9]{64}\.webp$/);
   }
 });
+
+test("posts that are videos carry a link the site can embed", async () => {
+  const { streamEmbed } = await import("../lib/stream");
+  const file = await loadFacebookNews();
+  const videos = file.posts.filter((p) => p.video);
+  assert.ok(videos.length >= 1);
+  for (const post of videos)
+    assert.equal(streamEmbed(post.video)?.kind, "iframe", `${post.slug}: video link cannot be embedded`);
+});

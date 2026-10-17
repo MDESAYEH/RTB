@@ -15,6 +15,8 @@ export interface FacebookPost {
   excerptEn: string;
   content: string;
   contentEn: string;
+  /** YouTube / Facebook video link shown on the article instead of the picture. */
+  video?: string;
 }
 export interface FacebookNewsFile {
   author: string;
@@ -53,5 +55,6 @@ export function newsRecord(post: FacebookPost, author: string, coverId: string):
     publishedAt: new Date(post.publishedAt).toISOString(),
     status: post.status,
     cover: `/api/media/${coverId}`,
+    ...(post.video ? { video: post.video } : {}),
   });
 }

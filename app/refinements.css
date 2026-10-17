@@ -559,3 +559,14 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
     margin-bottom: 25px;
   }
 }
+
+/* A Facebook reel is vertical: give it a portrait frame instead of a wide one. */
+.news-article-video-reel {
+  text-align: center;
+}
+.news-article-video-reel .stream-frame {
+  aspect-ratio: 9 / 16;
+  max-width: min(420px, 100%);
+  margin-inline: auto;
+  border-radius: 24px;
+}

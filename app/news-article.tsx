@@ -63,7 +63,12 @@ export function NewsArticle({
             aria-label={title}
           />
         ) : embed?.kind === "iframe" ? (
-          <div className="stream-player news-article-video">
+          <div
+            className={
+              "stream-player news-article-video" +
+              (embed.href.includes("/reel/") ? " news-article-video-reel" : "")
+            }
+          >
             <div className="stream-frame">
               <iframe
                 src={embed.src}
