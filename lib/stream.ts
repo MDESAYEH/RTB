@@ -21,15 +21,18 @@ export function streamEmbed(raw: string | undefined | null): StreamEmbed | null 
     // /share/v/... links can't be embedded; Facebook only embeds the canonical video URL.
     if (/^\/share\//.test(url.pathname))
       return { kind: "link", href: url.toString(), label: "Facebook" };
-    if (/\/videos\/\d+|\/watch\/?$|\/reel\/\d+/.test(url.pathname))
+    if (/\/videos\/\d+|\/watch\/?$|\/reel\/\d+/.test(url.pathname)) {
+      // A reel is vertical: ask Facebook for a portrait player so the picture fills the frame.
+      const reel = /\/reel\/\d+/.test(url.pathname);
       return {
         kind: "iframe",
         src:
-          "https://www.facebook.com/plugins/video.php?show_text=false&width=560&height=315&href=" +
+          `https://www.facebook.com/plugins/video.php?show_text=false&width=${reel ? 360 : 560}&height=${reel ? 640 : 315}&href=` +
           encodeURIComponent(url.toString()),
         href: url.toString(),
         label: "Facebook",
       };
+    }
     return { kind: "link", href: url.toString(), label: "Facebook" };
   }
   if (host === "fb.watch")

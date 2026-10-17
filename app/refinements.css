@@ -566,7 +566,7 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
 }
 .news-article-video-reel .stream-frame {
   aspect-ratio: 9 / 16;
-  max-width: min(420px, 100%);
+  max-width: min(360px, 100%);
   margin-inline: auto;
   border-radius: 24px;
 }
