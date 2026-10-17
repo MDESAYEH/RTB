@@ -287,6 +287,7 @@ export default function Site({
     );
   }
   function groupTable(g: string) {
+    const card = route === "standings" || route === "matches";
     const rows = standings(
         teams.filter((t) => t.group === g),
         games,
@@ -295,10 +296,10 @@ export default function Site({
       played = rows.some((r) => r.p);
     return (
       <div
-        className={`standings-wrap${route === "standings" ? ` standings-card group-color-${g.toLowerCase()}` : ""}`}
+        className={`standings-wrap${card ? ` standings-card group-color-${g.toLowerCase()}` : ""}`}
       >
         <div className="group-heading">
-          {route === "standings" ? (
+          {card ? (
             <>
               <div>
                 <h2 dir="ltr">GROUP {g}</h2>
@@ -362,17 +363,17 @@ export default function Site({
                 <td>{played ? (r.tied ? "=" : i + 1) : "—"}</td>
                 <td>
                   <Link
-                    className={route === "standings" ? "standings-team" : undefined}
+                    className={card ? "standings-team" : undefined}
                     href={"/teams/" + r.team.id}
                   >
                     <Badge team={r.team} />
                     <span dir="auto" className="standings-team-text">
-                      {route === "standings" ? (
+                      {card ? (
                         <strong dir="auto">{r.team.name}</strong>
                       ) : (
                         r.team.name
                       )}
-                      {route === "standings" && (
+                      {card && (
                         <small className="standings-team-sub" dir="rtl">
                           {getTeamIdentity(r.team.id)?.arabicName || r.team.name}
                         </small>
@@ -383,7 +384,7 @@ export default function Site({
                           : tr("لم يلعب بعد")}
                       </small>
                     </span>
-                    {route === "standings" && (
+                    {card && (
                       <em className="standings-team-country">
                         {tr(r.team.country)}
                       </em>
@@ -721,7 +722,7 @@ export default function Site({
           </section>
         )}
         <h2>{tr("سياق المجموعة")}</h2>
-        {groupTable(g.group)}
+        <div className="sports-standings group-context">{groupTable(g.group)}</div>
         {(data.stats as Stat[]).some((st) => st.game === g.id) && (
           <>
             <h2>Box Score</h2>
@@ -753,7 +754,7 @@ export default function Site({
             </small>
             <h2>
               {lang === "ar"
-                ? "مجموعتان. طموح واحد."
+                ? "مجموعتان، طموح واحد."
                 : "Two groups. One ambition."}
             </h2>
             <p>

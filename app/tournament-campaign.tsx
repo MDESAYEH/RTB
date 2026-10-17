@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ChevronLeft } from "lucide-react";
+import { Search, ChevronLeft, ArrowUpLeft, ArrowUpRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { TournamentLogo } from "./tournament-logo";
@@ -93,7 +93,11 @@ export function TournamentHeader() {
       >
         {mobile && <small>{String(i + 1).padStart(2, "0")}</small>}
         <span>{tr(label)}</span>
-        {mobile && <i aria-hidden="true">↗</i>}
+        {mobile && (
+          <i aria-hidden="true">
+            {dir === "rtl" ? <ArrowUpLeft size={26} /> : <ArrowUpRight size={26} />}
+          </i>
+        )}
       </Link>
     );
   }
@@ -162,6 +166,7 @@ export function TournamentHeader() {
           aria-expanded={open}
           onClick={() => {
             dialog.current?.showModal();
+            dialog.current?.focus({ preventScroll: true });
             setOpen(true);
           }}
         >
@@ -176,6 +181,7 @@ export function TournamentHeader() {
         ref={dialog}
         id="tournament-menu"
         className="tournament-menu"
+        tabIndex={-1}
         aria-labelledby="menu-title"
         onKeyDown={trapFocus}
         onClose={() => {

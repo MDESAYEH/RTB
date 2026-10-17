@@ -369,3 +369,66 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
     padding-top: 24px;
   }
 }
+
+/* ===== Phone menu: white arrows pointing the other way, no boxes around the logo or the close button ===== */
+.tournament-menu:focus,
+.tournament-menu :is(.tournament-brand, .menu-close):focus:not(:focus-visible) {
+  outline: 0;
+}
+.tournament-menu .tournament-brand:focus-visible {
+  outline: 0;
+}
+.mobile-tournament-nav i {
+  display: inline-flex;
+  color: #fff;
+}
+.tournament-menu .menu-close {
+  border: 0;
+  background: none;
+}
+
+/* Group switch: Arabic letters stay joined */
+.sports-standings .group-switch button {
+  letter-spacing: 0;
+  word-spacing: 0;
+  text-transform: none;
+}
+
+/* Match cards (home band and lists): the date line is readable on white. */
+:is(.sports-page, .event-home) .game-row .game-date {
+  color: #547080;
+}
+
+/* ===== Match page ===== */
+.sports-match-page > h2,
+.sports-match-page > section:not(.match-scoreboard, .broadcast-stage) h2 {
+  color: #023047;
+}
+.sports-match-page .broadcast-stage {
+  border: 0;
+  border-radius: 28px;
+}
+.sports-match-page .broadcast-stage .broadcast-play {
+  color: #fff;
+}
+.sports-match-page .group-context .standings-wrap {
+  margin-top: 8px;
+}
+
+/* Match page: the group context is the same white card as on the standings page. */
+.sports-match-page .group-context {
+  --utility-ink: #023047;
+  --utility-soft: #78919c;
+  --utility-rule: #e5ecf0;
+  color: #023047;
+}
+.sports-match-page .group-context .standings-wrap.standings-card {
+  margin: 8px 0 30px;
+  padding: 0;
+  border: 1px solid #e1e8ed;
+  border-radius: 20px;
+  background: #fff;
+  color: #023047;
+  overflow: hidden;
+  box-shadow: 0 4px 12px #02304708;
+}
