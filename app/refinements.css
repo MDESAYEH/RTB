@@ -570,3 +570,42 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
   margin-inline: auto;
   border-radius: 24px;
 }
+
+/* News article on wide screens: the picture (or video) on the right, the words beside it on the left. */
+@media (min-width: 901px) {
+  .news-article-body {
+    display: grid;
+    grid-template-columns: minmax(300px, 460px) minmax(0, 1fr);
+    column-gap: clamp(32px, 4vw, 64px);
+    align-items: start;
+    grid-auto-flow: row dense;
+  }
+  .news-article-body > .news-breadcrumb,
+  .news-article-body > .news-article-title {
+    grid-column: 1 / -1;
+  }
+  .news-article-body > :is(.news-article-cover, .news-article-video, .news-article-video-file) {
+    grid-column: 1;
+    grid-row: 3 / span 40;
+    width: 100%;
+    margin: 0;
+  }
+  .news-article-body > :not(.news-breadcrumb, .news-article-title, .news-article-cover, .news-article-video, .news-article-video-file) {
+    grid-column: 2;
+  }
+  .news-article-body > .news-article-meta {
+    margin-top: 0;
+  }
+  html[dir="ltr"] .news-article-body {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 460px);
+  }
+  html[dir="ltr"] .news-article-body > :is(.news-article-cover, .news-article-video, .news-article-video-file) {
+    grid-column: 2;
+  }
+  html[dir="ltr"] .news-article-body > :not(.news-breadcrumb, .news-article-title, .news-article-cover, .news-article-video, .news-article-video-file) {
+    grid-column: 1;
+  }
+  .news-article-body .news-article-video .stream-frame {
+    max-width: 100%;
+  }
+}

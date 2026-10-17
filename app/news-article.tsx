@@ -79,14 +79,6 @@ export function NewsArticle({
                 referrerPolicy="strict-origin-when-cross-origin"
               />
             </div>
-            <a
-              className="stream-open"
-              href={embed.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {copy("افتح الفيديو في", "Open the video on")} {embed.label} ↗
-            </a>
           </div>
         ) : embed?.kind === "link" ? (
           <p>
