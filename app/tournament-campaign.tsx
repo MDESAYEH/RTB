@@ -243,7 +243,7 @@ export function CampaignHero() {
             ROAD TO BAL <span>/ 2027</span>
           </p>
           <h1 dir={dir}>
-            <span className="hero-line-red">{tr("أفريقيا تجتمع معاً")}</span>
+            <span className="hero-line-red">{tr("أفريقيا تجتمع معاً")}</span>{" "}
             <span className="hero-line-gold">{tr("وطرابلس تتصدر المشهد")}</span>
           </h1>
           <div className="poster-bottom">
