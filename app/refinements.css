@@ -450,12 +450,13 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
 .road-radar-field::before {
   content: "";
   position: absolute;
-  inset: 0;
-  margin: auto;
+  left: 50%;
+  top: 50%;
   width: 140%;
   aspect-ratio: 1;
   border-radius: 50%;
   pointer-events: none;
+  transform: translate(-50%, -50%);
   background: conic-gradient(
     from 0deg,
     #35e07a00 0deg,
@@ -471,13 +472,14 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
 .road-radar-field::after {
   content: "";
   position: absolute;
-  inset: 0;
-  margin: auto;
+  left: 50%;
+  top: 50%;
   width: 140%;
   aspect-ratio: 1;
   border-radius: 50%;
   pointer-events: none;
-  background: linear-gradient(to top, #0000 0 77px, #35e07a 77px, #35e07a00 100%) center top / 3px 50% no-repeat;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(to top, #0000 0 76px, #35e07a 77px, #35e07a00 100%) center top / 3px 50% no-repeat;
   -webkit-mask-image: radial-gradient(circle, #000 0 62%, #0000 71%);
   mask-image: radial-gradient(circle, #000 0 62%, #0000 71%);
   animation: road-radar-sweep 7s linear infinite;
@@ -486,8 +488,11 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
   z-index: 1;
 }
 @keyframes road-radar-sweep {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
   to {
-    transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 @media (prefers-reduced-motion: reduce) {
