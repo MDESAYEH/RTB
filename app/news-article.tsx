@@ -19,6 +19,10 @@ export function NewsArticle({
   const copy = (ar: string, en: string) => (lang === "ar" ? ar : en);
   const title = lang === "en" && news.titleEn ? news.titleEn : news.title;
   const embed = streamEmbed(news.video);
+  const excerpt = lang === "en" && news.excerptEn ? news.excerptEn : news.excerpt;
+  const body = lang === "en" && news.contentEn ? news.contentEn : news.content;
+  // Imported posts open with their own summary: do not print it twice.
+  const bodyRepeatsExcerpt = body.trim().startsWith(excerpt.trim());
   return (
     <div className="news-design">
       <header className="match-banner">
@@ -95,9 +99,9 @@ export function NewsArticle({
           <time dateTime={news.publishedAt}>{date(news.publishedAt)}</time>
           {news.author && <span>{news.author}</span>}
         </div>
-        <p className="news-article-excerpt">
-          {lang === "en" && news.excerptEn ? news.excerptEn : news.excerpt}
-        </p>
+        {!bodyRepeatsExcerpt && (
+          <p className="news-article-excerpt">{excerpt}</p>
+        )}
         {news.sourceUrl && news.content !== news.excerpt && (
           <h3 className="news-details-label">
             {copy(

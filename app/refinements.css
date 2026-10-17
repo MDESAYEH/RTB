@@ -532,3 +532,14 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
     white-space: nowrap;
   }
 }
+
+/* News article: show the whole picture, never a cropped strip. */
+.news-article-cover {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(86vh, 920px);
+  aspect-ratio: auto;
+  object-fit: contain;
+  margin-inline: auto;
+}
