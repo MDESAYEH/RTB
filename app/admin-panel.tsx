@@ -335,6 +335,7 @@ export function Admin({
       author: "",
       publishedAt: new Date().toISOString(),
       status: "draft",
+      video: "",
     },
     pulse: {
       id: crypto.randomUUID(),
@@ -888,6 +889,7 @@ export function Admin({
                           excerpt: "المقدمة",
                           content: "المحتوى",
                           streamUrl: "رابط البث المباشر (HTTPS)",
+                          video: "رابط فيديو الخبر بدل الصورة (YouTube / Facebook، HTTPS)",
                           titleEn: "العنوان (English)",
                           excerptEn: "المقدمة (English)",
                           contentEn: "المحتوى (English)",

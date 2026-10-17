@@ -128,6 +128,8 @@ export const newsSchema = z.object({
   publishedAt: z.iso.datetime({ offset: true }),
   status: z.enum(["draft", "published"]),
   cover: mediaSchema,
+  /** YouTube or Facebook video link, shown on the article instead of the cover picture. */
+  video: streamUrlSchema.optional(),
 });
 export const playerSchema = z.object({
   id: z.string().min(1),

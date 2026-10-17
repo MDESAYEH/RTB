@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import type { News } from "@/lib/public-domain";
+import { streamEmbed } from "@/lib/stream";
 import { useLang } from "./i18n";
 import { importedNewsDetails } from "@/lib/providers/fiba/news-details";
 
@@ -17,6 +18,7 @@ export function NewsArticle({
   const { lang } = useLang();
   const copy = (ar: string, en: string) => (lang === "ar" ? ar : en);
   const title = lang === "en" && news.titleEn ? news.titleEn : news.title;
+  const embed = streamEmbed(news.video);
   return (
     <div className="news-design">
       <header className="match-banner">
@@ -46,7 +48,39 @@ export function NewsArticle({
           <span>{copy("نحو بداية الرحلة", "The journey begins")}</span>
           <h1>{title}</h1>
         </header>
-        {(news.cover || news.sourceCover) && (
+        {embed?.kind === "iframe" ? (
+          <div className="stream-player news-article-video">
+            <div className="stream-frame">
+              <iframe
+                src={embed.src}
+                title={title}
+                loading="lazy"
+                scrolling="no"
+                allow="encrypted-media; picture-in-picture; fullscreen"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+            <a
+              className="stream-open"
+              href={embed.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy("افتح الفيديو في", "Open the video on")} {embed.label} ↗
+            </a>
+          </div>
+        ) : embed?.kind === "link" ? (
+          <p>
+            <a
+              className="stream-open"
+              href={embed.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy("شاهد الفيديو على", "Watch the video on")} {embed.label} ↗
+            </a>
+          </p>
+        ) : (news.cover || news.sourceCover) && (
           <Image
             className="news-article-cover"
             src={(news.cover || news.sourceCover)!}

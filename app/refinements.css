@@ -445,3 +445,72 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
     font-size: 44px;
   }
 }
+
+/* ===== THE ROAD radar: a green sweep that turns round the team circle, like a real radar ===== */
+.road-radar-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 140%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    #35e07a00 0deg,
+    #35e07a00 290deg,
+    #35e07a1f 335deg,
+    #35e07a52 360deg
+  );
+  -webkit-mask-image: radial-gradient(circle, #000 0 62%, #0000 71%);
+  mask-image: radial-gradient(circle, #000 0 62%, #0000 71%);
+  animation: road-radar-sweep 7s linear infinite;
+}
+/* The thread: it leaves the edge of the team circle (75px from the centre) and runs out to the rim. */
+.road-radar-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 140%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  background: linear-gradient(to top, #0000 0 77px, #35e07a 77px, #35e07a00 100%) center top / 3px 50% no-repeat;
+  -webkit-mask-image: radial-gradient(circle, #000 0 62%, #0000 71%);
+  mask-image: radial-gradient(circle, #000 0 62%, #0000 71%);
+  animation: road-radar-sweep 7s linear infinite;
+}
+.road-radar-field > * {
+  z-index: 1;
+}
+@keyframes road-radar-sweep {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .road-radar-field::before,
+  .road-radar-field::after {
+    animation: none;
+  }
+}
+/* No radar on the phone: the team tabs and the reading card carry the information. */
+@media (max-width: 700px) {
+  .road-radar-field {
+    display: none;
+  }
+}
+
+/* Team page fixtures: club names in normal case and a calm size, the same as the Arabic page. */
+.passport-fixtures .club-match-opponent {
+  font: 800 18px / 1.4 var(--font-arabic), Arial, sans-serif;
+  text-transform: none;
+  color: #023047;
+}
+@media (max-width: 700px) {
+  .passport-fixtures .club-match-opponent {
+    font-size: 16px;
+  }
+}
