@@ -145,7 +145,7 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
     text-align: left;
   }
   html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy .poster-bottom {
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
   html[dir="ltr"] .event-home > section.tripoli-poster .poster-title {
     justify-content: flex-start;
@@ -186,13 +186,13 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
 /* The English headline is longer: it sits higher, in the clear sky above the players, in a slightly smaller size. */
 @media (min-width: 701px) {
   html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy {
-    width: min(46%, 660px);
-    top: 7%;
+    width: min(50%, 760px);
+    top: 6%;
     transform: none;
   }
   html[dir="ltr"] .event-home > section.tripoli-poster .poster-copy h1 {
-    font-size: clamp(30px, 3vw, 54px);
-    line-height: 1.12;
+    font-size: clamp(40px, 5.2vw, 90px);
+    line-height: 1.2;
   }
   html[dir="ltr"] .event-home > section.tripoli-poster .poster-title {
     white-space: nowrap;
