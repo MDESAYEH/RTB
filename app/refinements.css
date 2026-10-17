@@ -615,3 +615,17 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
     max-width: 100%;
   }
 }
+
+/* English: forward arrows point to the right (outwards), like the chevrons. */
+html[dir="ltr"] .lucide-arrow-left {
+  transform: scaleX(-1);
+}
+
+/* English team page: the crest sits first, level with the title, instead of far away on the other side. */
+html[dir="ltr"] .passport-profile-heading {
+  justify-content: flex-start;
+  gap: 30px;
+}
+html[dir="ltr"] .passport-profile-heading .passport-logo {
+  order: -1;
+}
