@@ -519,3 +519,16 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
     font-size: 16px;
   }
 }
+
+/* Hero eyebrow "ROAD TO BAL / 2027": always one line, sized so it fits the copy block on wide screens. */
+@media (min-width: 701px) {
+  .event-home > section.tripoli-poster .poster-title {
+    white-space: nowrap;
+    font-size: clamp(16px, 1.9vw, 36px);
+    letter-spacing: 0.12em;
+    gap: 14px;
+  }
+  .event-home > section.tripoli-poster .poster-title span {
+    white-space: nowrap;
+  }
+}
