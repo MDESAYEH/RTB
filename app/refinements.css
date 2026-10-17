@@ -432,3 +432,16 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
   overflow: hidden;
   box-shadow: 0 4px 12px #02304708;
 }
+
+/* Team page: a larger crest next to the name. */
+@media (min-width: 901px) {
+  .passport-logo .team-logo {
+    width: 210px;
+    height: 210px;
+  }
+  .passport-logo .team-badge {
+    width: 170px;
+    height: 170px;
+    font-size: 44px;
+  }
+}

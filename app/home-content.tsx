@@ -205,7 +205,7 @@ export function HomeContent({
               <h2>{tr("أفريقيا تلتقي في طرابلس")}</h2>
               <p>
                 {copy(
-                  "ثمانية أندية أفريقية. مجموعتان. هنا تبدأ حكايات المنافسة.",
+                  "ثمانية أندية أفريقية، مجموعتان، هنا تبدأ حكايات المنافسة.",
                   "Eight African clubs. Two groups. The competition starts here.",
                 )}
               </p>
