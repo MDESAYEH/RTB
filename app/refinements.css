@@ -617,7 +617,7 @@ html[dir="rtl"] .sports-standings .standings-team-text > strong {
 }
 
 /* English: forward arrows point to the right (outwards), like the chevrons. */
-html[dir="ltr"] .lucide-arrow-left {
+html[dir="ltr"] :is(.lucide-arrow-left, .lucide-arrow-up-left) {
   transform: scaleX(-1);
 }
 

@@ -329,7 +329,7 @@ export function HomeContent({
                           )}
                         </span>
                         <Link href="/matches">
-                          {copy("عرض التفاصيل", "View details")} ↖
+                          {copy("عرض التفاصيل", "View details")} {lang === "ar" ? "↖" : "↗"}
                         </Link>
                       </div>
                     </article>
