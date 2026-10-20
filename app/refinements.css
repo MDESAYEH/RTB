@@ -645,3 +645,45 @@ html[dir="ltr"] .passport-profile-heading .passport-logo {
     grid-row: auto;
   }
 }
+
+/* Home news cards: the picture stays clear; only a strip behind the words is darkened. */
+.rd-story:after {
+  display: none;
+}
+.rd-story > div {
+  width: 100%;
+  padding-top: 64px;
+  background: linear-gradient(0deg, #001c29f2 0%, #001c29e0 55%, #001c2900 100%);
+}
+.rd-story img {
+  object-position: 50% 18%;
+}
+.rd-story:first-child {
+  min-height: 640px;
+}
+.rd-story:first-child img {
+  object-position: 50% 12%;
+}
+@media (max-width: 700px) {
+  .rd-story:first-child {
+    min-height: 470px;
+  }
+}
+
+/* News page cards: same clear picture, with a darkened strip only behind the words. */
+.news-editorial-card::after {
+  display: none;
+}
+.news-editorial-card > div:last-child {
+  height: auto;
+  position: absolute;
+  inset: auto 0 0 0;
+  padding-top: 64px;
+  background: linear-gradient(0deg, #00111af2 0%, #00111ae0 55%, #00111a00 100%);
+}
+.news-editorial-card > img {
+  object-position: 50% 15%;
+}
+.news-card-grid {
+  grid-auto-rows: 300px;
+}
