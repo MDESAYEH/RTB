@@ -130,6 +130,11 @@ export const newsSchema = z.object({
   cover: mediaSchema,
   /** YouTube or Facebook video link, shown on the article instead of the cover picture. */
   video: streamUrlSchema.optional(),
+  /** More pictures shown under the text (a schedule, a photo set). */
+  gallery: z
+    .array(z.string().regex(/^\/api\/media\/[a-f0-9]{64}\.(png|jpg|webp)$/))
+    .max(12)
+    .optional(),
 });
 export const playerSchema = z.object({
   id: z.string().min(1),

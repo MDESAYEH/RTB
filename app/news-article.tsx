@@ -126,6 +126,21 @@ export function NewsArticle({
             {lang === "en" && news.contentEn ? news.contentEn : news.content}
           </div>
         )}
+        {!!news.gallery?.length && (
+          <div className="news-article-gallery">
+            {news.gallery.map((src, i) => (
+              <a key={src} href={src} target="_blank" rel="noopener noreferrer">
+                <Image
+                  src={src}
+                  alt={`${title} (${i + 1})`}
+                  width={1080}
+                  height={1350}
+                  sizes="(max-width:700px) 100vw, 420px"
+                />
+              </a>
+            ))}
+          </div>
+        )}
         {news.sourceUrl && (
           <p>
             <a

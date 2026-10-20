@@ -17,6 +17,8 @@ export interface FacebookPost {
   contentEn: string;
   /** YouTube / Facebook video link shown on the article instead of the picture. */
   video?: string;
+  /** Extra pictures (file names in this folder) shown under the text. */
+  gallery?: string[];
 }
 export interface FacebookNewsFile {
   author: string;
@@ -41,7 +43,12 @@ export async function coverFromFile(path: string) {
   return { id: createHash("sha256").update(bytes).digest("hex") + ".webp", bytes };
 }
 
-export function newsRecord(post: FacebookPost, author: string, coverId: string): News {
+export function newsRecord(
+  post: FacebookPost,
+  author: string,
+  coverId: string,
+  galleryIds: string[] = [],
+): News {
   return newsSchema.parse({
     id: `facebook-${post.slug}`,
     slug: post.slug,
@@ -56,5 +63,6 @@ export function newsRecord(post: FacebookPost, author: string, coverId: string):
     status: post.status,
     cover: `/api/media/${coverId}`,
     ...(post.video ? { video: post.video } : {}),
+    ...(galleryIds.length ? { gallery: galleryIds.map((id) => `/api/media/${id}`) } : {}),
   });
 }
