@@ -740,3 +740,32 @@ html[dir="ltr"] .passport-profile-heading .passport-logo {
   font-size: 15px;
   background: linear-gradient(0deg, #001c29ee, #001c2900);
 }
+
+/* Play here / open on Facebook. */
+button.news-video-poster {
+  display: block;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+.news-video-card .stream-frame {
+  max-width: 100%;
+  border-radius: 28px;
+}
+.news-article-video-reel .stream-frame {
+  max-width: min(360px, 100%);
+  margin-inline: auto;
+  aspect-ratio: 9 / 16;
+}
+.news-video-open {
+  display: block;
+  margin-top: 14px;
+  text-align: center;
+  color: #8f1e1a;
+  font-weight: 800;
+  font-size: 15px;
+}
+.news-video-open:hover {
+  text-decoration: underline;
+}

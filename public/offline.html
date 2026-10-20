@@ -44,9 +44,11 @@
   h2 { margin: 0 0 20px; font: 700 15px/1.4 Arial, sans-serif; letter-spacing: .04em; color: var(--soft); }
   p { margin: 0; font-size: 16px; line-height: 1.9; color: #416b7e; }
   p.en { margin-top: 6px; font: 400 14px/1.7 Arial, sans-serif; color: var(--soft); direction: ltr; }
-  button {
+  .retry {
+    display: inline-block;
     margin-top: 28px;
     padding: 14px 34px;
+    text-decoration: none;
     border: 0;
     border-radius: 999px;
     background: var(--red);
@@ -56,8 +58,8 @@
     cursor: pointer;
     box-shadow: 0 10px 24px #8f1e1a40;
   }
-  button:hover { background: #a82622; }
-  button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .retry:hover { background: #a82622; }
+  .retry:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
   .status { margin-top: 18px; font-size: 13px; color: var(--soft); min-height: 1.4em; }
 </style>
 </head>
@@ -82,9 +84,7 @@
   <h2>YOU ARE OFFLINE</h2>
   <p>اتصل بالإنترنت لعرض النتائج المحدثة. لا نعرض نتائج مخزنة بوصفها مباشرة.</p>
   <p class="en">Connect to the internet to see the latest results. We never show stored results as live.</p>
-  <button type="button" id="retry">إعادة المحاولة · Retry</button>
-  <div class="status" id="status" role="status" aria-live="polite"></div>
+  <a class="retry" href="/">إعادة المحاولة · Retry</a>
 </main>
-<script src="/offline.js"></script>
 </body>
 </html>
