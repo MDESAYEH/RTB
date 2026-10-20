@@ -129,7 +129,12 @@ export const newsSchema = z.object({
   status: z.enum(["draft", "published"]),
   cover: mediaSchema,
   /** YouTube or Facebook video link, shown on the article instead of the cover picture. */
-  video: streamUrlSchema.optional(),
+  video: z
+    .union([
+      streamUrlSchema,
+      z.string().regex(/^\/videos\/[\w.-]+\.(mp4|webm|mov|m4v)$/i),
+    ])
+    .optional(),
   /** More pictures shown under the text (a schedule, a photo set). */
   gallery: z
     .array(z.string().regex(/^\/api\/media\/[a-f0-9]{64}\.(png|jpg|webp)$/))

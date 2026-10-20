@@ -56,9 +56,12 @@ export function streamEmbed(raw: string | undefined | null): StreamEmbed | null 
 
 /** An HTTPS link straight to a video file (MP4 / WebM), played by the browser itself. */
 export function directVideo(raw: string | undefined | null): string | null {
+  const value = (raw || "").trim();
+  // A video file kept on this site itself: /videos/<name>.mp4
+  if (/^\/videos\/[\w.-]+\.(mp4|webm|mov|m4v)$/i.test(value)) return value;
   try {
-    const url = new URL((raw || "").trim());
-    return url.protocol === "https:" && /.(mp4|webm|mov|m4v)$/i.test(url.pathname)
+    const url = new URL(value);
+    return url.protocol === "https:" && /\.(mp4|webm|mov|m4v)$/i.test(url.pathname)
       ? url.toString()
       : null;
   } catch {

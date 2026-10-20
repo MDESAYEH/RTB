@@ -59,6 +59,7 @@ export function NewsArticle({
           <video
             className="news-article-video-file"
             src={file}
+            poster={news.cover || undefined}
             controls
             playsInline
             preload="metadata"
