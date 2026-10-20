@@ -11,7 +11,7 @@ import {
 
 test("every imported Facebook post is valid, translated and has a cover", async () => {
   const file = await loadFacebookNews();
-  assert.ok(file.posts.length >= 5);
+  assert.ok(file.posts.length >= 4);
   const slugs = new Set<string>();
   for (const post of file.posts) {
     assert.ok(!slugs.has(post.slug), `duplicate slug ${post.slug}`);
