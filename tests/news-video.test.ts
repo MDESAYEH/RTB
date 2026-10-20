@@ -33,6 +33,15 @@ test("direct video files are recognised, other links are not", async () => {
   assert.equal(directVideo("https://example.com/clip.mp4"), "https://example.com/clip.mp4");
   assert.equal(directVideo("https://example.com/a/b.WEBM?x=1"), "https://example.com/a/b.WEBM?x=1");
   assert.equal(directVideo("http://example.com/clip.mp4"), null);
+  assert.equal(directVideo("/videos/opening.mp4"), "/videos/opening.mp4");
+  assert.equal(directVideo("/videos/../etc/passwd"), null);
+  assert.equal(directVideo("https://example.com/xmp4"), null);
   assert.equal(directVideo("https://youtu.be/dQw4w9WgXcQ"), null);
   assert.equal(directVideo(""), null);
+});
+
+
+test("a video file kept on the site is accepted by the news schema", () => {
+  assert.equal(newsSchema.parse({ ...base, video: "/videos/opening.mp4" }).video, "/videos/opening.mp4");
+  assert.throws(() => newsSchema.parse({ ...base, video: "/videos/a/b.mp4" }));
 });

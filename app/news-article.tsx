@@ -1,7 +1,8 @@
 "use client";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Play } from "lucide-react";
 import type { News } from "@/lib/public-domain";
 import { directVideo, streamEmbed } from "@/lib/stream";
 import { useLang } from "./i18n";
@@ -16,6 +17,7 @@ export function NewsArticle({
 }) {
   const news = importedNewsDetails(record);
   const { lang } = useLang();
+  const [playing, setPlaying] = useState(false);
   const copy = (ar: string, en: string) => (lang === "ar" ? ar : en);
   const title = lang === "en" && news.titleEn ? news.titleEn : news.title;
   const embed = streamEmbed(news.video);
@@ -57,11 +59,63 @@ export function NewsArticle({
           <video
             className="news-article-video-file"
             src={file}
+            poster={news.cover || undefined}
             controls
             playsInline
             preload="metadata"
             aria-label={title}
           />
+        ) : embed?.kind === "iframe" && embed.label === "Facebook" ? (
+          // Facebook may refuse to play a video outside facebook.com, so the picture comes first with two ways in:
+          // play it here (embedded) or open it on Facebook.
+          <div
+            className={
+              "news-article-video news-video-card" +
+              (embed.href.includes("/reel/") ? " news-article-video-reel" : "")
+            }
+          >
+            {playing ? (
+              <div className="stream-frame">
+                <iframe
+                  src={embed.src}
+                  title={title}
+                  allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
+            ) : (
+              <button
+                type="button"
+                className="news-video-poster"
+                onClick={() => setPlaying(true)}
+                aria-label={copy("شغّل الفيديو هنا", "Play the video here")}
+              >
+                {(news.cover || news.sourceCover) && (
+                  <Image
+                    src={(news.cover || news.sourceCover)!}
+                    alt={title}
+                    fill
+                    sizes="(max-width:700px) 100vw, 460px"
+                  />
+                )}
+                <span className="news-video-play" aria-hidden="true">
+                  <Play size={34} />
+                </span>
+                <span className="news-video-label">
+                  {copy("شغّل الفيديو هنا", "Play the video here")}
+                </span>
+              </button>
+            )}
+            <a
+              className="news-video-open"
+              href={embed.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {copy("افتح الفيديو على فيسبوك", "Open the video on Facebook")}{" "}
+              {lang === "ar" ? "↖" : "↗"}
+            </a>
+          </div>
         ) : embed?.kind === "iframe" ? (
           <div
             className={
@@ -124,6 +178,21 @@ export function NewsArticle({
             dir={lang === "en" ? "ltr" : "rtl"}
           >
             {lang === "en" && news.contentEn ? news.contentEn : news.content}
+          </div>
+        )}
+        {!!news.gallery?.length && (
+          <div className="news-article-gallery">
+            {news.gallery.map((src, i) => (
+              <a key={src} href={src} target="_blank" rel="noopener noreferrer">
+                <Image
+                  src={src}
+                  alt={`${title} (${i + 1})`}
+                  width={1080}
+                  height={1350}
+                  sizes="(max-width:700px) 100vw, 420px"
+                />
+              </a>
+            ))}
           </div>
         )}
         {news.sourceUrl && (

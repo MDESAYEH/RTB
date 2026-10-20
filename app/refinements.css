@@ -620,3 +620,152 @@ html[dir="ltr"] .passport-profile-heading {
 html[dir="ltr"] .passport-profile-heading .passport-logo {
   order: -1;
 }
+
+/* News article gallery: extra pictures under the text, each opens at full size. */
+.news-article-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 18px;
+  margin: 8px 0 40px;
+}
+.news-article-gallery a {
+  display: block;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 10px 28px #0230471f;
+}
+.news-article-gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (min-width: 901px) {
+  .news-article-body > .news-article-gallery {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+}
+
+/* Home news cards: the picture stays clear; only a strip behind the words is darkened. */
+.rd-story:after {
+  display: none;
+}
+.rd-story > div {
+  width: 100%;
+  padding-top: 64px;
+  background: linear-gradient(0deg, #001c29f2 0%, #001c29e0 55%, #001c2900 100%);
+}
+.rd-story img {
+  object-position: 50% 18%;
+}
+.rd-story:first-child {
+  min-height: 640px;
+}
+.rd-story:first-child img {
+  object-position: 50% 12%;
+}
+@media (max-width: 700px) {
+  .rd-story:first-child {
+    min-height: 470px;
+  }
+}
+
+/* News page cards: same clear picture, with a darkened strip only behind the words. */
+.news-editorial-card::after {
+  display: none;
+}
+.news-editorial-card > div:last-child {
+  height: auto;
+  position: absolute;
+  inset: auto 0 0 0;
+  padding-top: 64px;
+  background: linear-gradient(0deg, #00111af2 0%, #00111ae0 55%, #00111a00 100%);
+}
+.news-editorial-card > img {
+  object-position: 50% 15%;
+}
+.news-card-grid {
+  grid-auto-rows: 300px;
+}
+
+/* Facebook video on a news article: the picture with a play button; it opens the video on Facebook. */
+.news-video-card {
+  margin: 0 0 40px;
+}
+.news-video-poster {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #061f2b;
+  box-shadow: 0 14px 34px #0230472e;
+  color: #fff;
+}
+.news-article-video-reel .news-video-poster {
+  aspect-ratio: 9 / 16;
+  max-width: min(360px, 100%);
+  margin-inline: auto;
+}
+.news-video-poster img {
+  object-fit: cover;
+  transition: transform 0.35s;
+}
+.news-video-poster:hover img {
+  transform: scale(1.03);
+}
+.news-video-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background: #8f1e1ae6;
+  box-shadow: 0 10px 30px #00000066;
+}
+.news-video-play svg {
+  margin-inline-start: 4px;
+  fill: #fff;
+}
+.news-video-label {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 44px 18px 18px;
+  text-align: center;
+  font-weight: 800;
+  font-size: 15px;
+  background: linear-gradient(0deg, #001c29ee, #001c2900);
+}
+
+/* Play here / open on Facebook. */
+button.news-video-poster {
+  display: block;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+.news-video-card .stream-frame {
+  max-width: 100%;
+  border-radius: 28px;
+}
+.news-article-video-reel .stream-frame {
+  max-width: min(360px, 100%);
+  margin-inline: auto;
+  aspect-ratio: 9 / 16;
+}
+.news-video-open {
+  display: block;
+  margin-top: 14px;
+  text-align: center;
+  color: #8f1e1a;
+  font-weight: 800;
+  font-size: 15px;
+}
+.news-video-open:hover {
+  text-decoration: underline;
+}

@@ -19,10 +19,14 @@ for (const post of file.posts) {
     continue;
   }
   const cover = await coverFromFile(join(facebookNewsDirectory, post.image));
-  const record = newsRecord(post, file.author, cover.id);
+  const extra = await Promise.all(
+    (post.gallery ?? []).map((name) => coverFromFile(join(facebookNewsDirectory, name))),
+  );
+  const record = newsRecord(post, file.author, cover.id, extra.map((e) => e.id));
   console.log(`${dryRun ? "would add" : "add"} [${post.status}]: ${id} ${post.title}`);
   if (dryRun) continue;
   await mediaStorage.put(cover.id, cover.bytes);
+  for (const e of extra) await mediaStorage.put(e.id, e.bytes);
   await store.write("news", id, record, "system:facebook-import", "facebook-import");
   added++;
 }

@@ -1,11 +1,10 @@
-const SHELL = "road-shell-v3";
+const SHELL = "road-shell-v4";
 self.addEventListener("install", (event) =>
   event.waitUntil(
     caches
       .open(SHELL)
       .then((cache) => cache.addAll([
           "/offline.html",
-          "/offline.js",
           "/icon.svg",
           "/logo.svg",
           "/patterns/white-topo.svg",

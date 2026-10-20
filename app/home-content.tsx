@@ -99,18 +99,13 @@ export function HomeContent({
     <>
       {hero}
       <div className="rd-home">
-        <section
-          className="rd-countdown rd-pattern"
-          aria-label={copy("العد التنازلي للبطولة", "Tournament countdown")}
-        >
-          <h2>
-            {seconds > 0
-              ? tr("العد التنازلي بدأ")
-              : ended
-                ? tr("النتائج النهائية")
-                : copy("المنافسة انطلقت", "The competition has begun")}
-          </h2>
-          {seconds > 0 ? (
+        {/* The countdown disappears once the first game has started. */}
+        {seconds > 0 && (
+          <section
+            className="rd-countdown rd-pattern"
+            aria-label={copy("العد التنازلي للبطولة", "Tournament countdown")}
+          >
+            <h2>{tr("العد التنازلي بدأ")}</h2>
             <div className="rd-clock" dir="ltr">
               {count.map((n, i) => (
                 <Fragment key={i}>
@@ -133,10 +128,8 @@ export function HomeContent({
                 </Fragment>
               ))}
             </div>
-          ) : (
-            action("/matches", tr("تابع المباريات"))
-          )}
-        </section>
+          </section>
+        )}
         <section className="rd-overview rd-container">
           <h2>{tr("الإحصائيات")}</h2>
           <div className="rd-stats">
