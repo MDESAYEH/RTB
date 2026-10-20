@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, Play } from "lucide-react";
 import type { News } from "@/lib/public-domain";
 import { directVideo, streamEmbed } from "@/lib/stream";
 import { useLang } from "./i18n";
@@ -62,6 +62,38 @@ export function NewsArticle({
             preload="metadata"
             aria-label={title}
           />
+        ) : embed?.kind === "iframe" && embed.label === "Facebook" ? (
+          // Facebook often refuses to play a video outside facebook.com: show the picture and open the video there.
+          <div
+            className={
+              "news-article-video news-video-card" +
+              (embed.href.includes("/reel/") ? " news-article-video-reel" : "")
+            }
+          >
+            <a
+              className="news-video-poster"
+              href={embed.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={copy("شاهد الفيديو على فيسبوك", "Watch the video on Facebook")}
+            >
+              {(news.cover || news.sourceCover) && (
+                <Image
+                  src={(news.cover || news.sourceCover)!}
+                  alt={title}
+                  fill
+                  sizes="(max-width:700px) 100vw, 460px"
+                />
+              )}
+              <span className="news-video-play" aria-hidden="true">
+                <Play size={34} />
+              </span>
+              <span className="news-video-label">
+                {copy("شاهد الفيديو على فيسبوك", "Watch the video on Facebook")}{" "}
+                {lang === "ar" ? "↖" : "↗"}
+              </span>
+            </a>
+          </div>
         ) : embed?.kind === "iframe" ? (
           <div
             className={
