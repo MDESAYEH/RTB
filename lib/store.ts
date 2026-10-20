@@ -171,16 +171,22 @@ export function createTournamentStore(
     {
       const OLD_END = "2026-10-26T00:00:00+02:00";
       const OLD_ANNOUNCEMENT = "21–25 أكتوبر 2026 · المجموعتان A وB";
+      // The countdown runs to the first game, 11:00 on 21 October (Tripoli), not to midnight.
+      const OLD_START = "2026-10-21T00:00:00+02:00";
+      const FIRST_GAME = "2026-10-21T11:00:00+02:00";
       const current = await get<Settings>("settings", "tournament");
       if (
         current &&
-        (current.end === OLD_END || current.announcement === OLD_ANNOUNCEMENT)
+        (current.end === OLD_END ||
+          current.announcement === OLD_ANNOUNCEMENT ||
+          current.start === OLD_START)
       )
         await write(
           "settings",
           "tournament",
           {
             ...current,
+            start: current.start === OLD_START ? FIRST_GAME : current.start,
             end: current.end === OLD_END ? "2026-10-24T00:00:00+02:00" : current.end,
             announcement:
               current.announcement === OLD_ANNOUNCEMENT
@@ -194,7 +200,7 @@ export function createTournamentStore(
     const defaults: Settings = {
       name: "FIBA Africa Champions Clubs – Road to BAL 2027",
       shortName: "ROAD TO BAL 2027",
-      start: "2026-10-21T00:00:00+02:00",
+      start: "2026-10-21T11:00:00+02:00",
 
       end: "2026-10-24T00:00:00+02:00",
       timezone: "Africa/Tripoli",

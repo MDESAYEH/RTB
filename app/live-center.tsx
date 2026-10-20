@@ -44,6 +44,8 @@ export function LiveCenter({
     0,
     Math.floor((Date.parse(game?.date ?? data.settings.start) - now) / 1000),
   );
+  // Countdown clocks disappear everywhere once the first game of the tournament has started.
+  const beforeStart = Date.parse(data.settings.start) > now;
   const clock = game ? remainingClock(game, clockNow) : 0;
   const date = (value: string) =>
     new Intl.DateTimeFormat(lang === "ar" ? "ar-LY" : "en-GB", {
@@ -113,7 +115,7 @@ export function LiveCenter({
               </span>
               <h3>{waiting.title}</h3>
               <p>{waiting.body}</p>
-              {seconds > 0 && (
+              {beforeStart && seconds > 0 && (
                 <div className="live-wait-clock" dir="ltr">
                   {[
                     Math.floor(seconds / 86400),
