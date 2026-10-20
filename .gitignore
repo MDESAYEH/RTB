@@ -39,3 +39,7 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
+
+# graphify / playwright-mcp generated output
+graphify-out/
+.playwright-mcp/
