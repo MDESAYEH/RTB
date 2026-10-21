@@ -1,12 +1,8 @@
 # crontab -e   (the secret lives in /home/edu/.fiba-curl, one line: header = "Authorization: Bearer <CRON_SECRET>")
 # Port 3091 and the nvm Node 24 path match the production server.
 
-# Tournament days (21-23 Oct): FIBA sync every minute
-* * 21-23 10 * curl -fsS -m 50 -K /home/edu/.fiba-curl http://127.0.0.1:3091/api/cron/fiba >> /home/edu/fiba-sync.log 2>&1
-
-# All other days: every 10 minutes
-*/10 * 1-20,24-31 10 * curl -fsS -m 70 -K /home/edu/.fiba-curl http://127.0.0.1:3091/api/cron/fiba >> /home/edu/fiba-sync.log 2>&1
-*/10 * * 1-9,11,12 * curl -fsS -m 70 -K /home/edu/.fiba-curl http://127.0.0.1:3091/api/cron/fiba >> /home/edu/fiba-sync.log 2>&1
+# FIBA sync: every minute, every day (a run that is still busy makes the next call skip itself)
+* * * * * curl -fsS -m 50 -K /home/edu/.fiba-curl http://127.0.0.1:3091/api/cron/fiba >> /home/edu/fiba-sync.log 2>&1
 
 # Daily backup 03:00
 0 3 * * * cd /var/www/roadtobal && set -a && . ./.env.production && set +a && PATH=/home/edu/.nvm/versions/node/v24.21.0/bin:$PATH npm run db:backup >> /home/edu/backup.log 2>&1
