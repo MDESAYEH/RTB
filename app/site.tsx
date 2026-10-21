@@ -593,6 +593,12 @@ export default function Site({
               ? tr("آخر نتيجة")
               : tr(statusLabel[g.status])}
           </span>
+          {["Live", "Halftime"].includes(g.status) && (
+            <div className="match-clock" dir="ltr">
+              Q{g.quarter} · {String(Math.floor(clock / 60)).padStart(2, "0")}:
+              {String(clock % 60).padStart(2, "0")}
+            </div>
+          )}
           <div className="scoreboard-teams" dir="ltr">
             <Link
               href={"/teams/" + g.home}
@@ -640,12 +646,7 @@ export default function Site({
             {lang === "ar" ? "،" : ","} GROUP {g.group}
           </p>
         </section>
-        {["Live", "Halftime"].includes(g.status) && (
-          <div className="match-clock" dir="ltr">
-            Q{g.quarter} · {String(Math.floor(clock / 60)).padStart(2, "0")}:
-            {String(clock % 60).padStart(2, "0")}
-          </div>
-        )}
+
         <p>
           {g.venue || tr("سيُعلن مكان المباراة لاحقًا")} · GROUP {g.group}
         </p>
