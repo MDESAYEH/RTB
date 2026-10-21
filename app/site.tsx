@@ -12,6 +12,7 @@ import { CourtArc } from "./brand-primitives";
 import { HomeContent, HomeTopbar, TournamentFooter } from "./home-content";
 import { useLang } from "./i18n";
 import { playerName, positionLabel } from "@/lib/player-i18n";
+import { fibaHeadshot } from "@/lib/player-photo";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { broadcastPlaceholder, matchStream } from "@/lib/stream";
@@ -914,21 +915,24 @@ export default function Site({
     const p = (data.players as Player[]).find((p) => p.id === path[1]);
     content = p ? (
       <>
-        {p.photo ? (
-          <Image
-            src={p.photo}
-            className="player-photo"
-            alt={p.name}
-            width={220}
-            height={220}
-            sizes="220px"
-          />
-        ) : (
+        <div className="player-portrait">
           <svg className="player-avatar player-avatar-blank" viewBox="0 0 80 100" aria-hidden="true">
             <circle cx="40" cy="34" r="17" />
             <path d="M6 100c0-24 15-38 34-38s34 14 34 38z" />
           </svg>
-        )}
+          {fibaHeadshot(p, 440) && (
+            <img
+              src={fibaHeadshot(p, 440)}
+              className="player-photo"
+              alt={playerName(p, lang)}
+              width={220}
+              height={220}
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
+          )}
+        </div>
         <h1>{playerName(p, lang)}</h1>
         <p>
           #{p.number} · {positionLabel(p.position, lang)} · {team(p.team)?.name}

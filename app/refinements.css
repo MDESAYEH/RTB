@@ -913,3 +913,21 @@ button.news-video-poster {
   padding: 18px 18px 0;
   overflow: hidden;
 }
+.player-portrait {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin-block-end: 12px;
+}
+.player-portrait > * {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.passport-player-photo > img {
+  position: absolute;
+  inset: 0;
+}

@@ -15,6 +15,7 @@ import { getTeamIdentity } from "@/lib/team-identity";
 import type { Data } from "./site-shared";
 import { useLang } from "./i18n";
 import { playerName, positionLabel } from "@/lib/player-i18n";
+import { fibaHeadshot } from "@/lib/player-photo";
 import { ClubMatchLine } from "./stade-tournament-hub";
 
 export function TeamPassport({
@@ -262,13 +263,19 @@ export function TeamPassport({
                 {roster.map((p) => (
                   <Link key={p.id} href={`/players/${p.id}`} className="passport-player-card">
                     <div className="passport-player-photo">
-                      {p.photo ? (
-                        <img src={p.photo} alt={playerName(p, lang)} loading="lazy" />
-                      ) : (
-                        <svg className="passport-player-blank" viewBox="0 0 80 100" aria-hidden="true">
-                          <circle cx="40" cy="34" r="17" />
-                          <path d="M6 100c0-24 15-38 34-38s34 14 34 38z" />
-                        </svg>
+                      <svg className="passport-player-blank" viewBox="0 0 80 100" aria-hidden="true">
+                        <circle cx="40" cy="34" r="17" />
+                        <path d="M6 100c0-24 15-38 34-38s34 14 34 38z" />
+                      </svg>
+                      {fibaHeadshot(p) && (
+                        <img
+                          src={fibaHeadshot(p)}
+                          alt={playerName(p, lang)}
+                          loading="lazy"
+                          onError={(e) => {
+                            e.currentTarget.style.display = "none";
+                          }}
+                        />
                       )}
                       <span className="passport-player-number">#{p.number}</span>
                     </div>
