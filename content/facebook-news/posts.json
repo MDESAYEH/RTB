@@ -4,6 +4,18 @@
   "posts": [
     {
       "status": "published",
+      "slug": "ittihad-opens-with-93-69-win",
+      "image": "ittihad-win-93-69-0.jpg",
+      "publishedAt": "2026-10-21T20:44:00+02:00",
+      "title": "الاتحاد يبدأ التصفيات بفوز كبير على ستاوالي (93-69)",
+      "titleEn": "Al Ittihad open the qualifiers with a big win over Staoueli (93-69)",
+      "excerpt": "تحت مؤازرة جماهيرية ضخمة، الاتحاد الليبي يبدأ التصفيات بفوز كبير على نظيره ستاوالي الجزائري (93-69).",
+      "excerptEn": "Backed by a huge crowd, Libya's Al Ittihad open the qualifiers with a big win over Algeria's Staoueli (93-69).",
+      "content": "تحت مؤازرة جماهيرية ضخمة، الاتحاد الليبي يبدأ التصفيات بفوز كبير على نظيره ستاوالي الجزائري (93-69).\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Backed by a huge crowd, Libya's Al Ittihad open the qualifiers with a big win over Algeria's Staoueli (93-69).\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "libya-champions-first-half",
       "image": "libya-champions-first-half-0.jpg",
       "gallery": [
