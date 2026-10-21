@@ -416,30 +416,53 @@
 .official-table-wrap tbody th {
   text-align: left;
 }
-.official-info-card > h3 {
-  padding-top: 18px;
-  border-top: 1px solid #e7ece8;
+.official-info-card {
+  text-align: start;
+}
+.sports-match-page .official-info-card {
+  padding: 24px;
+}
+.sports-match-page .official-info-card h2 {
+  font-size: 21px;
+  margin-bottom: 20px;
+}
+.official-info-location {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: #f5f6f3;
+  border-radius: 10px;
+}
+.official-info-location strong {
+  color: #073449;
+  font-size: 14px;
+}
+.official-libya-flag {
+  width: 44px;
+  height: 22px;
+  flex: 0 0 44px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px #07344914;
 }
 .official-info-card p {
-  margin-block: 8px;
+  margin: 4px 0;
   color: #526975;
-  font-size: 13px;
-  line-height: 1.9;
-}
-.official-info-card > p:first-of-type {
-  color: #073449;
-  font-size: 16px;
-  font-weight: 800;
-}
-.official-info-card > a {
-  display: inline-block;
-  color: #941e1b;
-  margin-top: 20px;
   font-size: 12px;
-  font-weight: 800;
-  text-underline-offset: 4px;
+  line-height: 1.8;
+  text-align: start;
 }
-.official-info-card .official-updated {
+.official-info-group {
+  padding-block: 15px;
+  border-bottom: 1px solid #e7ece8;
+}
+.sports-match-page .official-info-group h3 {
+  margin: 0 0 7px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #073449;
+}
+.official-info-group > small {
   font-size: 10px;
   color: #637783;
 }

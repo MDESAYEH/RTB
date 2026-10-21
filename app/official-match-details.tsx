@@ -243,29 +243,60 @@ export function OfficialMatchDetails({
           ["BS", "الصدات", "Blocks"],
         ].map(([key, ar, en]) => comparison(key, ar, en))}
       </section>
-      <section className="official-card official-info-card">
+      <section
+        className="official-card official-info-card"
+        dir={english ? "ltr" : "rtl"}
+      >
         <h2>{text("معلومات المباراة", "Game Information")}</h2>
-        <p>{[d.country, d.city, game.venue].filter(Boolean).join(" · ")}</p>
-        <p>
-          {new Intl.DateTimeFormat(english ? "en-GB" : "ar-LY", {
-            dateStyle: "full",
-            timeStyle: "short",
-            timeZone: "Africa/Tripoli",
-          }).format(new Date(game.date))}{" "}
-          · {text("بتوقيت طرابلس", "Tripoli time")} (GMT+2)
-        </p>
+        <div className="official-info-location">
+          <svg
+            className="official-libya-flag"
+            viewBox="0 0 48 24"
+            role="img"
+            aria-label={text("علم ليبيا", "Libya flag")}
+          >
+            <path fill="#e70013" d="M0 0h48v6H0z" />
+            <path fill="#000" d="M0 6h48v12H0z" />
+            <path fill="#239e46" d="M0 18h48v6H0z" />
+            <circle cx="23" cy="12" r="4.5" fill="#fff" />
+            <circle cx="24.2" cy="11.4" r="4.1" fill="#000" />
+            <path
+              fill="#fff"
+              d="m28 8.6.8 2.1 2.2.1-1.8 1.4.6 2.2-1.8-1.3-1.9 1.3.7-2.2-1.8-1.4 2.2-.1z"
+            />
+          </svg>
+          <div>
+            <strong>{text("ليبيا", "Libya")}</strong>
+            <p>
+              <bdi>{[d.city, game.venue].filter(Boolean).join(" · ")}</bdi>
+            </p>
+          </div>
+        </div>
+        <div className="official-info-group">
+          <h3>{text("الموعد", "Date & time")}</h3>
+          <p>
+            {new Intl.DateTimeFormat(english ? "en-GB" : "ar-LY", {
+              dateStyle: "full",
+              timeStyle: "short",
+              timeZone: "Africa/Tripoli",
+            }).format(new Date(game.date))}
+          </p>
+          <small>
+            {text("بتوقيت طرابلس", "Tripoli time")} <bdi>(GMT+2)</bdi>
+          </small>
+        </div>
         {d.referees.length > 0 && (
-          <>
+          <div className="official-info-group">
             <h3>{text("الحكام", "Referees")}</h3>
             {d.referees.map((p) => (
-              <p key={p} dir="auto">
-                {p}
+              <p key={p}>
+                <bdi>{p}</bdi>
               </p>
             ))}
-          </>
+          </div>
         )}
         {d.commissioners.length > 0 && (
-          <>
+          <div className="official-info-group">
             <h3>
               {text(
                 "المراقب / المندوب الفني",
@@ -273,22 +304,12 @@ export function OfficialMatchDetails({
               )}
             </h3>
             {d.commissioners.map((p) => (
-              <p key={p} dir="auto">
-                {p}
+              <p key={p}>
+                <bdi>{p}</bdi>
               </p>
             ))}
-          </>
+          </div>
         )}
-        <a href={d.sourceUrl} target="_blank" rel="noreferrer">
-          {text("المصدر: FIBA", "Source: FIBA")}
-        </a>
-        <p className="official-updated">
-          {text("آخر تحديث مؤكد", "Last confirmed update")}:{" "}
-          {new Intl.DateTimeFormat(english ? "en-GB" : "ar-LY", {
-            timeStyle: "medium",
-            timeZone: "Africa/Tripoli",
-          }).format(new Date(d.receivedAt))}
-        </p>
       </section>
     </div>
   );
