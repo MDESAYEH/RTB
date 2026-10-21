@@ -4,6 +4,47 @@
   "posts": [
     {
       "status": "published",
+      "slug": "libya-champions-first-half",
+      "image": "libya-champions-first-half-0.jpg",
+      "gallery": [
+        "libya-champions-first-half-1.jpg",
+        "libya-champions-first-half-2.jpg",
+        "libya-champions-first-half-3.jpg"
+      ],
+      "publishedAt": "2026-10-21T20:01:00+02:00",
+      "title": "عرض مبهج من أبطال ليبيا في النصف الأول",
+      "titleEn": "A joyful display from Libya's champions in the first half",
+      "excerpt": "عرض مبهج من أبطال ليبيا في النصف الأول.",
+      "excerptEn": "A joyful display from Libya's champions in the first half.",
+      "content": "عرض مبهج من أبطال ليبيا في النصف الأول.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "A joyful display from Libya's champions in the first half.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "ittihad-leads-staoueli-53-27-at-the-break",
+      "image": "ittihad-staoueli-halftime-53-27-0.jpg",
+      "publishedAt": "2026-10-21T19:36:00+02:00",
+      "title": "الاتحاد يتقدم 53-27 عند الاستراحة",
+      "titleEn": "Al Ittihad lead 53-27 at the break",
+      "excerpt": "نصف الوقت بتفوق فريق الاتحاد على فريق سطاوالي الجزائري بنتيجة 53-27.",
+      "excerptEn": "Half-time: Al Ittihad lead Algeria's Staoueli, 53-27.",
+      "content": "نصف الوقت بتفوق فريق الاتحاد على فريق سطاوالي الجزائري بنتيجة 53-27.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Half-time: Al Ittihad lead Algeria's Staoueli, 53-27.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "ittihad-staoueli-tip-off",
+      "image": "ittihad-staoueli-tip-off-0.jpg",
+      "publishedAt": "2026-10-21T19:17:00+02:00",
+      "title": "بداية اللقاء بين الاتحاد وستاوالي",
+      "titleEn": "Al Ittihad and Staoueli: the match begins",
+      "excerpt": "بداية اللقاء بين الاتحاد الليبي وفريق نادي ستاوالي الجزائري.",
+      "excerptEn": "The match between Libya's Al Ittihad and Algeria's Staoueli begins.",
+      "content": "بداية اللقاء بين الاتحاد الليبي وفريق نادي ستاوالي الجزائري.\n\nالنقل المباشر عبر هذا الرابط: https://www.youtube.com/watch?v=JY_p9F0R8RE\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "The match between Libya's Al Ittihad and Algeria's Staoueli club begins.\n\nLive broadcast on this link: https://www.youtube.com/watch?v=JY_p9F0R8RE\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "energie-takes-control-first-half",
       "image": "energie-first-half-0.jpg",
       "gallery": [
