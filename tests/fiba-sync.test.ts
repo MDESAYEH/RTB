@@ -522,3 +522,20 @@ for (const [label, config] of backends) {
     await store.db.close();
   });
 }
+
+test("a reduced 'today' games widget on a match-day page does not break the parser", async () => {
+  const { parseEventPage } = await import("../lib/providers/fiba/parser");
+  const before = parseEventPage(baseGames).games.length;
+  const page = rewrap(baseGames, (data) => {
+    const [first] = data.games as Row[];
+    data.todayWidget = {
+      games: [{ gameId: first.gameId, status: "INIT", date: "$D2026-10-21T09:00:00.000Z", hasTimeGameDateTime: true }],
+    };
+  });
+  assert.equal(parseEventPage(page).games.length, before);
+  // A page whose full list is missing or malformed still fails closed.
+  const broken = rewrap(baseGames, (data) => {
+    data.games = [{ gameId: 1, gameName: "x" }];
+  });
+  assert.throws(() => parseEventPage(broken));
+});

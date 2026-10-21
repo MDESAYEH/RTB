@@ -207,10 +207,21 @@ export function parseEventPage(html: string): FibaEventData {
   if (gameArrays.length === 0) {
     throw new FibaParseError("Games list not found; page structure changed");
   }
-  const games = dedupe(
-    parseAll(fibaGameSchema, gameArrays.flat(), "games"),
-    (game) => game.gameId,
-  );
+  // Match days add a second, reduced "games" list to the page (a "today" widget with only gameId, status
+  // and date). It repeats games that the full list already carries, so rows without the full shape are
+  // ignored; the full list itself is still checked strictly.
+  const fullRows = gameArrays
+    .flat()
+    .filter(
+      (row) =>
+        row &&
+        typeof row === "object" &&
+        ("gameName" in row || "statusCode" in row || "teamA" in row || "teamB" in row),
+    );
+  if (fullRows.length === 0) {
+    throw new FibaParseError("Games list not found; page structure changed");
+  }
+  const games = dedupe(parseAll(fibaGameSchema, fullRows, "games"), (game) => game.gameId);
 
   const phase = /"currentPhase":"([A-Z_]+)"/.exec(payload);
   return { competition, currentPhase: phase?.[1] ?? null, teams, games };
