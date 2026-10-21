@@ -911,3 +911,9 @@ button.news-video-poster {
   position: absolute;
   inset: 0;
 }
+
+/* Home: a single live or upcoming match sits in the middle instead of in one corner of a two-column grid. */
+.rd-match-grid:has(> :only-child) {
+  grid-template-columns: minmax(0, 620px);
+  justify-content: center;
+}
