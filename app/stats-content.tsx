@@ -1,7 +1,8 @@
 "use client";
-import Image from "next/image";
 import { ArrowUpFromLine, Hand, HandHelping, Shield, Target, Trophy } from "lucide-react";
 import { useLang } from "./i18n";
+import { playerName } from "@/lib/player-i18n";
+import { fibaHeadshot } from "@/lib/player-photo";
 
 type Player = {
   id: string;
@@ -88,9 +89,7 @@ export function StatsContent({ stats, players }: { stats: Stat[]; players: Playe
                   <div className="stat-card-text">
                     {top ? (
                       <>
-                        <h3>
-                          {top.p.name}
-                        </h3>
+                        <h3>{playerName(top.p, lang)}</h3>
                         <p>
                           {scorer(key) ? top.average : top.average.toFixed(1)} {scorer(key) ? copy("نقطة", "points") : label}
                         </p>
@@ -102,11 +101,17 @@ export function StatsContent({ stats, players }: { stats: Stat[]; players: Playe
                       </>
                     )}
                   </div>
-                  <div className="stat-photo" aria-hidden={top?.p.photo ? undefined : true}>
-                    {top?.p.photo ? (
-                      <Image src={top.p.photo} alt={top.p.name} fill sizes="200px" />
-                    ) : (
-                      <span>—</span>
+                  <div className="stat-photo" aria-hidden={top && fibaHeadshot(top.p) ? undefined : true}>
+                    <span>—</span>
+                    {top && fibaHeadshot(top.p) && (
+                      <img
+                        src={fibaHeadshot(top.p)}
+                        alt={playerName(top.p, lang)}
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
                     )}
                   </div>
                 </div>

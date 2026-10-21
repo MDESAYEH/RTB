@@ -25,6 +25,7 @@ import {
 import { storageSchema, storageSchemaVersion } from "./storage-schema";
 import { isRole } from "./permissions";
 import { normalizeIdentifier } from "./identifier";
+import { derivedPlayerStats } from "./derived-stats";
 import {
   generateRecoveryCodes,
   generateSecret,
@@ -788,6 +789,10 @@ export function createTournamentStore(
         rows
           .filter((row) => row.kind === kind)
           .map((row) => JSON.parse(String(row.body)));
+      const games = collection<Game>("games").map((game) =>
+        gameSchema.parse(game),
+      );
+      const storedStats = collection<{ game: string; player: string }>("stats");
       return {
         settings: settingsSchema.parse(
           JSON.parse(
@@ -799,12 +804,12 @@ export function createTournamentStore(
           ),
         ),
         teams: collection<Team>("teams").map((team) => teamSchema.parse(team)),
-        games: collection<Game>("games").map((game) => gameSchema.parse(game)),
+        games,
         players: collection<unknown>("players"),
         news: collection<News>("news").filter(
           (news) => news.status === "published",
         ),
-        stats: collection<unknown>("stats"),
+        stats: [...storedStats, ...derivedPlayerStats(games, storedStats)],
         events: collection<z.infer<typeof eventSchema>>("events"),
         teamStats: collection<z.infer<typeof teamStatSchema>>("teamStats"),
         pulse: collection<z.infer<typeof pulseSchema>>("pulse"),
