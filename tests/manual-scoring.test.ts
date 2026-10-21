@@ -92,3 +92,17 @@ test("start, score, take back and finish a match in the control room; it becomes
   assert.equal(g.manual, false);
   await assert.rejects(() => applyCommand({ action: "manual", id: "m1", version: g.version, value: "yes" as unknown as boolean }, "a"));
 });
+
+test("the control-room request check accepts taking points back and the manual switch", async () => {
+  const { validControlCommand } = await import("../lib/admin-command-schema");
+  const base = { id: "m1", version: 3 };
+  assert.equal(validControlCommand({ action: "score", ...base, side: "home", points: 2 }), true);
+  assert.equal(validControlCommand({ action: "score", ...base, side: "away", points: -1 }), true);
+  assert.equal(validControlCommand({ action: "score", ...base, side: "away", points: 0 }), false);
+  assert.equal(validControlCommand({ action: "score", ...base, points: 1 }), false, "needs a side");
+  assert.equal(validControlCommand({ action: "score", id: "m1", side: "home", points: 1 }), false, "needs the version");
+  assert.equal(validControlCommand({ action: "manual", ...base, value: false }), true);
+  assert.equal(validControlCommand({ action: "manual", ...base }), false);
+  assert.equal(validControlCommand({ action: "status", ...base }), false);
+  assert.equal(validControlCommand({ action: "login" }), true, "other actions are checked elsewhere");
+});

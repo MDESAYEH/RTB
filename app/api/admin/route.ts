@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { adminCommandSchema } from "@/lib/admin-command-schema";
+import { adminCommandSchema, validControlCommand } from "@/lib/admin-command-schema";
 import { applyCommand, ConflictError } from "@/lib/admin-command";
 import { createHash } from "node:crypto";
 import {
@@ -50,15 +50,7 @@ export async function POST(req: NextRequest) {
   if (!parsed.success)
     return NextResponse.json({ error: parsed.error.message }, { status: 400 });
   const b = parsed.data;
-  if (
-    ["score", "clock", "status", "undo", "correct", "stream"].includes(b.action) &&
-    (!b.id ||
-      !Number.isInteger(b.version) ||
-      (b.version ?? -1) < 0 ||
-      (b.action === "score" &&
-        (!b.side || ![1, 2, 3].includes(b.points || 0))) ||
-      (b.action === "status" && !b.status))
-  )
+  if (!validControlCommand(b))
     return NextResponse.json(
       { error: "Invalid control command" },
       { status: 400 },

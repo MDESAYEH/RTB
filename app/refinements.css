@@ -790,3 +790,89 @@ button.news-video-poster {
 .sports-match-page .stream-player .stream-open {
   margin-inline: auto;
 }
+
+/* ===== Home match cards: clear colours on white, a red "live" pill, a big red score ===== */
+.rd-home .rd-match .game-row {
+  background: #fff;
+  color: #023047;
+  border: 1px solid #ece3e1;
+  border-radius: 26px;
+  box-shadow: 0 14px 34px #0230470f;
+  padding: 24px 24px 20px;
+  overflow: hidden;
+}
+.rd-home .rd-match .game-row:is(.state-live, .state-halftime) {
+  border: 1px solid #e9c9c6;
+  border-top: 5px solid #8f1e1a;
+  box-shadow: 0 18px 40px #8f1e1a1f;
+  padding-inline: 24px;
+}
+.rd-home .rd-match .game-row > .tag {
+  justify-self: start;
+  border: 0;
+  border-radius: 999px;
+  padding: 5px 16px;
+  background: #eef2f5;
+  color: #023047;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+.rd-home .rd-match .game-row:is(.state-live, .state-halftime) > .tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #8f1e1a;
+  color: #fff;
+}
+.rd-home .rd-match .game-row:is(.state-live, .state-halftime) > .tag::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+  animation: rd-live-dot 1.2s ease-in-out infinite;
+}
+@keyframes rd-live-dot {
+  50% {
+    opacity: 0.25;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rd-home .rd-match .game-row:is(.state-live, .state-halftime) > .tag::before {
+    animation: none;
+  }
+}
+.rd-home .rd-match .game-row.state-ended > .tag {
+  background: #e8f1ea;
+  color: #03651e;
+}
+.rd-home .rd-match .game-row .game-team b {
+  color: #023047;
+  font-size: 17px;
+  font-weight: 800;
+}
+.rd-home .rd-match .game-row .fixture-center .score,
+.rd-home .rd-match .game-row .score {
+  color: #8f1e1a;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+.rd-home .rd-match .game-row:is(.state-live, .state-halftime) .fixture-center .score {
+  font-size: 52px;
+}
+.rd-home .rd-match .game-row .game-date {
+  color: #3d5c6b;
+  font-weight: 700;
+  border-top: 1px solid #ece3e1;
+}
+.rd-home .rd-match .game-row .game-date b {
+  color: #023047;
+}
+.rd-home .rd-match .game-row .game-date span[dir="ltr"] {
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #fdecea;
+  color: #8f1e1a;
+}
