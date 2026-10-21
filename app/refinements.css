@@ -769,3 +769,9 @@ button.news-video-poster {
 .news-video-open:hover {
   text-decoration: underline;
 }
+
+/* Match page: the venue and group line under the scoreboard is dark enough to read on white. */
+.sports-match-page > p:not(.notice) {
+  color: #3d5c6b;
+  font-weight: 700;
+}

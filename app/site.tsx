@@ -638,11 +638,6 @@ export default function Site({
             {String(clock % 60).padStart(2, "0")}
           </div>
         )}
-        {stale(g, now) && (
-          <p className="notice">
-            {tr("البيانات المباشرة متأخرة؛ نعرض آخر نتيجة مؤكدة.")}
-          </p>
-        )}
         <p>
           {g.venue || tr("سيُعلن مكان المباراة لاحقًا")} · GROUP {g.group}
         </p>
