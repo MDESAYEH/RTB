@@ -4,6 +4,7 @@ import { remainingClock } from "@/lib/public-domain";
 import { getTeamIdentity, teamProfileHref } from "@/lib/team-identity";
 import { ClubCourt, ClubRoadMark } from "./club-road-primitives";
 import { useLang } from "./i18n";
+import { playerName, positionLabel } from "@/lib/player-i18n";
 
 export function ClubMatchLine({
   game: g,
@@ -118,7 +119,7 @@ export function StadeTournamentHub({
   status: string;
   now: number;
 }) {
-  const { tr } = useLang();
+  const { lang, tr } = useLang();
   return (
     <section id="club-tournament" className="stade-tournament-hub">
       <div className="club-group-scene">
@@ -218,9 +219,9 @@ export function StadeTournamentHub({
                   href={"/players/" + p.id}
                 >
                   <span>
-                    {p.number} · {p.name}
+                    {p.number} · {playerName(p, lang)}
                   </span>
-                  <small>{p.position}</small>
+                  <small>{positionLabel(p.position, lang)}</small>
                 </Link>
               ))
             ) : (

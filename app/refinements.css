@@ -898,3 +898,18 @@ button.news-video-poster {
     height: 44px;
   }
 }
+
+/* Players without a published photo show an empty silhouette, as on FIBA. */
+.passport-player-blank {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: #dfe5e8;
+}
+.player-avatar-blank {
+  fill: #dfe5e8;
+  background: #f1f4f6;
+  padding: 18px 18px 0;
+  overflow: hidden;
+}

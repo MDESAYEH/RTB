@@ -11,6 +11,7 @@ import dynamic from "next/dynamic";
 import { CourtArc } from "./brand-primitives";
 import { HomeContent, HomeTopbar, TournamentFooter } from "./home-content";
 import { useLang } from "./i18n";
+import { playerName, positionLabel } from "@/lib/player-i18n";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { broadcastPlaceholder, matchStream } from "@/lib/stream";
@@ -923,11 +924,14 @@ export default function Site({
             sizes="220px"
           />
         ) : (
-          <div className="player-avatar">{p.name[0]}</div>
+          <svg className="player-avatar player-avatar-blank" viewBox="0 0 80 100" aria-hidden="true">
+            <circle cx="40" cy="34" r="17" />
+            <path d="M6 100c0-24 15-38 34-38s34 14 34 38z" />
+          </svg>
         )}
-        <h1>{p.name}</h1>
+        <h1>{playerName(p, lang)}</h1>
         <p>
-          #{p.number} · {p.position} · {team(p.team)?.name}
+          #{p.number} · {positionLabel(p.position, lang)} · {team(p.team)?.name}
         </p>
         <h2>{tr("سجل المباريات")}</h2>
         {(data.stats as Stat[])

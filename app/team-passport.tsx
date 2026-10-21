@@ -14,6 +14,7 @@ import { qualification, standings, type Team } from "@/lib/public-domain";
 import { getTeamIdentity } from "@/lib/team-identity";
 import type { Data } from "./site-shared";
 import { useLang } from "./i18n";
+import { playerName, positionLabel } from "@/lib/player-i18n";
 import { ClubMatchLine } from "./stade-tournament-hub";
 
 export function TeamPassport({
@@ -80,14 +81,6 @@ export function TeamPassport({
           ended.size
         ).toFixed(1)
       : "—";
-  const initials = (name: string) =>
-    name
-      .split(/\s+/)
-      .filter(Boolean)
-      .slice(0, 2)
-      .map((part) => part[0])
-      .join("")
-      .toUpperCase();
   return (
     <div className="team-passport">
       <header className="match-banner">
@@ -269,16 +262,19 @@ export function TeamPassport({
                 {roster.map((p) => (
                   <Link key={p.id} href={`/players/${p.id}`} className="passport-player-card">
                     <div className="passport-player-photo">
-                      <img 
-                        src={p.photo || `https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodeURIComponent(`Professional basketball player portrait, high-end sports photography, dramatic lighting, ${p.name}`)}&image_size=portrait_4_3`}
-                        alt={p.name}
-                        loading="lazy"
-                      />
+                      {p.photo ? (
+                        <img src={p.photo} alt={playerName(p, lang)} loading="lazy" />
+                      ) : (
+                        <svg className="passport-player-blank" viewBox="0 0 80 100" aria-hidden="true">
+                          <circle cx="40" cy="34" r="17" />
+                          <path d="M6 100c0-24 15-38 34-38s34 14 34 38z" />
+                        </svg>
+                      )}
                       <span className="passport-player-number">#{p.number}</span>
                     </div>
                     <div className="passport-player-info">
-                      <b>{p.name}</b>
-                      {p.position && <small>{p.position}</small>}
+                      <b>{playerName(p, lang)}</b>
+                      {p.position && <small>{positionLabel(p.position, lang)}</small>}
                     </div>
                   </Link>
                 ))}
