@@ -784,24 +784,6 @@ export default function Site({
         <div className="sports-standings group-context">
           {groupTable(g.group)}
         </div>
-        {(data.stats as Stat[]).some((st) => st.game === g.id) && (
-          <>
-            <h2>Box Score</h2>
-            {(data.stats as Stat[])
-              .filter((st) => st.game === g.id)
-              .map((st) => (
-                <div className="stat-row" key={st.id}>
-                  {
-                    (data.players as Player[]).find((p) => p.id === st.player)
-                      ?.name
-                  }
-                  <span>
-                    {st.points} PTS · {st.rebounds} REB · {st.assists} AST
-                  </span>
-                </div>
-              ))}
-          </>
-        )}
       </>
     );
   } else if (route === "matches") content = Matches();
