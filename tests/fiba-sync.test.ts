@@ -145,6 +145,8 @@ for (const [label, config] of backends) {
     // These tests cover following FIBA's group tables; locked placement and withdrawals have their own tests below.
     lockGroups: false,
     withdrawnTeams: [] as string[],
+    // A fixed clock before kickoff: the tests must not depend on the real time of day (live reads only open around a match).
+    now: "2026-10-21T10:00:00Z",
   };
 
   test(`${label}: teams and groups are imported from FIBA group tables; unreviewed teams are not merged`, async () => {
