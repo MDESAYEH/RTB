@@ -49,6 +49,7 @@ export function TeamPassport({
       name: string;
       number: number;
       position: string;
+      photo?: string;
     }[]
   ).filter((p) => p.team === team.id);
   const record = standings(data.teams, data.games, data.settings).find(
@@ -79,6 +80,14 @@ export function TeamPassport({
           ended.size
         ).toFixed(1)
       : "—";
+  const initials = (name: string) =>
+    name
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0])
+      .join("")
+      .toUpperCase();
   return (
     <div className="team-passport">
       <header className="match-banner">
@@ -155,7 +164,7 @@ export function TeamPassport({
           </p>
           <div className="passport-stages">
             {[
-              copy("طرابلس", "Tripoli"),
+              copy("الوصول إلى طرابلس", "Road to Tripoli"),
               copy(`المجموعة ${team.group}`, `Group ${team.group}`),
               "ELITE 16",
               "BAL 2027",
@@ -193,7 +202,7 @@ export function TeamPassport({
             <header>
               <CalendarDays size={21} />
               <div>
-                <h3>{copy("موعد الظهور الأول", "First appearance")}</h3>
+                <h3>{copy("مواعيد المباريات", "Match schedule")}</h3>
                 <small>{tr("المباريات")}</small>
               </div>
             </header>
@@ -215,34 +224,6 @@ export function TeamPassport({
                 {copy(
                   "لم يُعتمد جدول مباريات الفريق بعد.",
                   "The team’s fixture schedule is not yet approved.",
-                )}
-              </p>
-            )}
-          </section>
-          <section className="passport-panel">
-            <header>
-              <Users size={21} />
-              <div>
-                <h3>{copy("أعضاء الفريق", "Team members")}</h3>
-                <small>{copy("القائمة", "Roster")}</small>
-              </div>
-            </header>
-            {roster.length ? (
-              <div className="passport-roster">
-                {roster.map((p) => (
-                  <Link key={p.id} href={`/players/${p.id}`}>
-                    <b>#{p.number}</b>
-                    <span>{p.name}</span>
-                    <small>{p.position}</small>
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <p className="passport-empty">
-                <Users size={19} />
-                {copy(
-                  "تظهر قائمة اللاعبين فور اعتمادها رسميًا.",
-                  "The roster will appear once officially approved.",
                 )}
               </p>
             )}
@@ -274,6 +255,43 @@ export function TeamPassport({
                 "Averages use completed games and available approved records.",
               )}
             </p>
+          </section>
+          <section className="passport-panel passport-roster-panel">
+            <header>
+              <Users size={21} />
+              <div>
+                <h3>{copy("أعضاء الفريق", "Team members")}</h3>
+                <small>{copy("القائمة الرسمية", "Official roster")}</small>
+              </div>
+            </header>
+            {roster.length ? (
+              <div className="passport-roster">
+                {roster.map((p) => (
+                  <Link key={p.id} href={`/players/${p.id}`} className="passport-player-card">
+                    <div className="passport-player-photo">
+                      <img 
+                        src={p.photo || `https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=${encodeURIComponent(`Professional basketball player portrait, high-end sports photography, dramatic lighting, ${p.name}`)}&image_size=portrait_4_3`}
+                        alt={p.name}
+                        loading="lazy"
+                      />
+                      <span className="passport-player-number">#{p.number}</span>
+                    </div>
+                    <div className="passport-player-info">
+                      <b>{p.name}</b>
+                      {p.position && <small>{p.position}</small>}
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <p className="passport-empty">
+                <Users size={19} />
+                {copy(
+                  "تظهر قائمة اللاعبين فور اعتمادها رسميًا.",
+                  "The roster will appear once officially approved.",
+                )}
+              </p>
+            )}
           </section>
         </div>
       </div>

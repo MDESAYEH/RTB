@@ -143,26 +143,32 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
   gap: 18px;
 }
 .passport-panel {
-  border: 1px solid #dfe8ed;
-  border-radius: 22px;
-  padding: 28px;
+  background: white;
+  border: 1px solid #eef2f4;
+  border-radius: 24px;
+  padding: 32px;
   min-width: 0;
+  box-shadow: 0 4px 12px rgba(2, 48, 71, 0.03);
 }
 .passport-panel > header {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   color: #8f1e1a;
+  margin-bottom: 28px;
 }
 .passport-panel h3 {
-  font-size: 19px;
-  color: #416b7e;
+  font-size: 20px;
+  color: #023047;
   margin: 0 0 4px;
-  font-weight: 600;
+  font-weight: 700;
 }
 .passport-panel header small {
-  font-size: 12px;
-  color: #78919c;
+  font-size: 13px;
+  color: #d6a84f;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 .passport-empty {
   min-height: 150px;
@@ -175,52 +181,114 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
   text-align: center;
 }
 .passport-performance {
-  grid-column: 1/-1;
+  background: linear-gradient(145deg, #ffffff 0%, #f9fbfe 100%);
 }
 .passport-metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
-  margin: 35px 0 20px;
+  gap: 16px;
+  margin: 20px 0;
 }
 .passport-metrics > div {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background: #f4f7f8;
-  border-radius: 12px;
-  padding: 22px 10px;
-  gap: 9px;
+  background: white;
+  border: 1px solid #eef2f4;
+  border-radius: 16px;
+  padding: 24px 10px;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(2, 48, 71, 0.02);
 }
 .passport-metrics b {
   font-family: var(--font-display), sans-serif;
-  font-size: 34px;
+  font-size: 38px;
   color: #8f1e1a;
+  line-height: 1;
 }
 .passport-metrics small {
-  font-size: 10px;
-  color: #416b7e;
+  font-size: 11px;
+  color: #638392;
   font-weight: 800;
+  letter-spacing: 1px;
 }
 .passport-roster {
-  margin-top: 25px;
-  max-height: 350px;
-  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  margin-top: 35px;
 }
-.passport-roster a {
+.passport-player-card {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid #edf1f4;
-  padding: 13px 0;
-  font-size: 13px;
+  flex-direction: column;
+  background: white;
+  border: 1px solid #eef2f4;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(2, 48, 71, 0.04);
 }
-.passport-roster b {
-  color: #8f1e1a;
+.passport-player-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(2, 48, 71, 0.12);
+  border-color: #d6a84f;
 }
-.passport-roster small {
-  margin-inline-start: auto;
-  color: #78919c;
+.passport-player-photo {
+  position: relative;
+  aspect-ratio: 4/5;
+  background: #f8fafb;
+  overflow: hidden;
+}
+.passport-player-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.passport-player-card:hover .passport-player-photo img {
+  transform: scale(1.08);
+}
+.passport-player-number {
+  position: absolute;
+  bottom: 12px;
+  inset-inline-end: 12px;
+  background: #8f1e1a;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 4px 8px rgba(143, 30, 26, 0.3);
+  border: 2px solid white;
+}
+.passport-player-info {
+  padding: 16px;
+  text-align: center;
+  background: linear-gradient(to bottom, #fff, #f9fbfe);
+  border-top: 1px solid #f0f4f7;
+}
+.passport-player-info b {
+  display: block;
+  color: #023047;
+  font-size: 15px;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.passport-player-info small {
+  color: #d6a84f;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.passport-roster-panel {
+  grid-column: 1 / -1;
+  background: #fcfdfe;
+  border-color: #e6ebef;
 }
 .passport-fixtures {
   margin-top: 20px;
@@ -282,5 +350,24 @@ html[dir="ltr"] .team-passport .match-banner h1 {text-align:left;}
   }
   .passport-performance {
     grid-column: auto;
+  }
+  .passport-roster {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .passport-player-card {
+    border-radius: 16px;
+  }
+  .passport-player-info {
+    padding: 12px 8px;
+  }
+  .passport-player-info b {
+    font-size: 13px;
+  }
+  .passport-player-number {
+    font-size: 11px;
+    padding: 2px 8px;
+    bottom: 8px;
+    inset-inline-end: 8px;
   }
 }
