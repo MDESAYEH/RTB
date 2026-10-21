@@ -570,7 +570,7 @@ export default function Site({
     // Each match has its own broadcast link; a `?stream=` link only previews the player.
     const matchBroadcast = previewStream
       ? ({ state: "show", url: previewStream } as const)
-      : matchStream(g);
+      : matchStream(g, now);
     const placeholder = broadcastPlaceholder(matchBroadcast.state, lang === "ar" ? "ar" : "en");
     const clock = remainingClock(g, connected ? now : (lastReceived ?? now));
     content = (

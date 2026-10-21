@@ -80,11 +80,13 @@ export type BroadcastState =
 /**
  * What a match page should show. Every match has its own `streamUrl`; there is no shared stream.
  * A link entered ahead of time stays hidden until the match is live, then appears on its own.
+ * FIBA's status can lag behind the court: once kickoff is near (BROADCAST_LEAD_MS) the link shows anyway.
  */
-export function matchStream(game: {
-  status: string;
-  streamUrl?: string | null;
-}): { state: BroadcastState; url?: string } {
+export const BROADCAST_LEAD_MS = 10 * 60 * 1000;
+export function matchStream(
+  game: { status: string; streamUrl?: string | null; date?: string },
+  now: number = Date.now(),
+): { state: BroadcastState; url?: string } {
   const hasLink = !!streamEmbed(game.streamUrl);
   switch (game.status) {
     case "Live":
@@ -100,8 +102,12 @@ export function matchStream(game: {
       return { state: "postponed" };
     case "Cancelled":
       return { state: "cancelled" };
-    default:
-      return { state: "not-started" };
+    default: {
+      const kickoff = game.date ? Date.parse(game.date) : NaN;
+      return hasLink && Number.isFinite(kickoff) && now >= kickoff - BROADCAST_LEAD_MS
+        ? { state: "show", url: game.streamUrl ?? undefined }
+        : { state: "not-started" };
+    }
   }
 }
 

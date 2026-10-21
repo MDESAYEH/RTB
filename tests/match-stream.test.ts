@@ -21,6 +21,14 @@ test("each match shows only its own link, and only once it is live (or finished)
   assert.deepEqual(matchStream({ status: "Live", streamUrl: YT }), { state: "show", url: YT });
   assert.equal(matchStream({ status: "Halftime", streamUrl: FB }).state, "show");
   assert.equal(matchStream({ status: "Ended", streamUrl: YT }).state, "show", "replay link stays available");
+  // FIBA's status can lag: from ten minutes before kickoff the link shows even while the status still says Scheduled.
+  const KICKOFF = "2026-10-21T09:00:00Z";
+  const at = (minutes: number) => Date.parse(KICKOFF) + minutes * 60_000;
+  assert.equal(matchStream({ status: "Scheduled", streamUrl: YT, date: KICKOFF }, at(-30)).state, "not-started");
+  assert.equal(matchStream({ status: "Scheduled", streamUrl: YT, date: KICKOFF }, at(-9)).state, "show");
+  assert.equal(matchStream({ status: "Scheduled", streamUrl: YT, date: KICKOFF }, at(25)).state, "show");
+  assert.equal(matchStream({ status: "Scheduled", date: KICKOFF }, at(25)).state, "not-started", "no link, nothing to show");
+  assert.equal(matchStream({ status: "Postponed", streamUrl: YT, date: KICKOFF }, at(25)).state, "postponed");
   // No link: nothing is borrowed from another match or a site-wide default.
   assert.equal(matchStream({ status: "Live" }).state, "no-link");
   assert.equal(matchStream({ status: "Live", streamUrl: "" }).state, "no-link");

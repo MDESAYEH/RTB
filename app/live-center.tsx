@@ -35,7 +35,7 @@ export function LiveCenter({
   const game = active.find((g) => g.id === selected) ?? active[0] ?? next;
   const playing = game && ["Live", "Halftime"].includes(game.status);
   // Per-match broadcast: a link entered ahead of time appears once the match is live.
-  const broadcast = game ? matchStream(game) : { state: "not-started" as const };
+  const broadcast = game ? matchStream(game, now) : { state: "not-started" as const };
   const waiting = broadcastPlaceholder(broadcast.state, lang === "ar" ? "ar" : "en");
   const team = (id?: string) => data.teams.find((t) => t.id === id);
   const events = data.events.filter((e) => e.game === game?.id);
