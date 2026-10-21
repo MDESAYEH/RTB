@@ -45,6 +45,18 @@
     },
     {
       "status": "published",
+      "slug": "stade-malien-first-win-20-0",
+      "image": "stade-malien-win-20-0-0.jpg",
+      "publishedAt": "2026-10-21T17:35:00+02:00",
+      "title": "ستاد مالي يحقق فوزه الأول 20-0",
+      "titleEn": "Stade Malien take their first win, 20-0",
+      "excerpt": "فريق ستاد مالي يحقق فوزه الأول بنتيجة (20 _ 00) لعدم حضور فريق كريول ستارز.",
+      "excerptEn": "Stade Malien take their first win, 20-0, because Kriol Star did not turn up.",
+      "content": "فريق ستاد مالي يحقق فوزه الأول بنتيجة (20 _ 00) لعدم حضور فريق كريول ستارز.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Stade Malien take their first win, 20-0, because Kriol Star did not turn up.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "energie-takes-control-first-half",
       "image": "energie-first-half-0.jpg",
       "gallery": [
