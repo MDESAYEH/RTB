@@ -2,6 +2,7 @@ import {
   gameSchema,
   teamSchema,
   type Game,
+  type Player,
   type Settings,
   type Team,
   type News,
@@ -44,12 +45,12 @@ export type PlanAction =
   | "remove"
   | "skipped";
 export type PlanEntry = {
-  kind: "teams" | "games" | "news";
+  kind: "teams" | "games" | "news" | "players";
   id: string;
   action: PlanAction;
   reason: string;
   /** Present for create/update: the validated record to store. */
-  value?: Team | Game | News;
+  value?: Team | Game | News | Player;
 };
 export type SyncPlan = {
   entries: PlanEntry[];

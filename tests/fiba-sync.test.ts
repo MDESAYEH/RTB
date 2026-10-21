@@ -99,6 +99,34 @@ const fetcher =
     );
   };
 
+function officialTeamPage(team: ReturnType<typeof parseEventPage>["teams"][number]) {
+  const playerId = team.teamId * 100;
+  const body = {
+    profile: { teamId: team.teamId, countryName: "Libya" },
+    players: [
+      {
+        personId: playerId,
+        firstName: "Official",
+        lastName: team.code ?? "Player",
+        uniformNumber: "8",
+        position: "Guard",
+        isOnFinalRoster: true,
+        clubId: team.organisationId,
+      },
+    ],
+  };
+  return `<script>self.__next_f.push([1,${JSON.stringify("0:" + JSON.stringify(body))}])</script>`;
+}
+function authorityFetcher(url: string) {
+  if (url.includes("/teams/")) {
+    const slug = new URL(url).pathname.split("/").at(-1)!;
+    const team = parseEventPage(baseGames).teams.find((candidate) => candidate.slug === slug);
+    assert.ok(team, `unknown team page ${slug}`);
+    return respond(officialTeamPage(team));
+  }
+  return fetcher()(url);
+}
+
 const backends: [string, (dir: string) => DatabaseConfig][] = [
   ["SQLite", (dir) => ({ kind: "sqlite", path: join(dir, "t.db") })],
   ["libSQL", (dir) => ({ kind: "libsql", url: `file:${join(dir, "t.db")}` })],
@@ -203,6 +231,29 @@ for (const [label, config] of backends) {
       "",
     );
     assert.equal(approved.counts["teams.create"], 1);
+    await store.db.close();
+  });
+
+  test(`${label}: official FIBA team rosters are published as members on the team page`, async () => {
+    const store = fresh();
+    await syncWithAuthority(store, {
+      apply: true,
+      fetchImpl: authorityFetcher,
+      plan: alias,
+    });
+    const spintex = parseEventPage(baseGames).teams.find(
+      (team) => team.slug === "spintex-knights",
+    )!;
+    assert.deepEqual(
+      await store.get("players", `fiba-player-${spintex.teamId * 100}`),
+      {
+        id: `fiba-player-${spintex.teamId * 100}`,
+        team: "spintex-knights",
+        name: "Official SPK",
+        number: 8,
+        position: "Guard",
+      },
+    );
     await store.db.close();
   });
 

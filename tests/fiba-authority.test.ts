@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {parseEventPage,parseStandingsPage} from "../lib/providers/fiba/parser";
 import {buildPlan} from "../lib/providers/fiba/plan";
-import {parseOfficialProfile} from "../lib/providers/fiba/team-details";
+import {parseOfficialProfile,parseOfficialRoster} from "../lib/providers/fiba/team-details";
 import {gameSchema,teamSchema} from "../lib/domain";
 import {parseNews,planNews} from "../lib/providers/fiba/news";
 const fixture=(n:string)=>readFileSync(new URL(`./fixtures/${n}`,import.meta.url),"utf8");
@@ -28,4 +28,16 @@ test("official profile country must match the requested team identity",()=>{
  const payload=JSON.stringify('0:'+JSON.stringify({profile:{teamId:123,countryName:"Libya"}}));
  const html=`<script>self.__next_f.push([1,${payload}])</script>`;
  assert.equal(parseOfficialProfile(html,123).countryName,"Libya");assert.throws(()=>parseOfficialProfile(html,456));
+});
+test("official team roster keeps only final roster members for the requested club",()=>{
+ const event=parseEventPage(fixture("fiba-games.html"));
+ const team=event.teams.find(t=>t.slug === "al-ittihad")!;
+ const payload=JSON.stringify("0:"+JSON.stringify({players:[
+  {personId:10,firstName:"Ali",lastName:"One",uniformNumber:"7",position:null,isOnFinalRoster:true,clubId:team.organisationId},
+  {personId:11,firstName:"Omar",lastName:"Two",uniformNumber:"8",position:"Guard",isOnFinalRoster:false,clubId:team.organisationId},
+  {personId:12,firstName:"Other",lastName:"Club",uniformNumber:"9",position:null,isOnFinalRoster:true,clubId:999},
+ ]}));
+ const html=`<script>self.__next_f.push([1,${payload}])</script>`;
+ assert.deepEqual(parseOfficialRoster(html,team).map(p=>p.personId),[10]);
+ assert.deepEqual(parseOfficialRoster(`<script>self.__next_f.push([1,${JSON.stringify("0:"+JSON.stringify({players:[]}))}])</script>`,team),[]);
 });

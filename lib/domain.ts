@@ -255,6 +255,7 @@ export const pulseSchema = z.object({
 });
 export type Team = z.infer<typeof teamSchema>;
 export type Game = z.infer<typeof gameSchema>;
+export type Player = z.infer<typeof playerSchema>;
 export type Settings = z.infer<typeof settingsSchema>;
 export type News = z.infer<typeof newsSchema>;
 export function transition(g: Game, status: Game["status"]): Game {

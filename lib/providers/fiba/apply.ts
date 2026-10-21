@@ -1,6 +1,9 @@
 import { fetchGameDetails } from "./game-details";
-import type { Game, Team } from "../../domain";
-import { enrichOfficialTeams } from "./team-details";
+import { playerSchema, type Game, type Player, type Team } from "../../domain";
+import {
+  enrichOfficialTeams,
+  type OfficialRosterMember,
+} from "./team-details";
 import { gameSchema, settingsSchema, teamSchema } from "../../domain";
 import type { TournamentStore } from "../../store";
 import { fetchFibaPage, type FetchLike } from "./client";
@@ -68,6 +71,49 @@ async function manualOverrides(store: TournamentStore): Promise<Set<string>> {
       ...SYSTEM_ACTOR_PREFIXES.map((prefix) => `${prefix}%`),
     )) as { kind: string; target: string }[];
   return new Set(rows.map((row) => `${row.kind}:${row.target}`));
+}
+
+/** Turn the official FIBA roster into public player records used by the team pages. */
+function planOfficialRosters(
+  rosters: Map<number, OfficialRosterMember[]>,
+  teams: Team[],
+  existing: Player[],
+  overridden: Set<string>,
+): PlanEntry[] {
+  const localByFiba = new Map(
+    teams.flatMap((team) =>
+      team.fibaTeamId ? [[team.fibaTeamId, team] as const] : [],
+    ),
+  );
+  const current = new Map(existing.map((player) => [player.id, player]));
+  const entries: PlanEntry[] = [];
+  for (const [fibaTeamId, roster] of rosters) {
+    const team = localByFiba.get(fibaTeamId);
+    if (!team) continue;
+    for (const member of roster) {
+      if (!/^\d{1,2}$/.test(member.uniformNumber))
+        throw Error(`Invalid FIBA uniform number for player ${member.personId}`);
+      const id = `fiba-player-${member.personId}`;
+      const proposed = playerSchema.parse({
+        id,
+        team: team.id,
+        name: `${member.firstName} ${member.lastName}`,
+        number: Number(member.uniformNumber),
+        position: member.position ?? "",
+      });
+      const previous = current.get(id);
+      if (overridden.has(`players:${id}`)) {
+        entries.push({ kind: "players", id, action: "ignored", reason: "manual override" });
+      } else if (!previous) {
+        entries.push({ kind: "players", id, action: "create", reason: "official FIBA roster", value: proposed });
+      } else if (JSON.stringify(previous) === JSON.stringify(proposed)) {
+        entries.push({ kind: "players", id, action: "unchanged", reason: "matches official FIBA roster" });
+      } else {
+        entries.push({ kind: "players", id, action: "update", reason: "official FIBA roster updated", value: proposed });
+      }
+    }
+  }
+  return entries;
 }
 
 async function logRun(
@@ -214,6 +260,7 @@ export async function runSync(
       (await fetchFibaPage("leaders", options.fetchImpl)).html,
     );
     const authoritative = options.plan?.authoritative ?? true;
+    let officialRosters = new Map<number, OfficialRosterMember[]>();
     if (authoritative) {
       const settings = settingsSchema.parse(
         await store.get("settings", "tournament"),
@@ -228,7 +275,7 @@ export async function runSync(
             ),
           ) ?? [],
       );
-      await enrichOfficialTeams(eventPage, ids, options.fetchImpl);
+      officialRosters = await enrichOfficialTeams(eventPage, ids, options.fetchImpl);
     }
 
     lastContext = { event: eventPage, standings, at: Date.now() };
@@ -259,11 +306,28 @@ export async function runSync(
           liveGames,
           failedLiveGames,
         });
+        const plannedTeams = built.entries
+          .filter(
+            (entry): entry is PlanEntry & { kind: "teams"; value: Team } =>
+              entry.kind === "teams" && !!entry.value,
+          )
+          .map((entry) => entry.value);
+        built.entries.push(
+          ...planOfficialRosters(
+            officialRosters,
+            [...state.teams, ...plannedTeams],
+            (await store.list<Player>("players")).map((player) =>
+              playerSchema.parse(player),
+            ),
+            state.overridden,
+          ),
+        );
         built.notes.push(...liveNotes);
         if (!options.apply) return built;
         // Teams first: games reference them.
-        const ordered = [...built.entries].sort((a, b) =>
-          a.kind === b.kind ? 0 : a.kind === "teams" ? -1 : 1,
+        const order = { teams: 0, players: 1, games: 2, news: 2 };
+        const ordered = [...built.entries].sort(
+          (a, b) => order[a.kind] - order[b.kind],
         );
         for (const entry of ordered) {
           if (
