@@ -232,7 +232,7 @@ export function TeamPassport({
             <header>
               <ChartNoAxesColumn size={21} />
               <div>
-                <h3>{copy("كيف يلعب الفريق؟", "How does the team play?")}</h3>
+                <h3>{copy("إحصائيات الفريق", "Team performance")}</h3>
                 <small>{copy("تقييم أداء الفريق", "Team performance")}</small>
               </div>
             </header>
