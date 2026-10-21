@@ -218,10 +218,9 @@ async function readLiveGames(
     if (!(active || game.isLive || (delta >= -600000 && delta <= 6 * 3600000)))
       continue;
     try {
-      liveGames.set(
-        game.gameId,
-        await fetchGameDetails(game, now, previous, options.fetchImpl),
-      );
+      // No live feed yet (the match has not started) or ever (a forfeit): the games list is then the source.
+      const live = await fetchGameDetails(game, now, previous, options.fetchImpl);
+      if (live) liveGames.set(game.gameId, live);
       liveIds.add(id);
     } catch (error) {
       failedLiveGames.add(game.gameId);

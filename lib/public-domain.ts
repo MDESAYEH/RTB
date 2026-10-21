@@ -52,7 +52,9 @@ export function standings(
       r.pa += pa;
       r.w += Number(pf > pa);
       r.l += Number(pf < pa);
-      r.pts += pf > pa ? settings.winPoints : settings.lossPoints;
+      // A forfeit is recorded 20-0 and the team that did not play earns no standings point, as in FIBA's own table.
+      const forfeitLoss = pf === 0 && pa === 20;
+      r.pts += pf > pa ? settings.winPoints : forfeitLoss ? 0 : settings.lossPoints;
       r.diff = r.pf - r.pa;
     }
   }

@@ -121,7 +121,7 @@ test("public live endpoint plus individual page provides officials without crede
   assert.equal(urls.length, 2);
   assert.match(urls[0], /game-live-info\/137093\/detail$/);
   assert.match(urls[1], /137093-SPK-NBC$/);
-  assert.deepEqual(patch.officialDetails?.referees, ["Driouach, Imad (MAR)"]);
+  assert.deepEqual(patch?.officialDetails?.referees, ["Driouach, Imad (MAR)"]);
 });
 test("planner applies individual snapshots and retains existing match on live fetch failure", () => {
   const event = parseEventPage(load("fiba-games.html")),
@@ -195,4 +195,59 @@ test("planner applies individual snapshots and retains existing match on live fe
     }).entries.find((e) => e.kind === "games")?.action,
     "ignored",
   );
+});
+
+test("a match with no live feed is read from the games list, and a confirmed forfeit ends as 0-20", async () => {
+  // FIBA answers an empty feed for a match that was never played.
+  const none = await fetchGameDetails(
+    expected,
+    "2026-10-21T14:30:00.000Z",
+    undefined,
+    async () =>
+      new Response(JSON.stringify({ game: { content: null } }), {
+        headers: { "content-type": "application/json" },
+      }),
+  );
+  assert.equal(none, null);
+
+  const event = parseEventPage(load("fiba-games.html")),
+    standings = parseStandingsPage(load("fiba-standings.html"));
+  const itt = event.teams.find((t) => t.slug === "al-ittihad")!,
+    stade = event.teams.find((t) => t.slug === "stade-malien")!;
+  event.games = [
+    {
+      ...event.games[0],
+      gameId: 137114,
+      teamA: itt,
+      teamB: stade,
+      statusCode: "VALID",
+      isLive: false,
+      gameDateTimeUTC: "2026-10-21T14:00:00Z",
+      hasTimeGameDateTime: true,
+      teamAScore: 0,
+      teamBScore: 20,
+    },
+  ];
+  const state = {
+    settings: { groups: ["A", "B"] },
+    teams: [
+      teamSchema.parse({ id: "al-ittihad", name: "Al Ittihad", country: "Libya", group: "A" }),
+      teamSchema.parse({ id: "stade-malien", name: "Stade Malien", country: "Mali", group: "A" }),
+    ],
+    games: [
+      gameSchema.parse({
+        id: "fiba-137114",
+        home: "al-ittihad",
+        away: "stade-malien",
+        group: "A",
+        date: "2026-10-21T14:00:00Z",
+        status: "Scheduled",
+      }),
+    ],
+    overridden: new Set<string>(),
+  };
+  const entry = buildPlan(event, standings, state, { authoritative: true }).entries.find((e) => e.kind === "games")!;
+  assert.equal(entry.action, "update", entry.reason);
+  const g = gameSchema.parse(entry.value);
+  assert.deepEqual([g.status, g.homeScore, g.awayScore], ["Ended", 0, 20]);
 });

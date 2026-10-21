@@ -84,7 +84,11 @@ export type PlanOptions = {
   failedLiveGames?: Set<number>;
 };
 
-const FIBA_STATUS: Record<string, Game["status"]> = { INIT: "Scheduled" };
+// VALID is a result FIBA has confirmed (a played match, or a forfeit such as 20-0).
+const FIBA_STATUS: Record<string, Game["status"]> = {
+  INIT: "Scheduled",
+  VALID: "Ended",
+};
 const PLACEHOLDER_DATE = /^0001-/;
 
 function gameStatus(game: FibaGame): Game["status"] | null {

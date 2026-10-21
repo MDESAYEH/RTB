@@ -189,19 +189,18 @@ export async function fetchGameDetails(
   now: string,
   previous?: Game,
   fetchImpl: FetchLike = fetch,
-): Promise<Partial<Game>> {
+): Promise<Partial<Game> | null> {
   // This is the same public, unauthenticated initial-data endpoint used by FIBA's match page.
-  const patch = parseLiveGame(
-    JSON.parse(
-      await get(
-        `https://www.fiba.basketball/en/events/api/game-live-info/${game.gameId}/detail`,
-        "application/json",
-        fetchImpl,
-      ),
+  const raw = JSON.parse(
+    await get(
+      `https://www.fiba.basketball/en/events/api/game-live-info/${game.gameId}/detail`,
+      "application/json",
+      fetchImpl,
     ),
-    game,
-    now,
   );
+  // FIBA answers {"game":{"content":null}} for a match with no live feed: not started yet, or forfeited.
+  if (raw?.game?.content == null) return null;
+  const patch = parseLiveGame(raw, game, now);
   const details = patch.officialDetails!;
   if (previous?.officialDetails) {
     Object.assign(details, {

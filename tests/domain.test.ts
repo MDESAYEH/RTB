@@ -91,6 +91,15 @@ test("standings count only ended games", () => {
   assert.equal(rows[0].p, 1);
   assert.equal(rows.find((r) => r.team.id === "b")?.pts, 1);
 });
+test("a 20-0 forfeit gives the winner two points and the absent team none", () => {
+  const rows = standings(
+    teams,
+    [{ ...g, status: "Ended", homeScore: 0, awayScore: 20 }],
+    settings,
+  );
+  assert.equal(rows.find((r) => r.team.id === g.away)?.pts, 2);
+  assert.equal(rows.find((r) => r.team.id === g.home)?.pts, 0);
+});
 test("points ties remain unresolved", () => {
   assert.ok(standings(teams, [], settings).every((r) => r.tied));
 });
