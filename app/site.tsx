@@ -311,7 +311,8 @@ export default function Site({
                       : g === "B"
                         ? "المجموعة الثانية"
                         : `المجموعة ${g}`
-                    : `Group ${g}`}{lang === "ar" ? "،" : ","} {rows.length} {tr("فرق")}
+                    : `Group ${g}`}
+                  {lang === "ar" ? "،" : ","} {rows.length} {tr("فرق")}
                 </small>
               </div>
               <b className="standings-letter">{g}</b>
@@ -376,7 +377,8 @@ export default function Site({
                       )}
                       {card && (
                         <small className="standings-team-sub" dir="rtl">
-                          {getTeamIdentity(r.team.id)?.arabicName || r.team.name}
+                          {getTeamIdentity(r.team.id)?.arabicName ||
+                            r.team.name}
                         </small>
                       )}
                       <small className="mobile-aux">
@@ -445,7 +447,9 @@ export default function Site({
       return (
         <RoadContent
           teams={teams}
-          states={states as ("COMPLETED" | "CURRENT" | "LOCKED" | "QUALIFIED")[]}
+          states={
+            states as ("COMPLETED" | "CURRENT" | "LOCKED" | "QUALIFIED")[]
+          }
           slots={s.qualificationSlots}
           qualified={qualifiers.map((t) => t.id)}
           badge={(t) => <Badge team={t} />}
@@ -572,7 +576,10 @@ export default function Site({
     const matchBroadcast = previewStream
       ? ({ state: "show", url: previewStream } as const)
       : matchStream(g, now);
-    const placeholder = broadcastPlaceholder(matchBroadcast.state, lang === "ar" ? "ar" : "en");
+    const placeholder = broadcastPlaceholder(
+      matchBroadcast.state,
+      lang === "ar" ? "ar" : "en",
+    );
     const clock = remainingClock(g, connected ? now : (lastReceived ?? now));
     content = (
       <>
@@ -661,26 +668,80 @@ export default function Site({
           </section>
         )}
         {g.periods.length > 0 && (
-          <table>
-            <thead>
-              <tr>
-                <th>{tr("الفترة")}</th>
-                {g.periods.map((_, i) => (
-                  <th key={i}>Q{i + 1}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {["home", "away"].map((side) => (
-                <tr key={side}>
-                  <th>{team(g[side as "home" | "away"])?.name}</th>
-                  {g.periods.map((p, i) => (
-                    <td key={i}>{p[side as "home" | "away"]}</td>
+          <section
+            className="match-period-card"
+            aria-labelledby="period-score-title"
+          >
+            <header className="match-detail-heading">
+              <div>
+                <span className="match-detail-eyebrow" dir="ltr">
+                  MATCH BREAKDOWN
+                </span>
+                <h2 id="period-score-title">
+                  {lang === "ar" ? "نتائج الأرباع" : "Score by quarter"}
+                </h2>
+              </div>
+              <span className="match-period-status" dir="ltr">
+                {g.status === "Ended" ? "FINAL" : `Q${g.quarter}`}
+              </span>
+            </header>
+            <div className="match-period-scroll">
+              <table className="match-period-table" dir="ltr">
+                <thead>
+                  <tr>
+                    <th scope="col">{lang === "ar" ? "الفريق" : "Team"}</th>
+                    {Array.from(
+                      { length: Math.max(4, g.periods.length) },
+                      (_, i) => (
+                        <th
+                          scope="col"
+                          key={i}
+                          className={
+                            i + 1 === g.quarter ? "is-current" : undefined
+                          }
+                        >
+                          {i < 4 ? `Q${i + 1}` : `OT${i - 3}`}
+                        </th>
+                      ),
+                    )}
+                    <th scope="col" className="period-total">
+                      {lang === "ar" ? "المجموع" : "Total"}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(["home", "away"] as const).map((side) => (
+                    <tr key={side} className={`period-team-${side}`}>
+                      <th scope="row">
+                        <span className="period-team-name">
+                          {team(g[side]) && <Badge team={team(g[side])!} />}
+                          <span dir="auto">{team(g[side])?.name}</span>
+                        </span>
+                      </th>
+                      {Array.from(
+                        { length: Math.max(4, g.periods.length) },
+                        (_, i) => (
+                          <td
+                            key={i}
+                            className={
+                              i + 1 === g.quarter ? "is-current" : undefined
+                            }
+                          >
+                            {i + 1 > g.quarter && !g.periods[i]?.[side]
+                              ? "—"
+                              : (g.periods[i]?.[side] ?? "—")}
+                          </td>
+                        ),
+                      )}
+                      <td className="period-total">
+                        {side === "home" ? g.homeScore : g.awayScore}
+                      </td>
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                </tbody>
+              </table>
+            </div>
+          </section>
         )}
         <OfficialMatchDetails game={g} english={lang === "en"} />
         {data.events.some((e) => e.game === g.id) && (
@@ -719,7 +780,9 @@ export default function Site({
           </section>
         )}
         <h2>{tr("سياق المجموعة")}</h2>
-        <div className="sports-standings group-context">{groupTable(g.group)}</div>
+        <div className="sports-standings group-context">
+          {groupTable(g.group)}
+        </div>
         {(data.stats as Stat[]).some((st) => st.game === g.id) && (
           <>
             <h2>Box Score</h2>
@@ -813,10 +876,7 @@ export default function Site({
         badge={(t) => <Badge team={t} />}
       />
     );
-  else if (route === "road")
-    content = (
-      Road({})
-    );
+  else if (route === "road") content = Road({});
   else if (legalPages.includes(route))
     content = <LegalContent page={route as LegalPage} />;
   else if (route === "stats")

@@ -34,6 +34,25 @@ export function OfficialMatchDetails({
         {away.stats[key] ?? "—"}
         {percent && away.stats[key] !== undefined ? "%" : ""}
       </strong>
+      {typeof home.stats[key] === "number" &&
+        typeof away.stats[key] === "number" && (
+          <div className="official-bars" aria-hidden="true">
+            <span>
+              <i
+                style={{
+                  width: `${percent ? Math.min(100, Number(home.stats[key])) : (Number(home.stats[key]) / Math.max(1, Number(home.stats[key]) + Number(away.stats[key]))) * 100}%`,
+                }}
+              />
+            </span>
+            <span>
+              <i
+                style={{
+                  width: `${percent ? Math.min(100, Number(away.stats[key])) : (Number(away.stats[key]) / Math.max(1, Number(home.stats[key]) + Number(away.stats[key]))) * 100}%`,
+                }}
+              />
+            </span>
+          </div>
+        )}
     </div>
   );
   const maxLead = Math.max(
@@ -44,7 +63,7 @@ export function OfficialMatchDetails({
     height = 200;
   return (
     <div className="official-match-details">
-      <section className="official-card">
+      <section className="official-card official-tracker">
         <h2>{text("تتبّع التقدم", "Lead Tracker")}</h2>
         <div className="official-team-headings" dir="ltr">
           <strong>{home.name}</strong>
@@ -103,7 +122,7 @@ export function OfficialMatchDetails({
                   y={margin >= 0 ? height / 2 - h : height / 2}
                   width="4"
                   height={h}
-                  fill={margin >= 0 ? "#2454e5" : "#ad2e2e"}
+                  fill={margin >= 0 ? "#263e82" : "#941e1b"}
                 >
                   <title>{`${p.period} ${p.time} · ${p.home}–${p.away}`}</title>
                 </rect>
@@ -124,7 +143,7 @@ export function OfficialMatchDetails({
           </span>
         </div>
       </section>
-      <section className="official-card">
+      <section className="official-card official-leader-card">
         <h2>{text("متصدرو المباراة", "Game Leaders")}</h2>
         <div
           className="official-tabs"
@@ -153,10 +172,18 @@ export function OfficialMatchDetails({
             return (
               <div key={i}>
                 <h3>{t.name}</h3>
-                {leaders.map((p) => (
+                {leaders.map((p, rank) => (
                   <div className="official-player" key={p.id}>
-                    <span>
-                      #{p.number} {p.name}
+                    <span className="official-player-name">
+                      <small className="official-jersey">{p.number}</small>
+                      <span>
+                        {p.name}
+                        <small>
+                          {rank === 0
+                            ? text("متصدر الفريق", "Team leader")
+                            : `#${rank + 1}`}
+                        </small>
+                      </span>
                     </span>
                     <b>{p.stats[metric]}</b>
                   </div>
@@ -196,7 +223,7 @@ export function OfficialMatchDetails({
           ))}
         </details>
       </section>
-      <section className="official-card">
+      <section className="official-card official-stats-card">
         <h2>{text("إحصائيات المباراة", "Game Stats")}</h2>
         <div className="official-team-headings" dir="ltr">
           <strong>{home.name}</strong>
@@ -216,7 +243,7 @@ export function OfficialMatchDetails({
           ["BS", "الصدات", "Blocks"],
         ].map(([key, ar, en]) => comparison(key, ar, en))}
       </section>
-      <section className="official-card">
+      <section className="official-card official-info-card">
         <h2>{text("معلومات المباراة", "Game Information")}</h2>
         <p>{[d.country, d.city, game.venue].filter(Boolean).join(" · ")}</p>
         <p>
