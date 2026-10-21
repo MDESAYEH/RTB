@@ -20,6 +20,7 @@ import { TeamsContent } from "./teams-content";
 import { NewsArticle } from "./news-article";
 import { NewsContent } from "./news-content";
 import { LiveCenter } from "./live-center";
+import { OfficialMatchDetails } from "./official-match-details";
 import { MatchesContent } from "./matches-content";
 import { StatsContent } from "./stats-content";
 import { RoadContent } from "./road-content";
@@ -681,6 +682,7 @@ export default function Site({
             </tbody>
           </table>
         )}
+        <OfficialMatchDetails game={g} english={lang === "en"} />
         {data.events.some((e) => e.game === g.id) && (
           <section>
             <h2>{tr("تسلسل أحداث المباراة")}</h2>

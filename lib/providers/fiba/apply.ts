@@ -1,3 +1,4 @@
+import { fetchGameDetails } from "./game-details";
 import type { Game, Team } from "../../domain";
 import { enrichOfficialTeams } from "./team-details";
 import { gameSchema, settingsSchema, teamSchema } from "../../domain";
@@ -102,9 +103,92 @@ async function logRun(
   return row.id;
 }
 
+async function readLiveGames(
+  store: TournamentStore,
+  event: ReturnType<typeof parseEventPage>,
+  standings: ReturnType<typeof parseStandingsPage>,
+  options: { fetchImpl?: FetchLike; plan?: PlanOptions },
+  authoritative: boolean,
+) {
+  const now = options.plan?.now ?? new Date().toISOString();
+  const liveGames = new Map<number, Partial<Game>>();
+  const failedLiveGames = new Set<number>();
+  const liveNotes: string[] = [];
+  const previewState = {
+    settings: settingsSchema.parse(await store.get("settings", "tournament")),
+    teams: (await store.list<Team>("teams")).map((t) => teamSchema.parse(t)),
+    games: (await store.list<Game>("games")).map((g) => gameSchema.parse(g)),
+    overridden: await manualOverrides(store),
+  };
+  for (const game of event.games) {
+    const candidate = buildPlan(
+      { ...event, games: [game] },
+      standings,
+      previewState,
+      { ...options.plan, authoritative },
+    ).entries.find((e) => e.kind === "games");
+    if (
+      !candidate ||
+      (!["create", "update", "unchanged"].includes(candidate.action) &&
+        !candidate.reason.startsWith("unrecognised FIBA status"))
+    )
+      continue;
+    const id = candidate.id;
+    const previous = previewState.games.find((g) => g.id === id);
+    if (previous?.manual) continue;
+    const start = Date.parse(
+      game.gameDateTimeUTC.endsWith("Z")
+        ? game.gameDateTimeUTC
+        : game.gameDateTimeUTC + "Z",
+    );
+    const delta = Date.parse(now) - start;
+    const active = previous && ["Live", "Halftime"].includes(previous.status);
+    const finished = previous?.status === "Ended" && !!previous.officialDetails;
+    if (finished) {
+      const {
+        status,
+        homeScore,
+        awayScore,
+        quarter,
+        clock,
+        running,
+        periods,
+        officialDetails,
+      } = previous;
+      liveGames.set(game.gameId, {
+        status,
+        homeScore,
+        awayScore,
+        quarter,
+        clock,
+        running,
+        periods,
+        officialDetails,
+      });
+      continue;
+    }
+    if (!(active || game.isLive || (delta >= -600000 && delta <= 6 * 3600000)))
+      continue;
+    try {
+      liveGames.set(
+        game.gameId,
+        await fetchGameDetails(game, now, previous, options.fetchImpl),
+      );
+    } catch (error) {
+      failedLiveGames.add(game.gameId);
+      liveNotes.push(
+        `${id}: ${error instanceof Error ? error.message : "live source failed"}`,
+      );
+    }
+  }
+
+  return { liveGames, failedLiveGames, liveNotes };
+}
+
 /**
- * FIBA → local database. All pages are fetched and validated before anything is written,
- * so a structural change aborts the run (fail closed). Writes happen in one transaction
+ * FIBA → local database. Event pages are validated before anything is written.
+ * Individual live-feed failures retain the last confirmed match and are reported.
+ * Writes happen in one transaction
  * together with the sync log, through the same `write` path (and audit trail) the admin uses.
  */
 export async function runSync(
@@ -145,6 +229,13 @@ export async function runSync(
     }
 
     lastContext = { event: eventPage, standings, at: Date.now() };
+    const { liveGames, failedLiveGames, liveNotes } = await readLiveGames(
+      store,
+      eventPage,
+      standings,
+      options,
+      authoritative,
+    );
     const plan = await store.db.transaction(
       async () => {
         const state = {
@@ -162,7 +253,10 @@ export async function runSync(
         const built = buildPlan(eventPage, standings, state, {
           ...options.plan,
           authoritative,
+          liveGames,
+          failedLiveGames,
         });
+        built.notes.push(...liveNotes);
         if (!options.apply) return built;
         // Teams first: games reference them.
         const ordered = [...built.entries].sort((a, b) =>
@@ -259,7 +353,11 @@ export async function runSync(
 export async function runGamesSync(
   store: TournamentStore,
   options: { fetchImpl?: FetchLike; plan?: PlanOptions } = {},
-): Promise<{ mode: "games" | "full"; changed: number; counts: Record<string, number> }> {
+): Promise<{
+  mode: "games" | "full";
+  changed: number;
+  counts: Record<string, number>;
+}> {
   const context = lastContext;
   if (!context || Date.now() - context.at > CONTEXT_MAX_AGE_MS) {
     const full = await runSync(store, {
@@ -269,7 +367,8 @@ export async function runGamesSync(
     });
     return {
       mode: "full",
-      changed: (full.counts["games.update"] ?? 0) + (full.counts["games.create"] ?? 0),
+      changed:
+        (full.counts["games.update"] ?? 0) + (full.counts["games.create"] ?? 0),
       counts: full.counts,
     };
   }
@@ -280,29 +379,55 @@ export async function runGamesSync(
   );
   const event = { ...context.event, games: fresh.games };
   const authoritative = options.plan?.authoritative ?? true;
+  const { liveGames, failedLiveGames } = await readLiveGames(
+    store,
+    event,
+    context.standings,
+    options,
+    authoritative,
+  );
   const written = await store.db.transaction(async () => {
     const state = {
       settings: settingsSchema.parse(await store.get("settings", "tournament")),
-      teams: (await store.list<Team>("teams")).map((team) => teamSchema.parse(team)),
-      games: (await store.list<Game>("games")).map((game) => gameSchema.parse(game)),
+      teams: (await store.list<Team>("teams")).map((team) =>
+        teamSchema.parse(team),
+      ),
+      games: (await store.list<Game>("games")).map((game) =>
+        gameSchema.parse(game),
+      ),
       overridden: await manualOverrides(store),
     };
     const built = buildPlan(event, context.standings, state, {
       ...options.plan,
       authoritative,
+      liveGames,
+      failedLiveGames,
     });
     const entries = built.entries.filter(
-      (e) => e.kind === "games" && (e.action === "create" || e.action === "update") && e.value,
+      (e) =>
+        e.kind === "games" &&
+        (e.action === "create" || e.action === "update") &&
+        e.value,
     );
     for (const entry of entries)
-      await store.write(entry.kind, entry.id, entry.value, SYNC_ACTOR, `fiba-${entry.action}`);
+      await store.write(
+        entry.kind,
+        entry.id,
+        entry.value,
+        SYNC_ACTOR,
+        `fiba-${entry.action}`,
+      );
     return entries;
   }, "write")();
   const counts = countActions(written);
   // Quiet runs leave no trace: only a run that changed something is logged.
   if (written.length)
     await store.db.transaction(() =>
-      logRun(store, { started, mode: "apply-games", status: "ok", summary: { counts } }, written),
+      logRun(
+        store,
+        { started, mode: "apply-games", status: "ok", summary: { counts } },
+        written,
+      ),
     )();
   return { mode: "games", changed: written.length, counts };
 }

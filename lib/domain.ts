@@ -39,6 +39,48 @@ const streamUrlSchema = z
   .max(500)
   .refine((v) => v === "" || /^https:\/\//.test(v), "HTTPS link required")
   .optional();
+export const officialDetailsSchema = z.object({
+  sourceUrl: z.string().url(),
+  receivedAt: z.iso.datetime({ offset: true }),
+  country: z.string().max(100).optional(),
+  city: z.string().max(100).optional(),
+  referees: z.array(z.string().max(160)).max(10).default([]),
+  commissioners: z.array(z.string().max(160)).max(10).default([]),
+  teams: z
+    .array(
+      z.object({
+        name: z.string().max(150),
+        stats: z.record(
+          z.string().max(40),
+          z.union([z.number().finite(), z.string().max(40)]),
+        ),
+        players: z
+          .array(
+            z.object({
+              id: z.string(),
+              name: z.string().max(150),
+              number: z.string().max(10),
+              stats: z.record(z.string().max(40), z.number().finite()),
+            }),
+          )
+          .max(30),
+      }),
+    )
+    .length(2),
+  leadChanges: z.number().int().nonnegative().optional(),
+  timesTied: z.number().int().nonnegative().optional(),
+  scoreHistory: z
+    .array(
+      z.object({
+        period: z.string(),
+        time: z.string(),
+        home: z.number(),
+        away: z.number(),
+      }),
+    )
+    .max(1000)
+    .default([]),
+});
 export const gameSchema = z
   .object({
     id: z.string().min(1).max(80),
@@ -60,6 +102,7 @@ export const gameSchema = z
     version: z.number().int().min(0).default(0),
     /** The organisers score this match by hand: FIBA's sync leaves its status, score and clock alone. */
     manual: z.boolean().optional(),
+    officialDetails: officialDetailsSchema.optional(),
     periods: z
       .array(
         z.object({

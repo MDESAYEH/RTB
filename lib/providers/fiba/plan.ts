@@ -79,6 +79,8 @@ export type PlanOptions = {
   approvedNewTeams?: string[];
   confirmedSpellings?: string[];
   now?: string;
+  liveGames?: Map<number, Partial<Game>>;
+  failedLiveGames?: Set<number>;
 };
 
 const FIBA_STATUS: Record<string, Game["status"]> = { INIT: "Scheduled" };
@@ -117,9 +119,10 @@ export function buildPlan(
       `FIBA standings no longer contain stage ${FIBA_SCOPE_STAGE}; refusing to sync`,
     );
   }
-  const lock =
-    options.lockGroups ?? process.env.FIBA_FOLLOW_GROUPS !== "1";
-  const fixedGroup = new Map(Object.entries(options.groups ?? defaultLocalGroups));
+  const lock = options.lockGroups ?? process.env.FIBA_FOLLOW_GROUPS !== "1";
+  const fixedGroup = new Map(
+    Object.entries(options.groups ?? defaultLocalGroups),
+  );
   const withdrawn = new Set(options.withdrawnTeams ?? defaultWithdrawn);
   const wanted = new Set(state.settings.groups);
   const groups = stage.groups.filter((group) => wanted.has(group.groupName));
@@ -250,9 +253,15 @@ export function buildPlan(
             ? `group ${existing.group} → ${proposed.group}`
             : "",
           existing.verified !== proposed.verified ? "spelling confirmed" : "",
-          existing.country !== proposed.country ? "official country corrected" : "",
-          existing.sourceLogo !== proposed.sourceLogo ? "official logo corrected" : "",
-          existing.fibaTeamId !== proposed.fibaTeamId ? "linked to official FIBA identity" : "",
+          existing.country !== proposed.country
+            ? "official country corrected"
+            : "",
+          existing.sourceLogo !== proposed.sourceLogo
+            ? "official logo corrected"
+            : "",
+          existing.fibaTeamId !== proposed.fibaTeamId
+            ? "linked to official FIBA identity"
+            : "",
         ]
           .filter(Boolean)
           .join("; "),
@@ -350,7 +359,8 @@ export function buildPlan(
       skip("no date/time published yet");
       continue;
     }
-    const status = gameStatus(fiba);
+    const status =
+      options.liveGames?.get(fiba.gameId)?.status ?? gameStatus(fiba);
     if (!status) {
       skip(`unrecognised FIBA status "${fiba.statusCode}"; not guessed`);
       continue;
@@ -377,6 +387,10 @@ export function buildPlan(
       });
       continue;
     }
+    if (options.failedLiveGames?.has(fiba.gameId)) {
+      skip("individual live source unavailable; last confirmed match retained");
+      continue;
+    }
     const published = {
       home: home.localId,
       away: away.localId,
@@ -385,6 +399,7 @@ export function buildPlan(
       status,
       homeScore: fiba.teamAScore,
       awayScore: fiba.teamBScore,
+      ...options.liveGames?.get(fiba.gameId),
     };
     if (!existing) {
       // A fixture an admin already entered by hand keeps priority; importing it again would duplicate it.
