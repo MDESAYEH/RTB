@@ -112,7 +112,7 @@
 .official-match-details {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  grid-template-areas: "tracker stats" "leaders info";
+  grid-template-areas: "tracker stats" "leaders info" "boxscore boxscore";
   gap: 24px;
   align-items: start;
   margin-block: 24px 44px;
@@ -380,20 +380,72 @@
 .official-leaders > div:last-child .official-player:nth-child(2) > b {
   color: #941e1b;
 }
-.official-card details {
+.official-boxscore-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
   margin-top: 22px;
-}
-.official-card summary {
   padding: 13px 16px;
   border: 1px solid #dbe2df;
   border-radius: 9px;
+  background: #fff;
   color: #073449;
   cursor: pointer;
-  font-size: 12px;
-  font-weight: 800;
+  font:
+    800 12px/1.6 var(--font-arabic),
+    sans-serif;
+  text-align: start;
 }
-.official-card summary:hover {
+.official-boxscore-toggle:hover,
+.official-boxscore-toggle[aria-expanded="true"] {
   background: #f5f6f3;
+  border-color: #941e1b50;
+}
+.official-boxscore-toggle:focus-visible {
+  outline: 3px solid #263e82;
+  outline-offset: 3px;
+}
+.official-boxscore-toggle > span:last-child {
+  color: #941e1b;
+  font-size: 20px;
+}
+.official-boxscore-card {
+  grid-area: boxscore;
+}
+.official-boxscore-scroll {
+  overflow-x: auto;
+}
+.official-boxscore-teams {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(440px, 1fr));
+  gap: 24px;
+}
+.sports-match-page .official-boxscore-teams h3 {
+  margin: 0;
+  padding: 14px 16px;
+  background: #edf0f6;
+  color: #263e82;
+  border-top: 3px solid #263e82;
+}
+.sports-match-page .official-boxscore-teams > div:last-child h3 {
+  background: #faf0ed;
+  color: #941e1b;
+  border-color: #941e1b;
+}
+.official-boxscore-teams .official-table-wrap table {
+  min-width: 440px;
+}
+.official-boxscore-teams :is(th, td) {
+  font-size: 11px;
+  padding: 12px 8px;
+}
+.official-boxscore-teams thead th {
+  white-space: normal;
+}
+.official-boxscore-teams tbody th {
+  min-width: 115px;
 }
 .official-table-wrap {
   overflow: auto;
@@ -474,7 +526,7 @@
 @media (max-width: 1000px) {
   .official-match-details {
     grid-template-columns: 1fr;
-    grid-template-areas: "tracker" "stats" "leaders" "info";
+    grid-template-areas: "tracker" "stats" "leaders" "info" "boxscore";
   }
 }
 @media (max-width: 600px) {

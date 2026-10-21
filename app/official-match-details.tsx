@@ -19,6 +19,7 @@ export function OfficialMatchDetails({
   english: boolean;
 }) {
   const [metric, setMetric] = useState<string>("EFF");
+  const [showBoxscore, setShowBoxscore] = useState(false);
   const d = game.officialDetails;
   if (!d) return null;
   const text = (ar: string, en: string) => (english ? en : ar);
@@ -192,36 +193,16 @@ export function OfficialMatchDetails({
             );
           })}
         </div>
-        <details>
-          <summary>{text("إحصائيات جميع اللاعبين", "Full boxscore")}</summary>
-          {d.teams.map((t, i) => (
-            <div className="official-table-wrap" key={i}>
-              <h3>{t.name}</h3>
-              <table dir="ltr">
-                <thead>
-                  <tr>
-                    <th>{text("اللاعب", "Player")}</th>
-                    {metrics.map(([key, ar, en]) => (
-                      <th key={key}>{text(ar, en)}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {t.players.map((p) => (
-                    <tr key={p.id}>
-                      <th>
-                        #{p.number} {p.name}
-                      </th>
-                      {metrics.map(([key]) => (
-                        <td key={key}>{p.stats[key] ?? "—"}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          ))}
-        </details>
+        <button
+          type="button"
+          className="official-boxscore-toggle"
+          aria-expanded={showBoxscore}
+          aria-controls="match-full-boxscore"
+          onClick={() => setShowBoxscore((value) => !value)}
+        >
+          <span>{text("إحصائيات جميع اللاعبين", "Full boxscore")}</span>
+          <span aria-hidden="true">{showBoxscore ? "−" : "+"}</span>
+        </button>
       </section>
       <section className="official-card official-stats-card">
         <h2>{text("إحصائيات المباراة", "Game Stats")}</h2>
@@ -311,6 +292,48 @@ export function OfficialMatchDetails({
           </div>
         )}
       </section>
+      {showBoxscore && (
+        <section
+          className="official-card official-boxscore-card"
+          id="match-full-boxscore"
+          aria-labelledby="match-boxscore-title"
+        >
+          <h2 id="match-boxscore-title">
+            {text("إحصائيات جميع اللاعبين", "Full boxscore")}
+          </h2>
+          <div className="official-boxscore-scroll">
+            <div className="official-boxscore-teams" dir="ltr">
+              {d.teams.map((t, i) => (
+                <div className="official-table-wrap" key={i}>
+                  <h3>{t.name}</h3>
+                  <table dir="ltr">
+                    <thead>
+                      <tr>
+                        <th>{text("اللاعب", "Player")}</th>
+                        {metrics.map(([key, ar, en]) => (
+                          <th key={key}>{text(ar, en)}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {t.players.map((p) => (
+                        <tr key={p.id}>
+                          <th>
+                            #{p.number} {p.name}
+                          </th>
+                          {metrics.map(([key]) => (
+                            <td key={key}>{p.stats[key] ?? "—"}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
