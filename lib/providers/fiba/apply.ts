@@ -15,6 +15,21 @@ import {
 
 export const SYNC_ACTOR = "fiba-sync";
 
+/**
+ * The last complete read of FIBA (teams with their official details, and the standings), kept in memory so that
+ * the fast games-only runs during a match need just one request.
+ */
+let lastContext: {
+  event: ReturnType<typeof parseEventPage>;
+  standings: ReturnType<typeof parseStandingsPage>;
+  at: number;
+} | null = null;
+export const CONTEXT_MAX_AGE_MS = 15 * 60_000;
+/** For tests: forget the remembered read. */
+export function forgetSyncContext() {
+  lastContext = null;
+}
+
 const logSchema = `
 CREATE TABLE IF NOT EXISTS fiba_sync_runs(id INTEGER PRIMARY KEY AUTOINCREMENT,started TEXT NOT NULL,finished TEXT NOT NULL,mode TEXT NOT NULL,status TEXT NOT NULL,error TEXT,summary TEXT);
 CREATE TABLE IF NOT EXISTS fiba_sync_entries(run_id INTEGER NOT NULL REFERENCES fiba_sync_runs(id),kind TEXT NOT NULL,id TEXT NOT NULL,action TEXT NOT NULL,reason TEXT NOT NULL);
@@ -129,6 +144,7 @@ export async function runSync(
       await enrichOfficialTeams(eventPage, ids, options.fetchImpl);
     }
 
+    lastContext = { event: eventPage, standings, at: Date.now() };
     const plan = await store.db.transaction(
       async () => {
         const state = {
@@ -233,6 +249,62 @@ export async function runSync(
     }
     throw error;
   }
+}
+
+/**
+ * A match is on: read only FIBA's games page (one request) and apply just the fixtures, results and statuses.
+ * Teams, standings and everything else keep what the last complete sync stored. Without a recent complete read
+ * (after a restart, or older than fifteen minutes) it runs the complete sync instead.
+ */
+export async function runGamesSync(
+  store: TournamentStore,
+  options: { fetchImpl?: FetchLike; plan?: PlanOptions } = {},
+): Promise<{ mode: "games" | "full"; changed: number; counts: Record<string, number> }> {
+  const context = lastContext;
+  if (!context || Date.now() - context.at > CONTEXT_MAX_AGE_MS) {
+    const full = await runSync(store, {
+      apply: true,
+      fetchImpl: options.fetchImpl,
+      plan: options.plan,
+    });
+    return {
+      mode: "full",
+      changed: (full.counts["games.update"] ?? 0) + (full.counts["games.create"] ?? 0),
+      counts: full.counts,
+    };
+  }
+  const started = new Date().toISOString();
+  await store.db.exec(logSchema);
+  const fresh = parseEventPage(
+    (await fetchFibaPage("games", options.fetchImpl)).html,
+  );
+  const event = { ...context.event, games: fresh.games };
+  const authoritative = options.plan?.authoritative ?? true;
+  const written = await store.db.transaction(async () => {
+    const state = {
+      settings: settingsSchema.parse(await store.get("settings", "tournament")),
+      teams: (await store.list<Team>("teams")).map((team) => teamSchema.parse(team)),
+      games: (await store.list<Game>("games")).map((game) => gameSchema.parse(game)),
+      overridden: await manualOverrides(store),
+    };
+    const built = buildPlan(event, context.standings, state, {
+      ...options.plan,
+      authoritative,
+    });
+    const entries = built.entries.filter(
+      (e) => e.kind === "games" && (e.action === "create" || e.action === "update") && e.value,
+    );
+    for (const entry of entries)
+      await store.write(entry.kind, entry.id, entry.value, SYNC_ACTOR, `fiba-${entry.action}`);
+    return entries;
+  }, "write")();
+  const counts = countActions(written);
+  // Quiet runs leave no trace: only a run that changed something is logged.
+  if (written.length)
+    await store.db.transaction(() =>
+      logRun(store, { started, mode: "apply-games", status: "ok", summary: { counts } }, written),
+    )();
+  return { mode: "games", changed: written.length, counts };
 }
 
 export function formatSyncResult(result: SyncResult): string {

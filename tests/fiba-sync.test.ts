@@ -6,7 +6,7 @@ import { tmpdir } from "node:os";
 import { createTournamentStore } from "../lib/store";
 import type { DatabaseConfig } from "../lib/sql-database";
 import { extractPayload } from "../lib/providers/fiba/parser";
-import { runSync as syncWithAuthority } from "../lib/providers/fiba/apply";
+import { runSync as syncWithAuthority, runGamesSync, forgetSyncContext } from "../lib/providers/fiba/apply";
 import type { Game, Team } from "../lib/domain";
 
 // Legacy opt-out remains available; the production runner now defaults to FIBA authority.
@@ -261,6 +261,43 @@ for (const [label, config] of backends) {
     });
     const back = (await store.provider.getGame(created.id))!;
     assert.deepEqual([back.homeScore, back.awayScore], [5, 4]);
+    await store.db.close();
+  });
+
+  test(`${label}: during a match only the games page is read, and only fixtures change`, async () => {
+    const store = fresh();
+    await store.provider.getTeams();
+    forgetSyncContext();
+    const manualFeed = { ...alias, authoritative: false };
+    // Nothing remembered yet: the first call is a complete sync.
+    const first = await runGamesSync(store, { fetchImpl: fetcher({ games: gamesPage() }), plan: manualFeed });
+    assert.equal(first.mode, "full");
+    const [created] = await store.provider.getGames();
+    const teamsBefore = JSON.stringify(await store.provider.getTeams());
+
+    const requested: string[] = [];
+    const counting = (pages: { games?: string }) => (url: string) => {
+      requested.push(url.split("/").pop() ?? url);
+      return fetcher(pages)(url);
+    };
+    const live = gamesPage({ isLive: true, teamAScore: 12, teamBScore: 9 });
+    const quick = await runGamesSync(store, { fetchImpl: counting({ games: live }), plan: manualFeed });
+    assert.equal(quick.mode, "games");
+    assert.equal(quick.changed, 1);
+    assert.deepEqual(requested, ["games"], "one request: no standings, leaders or team pages");
+    const game = (await store.provider.getGame(created.id))!;
+    assert.deepEqual([game.status, game.homeScore, game.awayScore], ["Live", 12, 9]);
+    assert.equal(JSON.stringify(await store.provider.getTeams()), teamsBefore, "teams untouched");
+
+    // Nothing new on FIBA: nothing written and nothing logged.
+    const runsBefore = ((await store.db.prepare("SELECT COUNT(*) AS n FROM fiba_sync_runs").get()) as { n: number }).n;
+    const quiet = await runGamesSync(store, { fetchImpl: counting({ games: live }), plan: manualFeed });
+    assert.equal(quiet.changed, 0);
+    const runsAfter = ((await store.db.prepare("SELECT COUNT(*) AS n FROM fiba_sync_runs").get()) as { n: number }).n;
+    assert.equal(runsAfter, runsBefore);
+
+    // A broken games page still fails closed.
+    await assert.rejects(() => runGamesSync(store, { fetchImpl: fetcher({ games: "<html></html>" }), plan: alias }));
     await store.db.close();
   });
 
