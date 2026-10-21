@@ -107,6 +107,15 @@ export function parseLiveGame(
     } as Record<number, Game["status"]>
   )[g.status];
   if (!status) throw Error(`Unknown FIBA live status ${g.status}`);
+  // FIBA can leave the public feed on status 3 (Running) after the final horn.
+  // A non-tied fourth quarter or overtime at 00:00 is nevertheless final: basketball
+  // cannot resume from it unless the game is tied and an overtime period is due.
+  const endedAtFinalHorn =
+    status === "Live" &&
+    quarter >= 4 &&
+    clock === 0 &&
+    g.c[0].Score !== g.c[1].Score;
+  const resolvedStatus = endedAtFinalHorn ? "Ended" : status;
   const periods = g.quartersScores
     .slice()
     .sort((a, b) => periodNumber(a.period) - periodNumber(b.period));
@@ -118,13 +127,15 @@ export function parseLiveGame(
     throw Error("FIBA period scores do not match totals");
   return {
     status:
-      status === "Live" && quarter === 2 && g.CurrentPeriodStatus === "N"
+      resolvedStatus === "Live" &&
+      quarter === 2 &&
+      g.CurrentPeriodStatus === "N"
         ? "Halftime"
-        : status,
+        : resolvedStatus,
     homeScore: g.c[0].Score,
     awayScore: g.c[1].Score,
     quarter,
-    clock: status === "Ended" ? 0 : clock,
+    clock: resolvedStatus === "Ended" ? 0 : clock,
     // Snapshot clock: never invent a running clock while FIBA may have stopped play.
     running: false,
     updatedAt: now,

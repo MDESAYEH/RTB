@@ -546,6 +546,7 @@ for (const [label, config] of backends) {
     });
     let feedStatus = 3;
     let feedClock = "08:20";
+    let feedPeriod = "Q2";
     let liveRequests = 0;
     const liveFetcher =
       (page = live) =>
@@ -563,7 +564,7 @@ for (const [label, config] of backends) {
         g.c[1].Code = source.teamB!.code;
         g.c[0].Score = 41;
         g.c[1].Score = 38;
-        g.CurrentPeriod = "Q2";
+        g.CurrentPeriod = feedPeriod;
         g.RC = feedClock;
         g.quartersScores = [
           { period: "Q1", teamA: 24, teamB: 28 },
@@ -636,7 +637,10 @@ for (const [label, config] of backends) {
       "update",
     );
     assert.equal((await store.provider.getGame(created.id))?.status, "Live");
-    feedStatus = 5;
+    // FIBA's live feed can still say Running at the final horn.
+    feedStatus = 3;
+    feedClock = "00:00";
+    feedPeriod = "Q4";
     await runSync(store, {
       apply: true,
       fetchImpl: liveFetcher(),

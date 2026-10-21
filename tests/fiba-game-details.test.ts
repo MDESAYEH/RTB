@@ -70,6 +70,26 @@ test("terminal status and halftime use FIBA status rather than stale INIT", () =
   raw.game.content.CurrentPeriodStatus = "N";
   assert.equal(parseLiveGame(raw, expected, now).status, "Halftime");
 });
+test("final horn ends a non-tied final period when FIBA leaves its feed marked running", () => {
+  const raw = live();
+  raw.game.content.status = 3;
+  raw.game.content.CurrentPeriod = "Q4";
+  raw.game.content.RC = "00:00";
+  raw.game.content.quartersScores = [
+    { period: "Q1", teamA: 24, teamB: 28 },
+    { period: "Q2", teamA: 3, teamB: 2 },
+    { period: "Q3", teamA: 0, teamB: 0 },
+    { period: "Q4", teamA: 0, teamB: 0 },
+  ];
+  const patch = parseLiveGame(raw, expected, now);
+  assert.equal(patch.status, "Ended");
+  assert.equal(patch.clock, 0);
+
+  raw.game.content.c[1].Score = raw.game.content.c[0].Score;
+  raw.game.content.quartersScores[0].teamB = 25;
+  raw.game.content.quartersScores[1].teamB = 2;
+  assert.equal(parseLiveGame(raw, expected, now).status, "Live");
+});
 test("public live endpoint plus individual page provides officials without credentials", async () => {
   const body = {
     game: { gameId: 137093, hostCity: "Tripoli", hostCountry: "Libya" },
