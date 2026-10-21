@@ -612,12 +612,12 @@ html[dir="ltr"] :is(.lucide-arrow-left, .lucide-arrow-up-left) {
   transform: scaleX(-1);
 }
 
-/* English team page: the crest sits first, level with the title, instead of far away on the other side. */
-html[dir="ltr"] .passport-profile-heading {
+/* Team page, both languages: the crest sits first (on the reading side), level with the title, not far away on the other side. */
+.passport-profile-heading {
   justify-content: flex-start;
   gap: 30px;
 }
-html[dir="ltr"] .passport-profile-heading .passport-logo {
+.passport-profile-heading .passport-logo {
   order: -1;
 }
 
