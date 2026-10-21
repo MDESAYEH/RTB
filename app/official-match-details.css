@@ -112,7 +112,7 @@
 .official-match-details {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-  grid-template-areas: "tracker stats" "leaders info" "boxscore boxscore";
+  grid-template-areas: "tracker stats" "leaders boxscore" "info info";
   gap: 24px;
   align-items: start;
   margin-block: 24px 44px;
@@ -419,8 +419,15 @@
 }
 .official-boxscore-teams {
   display: grid;
-  grid-template-columns: repeat(2, minmax(440px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
+}
+
+@media (max-width: 1000px) {
+  .official-boxscore-teams {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 .sports-match-page .official-boxscore-teams h3 {
   margin: 0;
@@ -454,6 +461,12 @@
   width: 100%;
   min-width: 560px;
   color: #073449;
+}
+
+@media (max-width: 600px) {
+  .official-table-wrap table {
+    min-width: 400px;
+  }
 }
 .official-table-wrap :is(th, td) {
   padding: 12px;
@@ -526,7 +539,7 @@
 @media (max-width: 1000px) {
   .official-match-details {
     grid-template-columns: 1fr;
-    grid-template-areas: "tracker" "stats" "leaders" "info" "boxscore";
+    grid-template-areas: "tracker" "stats" "leaders" "boxscore" "info";
   }
 }
 @media (max-width: 600px) {

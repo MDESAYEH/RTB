@@ -876,3 +876,25 @@ button.news-video-poster {
   background: #fdecea;
   color: #8f1e1a;
 }
+
+@media (max-width: 600px) {
+  .rd-home .rd-match .game-row {
+    grid-template-columns: 1fr 110px 1fr;
+    padding: 20px 12px 16px;
+    gap: 8px;
+  }
+  .rd-home .rd-match .game-row:is(.state-live, .state-halftime) .fixture-center .score {
+    font-size: 38px;
+  }
+  .rd-home .rd-match .game-row .score {
+    font-size: 32px;
+  }
+  .rd-home .rd-match .game-row .game-team b {
+    font-size: 14px;
+  }
+  .rd-home .rd-match .game-row .game-team .team-logo,
+  .rd-home .rd-match .game-row .game-team .team-badge {
+    width: 44px;
+    height: 44px;
+  }
+}

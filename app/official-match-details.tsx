@@ -224,6 +224,48 @@ export function OfficialMatchDetails({
           ["BS", "الصدات", "Blocks"],
         ].map(([key, ar, en]) => comparison(key, ar, en))}
       </section>
+      {showBoxscore && (
+        <section
+          className="official-card official-boxscore-card"
+          id="match-full-boxscore"
+          aria-labelledby="match-boxscore-title"
+        >
+          <h2 id="match-boxscore-title">
+            {text("إحصائيات جميع اللاعبين", "Full boxscore")}
+          </h2>
+          <div className="official-boxscore-scroll">
+            <div className="official-boxscore-teams" dir="ltr">
+              {d.teams.map((t, i) => (
+                <div className="official-table-wrap" key={i}>
+                  <h3>{t.name}</h3>
+                  <table dir="ltr">
+                    <thead>
+                      <tr>
+                        <th>{text("اللاعب", "Player")}</th>
+                        {metrics.map(([key, ar, en]) => (
+                          <th key={key}>{text(ar, en)}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {t.players.map((p) => (
+                        <tr key={p.id}>
+                          <th>
+                            #{p.number} {p.name}
+                          </th>
+                          {metrics.map(([key]) => (
+                            <td key={key}>{p.stats[key] ?? "—"}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       <section
         className="official-card official-info-card"
         dir={english ? "ltr" : "rtl"}
@@ -292,48 +334,6 @@ export function OfficialMatchDetails({
           </div>
         )}
       </section>
-      {showBoxscore && (
-        <section
-          className="official-card official-boxscore-card"
-          id="match-full-boxscore"
-          aria-labelledby="match-boxscore-title"
-        >
-          <h2 id="match-boxscore-title">
-            {text("إحصائيات جميع اللاعبين", "Full boxscore")}
-          </h2>
-          <div className="official-boxscore-scroll">
-            <div className="official-boxscore-teams" dir="ltr">
-              {d.teams.map((t, i) => (
-                <div className="official-table-wrap" key={i}>
-                  <h3>{t.name}</h3>
-                  <table dir="ltr">
-                    <thead>
-                      <tr>
-                        <th>{text("اللاعب", "Player")}</th>
-                        {metrics.map(([key, ar, en]) => (
-                          <th key={key}>{text(ar, en)}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {t.players.map((p) => (
-                        <tr key={p.id}>
-                          <th>
-                            #{p.number} {p.name}
-                          </th>
-                          {metrics.map(([key]) => (
-                            <td key={key}>{p.stats[key] ?? "—"}</td>
-                          ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
     </div>
   );
 }
