@@ -213,7 +213,9 @@ export function MatchesContent({
                   ))}
                   <strong className="match-score" dir="ltr">
                     {g && ["Live", "Halftime", "Ended"].includes(g.status)
-                      ? `${g.homeScore} : ${g.awayScore}`
+                      ? lang === "ar"
+                        ? `${g.awayScore} : ${g.homeScore}`
+                        : `${g.homeScore} : ${g.awayScore}`
                       : "VS"}
                     <small>{g ? `GROUP ${g.group}` : "— : —"}</small>
                   </strong>

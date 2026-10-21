@@ -255,7 +255,9 @@ export default function Site({
             key={`${g.homeScore}:${g.awayScore}`}
           >
             {["Live", "Halftime", "Ended"].includes(g.status)
-              ? `${g.homeScore} : ${g.awayScore}`
+              ? lang === "ar"
+                ? `${g.awayScore} : ${g.homeScore}`
+                : `${g.homeScore} : ${g.awayScore}`
               : new Intl.DateTimeFormat("en-GB", {
                   timeZone: s.timezone,
                   hour: "2-digit",

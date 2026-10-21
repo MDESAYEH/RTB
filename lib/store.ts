@@ -789,9 +789,13 @@ export function createTournamentStore(
         rows
           .filter((row) => row.kind === kind)
           .map((row) => JSON.parse(String(row.body)));
-      const games = collection<Game>("games").map((game) =>
-        gameSchema.parse(game),
-      );
+      // Chronological, whatever order the matches were stored in: day by day, then by kickoff.
+      const games = collection<Game>("games")
+        .map((game) => gameSchema.parse(game))
+        .sort(
+          (x, y) =>
+            Date.parse(x.date) - Date.parse(y.date) || x.id.localeCompare(y.id),
+        );
       const storedStats = collection<{ game: string; player: string }>("stats");
       return {
         settings: settingsSchema.parse(
