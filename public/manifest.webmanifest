@@ -1,12 +1,18 @@
 {
+  "id": "/",
   "name": "THE ROAD · طرابلس 2027",
   "short_name": "THE ROAD",
+  "description": "Road to BAL 2027 · Tripoli — live scores, fixtures, standings and news.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#07111F",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
   "theme_color": "#07111F",
   "lang": "ar",
   "dir": "rtl",
+  "categories": ["sports", "news"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icon-192.png",
@@ -19,6 +25,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
