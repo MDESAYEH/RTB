@@ -40,6 +40,12 @@ export const en: Record<string, string> = {
   "تأهل إلى Elite 16": "Qualified for Elite 16",
   "انتهت رحلة المجموعة": "Group journey ended",
   "التحديث متأخر": "Update delayed",
+  "أنت تتحكم بهذه المباراة. مزامنة FIBA لا تغيّر حالتها ولا نتيجتها.": "You control this match. FIBA sync does not change its status or score.",
+  "هذه المباراة تتبع بيانات FIBA. أي تعديل منك يجعلك المتحكم بها.": "This match follows FIBA data. Any change you make puts you in control of it.",
+  "إرجاع التحكم إلى FIBA": "Hand control back to FIBA",
+  "ابدأ المباراة الآن": "Start the match now",
+  "افتح صفحة المباراة": "Open the match page",
+  "خصم": "Remove",
   "البيانات المباشرة متأخرة؛ نعرض آخر نتيجة مؤكدة.":
     "Live data is delayed; showing the last confirmed score.",
   "أنت غير متصل بالمصدر المباشر — آخر تحديث":

@@ -52,6 +52,7 @@ export function requiredPermission(command: {
     case "status":
     case "undo":
     case "stream":
+    case "manual":
       return "game:control";
     case "correct":
       return "game:correct";

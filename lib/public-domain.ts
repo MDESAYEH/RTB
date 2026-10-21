@@ -11,6 +11,7 @@ export const transitions: Record<Game["status"], Game["status"][]> = {
 };
 export function stale(g: Game, now = Date.now()) {
   return (
+    !g.manual &&
     ["Live", "Halftime"].includes(g.status) &&
     now - Date.parse(g.updatedAt) > 45000
   );

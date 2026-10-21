@@ -58,6 +58,8 @@ export const gameSchema = z
       .union([z.literal(""), z.iso.datetime({ offset: true })])
       .default(""),
     version: z.number().int().min(0).default(0),
+    /** The organisers score this match by hand: FIBA's sync leaves its status, score and clock alone. */
+    manual: z.boolean().optional(),
     periods: z
       .array(
         z.object({
@@ -226,14 +228,26 @@ export function transition(g: Game, status: Game["status"]): Game {
 export function score(g: Game, side: "home" | "away", points: number): Game {
   if (!["home", "away"].includes(side)) throw Error("Invalid side");
   if (g.status !== "Live") throw Error("ابدأ المباراة قبل تعديل النتيجة");
-  if (![1, 2, 3].includes(points)) throw Error("Invalid points");
+  if (![1, 2, 3, -1, -2, -3].includes(points)) throw Error("Invalid points");
   const key = side === "home" ? "homeScore" : "awayScore";
+  if (points < 0 && g[key] + points < 0)
+    throw Error("لا يمكن خصم نقاط أكثر من النتيجة الحالية");
   const periods = [...g.periods];
   while (periods.length < g.quarter) periods.push({ home: 0, away: 0 });
-  periods[g.quarter - 1] = {
-    ...periods[g.quarter - 1],
-    [side]: periods[g.quarter - 1][side] + points,
-  };
+  if (points > 0) {
+    periods[g.quarter - 1] = {
+      ...periods[g.quarter - 1],
+      [side]: periods[g.quarter - 1][side] + points,
+    };
+  } else {
+    // Take the points back from the current period first, then from earlier ones, so the periods still add up.
+    let left = -points;
+    for (let i = g.quarter - 1; i >= 0 && left > 0; i--) {
+      const take = Math.min(left, periods[i][side]);
+      periods[i] = { ...periods[i], [side]: periods[i][side] - take };
+      left -= take;
+    }
+  }
   return gameSchema.parse({ ...g, [key]: g[key] + points, periods });
 }
 export function resolveSource(

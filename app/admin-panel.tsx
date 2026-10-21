@@ -627,6 +627,37 @@ export function Admin({
                 void mutate({ action: "stream", id: g.id, value: link })
               }
             />
+            <div className="live-manual" role="status">
+              <span className={g.manual ? "on" : ""}>
+                {g.manual
+                  ? tr("أنت تتحكم بهذه المباراة. مزامنة FIBA لا تغيّر حالتها ولا نتيجتها.")
+                  : tr("هذه المباراة تتبع بيانات FIBA. أي تعديل منك يجعلك المتحكم بها.")}
+              </span>
+              {g.manual && (
+                <button
+                  disabled={busy}
+                  onClick={() =>
+                    void mutate({ action: "manual", id: g.id, version: g.version, value: false })
+                  }
+                >
+                  {tr("إرجاع التحكم إلى FIBA")}
+                </button>
+              )}
+              {["Scheduled", "Warmup"].includes(g.status) && (
+                <button
+                  className="live-start"
+                  disabled={busy}
+                  onClick={() =>
+                    void mutate({ action: "status", id: g.id, version: g.version, status: "Live" })
+                  }
+                >
+                  {tr("ابدأ المباراة الآن")}
+                </button>
+              )}
+              <a href={"/matches/" + g.id} target="_blank" rel="noopener noreferrer">
+                {tr("افتح صفحة المباراة")} ↗
+              </a>
+            </div>
             <div className="live-room" dir="ltr">
               {(["home", "away"] as const).map((side) => (
                 <div key={side}>
@@ -635,18 +666,23 @@ export function Admin({
                     {g[side === "home" ? "homeScore" : "awayScore"]}
                   </strong>
                   <div>
-                    {[1, 2, 3].map((p) => (
+                    {[-1, 1, 2, 3].map((p) => (
                       <button
                         aria-label={
-                          tr("إضافة") +
+                          (p < 0 ? tr("خصم") : tr("إضافة")) +
                           " " +
-                          p +
+                          Math.abs(p) +
                           " " +
                           tr("إلى") +
                           " " +
                           data.teams.find((t) => t.id === g[side])?.name
                         }
-                        disabled={busy || g.status !== "Live"}
+                        className={p < 0 ? "take-back" : ""}
+                        disabled={
+                          busy ||
+                          g.status !== "Live" ||
+                          (p < 0 && g[side === "home" ? "homeScore" : "awayScore"] < 1)
+                        }
                         key={p}
                         onClick={() =>
                           void mutate({
@@ -658,7 +694,7 @@ export function Admin({
                           })
                         }
                       >
-                        +{p}
+                        {p > 0 ? "+" + p : "−1"}
                       </button>
                     ))}
                   </div>

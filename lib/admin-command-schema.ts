@@ -10,7 +10,7 @@ export const adminCommandSchema = z.object({
   value: z.unknown().optional(),
   version: z.number().optional(),
   side: z.enum(["home", "away"]).optional(),
-  points: z.number().optional(),
+  points: z.number().int().min(-3).max(3).optional(),
   status: z
     .enum([
       "Scheduled",

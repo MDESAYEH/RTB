@@ -418,11 +418,18 @@ export function buildPlan(
       continue;
     }
     // Update only what FIBA publishes. Clock, period and running state stay under local control.
-    const merged = {
-      ...existing,
-      ...published,
-      venue: fiba.venueName ? fiba.venueName : existing.venue,
-    };
+    // A game the organisers score by hand keeps its status and score; only the date and venue follow FIBA.
+    const merged = existing.manual
+      ? {
+          ...existing,
+          date: published.date,
+          venue: fiba.venueName ? fiba.venueName : existing.venue,
+        }
+      : {
+          ...existing,
+          ...published,
+          venue: fiba.venueName ? fiba.venueName : existing.venue,
+        };
     const changed = (Object.keys(merged) as (keyof Game)[]).filter(
       (key) => JSON.stringify(merged[key]) !== JSON.stringify(existing[key]),
     );
@@ -431,7 +438,7 @@ export function buildPlan(
         kind: "games",
         id,
         action: "unchanged",
-        reason: "matches FIBA",
+        reason: existing.manual ? "scored by the organisers" : "matches FIBA",
       });
       continue;
     }

@@ -195,8 +195,26 @@ export async function applyCommand(
       return;
     }
     let next = { ...g, clock: remainingClock(g) };
-    if (b.action === "score") next = score(next, b.side!, b.points!);
-    else if (b.action === "status") next = transition(next, b.status!);
+    if (b.action === "manual") {
+      // Hand the match to the organisers (true) or back to FIBA's feed (false).
+      if (typeof b.value !== "boolean") throw Error("Expected true or false");
+      next = { ...next, manual: b.value, running: b.value ? next.running : false };
+    } else if (b.action === "score") next = score(next, b.side!, b.points!);
+    else if (b.action === "status") {
+      // One tap starts the match; ending or half-time completes the period so the rules still hold.
+      let from = next;
+      if (b.status === "Live" && from.status === "Scheduled")
+        from = transition(from, "Warmup");
+      if (b.status === "Ended" && from.quarter < 4) from = { ...from, quarter: 4 };
+      if (b.status === "Ended" || (b.status === "Halftime" && from.quarter <= 2))
+        from = {
+          ...from,
+          clock: 0,
+          running: false,
+          quarter: b.status === "Halftime" ? 2 : from.quarter,
+        };
+      next = transition(from, b.status!);
+    }
     else if (b.action === "correct") {
       if (!b.confirmed || !b.reason)
         throw Error("التصحيح يحتاج سببًا وتأكيدًا صريحًا");
@@ -273,6 +291,12 @@ export async function applyCommand(
       await db.prepare("DELETE FROM undo WHERE game=?").run(g.id);
     next = {
       ...next,
+      manual:
+        b.action === "manual"
+          ? next.manual
+          : ["score", "status", "clock", "correct", "undo"].includes(b.action)
+            ? true
+            : next.manual,
       version: g.version + 1,
       updatedAt: new Date().toISOString(),
     };

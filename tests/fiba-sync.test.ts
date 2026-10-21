@@ -229,6 +229,41 @@ for (const [label, config] of backends) {
     await store.db.close();
   });
 
+  test(`${label}: a match the organisers score by hand keeps its status and score; the date still follows FIBA`, async () => {
+    const store = fresh();
+    await store.provider.getTeams();
+    await runSync(store, { apply: true, fetchImpl: fetcher({ games: gamesPage() }), plan: alias });
+    const [created] = await store.provider.getGames();
+    // The organisers take the match: started and 2-0 by hand (written as the sync actor so the test covers the manual flag itself, not the audit-trail override).
+    await store.write(
+      "games",
+      created.id,
+      { ...created, manual: true, status: "Live", homeScore: 2, awayScore: 0, version: created.version + 1 },
+      "fiba-sync",
+    );
+    // FIBA's feed still says "Scheduled 0-0" at a later time: only the date moves.
+    const result = await runSync(store, {
+      apply: true,
+      fetchImpl: fetcher({ games: gamesPage({ gameDateTimeUTC: "2026-10-21T15:15:00", teamAScore: 0, teamBScore: 0 }) }),
+      plan: alias,
+    });
+    assert.equal(result.counts["games.update"], 1);
+    const game = (await store.provider.getGame(created.id))!;
+    assert.deepEqual([game.status, game.homeScore, game.awayScore], ["Live", 2, 0]);
+    assert.equal(game.date, "2026-10-21T15:15:00Z");
+    assert.equal(game.manual, true);
+    // Handed back to FIBA, the feed's numbers are used again.
+    await store.write("games", created.id, { ...game, manual: false, version: game.version + 1 }, "fiba-sync");
+    await runSync(store, {
+      apply: true,
+      fetchImpl: fetcher({ games: gamesPage({ gameDateTimeUTC: "2026-10-21T15:15:00", teamAScore: 5, teamBScore: 4, isLive: true }) }),
+      plan: alias,
+    });
+    const back = (await store.provider.getGame(created.id))!;
+    assert.deepEqual([back.homeScore, back.awayScore], [5, 4]);
+    await store.db.close();
+  });
+
   test(`${label}: a fixture with an undecided opponent is skipped instead of breaking the sync`, async () => {
     const store = fresh();
     await store.provider.getTeams();

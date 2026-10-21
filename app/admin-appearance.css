@@ -945,3 +945,48 @@ html[dir="ltr"] .operator-page .admin-field-ltr {
   line-height: 1.8;
   color: var(--admin-muted);
 }
+
+/* Match control: who owns the match, one-tap start, and the take-back button. */
+.operator-page .live-manual {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-block: 16px 4px;
+  padding: 14px 18px;
+  border: 1px solid var(--admin-line);
+  border-radius: 14px;
+  background: #fff;
+}
+.operator-page .live-manual > span {
+  flex: 1 1 260px;
+  font-weight: 700;
+  color: var(--admin-ink);
+}
+.operator-page .live-manual > span.on {
+  color: #03651e;
+}
+.operator-page .live-manual > span.on::before {
+  content: "● ";
+}
+.operator-page .live-manual a {
+  color: var(--admin-red);
+  font-weight: 700;
+}
+.operator-page .live-manual .live-start {
+  background: #03651e;
+  border-color: #03651e;
+  color: #fff;
+  font-size: 17px;
+  padding: 12px 26px;
+}
+.operator-page .live-room button {
+  min-width: 78px;
+  font-size: 22px;
+  padding: 12px 14px;
+}
+.operator-page .live-room button.take-back {
+  border-color: #c9d3d9;
+  background: #eef2f5;
+  color: #023047;
+}
