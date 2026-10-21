@@ -3,9 +3,21 @@
   "author": "Road to BAL 27",
   "posts": [
     {
+      "slug": "support-that-makes-the-event",
+      "image": "support-that-makes-the-event.webp",
+      "publishedAt": "2026-10-21T10:30:00+02:00",
+      "status": "published",
+      "title": "دعمٌ يصنع الحدث",
+      "titleEn": "Support that makes the event",
+      "excerpt": "تتقدم اللجنة العليا لتصفيات الطريق إلى الدوري الإفريقي لكرة السلة (BAL 2027) بخالص الشكر والتقدير إلى معالي رئيس مجلس الوزراء، المهندس عبدالحميد الدبيبة، تقديراً لدعمه وحرصه على إنجاح هذا الحدث.",
+      "excerptEn": "The Supreme Committee of the Road to BAL 2027 qualifiers thanks the Prime Minister, Eng. Abdulhamid Dbeibah, for his support and his keenness for the success of this event.",
+      "content": "تتقدم اللجنة العليا لتصفيات الطريق إلى الدوري الإفريقي لكرة السلة (BAL 2027) بخالص الشكر والتقدير إلى معالي رئيس مجلس الوزراء، المهندس عبدالحميد الدبيبة، تقديراً لدعمه وحرصه على إنجاح هذا الحدث، الذي يمثّل محطة مهمة لتعزيز مكانة ليبيا الرياضية، وإبراز قدرتها على استضافة البطولات القارية، وترسيخ حضورها إقليمياً ودولياً، بما يفتح آفاقاً أوسع أمام الرياضة الليبية.\n\nطرابلس .. في قلب كرة السلة الإفريقية.",
+      "contentEn": "The Supreme Committee of the Road to the Basketball Africa League (BAL 2027) qualifiers extends its sincere thanks and appreciation to His Excellency the Prime Minister, Eng. Abdulhamid Dbeibah, in recognition of his support and his keenness for the success of this event, which marks an important milestone in strengthening Libya's standing in sport, showcasing its ability to host continental tournaments, and consolidating its presence regionally and internationally, opening wider horizons for Libyan sport.\n\nTripoli… in the heart of African basketball."
+    },
+    {
       "slug": "today-tripoli-pulses-with-africa",
       "image": "today-tripoli-pulses-with-africa.webp",
-      "publishedAt": "2026-10-21T09:00:00+02:00",
+      "publishedAt": "2026-10-21T10:00:00+02:00",
       "status": "published",
       "title": "اليوم .. حين تنبض طرابلس بإفريقيا",
       "titleEn": "Today… when Tripoli pulses with Africa",
@@ -13,6 +25,18 @@
       "excerptEn": "Only a few hours separate us from the moment the Great Hall turns into a beating heart, Tripoli chants the name of the dream, and Libya raises its voice in the sky of African basketball.",
       "content": "ساعاتٌ قليلة تفصلنا عن اللحظة التي تتحوّل فيها القاعة الكبرى إلى قلبٍ يخفق، وتهتف فيها طرابلس باسم الحلم، وترفع ليبيا صوتها في سماء كرة السلة الإفريقية.\n\nكل شيء أصبح جاهزًا.. القاعة، الأضواء، والمشهد الذي انتظرناه طويلًا.\n\nبقي أنتم.. يا جماهيرنا، يا روح المكان وسرّ الحكاية.\n\nإلى أنصار الاتحاد.. إلى كل قلبٍ ينبض بحب هذه المدينة، ننتظركم اليوم في الموعد؛ نريد أصواتكم تسبق صافرة البداية، وحضوركم يصنع الفارق، وشغفكم يمنح نجوم الاتحاد أجنحةً للتحليق عالياً.\n\nاليوم لا ننتظر حضوركم فقط، بل ننتظر أن تكونوا الحكاية، وأن تصنعوا من المدرجات ذاكرةً لا تُنسى.\n\nطرابلس تناديكم.. والاتحاد ينتظركم.. وإفريقيا على موعد مع شغفٍ ليبي لا يشبه إلا ليبيا.\n\nتعالوا لنفرح بكم.. ونهتف معكم.. ونكتب معًا أول سطور الحلم.\n\nطرابلس.. في قلب كرة السلة الإفريقية",
       "contentEn": "Only a few hours separate us from the moment the Great Hall turns into a beating heart, Tripoli chants the name of the dream, and Libya raises its voice in the sky of African basketball.\n\nEverything is ready… the hall, the lights, and the scene we have waited for so long.\n\nWhat remains is you… our fans, the soul of the place and the secret of the story.\n\nTo the supporters of Al Ittihad… to every heart that beats for this city, we await you today on time; we want your voices to come before the opening whistle, your presence to make the difference, and your passion to give Al Ittihad's stars wings to soar high.\n\nToday we do not only wait for your presence, we wait for you to be the story, and to turn the stands into an unforgettable memory.\n\nTripoli is calling you… Al Ittihad is waiting for you… and Africa has a date with a Libyan passion that resembles nothing but Libya.\n\nCome, let us rejoice in you… chant with you… and write together the first lines of the dream.\n\nTripoli… in the heart of African basketball"
+    },
+    {
+      "slug": "leadership-meeting-final-preparations",
+      "image": "leadership-meeting-final-preparations.jpg",
+      "publishedAt": "2026-10-21T09:30:00+02:00",
+      "status": "published",
+      "title": "طرابلس تتهيأ لعرس السلة الإفريقية",
+      "titleEn": "Tripoli gets ready for the African basketball celebration",
+      "excerpt": "تابع وزير الرياضة، الدكتور فؤاد برغش، الاستعدادات النهائية لتصفيات (Road to BAL 2027)، خلال اجتماع بحضور رئيس اللجنة العليا للتصفيات المهندس محمد إسماعيل، ونائب رئيس اللجنة الأستاذ جمال مفتاح، ورئيس المنطقة الإفريقية الأولى لكرة السلة الأستاذ عمر البرشوشي، ومدير مديرية أمن طرابلس اللواء خليل وهيبة.",
+      "excerptEn": "The Minister of Sports, Dr Fouad Burghash, followed the final preparations for the Road to BAL 2027 qualifiers in a meeting attended by the Chairman of the Qualifiers' Supreme Committee, Eng. Mohamed Ismail; the Committee's Vice-Chairman, Mr Jamal Muftah; the President of Basketball Africa Zone 1, Mr Omar Al-Barshoushi; and the Director of the Tripoli Security Directorate, Maj.",
+      "content": "تابع وزير الرياضة، الدكتور فؤاد برغش، الاستعدادات النهائية لتصفيات (Road to BAL 2027)، خلال اجتماع بحضور رئيس اللجنة العليا للتصفيات المهندس محمد إسماعيل، ونائب رئيس اللجنة الأستاذ جمال مفتاح، ورئيس المنطقة الإفريقية الأولى لكرة السلة الأستاذ عمر البرشوشي، ومدير مديرية أمن طرابلس اللواء خليل وهيبة.\n\nوتناول الاجتماع الترتيبات النهائية لاستضافة الحدث القاري.",
+      "contentEn": "The Minister of Sports, Dr Fouad Burghash, followed the final preparations for the Road to BAL 2027 qualifiers in a meeting attended by the Chairman of the Qualifiers' Supreme Committee, Eng. Mohamed Ismail; the Committee's Vice-Chairman, Mr Jamal Muftah; the President of Basketball Africa Zone 1, Mr Omar Al-Barshoushi; and the Director of the Tripoli Security Directorate, Maj. Gen. Khalil Wahiba.\n\nThe meeting covered the final arrangements for hosting the continental event."
     },
     {
       "slug": "watch-all-matches-on-youtube",
@@ -99,18 +123,6 @@
       "contentEn": "Here is the schedule and times of the matches of all the teams taking part in the Road to BAL27 – Tripoli tournament.\n\nThe competition is near, and every team is ready for this big event inside the Great Tripoli Hall."
     },
     {
-      "slug": "support-that-makes-the-event",
-      "image": "support-that-makes-the-event.webp",
-      "publishedAt": "2026-10-20T12:00:00+02:00",
-      "status": "published",
-      "title": "دعمٌ يصنع الحدث",
-      "titleEn": "Support that makes the event",
-      "excerpt": "تتقدم اللجنة العليا لتصفيات الطريق إلى الدوري الإفريقي لكرة السلة (BAL 2027) بخالص الشكر والتقدير إلى معالي رئيس مجلس الوزراء، المهندس عبدالحميد الدبيبة، تقديراً لدعمه وحرصه على إنجاح هذا الحدث.",
-      "excerptEn": "The Supreme Committee of the Road to BAL 2027 qualifiers thanks the Prime Minister, Eng. Abdulhamid Dbeibah, for his support and his keenness for the success of this event.",
-      "content": "تتقدم اللجنة العليا لتصفيات الطريق إلى الدوري الإفريقي لكرة السلة (BAL 2027) بخالص الشكر والتقدير إلى معالي رئيس مجلس الوزراء، المهندس عبدالحميد الدبيبة، تقديراً لدعمه وحرصه على إنجاح هذا الحدث، الذي يمثّل محطة مهمة لتعزيز مكانة ليبيا الرياضية، وإبراز قدرتها على استضافة البطولات القارية، وترسيخ حضورها إقليمياً ودولياً، بما يفتح آفاقاً أوسع أمام الرياضة الليبية.\n\nطرابلس .. في قلب كرة السلة الإفريقية.",
-      "contentEn": "The Supreme Committee of the Road to the Basketball Africa League (BAL 2027) qualifiers extends its sincere thanks and appreciation to His Excellency the Prime Minister, Eng. Abdulhamid Dbeibah, in recognition of his support and his keenness for the success of this event, which marks an important milestone in strengthening Libya's standing in sport, showcasing its ability to host continental tournaments, and consolidating its presence regionally and internationally, opening wider horizons for Libyan sport.\n\nTripoli… in the heart of African basketball."
-    },
-    {
       "slug": "full-schedule-both-groups",
       "image": "full-schedule-both-groups.webp",
       "gallery": [
@@ -155,18 +167,6 @@
       "excerptEn": "Wide media interest and continuous coverage from many media outlets and local and international newspapers for the capital, Tripoli, hosting the Road to BAL 2027 qualifiers.",
       "content": "اهتمام إعلامي واسع وتغطية متواصلة من مختلف وسائل الإعلام والصحف المحلية والدولية لاستضافة العاصمة طرابلس لتصفيات Road to BAL 2027.\n\nالأنظار الإفريقية تتجه نحو أرض طرابلس، والجميع بانتظار صافرة البداية.",
       "contentEn": "Wide media interest and continuous coverage from many media outlets and local and international newspapers for the capital, Tripoli, hosting the Road to BAL 2027 qualifiers.\n\nAfrican eyes turn towards Tripoli, and everyone awaits the opening whistle."
-    },
-    {
-      "slug": "leadership-meeting-final-preparations",
-      "image": "leadership-meeting-final-preparations.jpg",
-      "publishedAt": "2026-10-19T10:00:00+02:00",
-      "status": "published",
-      "title": "طرابلس تتهيأ لعرس السلة الإفريقية",
-      "titleEn": "Tripoli gets ready for the African basketball celebration",
-      "excerpt": "تابع وزير الرياضة، الدكتور فؤاد برغش، الاستعدادات النهائية لتصفيات (Road to BAL 2027)، خلال اجتماع بحضور رئيس اللجنة العليا للتصفيات المهندس محمد إسماعيل، ونائب رئيس اللجنة الأستاذ جمال مفتاح، ورئيس المنطقة الإفريقية الأولى لكرة السلة الأستاذ عمر البرشوشي، ومدير مديرية أمن طرابلس اللواء خليل وهيبة.",
-      "excerptEn": "The Minister of Sports, Dr Fouad Burghash, followed the final preparations for the Road to BAL 2027 qualifiers in a meeting attended by the Chairman of the Qualifiers' Supreme Committee, Eng. Mohamed Ismail; the Committee's Vice-Chairman, Mr Jamal Muftah; the President of Basketball Africa Zone 1, Mr Omar Al-Barshoushi; and the Director of the Tripoli Security Directorate, Maj.",
-      "content": "تابع وزير الرياضة، الدكتور فؤاد برغش، الاستعدادات النهائية لتصفيات (Road to BAL 2027)، خلال اجتماع بحضور رئيس اللجنة العليا للتصفيات المهندس محمد إسماعيل، ونائب رئيس اللجنة الأستاذ جمال مفتاح، ورئيس المنطقة الإفريقية الأولى لكرة السلة الأستاذ عمر البرشوشي، ومدير مديرية أمن طرابلس اللواء خليل وهيبة.\n\nوتناول الاجتماع الترتيبات النهائية لاستضافة الحدث القاري.",
-      "contentEn": "The Minister of Sports, Dr Fouad Burghash, followed the final preparations for the Road to BAL 2027 qualifiers in a meeting attended by the Chairman of the Qualifiers' Supreme Committee, Eng. Mohamed Ismail; the Committee's Vice-Chairman, Mr Jamal Muftah; the President of Basketball Africa Zone 1, Mr Omar Al-Barshoushi; and the Director of the Tripoli Security Directorate, Maj. Gen. Khalil Wahiba.\n\nThe meeting covered the final arrangements for hosting the continental event."
     },
     {
       "slug": "two-days-to-go",
