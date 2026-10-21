@@ -11,8 +11,6 @@ import dynamic from "next/dynamic";
 import { CourtArc } from "./brand-primitives";
 import { HomeContent, HomeTopbar, TournamentFooter } from "./home-content";
 import { useLang } from "./i18n";
-import { playerName, positionLabel } from "@/lib/player-i18n";
-import { fibaHeadshot } from "@/lib/player-photo";
 import { Empty, statusLabel, type Data } from "./site-shared";
 import { StreamPlayer } from "./stream-player";
 import { broadcastPlaceholder, matchStream } from "@/lib/stream";
@@ -911,47 +909,6 @@ export default function Site({
           badge={(t) => <Badge team={t} />}
         />
       );
-  } else if (route === "players") {
-    const p = (data.players as Player[]).find((p) => p.id === path[1]);
-    content = p ? (
-      <>
-        <div className="player-portrait">
-          <svg className="player-avatar player-avatar-blank" viewBox="0 0 80 100" aria-hidden="true">
-            <circle cx="40" cy="34" r="17" />
-            <path d="M6 100c0-24 15-38 34-38s34 14 34 38z" />
-          </svg>
-          {fibaHeadshot(p, 440) && (
-            <img
-              src={fibaHeadshot(p, 440)}
-              className="player-photo"
-              alt={playerName(p, lang)}
-              width={220}
-              height={220}
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-          )}
-        </div>
-        <h1>{playerName(p, lang)}</h1>
-        <p>
-          #{p.number} · {positionLabel(p.position, lang)} · {team(p.team)?.name}
-        </p>
-        <h2>{tr("سجل المباريات")}</h2>
-        {(data.stats as Stat[])
-          .filter((st) => st.player === p.id)
-          .map((st) => (
-            <div className="stat-row" key={st.id}>
-              <Link href={"/matches/" + st.game}>{tr("المباراة")}</Link>
-              <span>
-                {st.points} PTS · {st.rebounds} REB · {st.assists} AST
-              </span>
-            </div>
-          ))}
-      </>
-    ) : (
-      <Empty title={tr("بيانات اللاعب غير متاحة.")} />
-    );
   } else if (route === "news" && path[1]) {
     const n = data.news.find((n) => n.slug === path[1])!;
     content = <NewsArticle news={n} date={date} />;
@@ -998,7 +955,6 @@ export default function Site({
           route !== "stats" &&
           route !== "road" &&
           !legalPages.includes(route) &&
-          route !== "players" &&
           route !== "news" &&
           route !== "teams" && (
             <div className="page-heading">

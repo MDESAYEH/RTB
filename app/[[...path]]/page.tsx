@@ -119,7 +119,6 @@ export default async function Page({
     "standings",
     "teams",
     "team",
-    "players",
     "stats",
     "news",
     "road",
@@ -132,16 +131,7 @@ export default async function Page({
   if (
     path.length > 2 ||
     (path.length > 1 &&
-      !["matches", "team", "teams", "players", "news"].includes(path[0]))
-  )
-    notFound();
-  if (
-    path[0] === "players" &&
-    !(
-      (await provider.getPlayers()) as {
-        id: string;
-      }[]
-    ).some((p) => p.id === path[1])
+      !["matches", "team", "teams", "news"].includes(path[0]))
   )
     notFound();
   if (path[0] === "matches" && path[1] && !(await provider.getGame(path[1])))

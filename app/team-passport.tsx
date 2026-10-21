@@ -14,7 +14,7 @@ import { qualification, standings, type Team } from "@/lib/public-domain";
 import { getTeamIdentity } from "@/lib/team-identity";
 import type { Data } from "./site-shared";
 import { useLang } from "./i18n";
-import { playerName, positionLabel } from "@/lib/player-i18n";
+import { playerName } from "@/lib/player-i18n";
 import { fibaHeadshot } from "@/lib/player-photo";
 import { ClubMatchLine } from "./stade-tournament-hub";
 
@@ -261,7 +261,7 @@ export function TeamPassport({
             {roster.length ? (
               <div className="passport-roster">
                 {roster.map((p) => (
-                  <Link key={p.id} href={`/players/${p.id}`} className="passport-player-card">
+                  <div key={p.id} className="passport-player-card">
                     <div className="passport-player-photo">
                       <svg className="passport-player-blank" viewBox="0 0 80 100" aria-hidden="true">
                         <circle cx="40" cy="34" r="17" />
@@ -281,9 +281,9 @@ export function TeamPassport({
                     </div>
                     <div className="passport-player-info">
                       <b>{playerName(p, lang)}</b>
-                      {p.position && <small>{positionLabel(p.position, lang)}</small>}
+                      {p.position && <small>{p.position}</small>}
                     </div>
-                  </Link>
+                  </div>
                 ))}
               </div>
             ) : (

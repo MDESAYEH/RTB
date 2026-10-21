@@ -4,7 +4,7 @@ import { remainingClock } from "@/lib/public-domain";
 import { getTeamIdentity, teamProfileHref } from "@/lib/team-identity";
 import { ClubCourt, ClubRoadMark } from "./club-road-primitives";
 import { useLang } from "./i18n";
-import { playerName, positionLabel } from "@/lib/player-i18n";
+import { playerName } from "@/lib/player-i18n";
 
 export function ClubMatchLine({
   game: g,
@@ -213,16 +213,12 @@ export function StadeTournamentHub({
             <h3>{tr("قائمة اللاعبين")}</h3>
             {roster.length ? (
               roster.map((p) => (
-                <Link
-                  key={p.id}
-                  className="hub-player"
-                  href={"/players/" + p.id}
-                >
+                <div key={p.id} className="hub-player">
                   <span>
                     {p.number} · {playerName(p, lang)}
                   </span>
-                  <small>{positionLabel(p.position, lang)}</small>
-                </Link>
+                  <small>{p.position}</small>
+                </div>
               ))
             ) : (
               <p>{tr("سيتم نشر القائمة الرسمية بعد اعتمادها")}</p>

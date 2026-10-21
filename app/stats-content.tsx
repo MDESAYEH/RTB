@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUpFromLine, Hand, HandHelping, Shield, Target, Trophy } from "lucide-react";
 import { useLang } from "./i18n";
 
@@ -90,7 +89,7 @@ export function StatsContent({ stats, players }: { stats: Stat[]; players: Playe
                     {top ? (
                       <>
                         <h3>
-                          <Link href={"/players/" + top.p.id}>{top.p.name}</Link>
+                          {top.p.name}
                         </h3>
                         <p>
                           {scorer(key) ? top.average : top.average.toFixed(1)} {scorer(key) ? copy("نقطة", "points") : label}

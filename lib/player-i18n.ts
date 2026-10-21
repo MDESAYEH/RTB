@@ -1,5 +1,5 @@
 /**
- * Player names and positions for the two site languages. FIBA publishes English only, so the Arabic spellings are
+ * Player names for the two site languages (positions stay in English everywhere). FIBA publishes English only, so the Arabic spellings are
  * kept here by FIBA person id (the `fiba-player-<id>` records). A player without an entry shows the English name.
  */
 const ARABIC_NAMES: Record<number, string> = {
@@ -159,16 +159,6 @@ const ARABIC_NAMES: Record<number, string> = {
   263412: "أوستن أكبيجيوري",
 };
 
-const ARABIC_POSITIONS: Record<string, string> = {
-  guard: "حارس",
-  "point guard": "صانع ألعاب",
-  "shooting guard": "حارس مسدد",
-  forward: "جناح",
-  "small forward": "جناح صغير",
-  "power forward": "جناح قوي",
-  center: "ارتكاز",
-};
-
 type PlayerLike = { id: string; name: string };
 
 /** "ALSHWETER" -> "Alshweter"; single letters and mixed-case words stay as FIBA wrote them. */
@@ -189,9 +179,4 @@ export function playerName(player: PlayerLike, lang: "ar" | "en"): string {
     return ARABIC_NAMES[id] ?? tidyEnglish(player.name);
   }
   return tidyEnglish(player.name);
-}
-
-export function positionLabel(position: string | undefined, lang: "ar" | "en"): string {
-  if (!position) return "";
-  return lang === "ar" ? (ARABIC_POSITIONS[position.trim().toLowerCase()] ?? position) : position;
 }
