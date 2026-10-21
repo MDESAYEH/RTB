@@ -41,7 +41,7 @@ export async function GET(req: Request) {
     return Response.json({ skipped: "previous sync still running" });
   try {
     // Called once a minute. While a match is on (from ten minutes before kickoff until FIBA ends it) this call stays
-    // open and reads FIBA's games page every few seconds; the rest of the time it syncs only every ten minutes.
+    // open and reads each active match's live feed every few seconds; otherwise it syncs every ten minutes.
     const games = await store.provider.getGames();
     if (!syncWindowActive(games)) {
       const last = await lastSuccessfulSync();

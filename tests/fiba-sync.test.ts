@@ -407,7 +407,7 @@ for (const [label, config] of backends) {
     assert.equal(quick.changed, 1);
     assert.deepEqual(
       requested,
-      ["games", "detail"],
+      ["detail"],
       "live detail and match metadata without standings, leaders or team pages",
     );
     const game = (await store.provider.getGame(created.id))!;
@@ -439,12 +439,45 @@ for (const [label, config] of backends) {
     ).n;
     assert.equal(runsAfter, runsBefore);
 
-    // A broken games page still fails closed.
-    await assert.rejects(() =>
-      runGamesSync(store, {
-        fetchImpl: fetcher({ games: "<html></html>" }),
-        plan: alias,
-      }),
+    // A broken schedule cannot block live Q3 updates: the individual feed is sufficient.
+    const thirdQuarter = async (url: string) => {
+      assert.ok(
+        !url.endsWith("/games"),
+        "live runs must not request the games list",
+      );
+      const response = await fetcher({ games: live })(url);
+      const raw = await response.json();
+      const g = raw.game.content;
+      g.CurrentPeriod = "Q3";
+      g.RC = "08:13";
+      g.c[0].Score = 15;
+      g.c[1].Score = 9;
+      g.quartersScores = [
+        { period: "Q1", teamA: 12, teamB: 9 },
+        { period: "Q2", teamA: 0, teamB: 0 },
+        { period: "Q3", teamA: 3, teamB: 0 },
+        { period: "Q4", teamA: 0, teamB: 0 },
+      ];
+      return Response.json(raw);
+    };
+    await runGamesSync(store, { fetchImpl: thirdQuarter, plan: manualFeed });
+    const q3 = (await store.provider.getGame(created.id))!;
+    assert.deepEqual(
+      [q3.quarter, q3.clock, q3.homeScore, q3.awayScore],
+      [3, 493, 15, 9],
+    );
+    const unavailable = await runGamesSync(store, {
+      fetchImpl: async (url) => {
+        assert.ok(!url.endsWith("/games"));
+        return new Response("unavailable", { status: 503 });
+      },
+      plan: manualFeed,
+    });
+    assert.equal(unavailable.changed, 0);
+    assert.deepEqual(
+      await store.provider.getGame(created.id),
+      q3,
+      "a live feed failure retains the last confirmed snapshot",
     );
     await store.db.close();
   });

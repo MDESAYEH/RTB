@@ -18,7 +18,7 @@ export const SYNC_ACTOR = "fiba-sync";
 
 /**
  * The last complete read of FIBA (teams with their official details, and the standings), kept in memory so that
- * the fast games-only runs during a match need just one request.
+ * fast runs can read each active match directly without requesting the delayed games list.
  */
 let lastContext: {
   event: ReturnType<typeof parseEventPage>;
@@ -114,6 +114,7 @@ async function readLiveGames(
   const liveGames = new Map<number, Partial<Game>>();
   const failedLiveGames = new Set<number>();
   const liveNotes: string[] = [];
+  const liveIds = new Set<string>();
   const previewState = {
     settings: settingsSchema.parse(await store.get("settings", "tournament")),
     teams: (await store.list<Team>("teams")).map((t) => teamSchema.parse(t)),
@@ -165,6 +166,7 @@ async function readLiveGames(
         periods,
         officialDetails,
       });
+      liveIds.add(id);
       continue;
     }
     if (!(active || game.isLive || (delta >= -600000 && delta <= 6 * 3600000)))
@@ -174,6 +176,7 @@ async function readLiveGames(
         game.gameId,
         await fetchGameDetails(game, now, previous, options.fetchImpl),
       );
+      liveIds.add(id);
     } catch (error) {
       failedLiveGames.add(game.gameId);
       liveNotes.push(
@@ -182,7 +185,7 @@ async function readLiveGames(
     }
   }
 
-  return { liveGames, failedLiveGames, liveNotes };
+  return { liveGames, failedLiveGames, liveNotes, liveIds };
 }
 
 /**
@@ -346,7 +349,7 @@ export async function runSync(
 }
 
 /**
- * A match is on: read only FIBA's games page (one request) and apply just the fixtures, results and statuses.
+ * A match is on: read the individual match page live feed using remembered fixture identities.
  * Teams, standings and everything else keep what the last complete sync stored. Without a recent complete read
  * (after a restart, or older than fifteen minutes) it runs the complete sync instead.
  */
@@ -374,12 +377,11 @@ export async function runGamesSync(
   }
   const started = new Date().toISOString();
   await store.db.exec(logSchema);
-  const fresh = parseEventPage(
-    (await fetchFibaPage("games", options.fetchImpl)).html,
-  );
-  const event = { ...context.event, games: fresh.games };
+  // Fixture identities come from the remembered schedule; live facts come only
+  // from the individual match page feed, never the delayed /games list.
+  const event = context.event;
   const authoritative = options.plan?.authoritative ?? true;
-  const { liveGames, failedLiveGames } = await readLiveGames(
+  const { liveGames, failedLiveGames, liveIds } = await readLiveGames(
     store,
     event,
     context.standings,
@@ -406,6 +408,7 @@ export async function runGamesSync(
     const entries = built.entries.filter(
       (e) =>
         e.kind === "games" &&
+        liveIds.has(e.id) &&
         (e.action === "create" || e.action === "update") &&
         e.value,
     );
