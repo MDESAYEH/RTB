@@ -4,6 +4,173 @@
   "posts": [
     {
       "status": "published",
+      "slug": "guinea-impressive-first-quarter",
+      "image": "guinea-first-quarter-0.jpg",
+      "gallery": [
+        "guinea-first-quarter-1.jpg",
+        "guinea-first-quarter-2.jpg",
+        "guinea-first-quarter-3.jpg"
+      ],
+      "publishedAt": "2026-10-22T14:24:00+02:00",
+      "title": "عرض مذهل من الجانب الغيني في الربع الأول",
+      "titleEn": "An impressive display from the Guinean side in the first quarter",
+      "excerpt": "عرض مذهل من الجانب الغيني في الربع الأول.",
+      "excerptEn": "An impressive display from the Guinean side in the first quarter.",
+      "content": "عرض مذهل من الجانب الغيني في الربع الأول.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "An impressive display from the Guinean side in the first quarter.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "nabaya-leads-energie-42-25-at-the-break",
+      "image": "nabaya-energie-halftime-42-25-0.jpg",
+      "publishedAt": "2026-10-22T14:05:00+02:00",
+      "title": "نابايا يتقدم على انيرجي 42-25 عند الاستراحة",
+      "titleEn": "Nabaya lead Energie 42-25 at the break",
+      "excerpt": "نهاية الشوط الأول بين فريقيّ نبايا وانيرجي بفوز فريق نبايا بنتيجة 42-25.",
+      "excerptEn": "End of the first half between Nabaya and Energie, with Nabaya ahead 42-25.",
+      "content": "نهاية الشوط الأول بين فريقيّ نبايا وانيرجي بفوز فريق نبايا بنتيجة 42-25.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "End of the first half between Nabaya and Energie, with Nabaya ahead 42-25.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "ghana-knights-moving-forward",
+      "image": "ghana-knights-forward-0.jpg",
+      "gallery": [
+        "ghana-knights-forward-1.jpg",
+        "ghana-knights-forward-2.jpg",
+        "ghana-knights-forward-3.jpg",
+        "ghana-knights-forward-4.jpg"
+      ],
+      "publishedAt": "2026-10-22T13:50:00+02:00",
+      "title": "فرسان غانا يتحركون بثبات للأمام",
+      "titleEn": "Ghana's Knights are moving steadily forward",
+      "excerpt": "فرسان غانا يتحركون بثبات للأمام.",
+      "excerptEn": "Ghana's Knights are moving steadily forward.",
+      "content": "فرسان غانا يتحركون بثبات للأمام.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Ghana's Knights are moving steadily forward.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "energie-nabaya-match-starts",
+      "image": "day2-energie-v-nabaya-start-0.jpg",
+      "publishedAt": "2026-10-22T13:35:00+02:00",
+      "title": "بدء المباراة: انيرجي ضد نابايا",
+      "titleEn": "Match start: Energie against Nabaya",
+      "excerpt": "انيرجي البنيني يواجه نابايا الغيني ويبحث عن فوزه الثاني.",
+      "excerptEn": "Benin's Energie take on Guinea's Nabaya, looking for their second win.",
+      "content": "🏀 بدء المباراة\n\nانيرجي البنيني يواجه نابايا الغيني ويبحث عن فوزه الثاني.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "🏀 Match start\n\nBenin's Energie take on Guinea's Nabaya, looking for their second win.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "spintex-second-win",
+      "image": "spintex-second-win-0.jpg",
+      "publishedAt": "2026-10-22T12:45:00+02:00",
+      "title": "سبينتكس الغاني يواصل أداءه المثير ويحقق فوزه الثاني",
+      "titleEn": "Ghana's Spintex continue their thrilling form and take a second win",
+      "excerpt": "استمرار سبينتكس الغاني في أدائه المثير، ويكتسب فوزه الثاني.",
+      "excerptEn": "Ghana's Spintex continue their thrilling form and take a second win.",
+      "content": "استمرار سبينتكس الغاني في أدائه المثير، ويكتسب فوزه الثاني.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Ghana's Spintex continue their thrilling form and take a second win.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "spintex-leads-pythons-at-the-break",
+      "image": "spintex-patriots-halftime-31-38-0.jpg",
+      "publishedAt": "2026-10-22T11:55:00+02:00",
+      "title": "سبينتكس يتقدم على بايتوس عند الاستراحة",
+      "titleEn": "Spintex lead the Pythons at the break",
+      "excerpt": "نهاية الشوط الأول بتفوق فريق سبينتكس على فريق بايتوس بنتيجة 31-38.",
+      "excerptEn": "End of the first half: Spintex ahead of the Pythons, 31-38.",
+      "content": "نهاية الشوط الأول بتفوق فريق سبينتكس على فريق بايتوس بنتيجة 31-38.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "End of the first half: Spintex ahead of the Pythons, 31-38.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "mermaid-of-the-sea-celebrates-its-guests",
+      "image": "mermaid-celebrates-guests-0.jpg",
+      "gallery": [
+        "mermaid-celebrates-guests-1.jpg",
+        "mermaid-celebrates-guests-2.jpg",
+        "mermaid-celebrates-guests-3.jpg",
+        "mermaid-celebrates-guests-4.jpg"
+      ],
+      "publishedAt": "2026-10-22T11:40:00+02:00",
+      "title": "عروس البحر تحتفي بضيوفها وتؤكد جاهزيتها لاستضافة مختلف الأحداث الرياضية",
+      "titleEn": "The Bride of the Sea celebrates its guests and confirms its readiness to host sporting events",
+      "excerpt": "جرت مراسم حفل إعلان انطلاق منافسات (الطريق إلى البال27) بحضور وزير الرياضة ورئيس اللجنة العليا المنظمة للتصفيات، وسط أجواء احتفالية جماهيرية.",
+      "excerptEn": "The ceremony announcing the start of the Road to BAL 27 competitions took place in the presence of the Minister of Sports and the head of the qualifiers' Supreme Organising Committee, amid a festive crowd.",
+      "content": "جرت ليلة الأمس مراسم حفل إعلان انطلاق منافسات (الطريق إلى البال27)، حيث عاشت العاصمة طرابلس أجواءً استثنائية، بحضور السيد/ د. فؤاد برغش وزير الرياضة بحكومة الوحدة الوطنية، والسيد محمد بن إسماعيل/ رئيس اللجنة العليا المنظمة للتصفيات، وسط حضور رسمي وأجواء احتفالية جماهيرية تعكس مكانة الحدث وأهميته ومدى قدرة العاصمة على احتضان وتنظيم كافة الأحداث والمنافسات القارية والدولية.\n\n#طرابلس_تجمع_القارة\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Last night saw the ceremony announcing the start of the Road to BAL 27 competitions. The capital, Tripoli, lived an exceptional atmosphere, with Dr. Fouad Burghash, Minister of Sports in the Government of National Unity, and Mr. Mohamed bin Ismail, head of the Supreme Organising Committee of the qualifiers, in attendance. The official presence and festive crowds reflect the standing and importance of the event and the capital's ability to host and organise all continental and international events and competitions.\n\n#TripoliGathersTheContinent\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "ghana-heroes-lead-first-quarter",
+      "image": "ghana-heroes-first-quarter-0.jpg",
+      "gallery": [
+        "ghana-heroes-first-quarter-1.jpg",
+        "ghana-heroes-first-quarter-2.jpg",
+        "ghana-heroes-first-quarter-3.jpg",
+        "ghana-heroes-first-quarter-4.jpg"
+      ],
+      "publishedAt": "2026-10-22T11:25:00+02:00",
+      "title": "أبطال غانا يأخذون القيادة في الربع الأول",
+      "titleEn": "Ghana's heroes take the lead in the first quarter",
+      "excerpt": "أبطال غانا يأخذون القيادة في الربع الأول.",
+      "excerptEn": "Ghana's heroes take the lead in the first quarter.",
+      "content": "أبطال غانا يأخذون القيادة في الربع الأول.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Ghana's heroes take the lead in the first quarter.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "day-two-opens-spintex-and-pythons",
+      "image": "day2-spintex-patriots-preview-0.jpg",
+      "publishedAt": "2026-10-22T10:40:00+02:00",
+      "title": "انطلاق اليوم الثاني: سبينتكس يبحث عن فوزه الثاني وبايتوس عن تدارك خسارة الأمس",
+      "titleEn": "Day two begins: Spintex seek a second win, the Pythons look to make up for yesterday's defeat",
+      "excerpt": "بين باحثٍ عن فوز ثانٍ يعزز فرصة التأهل (سبينتكس) وطامحٍ إلى تدارك خسارة الأمس (بايتوس)، تنطلق أولى مباريات اليوم الثاني من التصفيات.",
+      "excerptEn": "Between a side seeking a second win to boost its chances of qualifying (Spintex) and one hoping to make up for yesterday's defeat (the Pythons), the first match of the qualifiers' second day gets under way.",
+      "content": "بين باحثٍ عن فوز ثانٍ يعزز فرصة التأهل (سبينتكس) وطامحٍ إلى تدارك خسارة الأمس (بايتوس).\n\nتنطلق أولى مباريات اليوم الثاني من التصفيات.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Between a side seeking a second win to boost its chances of qualifying (Spintex) and one hoping to make up for yesterday's defeat (the Pythons).\n\nThe first match of the qualifiers' second day gets under way.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "ready-for-the-morning-match",
+      "image": "ready-for-morning-match-0.jpg",
+      "gallery": [
+        "ready-for-morning-match-1.jpg",
+        "ready-for-morning-match-2.jpg",
+        "ready-for-morning-match-3.jpg",
+        "ready-for-morning-match-4.jpg"
+      ],
+      "publishedAt": "2026-10-22T10:30:00+02:00",
+      "title": "جاهزون للمواجهة الصباحية",
+      "titleEn": "Ready for the morning match",
+      "excerpt": "جاهزون للمواجهة الصباحية.",
+      "excerptEn": "Ready for the morning match.",
+      "content": "جاهزون للمواجهة الصباحية.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Ready for the morning match.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "crowds-filled-the-stands",
+      "image": "crowds-filled-stands-0.jpg",
+      "gallery": [
+        "crowds-filled-stands-1.jpg",
+        "crowds-filled-stands-2.jpg",
+        "crowds-filled-stands-3.jpg",
+        "crowds-filled-stands-4.jpg"
+      ],
+      "publishedAt": "2026-10-21T23:50:00+02:00",
+      "title": "ملأت الجماهير المقاعد وبطل ليبيري قدّم أداءً قويًا",
+      "titleEn": "Crowds filled the stands, and a Liberian champion delivered a strong performance",
+      "excerpt": "ملأت الجماهير المقاعد، وبطل ليبيري قدم أداءً قويًا.",
+      "excerptEn": "Crowds filled the stands, and a Liberian champion delivered a strong performance.",
+      "content": "ملأت الجماهير المقاعد، وبطل ليبيري قدم أداءً قويًا.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Crowds filled the stands, and a Liberian champion delivered a strong performance.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "ittihad-opens-with-93-69-win",
       "image": "ittihad-win-93-69-0.jpg",
       "publishedAt": "2026-10-21T20:44:00+02:00",
@@ -69,6 +236,36 @@
     },
     {
       "status": "published",
+      "slug": "benin-athletes-showcase-their-strength",
+      "image": "benin-athletes-showcase-0.jpg",
+      "gallery": [
+        "benin-athletes-showcase-1.jpg",
+        "benin-athletes-showcase-2.jpg",
+        "benin-athletes-showcase-3.jpg",
+        "benin-athletes-showcase-4.jpg"
+      ],
+      "publishedAt": "2026-10-21T16:40:00+02:00",
+      "title": "رياضيو بنين يعرضون قوتهم",
+      "titleEn": "Benin's athletes showcase their strength",
+      "excerpt": "رياضيو بنين يعرضون قوتهم.",
+      "excerptEn": "Benin's athletes showcase their strength.",
+      "content": "رياضيو بنين يعرضون قوتهم.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Benin's athletes showcase their strength.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "energie-opens-with-92-69-win-over-pythons",
+      "image": "energie-opens-92-69-win-0.jpg",
+      "publishedAt": "2026-10-21T15:20:00+02:00",
+      "title": "انيرجي البنيني يبدأ التصفيات بفوز كبير على بايتوس الليبيري (92-69)",
+      "titleEn": "Benin's Energie open the qualifiers with a big win over Liberia's NPA Pythons (92-69)",
+      "excerpt": "انيرجي البنيني يبدأ التصفيات بفوز كبير على بايتوس الليبيري (92-69).",
+      "excerptEn": "Benin's Energie open the qualifiers with a big win over Liberia's NPA Pythons (92-69).",
+      "content": "انيرجي البنيني يبدأ التصفيات بفوز كبير على بايتوس الليبيري (92-69).\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Benin's Energie open the qualifiers with a big win over Liberia's NPA Pythons (92-69).\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "energie-takes-control-first-half",
       "image": "energie-first-half-0.jpg",
       "gallery": [
@@ -93,9 +290,9 @@
       "title": "انيرجي يتقدم 49-26 عند الاستراحة",
       "titleEn": "Energie leads 49-26 at the break",
       "excerpt": "بنتيجة (49_26) فريق انيرجي البنيني ينهي الشوط الأول متقدماً على نظيره بايتوس الليبيري.",
-      "excerptEn": "With a score of 49-26, Benin's Energie finishes the first half ahead of Liberia's Patriots.",
+      "excerptEn": "With a score of 49-26, Benin's Energie finishes the first half ahead of Liberia's NPA Pythons.",
       "content": "بنتيجة (49_26) فريق انيرجي البنيني ينهي الشوط الأول متقدماً على نظيره بايتوس الليبيري.\n\n#RoadToBAL2027 #TripoliQualifiers",
-      "contentEn": "With a score of 49-26, Benin's Energie finishes the first half ahead of Liberia's Patriots.\n\n#RoadToBAL2027 #TripoliQualifiers"
+      "contentEn": "With a score of 49-26, Benin's Energie finishes the first half ahead of Liberia's NPA Pythons.\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "status": "published",
@@ -121,11 +318,11 @@
       "image": "energie-patriot-start-0.jpg",
       "publishedAt": "2026-10-21T14:05:00+02:00",
       "title": "انطلاق اللقاء الثاني بين انيرجي وبايتوس",
-      "titleEn": "The second match begins: Energie against Patriots",
+      "titleEn": "The second match begins: Energie against the NPA Pythons",
       "excerpt": "بداية اللقاء الثاني بين فريقيّ انيرجي البنيني وبايتوس الليبيري.",
-      "excerptEn": "The second match begins between Benin's Energie and Liberia's Patriots.",
+      "excerptEn": "The second match begins between Benin's Energie and Liberia's NPA Pythons.",
       "content": "بداية اللقاء الثاني بين فريقيّ انيرجي البنيني وبايتوس الليبيري.\n\n#RoadToBAL2027 #TripoliQualifiers",
-      "contentEn": "The second match begins between Benin's Energie and Liberia's Patriots.\n\n#RoadToBAL2027 #TripoliQualifiers"
+      "contentEn": "The second match begins between Benin's Energie and Liberia's NPA Pythons.\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "status": "published",
