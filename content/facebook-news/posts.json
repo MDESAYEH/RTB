@@ -4,6 +4,18 @@
   "posts": [
     {
       "status": "published",
+      "slug": "nabaya-first-win-of-the-qualifiers",
+      "image": "nabaya-first-win-0.jpg",
+      "publishedAt": "2026-10-22T15:28:00+02:00",
+      "title": "نابايا الغيني يحقق أول فوز له في التصفيات",
+      "titleEn": "Guinea's Nabaya secure their first win in the qualifiers",
+      "excerpt": "نابايا الغيني يحقق أول فوز له في التصفيات.",
+      "excerptEn": "Guinea's Nabaya secure their first win in the qualifiers.",
+      "content": "حقق نابايا الغيني أول فوز له في التصفيات.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Guinea's Nabaya secured their first win in the qualifiers.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "guinea-impressive-first-quarter",
       "image": "guinea-first-quarter-0.jpg",
       "gallery": [
