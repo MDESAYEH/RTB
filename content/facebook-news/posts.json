@@ -4,6 +4,24 @@
   "posts": [
     {
       "status": "published",
+      "slug": "a-big-show",
+      "image": "big-show-0.jpg",
+      "gallery": [
+        "big-show-1.jpg",
+        "big-show-2.jpg",
+        "big-show-3.jpg",
+        "big-show-4.jpg"
+      ],
+      "publishedAt": "2026-10-22T19:32:00+02:00",
+      "title": "عرض كبير 🎆📸",
+      "titleEn": "A big show 🎆📸",
+      "excerpt": "عرض كبير 🎆📸",
+      "excerptEn": "A big show 🎆📸",
+      "content": "عرض كبير 🎆📸\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "A big show 🎆📸\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "ittihad-strong-performance-with-its-fans",
       "image": "ittihad-strong-performance-with-fans-0.jpg",
       "publishedAt": "2026-10-22T19:14:00+02:00",
@@ -16,6 +34,24 @@
     },
     {
       "status": "published",
+      "slug": "from-various-angles",
+      "image": "from-various-angles-0.jpg",
+      "gallery": [
+        "from-various-angles-1.jpg",
+        "from-various-angles-2.jpg",
+        "from-various-angles-3.jpg",
+        "from-various-angles-4.jpg"
+      ],
+      "publishedAt": "2026-10-22T18:50:00+02:00",
+      "title": "من زوايا مختلفة",
+      "titleEn": "From various angles",
+      "excerpt": "من زوايا مختلفة.",
+      "excerptEn": "From various angles.",
+      "content": "من زوايا مختلفة.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "From various angles.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "ittihad-v-kriol-star-tip-off",
       "image": "ittihad-v-kriol-star-tip-off-0.jpg",
       "publishedAt": "2026-10-22T18:38:00+02:00",
@@ -25,6 +61,47 @@
       "excerptEn": "The match between Libya's Al Ittihad and Cape Verde's Kriol Star begins.",
       "content": "بداية اللقاء: الاتحاد الليبي ضد كريول ستار من الرأس الأخضر.\n\n#RoadToBAL2027 #TripoliQualifiers",
       "contentEn": "Tip-off: Libya's Al Ittihad against Cape Verde's Kriol Star.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "staoueli-first-win-over-stade-malien",
+      "image": "staoueli-first-win-0.jpg",
+      "publishedAt": "2026-10-22T18:20:00+02:00",
+      "title": "ستاوالي الجزائري يحقق فوزه الأول على بطل مالي",
+      "titleEn": "Algeria's Staoueli secure their first win against the Malian champion",
+      "excerpt": "ستاوالي الجزائري يحقق فوزه الأول على بطل مالي.",
+      "excerptEn": "Algeria's Staoueli secure their first win against the Malian champion.",
+      "content": "ستاوالي الجزائري يحقق فوزه الأول على بطل مالي.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Algeria's Staoueli secure their first win against the Malian champion.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "staoueli-ahead-at-half-time",
+      "image": "staoueli-leads-at-half-0.jpg",
+      "gallery": [
+        "staoueli-leads-at-half-1.jpg",
+        "staoueli-leads-at-half-2.jpg",
+        "staoueli-leads-at-half-3.jpg"
+      ],
+      "publishedAt": "2026-10-22T17:35:00+02:00",
+      "title": "نصف الوقت مرّ بتفوق فريق ستاوالي",
+      "titleEn": "Half-time arrives with Staoueli in front",
+      "excerpt": "نصف الوقت مر بتفوق فريق ستاوالي.",
+      "excerptEn": "Half-time arrives with Staoueli in front.",
+      "content": "نصف الوقت مر بتفوق فريق ستاوالي.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Half-time arrives with Staoueli in front.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "half-time-staoueli-stade-malien",
+      "image": "half-time-staoueli-stade-malien-0.jpg",
+      "publishedAt": "2026-10-22T17:30:00+02:00",
+      "title": "استراحة الشوط الأول 🏀",
+      "titleEn": "HALF TIME 🏀",
+      "excerpt": "استراحة الشوط الأول 🏀",
+      "excerptEn": "HALF TIME 🏀",
+      "content": "استراحة الشوط الأول 🏀\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "HALF TIME 🏀\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "status": "published",
