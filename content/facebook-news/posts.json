@@ -4,6 +4,30 @@
   "posts": [
     {
       "status": "published",
+      "slug": "ittihad-strong-performance-with-its-fans",
+      "image": "ittihad-strong-performance-with-fans-0.jpg",
+      "publishedAt": "2026-10-22T19:14:00+02:00",
+      "title": "أداء قوي للاتحاد الليبي بمؤازرة جماهيره",
+      "titleEn": "A strong performance from Libya's Al-Ittihad, accompanied by its fans",
+      "excerpt": "أداء قوي للاتحاد الليبي بمؤازرة جماهيره.",
+      "excerptEn": "A strong performance from Libya's Al-Ittihad, accompanied by its fans.",
+      "content": "أداء قوي للاتحاد الليبي بمؤازرة جماهيره.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "A strong performance from Libya's Al-Ittihad, accompanied by its fans.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "ittihad-v-kriol-star-tip-off",
+      "image": "ittihad-v-kriol-star-tip-off-0.jpg",
+      "publishedAt": "2026-10-22T18:38:00+02:00",
+      "title": "بداية اللقاء: الاتحاد الليبي ضد كريول ستار من الرأس الأخضر",
+      "titleEn": "Tip-off: Libya's Al Ittihad against Cape Verde's Kriol Star",
+      "excerpt": "بداية اللقاء بين الاتحاد الليبي وكريول ستار من الرأس الأخضر.",
+      "excerptEn": "The match between Libya's Al Ittihad and Cape Verde's Kriol Star begins.",
+      "content": "بداية اللقاء: الاتحاد الليبي ضد كريول ستار من الرأس الأخضر.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Tip-off: Libya's Al Ittihad against Cape Verde's Kriol Star.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "allen-fordham-interview",
       "image": "allen-fordham-interview.jpg",
       "video": "/videos/allen-fordham-interview.mp4",
