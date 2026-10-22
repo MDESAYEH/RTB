@@ -8,6 +8,10 @@ out/
 # Local data
 /data/
 
+# News videos live on the server only (see public/videos/README.txt)
+public/videos/*
+!public/videos/README.txt
+
 # Environment files
 .env
 .env.*

@@ -4,6 +4,32 @@
   "posts": [
     {
       "status": "published",
+      "slug": "allen-fordham-interview",
+      "image": "allen-fordham-interview.jpg",
+      "video": "/videos/allen-fordham-interview.mp4",
+      "publishedAt": "2026-10-22T16:05:00+02:00",
+      "title": "آلن فوردهام: حضرنا للقاء بشكل جيد ونطمح للفوز غدًا والتأهل",
+      "titleEn": "Allen Fordham: we prepared well and aim to win tomorrow and qualify",
+      "excerpt": "🎙️ آلن فوردهام",
+      "excerptEn": "🎙️ Allen Fordham",
+      "content": "🎙️ آلن فوردهام\n\nحضرنا للقاء بشكل جيد اليوم، ونطمح للفوز غدًا والتأهل.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "🎙️ Allen Fordham\n\nWe prepared well for today's match, and we hope to win tomorrow and qualify.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "in-the-dying-moments-champions-get-it-done",
+      "image": "in-the-dying-moments-champions-get-it-done.jpg",
+      "video": "/videos/in-the-dying-moments-champions-get-it-done.mp4",
+      "publishedAt": "2026-10-22T15:50:00+02:00",
+      "title": "في اللحظات الأخيرة يحسم الأبطال الأمر",
+      "titleEn": "In the dying moments, champions get it done",
+      "excerpt": "في اللحظات الأخيرة يحسم الأبطال الأمر 🔥",
+      "excerptEn": "In the dying moments, champions get it done 🔥",
+      "content": "في اللحظات الأخيرة يحسم الأبطال الأمر 🔥\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "In the dying moments, champions get it done 🔥\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "nabaya-first-win-of-the-qualifiers",
       "image": "nabaya-first-win-0.jpg",
       "publishedAt": "2026-10-22T15:28:00+02:00",
@@ -42,6 +68,19 @@
       "excerptEn": "End of the first half between Nabaya and Energie, with Nabaya ahead 42-25.",
       "content": "نهاية الشوط الأول بين فريقيّ نبايا وانيرجي بفوز فريق نبايا بنتيجة 42-25.\n\n#RoadToBAL2027 #TripoliQualifiers",
       "contentEn": "End of the first half between Nabaya and Energie, with Nabaya ahead 42-25.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "press-coverage",
+      "image": "press-coverage.jpg",
+      "video": "/videos/press-coverage.mp4",
+      "publishedAt": "2026-10-22T14:00:00+02:00",
+      "title": "التغطية الإعلامية",
+      "titleEn": "Press coverage",
+      "excerpt": "التغطية الإعلامية 🎙️",
+      "excerptEn": "Press coverage 🎙️",
+      "content": "التغطية الإعلامية 🎙️\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Press coverage 🎙️\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "status": "published",
@@ -165,6 +204,19 @@
     },
     {
       "status": "published",
+      "slug": "diverse-scenes-exceptional-atmosphere",
+      "image": "diverse-scenes-exceptional-atmosphere.jpg",
+      "video": "/videos/diverse-scenes-exceptional-atmosphere.mp4",
+      "publishedAt": "2026-10-22T09:30:00+02:00",
+      "title": "مشاهد متنوعة.. أجواء استثنائية",
+      "titleEn": "Diverse scenes, exceptional atmosphere",
+      "excerpt": "مشاهد متنوعة.. أجواء استثنائية 📹",
+      "excerptEn": "Diverse scenes, exceptional atmosphere 📹",
+      "content": "مشاهد متنوعة.. أجواء استثنائية 📹\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Diverse scenes, exceptional atmosphere 📹\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "crowds-filled-the-stands",
       "image": "crowds-filled-stands-0.jpg",
       "gallery": [
@@ -180,6 +232,19 @@
       "excerptEn": "Crowds filled the stands, and a Liberian champion delivered a strong performance.",
       "content": "ملأت الجماهير المقاعد، وبطل ليبيري قدم أداءً قويًا.\n\n#RoadToBAL2027 #TripoliQualifiers",
       "contentEn": "Crowds filled the stands, and a Liberian champion delivered a strong performance.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "mohammed-saadi-interview",
+      "image": "mohammed-saadi-interview.jpg",
+      "video": "/videos/mohammed-saadi-interview.mp4",
+      "publishedAt": "2026-10-21T21:55:00+02:00",
+      "title": "محمد السعدي: التنظيم أكثر من رائع ونعد جماهيرنا بتحقيق المطلوب",
+      "titleEn": "Mohammed Saadi: the organisation is wonderful and we promise our fans we will deliver",
+      "excerpt": "محمد السعدي 🎙️",
+      "excerptEn": "Mohammed Saadi 🎙️",
+      "content": "محمد السعدي 🎙️\n\nالتنظيم أكثر من رائع، ونعد جماهيرنا بتحقيق المطلوب.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Mohammed Saadi 🎙️\n\nThe organisation is more than wonderful, and we promise our fans we will deliver what is required.\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "status": "published",
@@ -212,6 +277,19 @@
     },
     {
       "status": "published",
+      "slug": "everything-was-world-class-before-the-start",
+      "image": "everything-was-world-class-before-the-start.jpg",
+      "video": "/videos/everything-was-world-class-before-the-start.mp4",
+      "publishedAt": "2026-10-21T19:50:00+02:00",
+      "title": "كل شيء كان عالميًا قبل الانطلاق",
+      "titleEn": "Everything was world-class before the start",
+      "excerpt": "كل شيء كان عالميًا قبل الانطلاق 🤯🏀",
+      "excerptEn": "Everything was world-class before the start 🤯🏀",
+      "content": "كل شيء كان عالميًا قبل الانطلاق 🤯🏀\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Everything was world-class before the start 🤯🏀\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "ittihad-leads-staoueli-53-27-at-the-break",
       "image": "ittihad-staoueli-halftime-53-27-0.jpg",
       "publishedAt": "2026-10-21T19:36:00+02:00",
@@ -236,6 +314,45 @@
     },
     {
       "status": "published",
+      "slug": "tripoli-pulses-ittihad-celebrates-damascus-glory",
+      "image": "tripoli-pulses-ittihad-celebrates-damascus-glory.jpg",
+      "video": "/videos/tripoli-pulses-ittihad-celebrates-damascus-glory.mp4",
+      "publishedAt": "2026-10-21T18:50:00+02:00",
+      "title": "طرابلس تنبض بإيقاع السلة الإفريقية.. والاتحاد يحتفل بمجد دمشق",
+      "titleEn": "Tripoli pulses to the rhythm of African basketball… and Al Ittihad celebrates its Damascus glory",
+      "excerpt": "طرابلس تنبض بإيقاع السلة الإفريقية.. والاتحاد يحتفل بمجد دمشق.",
+      "excerptEn": "Tripoli pulses to the rhythm of African basketball… and Al Ittihad celebrates its Damascus glory.",
+      "content": "طرابلس تنبض بإيقاع السلة الإفريقية.. والاتحاد يحتفل بمجد دمشق.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Tripoli pulses to the rhythm of African basketball… and Al Ittihad celebrates its Damascus glory.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "shots-that-convey-the-scale-of-the-competition",
+      "image": "shots-that-convey-the-scale-of-the-competition.jpg",
+      "video": "/videos/shots-that-convey-the-scale-of-the-competition.mp4",
+      "publishedAt": "2026-10-21T17:50:00+02:00",
+      "title": "لقطات تعبّر عن حجم المنافسة",
+      "titleEn": "Shots that convey the scale of the competition",
+      "excerpt": "لقطات تعبّر عن حجم المنافسة 🏀",
+      "excerptEn": "Shots that convey the scale of the competition 🏀",
+      "content": "لقطات تعبّر عن حجم المنافسة 🏀\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Shots that convey the scale of the competition 🏀\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "ittihad-official-squad",
+      "image": "ittihad-official-squad.jpg",
+      "video": "/videos/ittihad-official-squad.mp4",
+      "publishedAt": "2026-10-21T17:45:00+02:00",
+      "title": "تعرّفوا على القائمة الرسمية لممثل ليبيا نادي الاتحاد",
+      "titleEn": "Meet the official squad of Libya's representative, Al Ittihad",
+      "excerpt": "تعرّفوا على القائمة الرسمية لممثل ليبيا نادي الاتحاد 🇱🇾🏀",
+      "excerptEn": "Meet the official squad of Libya's representative, Al Ittihad 🇱🇾🏀",
+      "content": "تعرّفوا على القائمة الرسمية لممثل ليبيا نادي الاتحاد 🇱🇾🏀\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Meet the official squad of Libya's representative, Al Ittihad 🇱🇾🏀\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "stade-malien-first-win-20-0",
       "image": "stade-malien-win-20-0-0.jpg",
       "publishedAt": "2026-10-21T17:35:00+02:00",
@@ -245,6 +362,32 @@
       "excerptEn": "Stade Malien take their first win, 20-0, because Kriol Star did not turn up.",
       "content": "فريق ستاد مالي يحقق فوزه الأول بنتيجة (20 _ 00) لعدم حضور فريق كريول ستارز.\n\n#RoadToBAL2027 #TripoliQualifiers",
       "contentEn": "Stade Malien take their first win, 20-0, because Kriol Star did not turn up.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "mvp-of-the-match-benin",
+      "image": "mvp-of-the-match-benin.jpg",
+      "video": "/videos/mvp-of-the-match-benin.mp4",
+      "publishedAt": "2026-10-21T16:50:00+02:00",
+      "title": "أفضل لاعب في المباراة: لا يمكن إيقافنا ونحن معًا",
+      "titleEn": "MVP of the match: together we cannot be stopped",
+      "excerpt": "أفضل لاعب في المباراة 🎙️",
+      "excerptEn": "MVP of the match 🎙️",
+      "content": "أفضل لاعب في المباراة 🎙️\n\nنحن نعلم أننا نمتلك فريقًا جيدًا، وطالما أننا معًا لا يمكن إيقافنا 🇧🇯\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "MVP of the match 🎙️\n\nWe know we have a good team, and as long as we are together we cannot be stopped 🇧🇯\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "red-dominance",
+      "image": "red-dominance.jpg",
+      "video": "/videos/red-dominance.mp4",
+      "publishedAt": "2026-10-21T16:45:00+02:00",
+      "title": "السيطرة الحمراء",
+      "titleEn": "Red dominance",
+      "excerpt": "السيطرة الحمراء 📹",
+      "excerptEn": "Red dominance 📹",
+      "content": "السيطرة الحمراء 📹\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Red dominance 📹\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "status": "published",
@@ -266,6 +409,19 @@
     },
     {
       "status": "published",
+      "slug": "the-excitement-has-begun",
+      "image": "the-excitement-has-begun.jpg",
+      "video": "/videos/the-excitement-has-begun.mp4",
+      "publishedAt": "2026-10-21T15:45:00+02:00",
+      "title": "بدأت الإثارة",
+      "titleEn": "The excitement has begun",
+      "excerpt": "بدأت الإثارة ⚡",
+      "excerptEn": "The excitement has begun ⚡",
+      "content": "بدأت الإثارة ⚡\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "The excitement has begun ⚡\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "energie-opens-with-92-69-win-over-pythons",
       "image": "energie-opens-92-69-win-0.jpg",
       "publishedAt": "2026-10-21T15:20:00+02:00",
@@ -275,6 +431,19 @@
       "excerptEn": "Benin's Energie open the qualifiers with a big win over Liberia's NPA Pythons (92-69).",
       "content": "انيرجي البنيني يبدأ التصفيات بفوز كبير على بايتوس الليبيري (92-69).\n\n#RoadToBAL2027 #TripoliQualifiers",
       "contentEn": "Benin's Energie open the qualifiers with a big win over Liberia's NPA Pythons (92-69).\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "mvp-james-amotoe",
+      "image": "mvp-james-amotoe.jpg",
+      "video": "/videos/mvp-james-amotoe.mp4",
+      "publishedAt": "2026-10-21T14:50:00+02:00",
+      "title": "أفضل لاعب في المباراة جيمس أموتو: سعداء بفوزنا الأول وجاهزون للمواصلة",
+      "titleEn": "MVP James Amotoe: happy with our first win and ready to carry on",
+      "excerpt": "أفضل لاعب في المباراة (جيمس أموتو) 🎙️",
+      "excerptEn": "MVP of the match (James Amotoe) 🎙️",
+      "content": "أفضل لاعب في المباراة (جيمس أموتو) 🎙️\n\nسعداء بتحقيق فوزنا الأول، وجاهزون للمواصلة 🇬🇭\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "MVP of the match (James Amotoe) 🎙️\n\nWe are happy to have won our first match, and ready to carry on 🇬🇭\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "status": "published",
@@ -350,6 +519,19 @@
     },
     {
       "status": "published",
+      "slug": "highlights-from-the-half",
+      "image": "highlights-from-the-half.jpg",
+      "video": "/videos/highlights-from-the-half.mp4",
+      "publishedAt": "2026-10-21T12:50:00+02:00",
+      "title": "أبرز لقطات الشوط الأول",
+      "titleEn": "Highlights from the first half",
+      "excerpt": "أبرز لقطات الشوط الأول 🏀",
+      "excerptEn": "Highlights from the first half 🏀",
+      "content": "أبرز لقطات الشوط الأول 🏀\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Highlights from the first half 🏀\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "first-half-photos",
       "image": "first-half-photos-0.jpg",
       "gallery": [
@@ -388,6 +570,19 @@
       "excerptEn": "Nabaya of Guinea and Spintex of Ghana ignite the competition in the first match of the BAL 2027 qualifiers, from the heart of the capital, Tripoli.",
       "content": "🏀 بدأت الإثارة.. وانطلقت رحلة BAL 2027\n\nنبايا سويا الغيني وسبونتيكس الغاني يشعلان أجواء المنافسة، في أولى مواجهات تصفيات دوري كرة السلة الإفريقي BAL 2027 من قلب العاصمة طرابلس.\n\nطرابلس .. في قلب كرة السلة الإفريقية.\n\n#RoadToBAL2027 #TripoliQualifiers",
       "contentEn": "🏀 The excitement has begun… and the BAL 2027 journey is under way\n\nNabaya of Guinea and Spintex of Ghana ignite the competition in the first match of the BAL 2027 African basketball league qualifiers, from the heart of the capital, Tripoli.\n\nTripoli… in the heart of African basketball.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "from-above-the-picture-looks-complete",
+      "image": "from-above-the-picture-looks-complete.jpg",
+      "video": "/videos/from-above-the-picture-looks-complete.mp4",
+      "publishedAt": "2026-10-21T10:50:00+02:00",
+      "title": "من الأعلى تبدو الصورة مكتملة",
+      "titleEn": "From above, the picture looks complete",
+      "excerpt": "من الأعلى تبدو الصورة مكتملة 🏀🏀",
+      "excerptEn": "From above, the picture looks complete 🏀🏀",
+      "content": "من الأعلى تبدو الصورة مكتملة 🏀🏀\n\nعدستنا ترصد اكتمال التجهيزات بالصالة الكبرى، حيث باتت مستعدة لاحتضان المنافسات واستقبال الجماهير.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "From above, the picture looks complete 🏀🏀\n\nOur lens captures the completed preparations at the Grand Hall, now ready to host the competitions and welcome the fans.\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "slug": "support-that-makes-the-event",
@@ -450,6 +645,19 @@
       "contentEn": "Only 12 hours separate us from the opening whistle of the Road to BAL 2027 qualifiers in the capital, Tripoli.\n\nThe teams have all arrived and preparations have peaked for a major continental battle not to be missed on Libyan soil.\n\nAre you ready for the summit?"
     },
     {
+      "status": "published",
+      "slug": "tripoli-hosts-the-western-qualifiers-tomorrow",
+      "image": "tripoli-hosts-the-western-qualifiers-tomorrow.jpg",
+      "video": "/videos/tripoli-hosts-the-western-qualifiers-tomorrow.mp4",
+      "publishedAt": "2026-10-20T23:50:00+02:00",
+      "title": "طرابلس تحتضن غدًا تصفيات القسم الغربي المؤهلة إلى BAL 2027",
+      "titleEn": "Tomorrow Tripoli hosts the Western Division qualifiers for BAL 2027",
+      "excerpt": "طرابلس تحتضن غدًا تصفيات القسم الغربي المؤهلة إلى BAL 2027 🏀",
+      "excerptEn": "Tomorrow Tripoli hosts the Western Division qualifiers for BAL 2027 🏀",
+      "content": "طرابلس تحتضن غدًا تصفيات القسم الغربي المؤهلة إلى BAL 2027 🏀\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Tomorrow Tripoli hosts the Western Division qualifiers for BAL 2027 🏀\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
       "slug": "technical-meeting-guests-host",
       "image": "technical-meeting-guests-host-0.jpg",
       "gallery": [
@@ -466,6 +674,32 @@
       "excerptEn": "Chaired by Mr Mohamed bin Ismail, Chairman of the BAL27 Qualifiers' Supreme Organising Committee, the general technical meeting was held in the capital, Tripoli, on the eve of Tuesday, attended by the president and members of the Libyan Basketball Federation as well as the delegates of the participating teams' management, to discuss organisational matters and review the final a",
       "content": "برئاسة السيد محمد بن إسماعيل، رئيس اللجنة العليا المنظمة لتصفيات BAL27، عُقد بالعاصمة طرابلس عشية اليوم الثلاثاء الاجتماع الفني العام، بحضور رئيس وأعضاء الاتحاد العام الليبي لكرة السلة وكذلك مندوبي إدارات الفرق المشاركة، لمناقشة الجوانب التنظيمية واستعراض الترتيبات النهائية تأهبًا لانطلاق المنافسات.\n\nخطوة أخيرة نحو انطلاقة تليق بالحدث.",
       "contentEn": "Chaired by Mr Mohamed bin Ismail, Chairman of the BAL27 Qualifiers' Supreme Organising Committee, the general technical meeting was held in the capital, Tripoli, on the eve of Tuesday, attended by the president and members of the Libyan Basketball Federation as well as the delegates of the participating teams' management, to discuss organisational matters and review the final arrangements ahead of the start of the competitions.\n\nOne last step towards a start worthy of the event."
+    },
+    {
+      "status": "published",
+      "slug": "minister-of-sports-tripoli-is-ready",
+      "image": "minister-of-sports-tripoli-is-ready.jpg",
+      "video": "/videos/minister-of-sports-tripoli-is-ready.mp4",
+      "publishedAt": "2026-10-20T20:30:00+02:00",
+      "title": "وزير الرياضة: طرابلس جاهزة لاحتضان تصفيات BAL 2027",
+      "titleEn": "Minister of Sports: Tripoli is ready to host the BAL 2027 qualifiers",
+      "excerpt": "وزير الرياضة: طرابلس جاهزة لاحتضان تصفيات BAL 2027.",
+      "excerptEn": "Minister of Sports: Tripoli is ready to host the BAL 2027 qualifiers.",
+      "content": "وزير الرياضة: طرابلس جاهزة لاحتضان تصفيات BAL 2027.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Minister of Sports: Tripoli is ready to host the BAL 2027 qualifiers.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "efforts-success-and-complete-preparations",
+      "image": "efforts-success-and-complete-preparations.jpg",
+      "video": "/videos/efforts-success-and-complete-preparations.mp4",
+      "publishedAt": "2026-10-20T20:00:00+02:00",
+      "title": "جهود تُبذل، نجاح يُصنع واستعدادات تكتمل.. كلمة رئيس اللجنة العليا المنظمة",
+      "titleEn": "Efforts made, success built, preparations complete: address by the head of the Supreme Organising Committee",
+      "excerpt": "جهود تُبذل، نجاح يُصنع واستعدادات تكتمل..",
+      "excerptEn": "Efforts are made, success is built and preparations are completed…",
+      "content": "جهود تُبذل، نجاح يُصنع واستعدادات تكتمل..\n\nكلمة السيد محمد بن إسماعيل، رئيس اللجنة العليا المنظمة.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Efforts are made, success is built and preparations are completed…\n\nAddress by Mr. Mohamed bin Ismail, head of the Supreme Organising Committee.\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "slug": "fans-warning",
@@ -508,6 +742,19 @@
       "excerptEn": "Here is the schedule and times of the matches of all the teams taking part in the Road to BAL27 – Tripoli tournament.",
       "content": "إليكم جدول ومواعيد مباريات كل الفرق المشاركة في بطولة الطريق إلى BAL27 – طرابلس.\n\nالمنافسة اقتربت، وكل الفرق جاهزة لهذا الحدث الكبير داخل قاعة طرابلس الكبرى.",
       "contentEn": "Here is the schedule and times of the matches of all the teams taking part in the Road to BAL27 – Tripoli tournament.\n\nThe competition is near, and every team is ready for this big event inside the Great Tripoli Hall."
+    },
+    {
+      "status": "published",
+      "slug": "tripoli-in-the-heart-of-african-basketball",
+      "image": "tripoli-in-the-heart-of-african-basketball.jpg",
+      "video": "/videos/tripoli-in-the-heart-of-african-basketball.mp4",
+      "publishedAt": "2026-10-20T12:00:00+02:00",
+      "title": "طرابلس.. في قلب كرة السلة الإفريقية",
+      "titleEn": "Tripoli, in the heart of African basketball",
+      "excerpt": "طرابلس .. في قلب كرة السلة الإفريقية.",
+      "excerptEn": "Tripoli… in the heart of African basketball.",
+      "content": "طرابلس .. في قلب كرة السلة الإفريقية.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Tripoli… in the heart of African basketball.\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "slug": "full-schedule-both-groups",
@@ -554,6 +801,19 @@
       "excerptEn": "Wide media interest and continuous coverage from many media outlets and local and international newspapers for the capital, Tripoli, hosting the Road to BAL 2027 qualifiers.",
       "content": "اهتمام إعلامي واسع وتغطية متواصلة من مختلف وسائل الإعلام والصحف المحلية والدولية لاستضافة العاصمة طرابلس لتصفيات Road to BAL 2027.\n\nالأنظار الإفريقية تتجه نحو أرض طرابلس، والجميع بانتظار صافرة البداية.",
       "contentEn": "Wide media interest and continuous coverage from many media outlets and local and international newspapers for the capital, Tripoli, hosting the Road to BAL 2027 qualifiers.\n\nAfrican eyes turn towards Tripoli, and everyone awaits the opening whistle."
+    },
+    {
+      "status": "published",
+      "slug": "abdoul-karim-coulibaly-arrives-in-libya",
+      "image": "abdoul-karim-coulibaly-arrives-in-libya.jpg",
+      "video": "/videos/abdoul-karim-coulibaly-arrives-in-libya.mp4",
+      "publishedAt": "2026-10-19T18:00:00+02:00",
+      "title": "عبد الكريم كوليبالي يصل إلى ليبيا",
+      "titleEn": "Abdoul Karim Coulibaly arrives in Libya",
+      "excerpt": "عبد الكريم كوليبالي يصل إلى ليبيا 🎤",
+      "excerptEn": "Abdoul Karim Coulibaly arrives in Libya 🎤",
+      "content": "عبد الكريم كوليبالي يصل إلى ليبيا 🎤\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Abdoul Karim Coulibaly arrives in Libya 🎤\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "slug": "two-days-to-go",
@@ -748,6 +1008,19 @@
       "contentEn": "Guinea's representative, Nabaya BC, arrives in the capital, Tripoli, to prepare for the Road to BAL 2027 qualifiers.\n\nThe continental event is approaching… and the atmosphere is heating up."
     },
     {
+      "status": "published",
+      "slug": "damascus-for-glory-tripoli-for-the-epic",
+      "image": "damascus-for-glory-tripoli-for-the-epic.jpg",
+      "video": "/videos/damascus-for-glory-tripoli-for-the-epic.mp4",
+      "publishedAt": "2026-10-18T20:30:00+02:00",
+      "title": "دمشق للمجد.. وتريبولي للملحمة! طرابلس تستعد.. وإفريقيا عالبال!",
+      "titleEn": "Damascus for glory… Tripoli for the epic! Tripoli prepares, Africa is on the BAL!",
+      "excerpt": "دمشق للمجد.. وتريبولي للملحمة!",
+      "excerptEn": "Damascus for glory… Tripoli for the epic!",
+      "content": "دمشق للمجد.. وتريبولي للملحمة!\n\nطرابلس تستعد.. وإفريقيا عالبال!\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Damascus for glory… Tripoli for the epic!\n\nTripoli prepares, Africa is on the BAL!\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
       "slug": "media-invitation",
       "image": "media-invitation-0.jpg",
       "publishedAt": "2026-10-18T09:00:00+02:00",
@@ -770,6 +1043,32 @@
       "excerptEn": "8 African clubs, two groups, and a fierce contest for the tickets to the Basketball Africa League",
       "content": "8 أندية إفريقية، مجموعتان، ومنافسة قوية على بطاقات التأهل إلى الدوري الإفريقي لكرة السلة\n\n21–23 أكتوبر 2026\nالقاعة الكبرى – طرابلس\n\nتقام مباريات كل مجموعة بنظام الدوري من دور واحد، على أن يتأهل صاحبا المركزين الأول والثاني من كل مجموعة، لمواصلة المشوار نحو المنافسة على بطاقات العبور إلى الدوري الإفريقي لكرة السلة.\n\nثلاثة أيام من التنافس والإثارة تجمع نخبة من أندية القارة على أرض طرابلس، فيما يخوض ممثل ليبيا، نادي الاتحاد، تحديًا قاريًا بطموح المنافسة وبلوغ المرحلة المقبلة، وسط تطلعات جماهيره إلى حضور قوي يليق بتاريخ النادي ومكانته.",
       "contentEn": "8 African clubs, two groups, and a fierce contest for the tickets to the Basketball Africa League\n\n21–23 October 2026\nThe Great Hall – Tripoli\n\nEach group plays a single round-robin, and the teams finishing first and second in each group continue the journey towards the tickets to the Basketball Africa League.\n\nThree days of competition and excitement bring together the elite of the continent's clubs on the soil of Tripoli, while Libya's representative, Al Ittihad, takes on a continental challenge with the ambition to compete and reach the next stage, with its fans hoping for a strong presence worthy of the club's history and standing."
+    },
+    {
+      "status": "published",
+      "slug": "tripoli-date-with-african-glory",
+      "image": "tripoli-date-with-african-glory.jpg",
+      "video": "/videos/tripoli-date-with-african-glory.mp4",
+      "publishedAt": "2026-10-16T20:30:00+02:00",
+      "title": "طرابلس على موعد مع المجد الإفريقي.. والاتحاد في قلب التحدي",
+      "titleEn": "Tripoli has a date with African glory… with Al Ittihad at the heart of the challenge",
+      "excerpt": "طرابلس على موعد مع المجد الإفريقي.. والاتحاد في قلب التحدي 🇱🇾",
+      "excerptEn": "Tripoli has a date with African glory… with Al Ittihad at the heart of the challenge 🇱🇾",
+      "content": "طرابلس على موعد مع المجد الإفريقي.. والاتحاد في قلب التحدي 🇱🇾\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Tripoli has a date with African glory… with Al Ittihad at the heart of the challenge 🇱🇾\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "tripoli-date-with-the-african-dream",
+      "image": "tripoli-date-with-the-african-dream.jpg",
+      "video": "/videos/tripoli-date-with-the-african-dream.mp4",
+      "publishedAt": "2026-10-16T20:00:00+02:00",
+      "title": "طرابلس على موعد مع الحلم الإفريقي.. والطريق إلى BAL 2027 يبدأ من هنا",
+      "titleEn": "Tripoli has a date with the African dream… the road to BAL 2027 starts here",
+      "excerpt": "طرابلس على موعد مع الحلم الإفريقي.. والطريق إلى BAL 2027 يبدأ من هنا.",
+      "excerptEn": "Tripoli has a date with the African dream… and the road to BAL 2027 starts here.",
+      "content": "طرابلس على موعد مع الحلم الإفريقي.. والطريق إلى BAL 2027 يبدأ من هنا.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Tripoli has a date with the African dream… and the road to BAL 2027 starts here.\n\n#RoadToBAL2027 #TripoliQualifiers"
     },
     {
       "slug": "tripoli-prepares-to-host-road-to-bal-2027",
