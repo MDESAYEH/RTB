@@ -4,6 +4,18 @@
   "posts": [
     {
       "status": "published",
+      "slug": "ittihad-beat-kriol-star-86-66",
+      "image": "ittihad-86-66-kriol-star-0.jpg",
+      "publishedAt": "2026-10-22T20:13:00+02:00",
+      "title": "نهاية اللقاء: الاتحاد يتغلب على كريول ستار 86-66",
+      "titleEn": "Full time: Al Ittihad beat Kriol Star 86-66",
+      "excerpt": "نهاية اللقاء: الاتحاد 86 – 66 كريول ستار 🔥🔥",
+      "excerptEn": "Full time: Al Ittihad 86 – 66 Kriol Star 🔥🔥",
+      "content": "نهاية اللقاء\n\nالاتحاد 86 – 66 كريول ستار 🔥🔥\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Full time\n\nAl Ittihad 86 – 66 Kriol Star 🔥🔥\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "a-big-show",
       "image": "big-show-0.jpg",
       "gallery": [
