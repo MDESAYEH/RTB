@@ -4,6 +4,78 @@
   "posts": [
     {
       "status": "published",
+      "slug": "algerian-champions-lead-first-half",
+      "image": "algerian-champions-first-half-0.jpg",
+      "gallery": [
+        "algerian-champions-first-half-1.jpg",
+        "algerian-champions-first-half-2.jpg",
+        "algerian-champions-first-half-3.jpg",
+        "algerian-champions-first-half-4.jpg"
+      ],
+      "publishedAt": "2026-10-23T17:10:00+02:00",
+      "title": "أبطال الجزائر يتقدمون في الشوط الأول",
+      "titleEn": "The Algerian champions take the lead in the first half",
+      "excerpt": "أبطال الجزائر يتقدمون في الشوط الأول.",
+      "excerptEn": "The Algerian champions take the lead in the first half.",
+      "content": "أبطال الجزائر يتقدمون في الشوط الأول.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "The Algerian champions take the lead in the first half.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "day3-halftime-staoueli-36-31-kriol-star",
+      "image": "day3-halftime-staoueli-0.jpg",
+      "publishedAt": "2026-10-23T16:50:00+02:00",
+      "title": "نصف الوقت: ستاوالي يتقدم 36-31 على كريول ستار",
+      "titleEn": "Half-time: Staoueli lead Kriol Star 36-31",
+      "excerpt": "نصف الوقت 🚨 ستاوالي 36 – 31 كريول ستار.",
+      "excerptEn": "Half-time 🚨 Staoueli 36 – 31 Kriol Star.",
+      "content": "نصف الوقت 🚨\n\nنادي ستاوالي 36 – 31 كريول ستار\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Half-time 🚨\n\nNadi Basket Staoueli 36 – 31 Kriol Star\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "group-b-final-game-in-pictures",
+      "image": "group-b-final-game-photos-0.jpg",
+      "gallery": [
+        "group-b-final-game-photos-1.jpg",
+        "group-b-final-game-photos-2.jpg",
+        "group-b-final-game-photos-3.jpg",
+        "group-b-final-game-photos-4.jpg"
+      ],
+      "publishedAt": "2026-10-23T16:30:00+02:00",
+      "title": "المجموعة B: المباراة الأخيرة في صور — أبطال غانا يتأهلون بسجل مثالي",
+      "titleEn": "Group B – the final game in pictures: Ghana's champions advance with a perfect record",
+      "excerpt": "المجموعة B – المباراة الأخيرة في صور. أبطال غانا يتأهلون بسجل مثالي!",
+      "excerptEn": "Group B – Final Game in Pictures. Ghana's champions advance with a perfect record!",
+      "content": "المجموعة B – المباراة الأخيرة في صور\n\nأبطال غانا يتأهلون بسجل مثالي!\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Group B – Final Game in Pictures\n\nGhana's champions advance with a perfect record!\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "day3-staoueli-v-kriol-star-start",
+      "image": "day3-staoueli-start-match-0.jpg",
+      "publishedAt": "2026-10-23T16:05:00+02:00",
+      "title": "بداية المباراة: ستاوالي الجزائري يقاتل من أجل الفوز وبطاقة أبيدجان",
+      "titleEn": "Match start: Algeria's Staoueli fight for the win and a ticket to Abidjan",
+      "excerpt": "بداية المباراة: ستاوالي، الجزائر — يقاتل من أجل الفوز وبطاقة أبيدجان!",
+      "excerptEn": "Start match: Staoueli, Algeria — fighting for the win and a ticket to Abidjan!",
+      "content": "بداية المباراة\n\nستاوالي، الجزائر — يقاتل من أجل الفوز وبطاقة أبيدجان!\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Start match\n\nStaoueli, Algeria — fighting for the win and a ticket to Abidjan!\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "ghana-heroes-top-their-group",
+      "image": "ghana-heroes-top-group-0.jpg",
+      "publishedAt": "2026-10-23T15:55:00+02:00",
+      "title": "أبطال غانا يتصدرون مجموعتهم: سبينتكس يفوز 92-71 على إنيرجي",
+      "titleEn": "Ghana's heroes top their group: Spintex beat Energie 92-71",
+      "excerpt": "أبطال غانا يتصدرون مجموعتهم.",
+      "excerptEn": "Ghana's heroes top their group.",
+      "content": "أبطال غانا يتصدرون مجموعتهم\n\nنهاية اللقاء: أكاديمية إنيرجي 71 – 92 سبينتكس نايتس\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Ghana's heroes top their group\n\nFull time: Académie Energie 71 – 92 Spintex Knights\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "nabaya-team-moves-forward",
       "image": "nabaya-team-moves-forward.jpg",
       "video": "/videos/nabaya-team-moves-forward.mp4",
