@@ -4,6 +4,18 @@
   "posts": [
     {
       "status": "published",
+      "slug": "algerias-champion-heads-to-abidjan",
+      "image": "algerias-champion-heads-to-abidjan-0.jpg",
+      "publishedAt": "2026-10-23T17:49:00+02:00",
+      "title": "بطل الجزائر يتجه إلى أبيدجان: ستاوالي يتغلب على كريول ستار 84-69",
+      "titleEn": "Algeria's champion heads to Abidjan: Staoueli beat Kriol Star 84-69",
+      "excerpt": "بطل الجزائر يتجه إلى أبيدجان.",
+      "excerptEn": "Algeria's champion heads to Abidjan.",
+      "content": "بطل الجزائر يتجه إلى أبيدجان\n\nنهاية اللقاء: نادي ستاوالي 84 – 69 كريول ستار\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Algeria's champion heads to Abidjan\n\nFull time: Nadi Basket Staoueli 84 – 69 Kriol Star\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "algerian-champions-lead-first-half",
       "image": "algerian-champions-first-half-0.jpg",
       "gallery": [
