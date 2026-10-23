@@ -917,3 +917,40 @@ button.news-video-poster {
   grid-template-columns: minmax(0, 620px);
   justify-content: center;
 }
+
+
+/* News with several pictures: one column of words, then every picture whole in a tidy grid. */
+.news-article-photoset {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+  align-items: start;
+  margin: 12px 0 40px;
+}
+.news-article-photoset[data-count="2"] {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.news-article-photoset a {
+  border-radius: 18px;
+  background: none;
+}
+.news-article-photoset img {
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 560px) {
+  .news-article-photoset,
+  .news-article-photoset[data-count="2"] {
+    grid-template-columns: 1fr;
+  }
+}
+@media (min-width: 901px) {
+  .news-article-body.news-article-body--set {
+    grid-template-columns: minmax(0, 940px);
+    justify-content: center;
+  }
+  .news-article-body.news-article-body--set > * {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}

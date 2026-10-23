@@ -24,8 +24,16 @@ export function NewsArticle({
   const file = directVideo(news.video);
   const excerpt = lang === "en" && news.excerptEn ? news.excerptEn : news.excerpt;
   const body = lang === "en" && news.contentEn ? news.contentEn : news.content;
-  // Imported posts open with their own summary: do not print it twice.
-  const bodyRepeatsExcerpt = body.trim().startsWith(excerpt.trim());
+  // Imported posts open with their own summary: do not print it twice, even when the text only adds a title line
+  // or different punctuation in front of it.
+  const plain = (s: string) => s.replace(/[sp{P}p{S}]/gu, "");
+  const lead = plain(excerpt).slice(0, 36);
+  const bodyRepeatsExcerpt = !lead || plain(body).includes(lead);
+  // A story with several pictures shows them together, whole, under the words; a single picture stays beside them.
+  const photos =
+    !file && !embed && news.gallery?.length
+      ? [news.cover || news.sourceCover, ...news.gallery].filter((src): src is string => !!src)
+      : null;
   return (
     <div className="news-design">
       <header className="match-banner">
@@ -40,7 +48,7 @@ export function NewsArticle({
           )}
         </p>
       </header>
-      <article className="news-article-body">
+      <article className={"news-article-body" + (photos ? " news-article-body--set" : "")}>
         <nav
           className="news-breadcrumb"
           aria-label={copy("مسار التنقل", "Breadcrumb")}
@@ -145,7 +153,7 @@ export function NewsArticle({
               {copy("شاهد الفيديو على", "Watch the video on")} {embed.label} ↗
             </a>
           </p>
-        ) : (news.cover || news.sourceCover) && (
+        ) : !photos && (news.cover || news.sourceCover) && (
           <Image
             className="news-article-cover"
             src={(news.cover || news.sourceCover)!}
@@ -180,16 +188,19 @@ export function NewsArticle({
             {lang === "en" && news.contentEn ? news.contentEn : news.content}
           </div>
         )}
-        {!!news.gallery?.length && (
-          <div className="news-article-gallery">
-            {news.gallery.map((src, i) => (
+        {!!(photos ?? news.gallery)?.length && (
+          <div
+            className={"news-article-gallery" + (photos ? " news-article-photoset" : "")}
+            data-count={(photos ?? news.gallery)!.length}
+          >
+            {(photos ?? news.gallery)!.map((src, i) => (
               <a key={src} href={src} target="_blank" rel="noopener noreferrer">
                 <Image
                   src={src}
                   alt={`${title} (${i + 1})`}
                   width={1080}
                   height={1350}
-                  sizes="(max-width:700px) 100vw, 420px"
+                  sizes="(max-width:700px) 100vw, 560px"
                 />
               </a>
             ))}
