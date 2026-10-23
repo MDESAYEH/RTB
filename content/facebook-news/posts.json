@@ -4,6 +4,36 @@
   "posts": [
     {
       "status": "published",
+      "slug": "kick-off-stade-malien-v-al-ittihad",
+      "image": "kick-off-show-today-0.jpg",
+      "publishedAt": "2026-10-23T18:37:00+02:00",
+      "title": "بداية اللقاء: ستاد مالي ضد الاتحاد",
+      "titleEn": "Kick-off: Stade Malien against Al Ittihad",
+      "excerpt": "بداية اللقاء بين ستاد مالي والاتحاد، وعرض الانطلاقة اليوم.",
+      "excerptEn": "Kick-off between Stade Malien and Al Ittihad, with the kick-off show today.",
+      "content": "بداية اللقاء: ستاد مالي ضد الاتحاد\n\nعرض الانطلاقة اليوم.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Kick-off: Stade Malien against Al Ittihad\n\nKick-off show today.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "last-match-in-group-a-is-finished",
+      "image": "group-a-last-match-0.jpg",
+      "gallery": [
+        "group-a-last-match-1.jpg",
+        "group-a-last-match-2.jpg",
+        "group-a-last-match-3.jpg",
+        "group-a-last-match-4.jpg"
+      ],
+      "publishedAt": "2026-10-23T18:20:00+02:00",
+      "title": "انتهت آخر مباراة في المجموعة A",
+      "titleEn": "The last match in Group A is finished",
+      "excerpt": "انتهت آخر مباراة في المجموعة A.",
+      "excerptEn": "The last match in Group A is finished.",
+      "content": "انتهت آخر مباراة في المجموعة A.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "The last match in Group A is finished.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "algerias-champion-heads-to-abidjan",
       "image": "algerias-champion-heads-to-abidjan-0.jpg",
       "publishedAt": "2026-10-23T17:49:00+02:00",
