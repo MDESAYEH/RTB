@@ -4,6 +4,36 @@
   "posts": [
     {
       "status": "published",
+      "slug": "ittihad-leads-the-scene-in-the-first-half",
+      "image": "ittihad-leads-first-half-0.jpg",
+      "gallery": [
+        "ittihad-leads-first-half-1.jpg",
+        "ittihad-leads-first-half-2.jpg",
+        "ittihad-leads-first-half-3.jpg",
+        "ittihad-leads-first-half-4.jpg"
+      ],
+      "publishedAt": "2026-10-23T20:40:00+02:00",
+      "title": "الاتحاد يتصدر المشهد في الشوط الأول",
+      "titleEn": "Al Ittihad lead the scene in the first half",
+      "excerpt": "الاتحاد يتصدر المشهد في الشوط الأول.",
+      "excerptEn": "Al Ittihad lead the scene in the first half.",
+      "content": "الاتحاد يتصدر المشهد في الشوط الأول.\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "Al Ittihad lead the scene in the first half.\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
+      "slug": "libyan-hosts-continue-strong-performances",
+      "image": "libyan-hosts-strong-performances-0.jpg",
+      "publishedAt": "2026-10-23T19:40:00+02:00",
+      "title": "المضيف الليبي يواصل أداءه القوي: الاتحاد يتقدم 49-27 على ستاد مالي",
+      "titleEn": "The Libyan hosts continue their strong performances: Al Ittihad lead Stade Malien 49-27",
+      "excerpt": "المضيف الليبي يواصل أداءه القوي.",
+      "excerptEn": "The Libyan hosts continue their strong performances.",
+      "content": "المضيف الليبي يواصل أداءه القوي\n\nنهاية الشوط الأول: ستاد مالي 27 – 49 الاتحاد\n\n#RoadToBAL2027 #TripoliQualifiers",
+      "contentEn": "The Libyan hosts continue their strong performances\n\nEnd of the first half: Stade Malien 27 – 49 Al Ittihad\n\n#RoadToBAL2027 #TripoliQualifiers"
+    },
+    {
+      "status": "published",
       "slug": "kick-off-stade-malien-v-al-ittihad",
       "image": "kick-off-show-today-0.jpg",
       "publishedAt": "2026-10-23T18:37:00+02:00",
